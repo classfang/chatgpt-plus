@@ -23,6 +23,9 @@ export const useAppSettingStore = defineStore({
       presencePenalty: 0,
       frequencyPenalty: 0,
       contextSize: 5
+    },
+    chatgpt: {
+      sidebarVisible: true
     }
   }),
   persist: true

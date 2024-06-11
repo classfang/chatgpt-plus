@@ -41,6 +41,15 @@ export default defineConfig({
       Components({
         resolvers: [ElementPlusResolver()]
       })
-    ]
+    ],
+    css: {
+      // css预处理器
+      preprocessorOptions: {
+        scss: {
+          // 定义全局的scss变量
+          additionalData: `@import '@renderer/assets/css/scss-vars.scss';`
+        }
+      }
+    }
   }
 })
