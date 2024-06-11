@@ -55,7 +55,7 @@ const appSettingStore = useAppSettingStore()
 
           <!-- OpenAI -->
           <el-tab-pane :label="$t('app.setting.openai')">
-            <el-scrollbar height="440px">
+            <el-scrollbar class="setting-openai-scrollbar">
               <el-form label-width="auto">
                 <!-- Base URL -->
                 <el-form-item :label="$t('app.setting.item.openai.baseUrl')">
@@ -209,6 +209,10 @@ const appSettingStore = useAppSettingStore()
     .el-tabs__content {
       box-sizing: border-box;
       padding: 5px;
+
+      .setting-openai-scrollbar {
+        height: 440px;
+      }
     }
   }
 }

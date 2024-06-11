@@ -9,6 +9,6 @@
   height: 100%;
   min-width: 0;
   flex-grow: 1;
-  background-color: blue;
+  background-color: var(--el-fill-color-lighter);
 }
 </style>
