@@ -78,6 +78,7 @@ onMounted(() => {
 .app-header {
   height: 30px;
   width: 100%;
+  flex-shrink: 0;
   background-color: var(--el-fill-color);
   display: flex;
   align-items: center;

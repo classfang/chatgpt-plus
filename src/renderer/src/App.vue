@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppHeader from '@renderer/components/AppHeader.vue'
+import ChatGPT from '@renderer/components/ChatGPT.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import en from 'element-plus/es/locale/lang/en'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
@@ -23,7 +24,8 @@ const elementPlusLocale = computed(() => {
 <template>
   <el-config-provider :locale="elementPlusLocale">
     <div class="app">
-      <app-header />
+      <AppHeader />
+      <ChatGPT />
     </div>
   </el-config-provider>
 </template>
