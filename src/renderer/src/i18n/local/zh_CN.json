@@ -1,0 +1,26 @@
+{
+  "app": {
+    "setting": {
+      "title": "应用设置",
+      "appearance": "外观",
+      "network": "网络",
+      "openai": "OpenAI",
+      "item": {
+        "theme": {
+          "label": "主题",
+          "auto": "自动",
+          "light": "明亮",
+          "dark": "黑暗"
+        },
+        "language": {
+          "label": "语言",
+          "zhCN": "中文",
+          "enUS": "英文"
+        },
+        "proxy": {
+          "label": "网络代理"
+        }
+      }
+    }
+  }
+}

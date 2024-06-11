@@ -1,0 +1,26 @@
+{
+  "app": {
+    "setting": {
+      "title": "Application Settings",
+      "appearance": "Appearance",
+      "network": "Network",
+      "openai": "OpenAI",
+      "item": {
+        "theme": {
+          "label": "Theme",
+          "auto": "Auto",
+          "light": "Light",
+          "dark": "Dark"
+        },
+        "language": {
+          "label": "Language",
+          "zhCN": "zh_CN",
+          "enUS": "en_US"
+        },
+        "proxy": {
+          "label": "Network proxy"
+        }
+      }
+    }
+  }
+}
