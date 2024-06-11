@@ -12,9 +12,17 @@ export const useAppSettingStore = defineStore({
       // 网络代理
       proxy: ''
     },
+    // https://platform.openai.com/docs/api-reference/chat/create
     openAI: {
       baseUrl: 'https://api.openai.com/v1',
-      key: ''
+      apiKey: '',
+      model: 'gpt-4o',
+      temperature: 1,
+      topP: 1,
+      maxTokens: 4096,
+      presencePenalty: 0,
+      frequencyPenalty: 0,
+      contextSize: 5
     }
   }),
   persist: true
