@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ChatGPTBody from '@renderer/components/ChatGPTBody.vue'
+import ChatGPTSidebar from '@renderer/components/ChatGPTSidebar.vue'
+</script>
 
 <template>
-  <div class="chatgpt"></div>
+  <div class="chatgpt">
+    <ChatGPTSidebar />
+    <ChatGPTBody />
+  </div>
 </template>
 
 <style lang="scss">
@@ -9,6 +15,6 @@
   min-height: 0;
   width: 100%;
   flex-grow: 1;
-  background-color: red;
+  display: flex;
 }
 </style>
