@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import ChatGPTBody from '@renderer/components/ChatGPTBody.vue'
 import ChatGPTSidebar from '@renderer/components/ChatGPTSidebar.vue'
+import { useChatSessionStore } from '@renderer/store/chat-session'
+
+// 仓库
+const chatSessionStore = useChatSessionStore()
 </script>
 
 <template>
   <div class="chatgpt">
     <ChatGPTSidebar />
-    <ChatGPTBody />
+    <ChatGPTBody :key="chatSessionStore.getActiveSession.id" />
   </div>
 </template>
 
