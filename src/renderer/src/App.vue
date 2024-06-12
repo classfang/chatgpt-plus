@@ -37,6 +37,5 @@ const elementPlusLocale = computed(() => {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: var(--el-bg-color);
 }
 </style>

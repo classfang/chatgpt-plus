@@ -55,7 +55,7 @@ const message = defineModel<ChatMessage>('message', {
 
     :deep(.chat-message-loading) {
       font-weight: 500;
-      color: rgb(var(--primary-6));
+      color: var(--el-color-primary);
       animation: alternate-hide-show 900ms ease-in-out infinite;
     }
 
