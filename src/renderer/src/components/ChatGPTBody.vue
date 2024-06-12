@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
-const appSettingStore = useAppSettingStore()
+const chatSessionStore = useChatSessionStore()
 </script>
 
 <template>
@@ -20,15 +20,15 @@ const appSettingStore = useAppSettingStore()
   flex-direction: column;
 
   .body-header {
-    height: 40px;
+    height: $app-chatgpt-body-header-height;
     width: 100%;
     flex-shrink: 0;
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 $app-padding-base;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
+    justify-content: space-between;
+    gap: $app-padding-base;
   }
 }
 </style>
