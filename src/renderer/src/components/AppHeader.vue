@@ -2,6 +2,7 @@
 import { Setting } from '@element-plus/icons-vue'
 import AppSetting from '@renderer/components/AppSetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useChatSessionStore } from '@renderer/store/chat-session'
 import { startDarkThemeListener } from '@renderer/utils/window-util'
 import { useDark } from '@vueuse/core'
 import { reactive, toRefs, watch } from 'vue'
@@ -13,6 +14,7 @@ const { locale } = useI18n()
 
 // 仓库
 const appSettingStore = useAppSettingStore()
+const chatSessionStore = useChatSessionStore()
 
 // 是否是黑暗模式
 const isDark = useDark()
@@ -68,7 +70,11 @@ onMounted(() => {
 <template>
   <div class="app-header drag-area">
     <div class="left-holder"></div>
-    <div class="title">ChatGPT Plus</div>
+    <div class="title">
+      <div class="active-session-name single-line-ellipsis">
+        {{ chatSessionStore.getActiveSession?.name || 'ChatGPT Plus' }}
+      </div>
+    </div>
     <Setting class="setting-icon no-drag-area" @click="appSettingVisible = true" />
     <AppSetting v-model:visible="appSettingVisible" />
   </div>
@@ -94,6 +100,13 @@ onMounted(() => {
     flex: 1 1 0;
     text-align: center;
     font-size: var(--el-font-size-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .active-session-name {
+      max-width: 60%;
+    }
   }
 
   .setting-icon {
