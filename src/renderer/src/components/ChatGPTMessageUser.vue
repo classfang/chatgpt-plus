@@ -7,7 +7,7 @@ const message = defineModel<ChatMessage>('message', {
 
 <template>
   <div class="chatgpt-message-user">
-    <div class="message-content">{{ message.content }}</div>
+    <div class="message-content select-text">{{ message.content }}</div>
     <div class="message-console"></div>
   </div>
 </template>

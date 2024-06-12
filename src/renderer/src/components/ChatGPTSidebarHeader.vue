@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { Edit, Expand, Fold } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { onMounted } from 'vue'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
 const chatSessionStore = useChatSessionStore()
+const appStateStore = useAppStateStore()
 
 // 创建会话
 const createSession = () => {
+  if (appStateStore.chatgptLoading) {
+    return
+  }
   chatSessionStore.create({
     ...appSettingStore.openAI
   })

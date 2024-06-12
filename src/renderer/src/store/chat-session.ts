@@ -16,7 +16,7 @@ export const useChatSessionStore = defineStore({
   actions: {
     create(option: OpenAIOption) {
       const firstSession = this.sessions.at(0)
-      if (firstSession && firstSession.messages.length > 0) {
+      if (firstSession && firstSession.messages.length === 0) {
         return
       }
       const sessionId = generateUUID()

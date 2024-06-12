@@ -39,7 +39,6 @@ const calcToBottomBtnVisible = () => {
       messageListScrollbarRef.value.wrapRef.clientHeight -
       messageListScrollbarRef.value.wrapRef.scrollTop >
     1
-  console.log(data.toBottomBtnVisible)
 }
 
 // 暴露方法

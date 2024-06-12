@@ -16,31 +16,25 @@ body {
   -webkit-app-region: no-drag;
 }
 
-// 全局滚动条样式
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-  position: absolute;
+* {
+  // 内容不允许选中
+  user-select: none;
+
+  &::placeholder {
+    color: var(--color-text-3);
+  }
 }
 
-::-webkit-scrollbar-button {
-  width: 6px;
-  height: 0;
+img {
+  // 图片不允许拖拽
+  -webkit-user-drag: none;
 }
 
-::-webkit-scrollbar-track {
-  background: none;
-}
+// 文字可选择
+.select-text {
+  user-select: text;
 
-::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  background-color: var(--el-text-color-secondary);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  opacity: 0.5;
-}
-
-::-webkit-scrollbar-thumb:active {
-  opacity: 0.5;
+  * {
+    user-select: text;
+  }
 }
