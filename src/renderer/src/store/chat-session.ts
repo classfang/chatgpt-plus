@@ -5,16 +5,23 @@ import { defineStore } from 'pinia'
 export const useChatSessionStore = defineStore({
   id: 'chat-session',
   state: () => ({
-    sessions: [] as ChatSession[]
+    sessions: [] as ChatSession[],
+    activeSessionId: ''
   }),
+  getters: {
+    getActiveSession(): ChatSession {
+      return this.sessions.find((s) => s.id === this.activeSessionId) ?? ({} as ChatSession)
+    }
+  },
   actions: {
-    createOpenAISession(option: OpenAIOption) {
+    create(option: OpenAIOption) {
       const firstSession = this.sessions.at(0)
       if (firstSession && firstSession.messages.length > 0) {
         return
       }
+      const sessionId = generateUUID()
       this.sessions.unshift({
-        id: generateUUID(),
+        id: sessionId,
         createTime: nowTimestamp(),
         updateTime: nowTimestamp(),
         name: '',
@@ -22,6 +29,13 @@ export const useChatSessionStore = defineStore({
         messages: [] as ChatMessage[],
         ...option
       })
+      this.activeSessionId = sessionId
+    },
+    delete(id: string) {
+      this.sessions = this.sessions.filter((s) => s.id != id)
+    },
+    clear() {
+      this.sessions = []
     }
   },
   persist: true

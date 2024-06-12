@@ -2,6 +2,7 @@
 import { Edit, Expand, Fold } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { onMounted } from 'vue'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
@@ -9,10 +10,17 @@ const chatSessionStore = useChatSessionStore()
 
 // 创建会话
 const createSession = () => {
-  chatSessionStore.createOpenAISession({
+  chatSessionStore.create({
     ...appSettingStore.openAI
   })
 }
+
+onMounted(() => {
+  // 创建初始会话
+  if (chatSessionStore.sessions.length === 0) {
+    createSession()
+  }
+})
 </script>
 
 <template>
@@ -43,7 +51,11 @@ const createSession = () => {
     <!-- 会话列表 -->
     <el-scrollbar class="session-list-scrollbar">
       <div class="session-list">
-        <div v-for="s in chatSessionStore.sessions" :key="s.id" class="session-item"></div>
+        <template v-for="s in chatSessionStore.sessions" :key="s.id">
+          <div v-if="s.messages.length > 0" class="session-item">
+            {{ s.id }}
+          </div>
+        </template>
       </div>
     </el-scrollbar>
   </div>
