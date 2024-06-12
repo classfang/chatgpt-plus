@@ -78,7 +78,6 @@ onMounted(() => {
 .app-header {
   height: $app-header-height;
   width: 100%;
-  flex-shrink: 0;
   background-color: var(--el-fill-color);
   display: flex;
   align-items: center;
@@ -92,7 +91,7 @@ onMounted(() => {
 
   .title {
     min-width: 0;
-    flex-grow: 1;
+    flex: 1 1 0;
     text-align: center;
     font-size: var(--el-font-size-base);
   }

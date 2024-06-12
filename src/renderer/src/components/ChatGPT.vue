@@ -14,7 +14,7 @@ import ChatGPTSidebar from '@renderer/components/ChatGPTSidebar.vue'
 .chatgpt {
   min-height: 0;
   width: 100%;
-  flex-grow: 1;
+  flex: 1 1 0;
   display: flex;
 }
 </style>

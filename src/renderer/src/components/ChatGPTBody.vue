@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import ChatGPTBodyHeader from '@renderer/components/ChatGPTBodyHeader.vue'
+import ChatGPTBodyInput from '@renderer/components/ChatGPTBodyInput.vue'
+import ChatGPTBodyMessageList from '@renderer/components/ChatGPTBodyMessageList.vue'
 </script>
 
 <template>
   <div class="chatgpt-body">
     <!-- 头部 -->
     <ChatGPTBodyHeader />
+    <!-- 消息列表 -->
+    <ChatGPTBodyMessageList />
+    <!-- 输入区域 -->
+    <ChatGPTBodyInput />
   </div>
 </template>
 
@@ -14,7 +20,7 @@ import ChatGPTBodyHeader from '@renderer/components/ChatGPTBodyHeader.vue'
   height: 100%;
   min-width: 0;
   background-color: var(--el-fill-color-lighter);
-  flex-grow: 1;
+  flex: 1 1 0;
   flex-direction: column;
 }
 </style>

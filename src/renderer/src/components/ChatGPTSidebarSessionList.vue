@@ -24,7 +24,7 @@ const chatSessionStore = useChatSessionStore()
 
   .session-list {
     min-height: 0;
-    flex-grow: 1;
+    flex: 1 1 0;
     width: 100%;
     display: flex;
     flex-direction: column;

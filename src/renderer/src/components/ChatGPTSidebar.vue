@@ -24,7 +24,6 @@ const appSettingStore = useAppSettingStore()
 .chatgpt-sidebar {
   height: 100%;
   width: 0;
-  flex-shrink: 0;
   background-color: var(--el-fill-color-light);
   transition: width $app-transition-base;
   display: flex;

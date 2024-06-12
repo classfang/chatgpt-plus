@@ -48,7 +48,6 @@ onMounted(() => {
 .chatgpt-sidebar-header-container {
   height: $app-chatgpt-sidebar-header-height;
   width: 100%;
-  flex-shrink: 0;
 
   .sidebar-header {
     height: $app-chatgpt-sidebar-header-height;
@@ -68,7 +67,6 @@ onMounted(() => {
     .session-create-icon {
       height: $app-icon-size-base;
       width: $app-icon-size-base;
-      flex-shrink: 0;
     }
   }
 

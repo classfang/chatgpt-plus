@@ -12,6 +12,8 @@ declare module 'vue' {
     ChatGPT: typeof import('./src/components/ChatGPT.vue')['default']
     ChatGPTBody: typeof import('./src/components/ChatGPTBody.vue')['default']
     ChatGPTBodyHeader: typeof import('./src/components/ChatGPTBodyHeader.vue')['default']
+    ChatGPTBodyInput: typeof import('./src/components/ChatGPTBodyInput.vue')['default']
+    ChatGPTBodyMessageList: typeof import('./src/components/ChatGPTBodyMessageList.vue')['default']
     ChatGPTMain: typeof import('./src/components/ChatGPTMain.vue')['default']
     ChatGPTSidebar: typeof import('./src/components/ChatGPTSidebar.vue')['default']
     ChatGPTSidebarHeader: typeof import('./src/components/ChatGPTSidebarHeader.vue')['default']
