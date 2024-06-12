@@ -7,7 +7,7 @@ const message = defineModel<ChatMessage>('message', {
 
 <template>
   <div class="chatgpt-message-user">
-    <div>{{ message.content }}</div>
+    <div class="message-content">{{ message.content }}</div>
   </div>
 </template>
 
@@ -17,5 +17,18 @@ const message = defineModel<ChatMessage>('message', {
   flex-shrink: 0;
   display: flex;
   justify-content: flex-end;
+
+  .message-content {
+    min-width: 0;
+    max-width: max-content;
+    flex: 1 1 0;
+    white-space: pre-wrap;
+    line-break: anywhere;
+    background-color: var(--el-fill-color);
+    box-sizing: border-box;
+    padding: $app-padding-base;
+    border-radius: $app-border-radius-large;
+    line-height: 1.5rem;
+  }
 }
 </style>

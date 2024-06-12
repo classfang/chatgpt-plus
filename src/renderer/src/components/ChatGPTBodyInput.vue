@@ -87,7 +87,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   .question-input {
     min-width: 0;
     flex: 1 1 0;
-    border-radius: calc($app-icon-size-large / 2);
+    border-radius: $app-border-radius-large;
     overflow: hidden;
 
     .el-textarea__inner {
@@ -102,7 +102,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     background-color: var(--el-fill-color);
     height: $app-icon-size-large;
     width: $app-icon-size-large;
-    border-radius: calc($app-icon-size-large / 2);
+    border-radius: $app-border-radius-large;
     box-sizing: border-box;
     padding: $app-padding-base;
     transition: background-color $app-transition-base;
