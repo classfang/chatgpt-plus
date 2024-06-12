@@ -54,6 +54,17 @@ export const useChatSessionStore = defineStore({
       if (!this.getActiveSession.name && message.role === 'user') {
         this.getActiveSession.name = message.content
       }
+    },
+    appendMessageContent(content: string) {
+      if (!this.getActiveSession) {
+        return
+      }
+      const firstMessage = this.getActiveSession.messages.at(0)
+      if (!firstMessage) {
+        return
+      }
+
+      firstMessage.content += content
     }
   },
   persist: true

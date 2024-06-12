@@ -54,7 +54,8 @@
         "input": {
           "question": {
             "placeholder": "Send a message to ChatGPT"
-          }
+          },
+          "pleaseConfigure": "Please configure the "
         }
       }
     }

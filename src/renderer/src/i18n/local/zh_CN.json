@@ -54,7 +54,8 @@
         "input": {
           "question": {
             "placeholder": "给“ChatGPT”发送消息"
-          }
+          },
+          "pleaseConfigure": "请配置 "
         }
       }
     }

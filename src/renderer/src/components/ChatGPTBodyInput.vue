@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { Promotion } from '@element-plus/icons-vue'
+import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { reactive, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+// i18n
+const { t } = useI18n()
 
 // 仓库
 const appStateStore = useAppStateStore()
+const appSettingStore = useAppSettingStore()
 const chatSessionStore = useChatSessionStore()
 
 // 数据绑定
@@ -41,8 +47,46 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   data.question = ''
   emits('update-message')
 
-  // 正在回答
-  appStateStore.chatgptAnswering = true
+  // 判断配置是否正确
+  if (!appSettingStore.openAI.baseUrl) {
+    errorAnswer(t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.openai.baseUrl'))
+    return
+  }
+  if (!appSettingStore.openAI.apiKey) {
+    errorAnswer(t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.openai.apiKey'))
+    return
+  }
+
+  // // OpenAI实例
+  // const openai = new OpenAI({
+  //   apiKey,
+  //   baseURL,
+  //   dangerouslyAllowBrowser: true
+  // })
+  //
+  // // 流式对话
+  // const stream = await openai.chat.completions.create(
+  //   {
+  //     messages: chatMessages,
+  //     model,
+  //     stream: true,
+  //     max_tokens: maxTokens
+  //   },
+  //   {
+  //     signal: abortCtr?.signal
+  //   }
+  // )
+  //
+  // // 开始回答
+  // startAnswer && startAnswer(sessionId)
+  // // 连续回答
+  // for await (const chunk of stream) {
+  //   Logger.info('chat2openai:', chunk)
+  //   appendAnswer && appendAnswer(sessionId, chunk.choices[0].delta.content ?? '')
+  // }
+  //
+  // // 结束
+  // end && end(sessionId)
 
   // 回答记录
   setTimeout(() => {
@@ -52,10 +96,36 @@ const sendQuestion = async (event?: KeyboardEvent) => {
       content: '我不理解你的问题'
     })
     emits('update-message')
-
-    appStateStore.chatgptAnswering = false
-    appStateStore.chatgptLoading = false
   }, 3000)
+}
+
+// 流式回答
+const streamAnswer = (content: string) => {
+  if (!appStateStore.chatgptAnswering) {
+    chatSessionStore.pushMessage({
+      type: 'chat',
+      role: 'assistant',
+      content: content
+    })
+    appStateStore.chatgptAnswering = true
+  }
+  chatSessionStore.appendMessageContent(content)
+}
+
+// 错误回答
+const errorAnswer = (content: string) => {
+  chatSessionStore.pushMessage({
+    type: 'error',
+    role: 'assistant',
+    content: content
+  })
+  finishAnswer()
+}
+
+// 完成回答
+const finishAnswer = () => {
+  appStateStore.chatgptAnswering = false
+  appStateStore.chatgptLoading = false
 }
 
 // 停止回答
