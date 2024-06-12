@@ -26,7 +26,7 @@ export const createWindow = (store: Record<string, any>) => {
       y: 10
     },
     // 动态背景色
-    backgroundColor: nativeTheme.shouldUseDarkColors ? '#28282B' : '#F2F3F5',
+    backgroundColor: nativeTheme.shouldUseDarkColors ? '#141414' : '#FFFFFF',
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
