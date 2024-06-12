@@ -92,6 +92,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
       return
     }
     streamAnswer(chunk.choices[0].delta.content ?? '')
+    emits('update-message')
   }
 
   // 结束回答

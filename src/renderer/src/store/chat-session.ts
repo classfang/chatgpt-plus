@@ -59,12 +59,12 @@ export const useChatSessionStore = defineStore({
       if (!this.getActiveSession) {
         return
       }
-      const firstMessage = this.getActiveSession.messages.at(0)
-      if (!firstMessage) {
+      const latestMessage = this.getActiveSession.messages.at(-1)
+      if (!latestMessage) {
         return
       }
 
-      firstMessage.content += content
+      latestMessage.content += content
     }
   },
   persist: true
