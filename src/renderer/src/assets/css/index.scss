@@ -16,3 +16,31 @@ body {
   -webkit-app-region: no-drag;
 }
 
+// 全局滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  position: absolute;
+}
+
+::-webkit-scrollbar-button {
+  width: 6px;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: var(--el-text-color-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:active {
+  opacity: 0.5;
+}

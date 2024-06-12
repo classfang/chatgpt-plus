@@ -4,6 +4,7 @@ $app-transition-base: 150ms linear;
 // 尺寸
 $app-icon-size-base: 20px;
 $app-icon-size-large: 40px;
+$app-padding-large: 15px;
 $app-padding-base: 10px;
 $app-padding-small: 5px;
 $app-border-radius-base: 10px;
@@ -13,3 +14,4 @@ $app-header-height: 40px;
 $app-chatgpt-sidebar-width: 250px;
 $app-chatgpt-sidebar-header-height: 40px;
 $app-chatgpt-body-header-height: 40px;
+$app-chatgpt-message-console-height: 30px;

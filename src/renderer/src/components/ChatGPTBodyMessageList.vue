@@ -9,23 +9,27 @@ const chatSessionStore = useChatSessionStore()
 
 <template>
   <div class="chatgpt-body-message-list">
-    <template v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
-      <!-- 对话消息 -->
-      <template v-if="m.type === 'chat'">
-        <template v-if="m.role === 'user'">
-          <ChatGPTMessageUser :message="m" />
-        </template>
-        <template v-else-if="m.role === 'assistant'">
-          <ChatGPTMessageAssistant :message="m" />
-        </template>
-      </template>
+    <el-scrollbar height="100%">
+      <div class="message-list-container">
+        <template v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
+          <!-- 对话消息 -->
+          <template v-if="m.type === 'chat'">
+            <template v-if="m.role === 'user'">
+              <ChatGPTMessageUser :message="m" />
+            </template>
+            <template v-else-if="m.role === 'assistant'">
+              <ChatGPTMessageAssistant :message="m" />
+            </template>
+          </template>
 
-      <!-- 错误消息 -->
-      <template v-else-if="m.type === 'error'"> </template>
+          <!-- 错误消息 -->
+          <template v-else-if="m.type === 'error'"> </template>
 
-      <!-- 分隔消息 -->
-      <template v-else-if="m.type === 'separator'"> </template>
-    </template>
+          <!-- 分隔消息 -->
+          <template v-else-if="m.type === 'separator'"> </template>
+        </template>
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -34,10 +38,14 @@ const chatSessionStore = useChatSessionStore()
   min-height: 0;
   width: 100%;
   flex: 1 1 0;
-  box-sizing: border-box;
-  padding: $app-padding-base;
-  display: flex;
-  flex-direction: column;
-  gap: $app-padding-base;
+
+  .message-list-container {
+    width: 100%;
+    box-sizing: border-box;
+    padding: $app-padding-base;
+    display: flex;
+    flex-direction: column;
+    gap: $app-padding-base;
+  }
 }
 </style>

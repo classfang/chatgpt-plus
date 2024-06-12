@@ -92,7 +92,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
 
     .el-textarea__inner {
       min-height: $app-icon-size-large !important;
-      padding: 8px 15px;
+      padding: 8px $app-padding-large;
       box-shadow: none;
       background-color: var(--el-fill-color);
     }
