@@ -14,9 +14,9 @@ type ChatRole = 'user' | 'assistant' | 'system' | 'tool'
 type ChatMessageType = 'chat' | 'error' | 'separator'
 
 interface BaseEntity {
-  id: string
-  createTime: number
-  updateTime: number
+  id?: string
+  createTime?: number
+  updateTime?: number
 }
 
 interface ChatMessageFile {

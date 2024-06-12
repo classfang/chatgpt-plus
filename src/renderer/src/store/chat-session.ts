@@ -36,6 +36,14 @@ export const useChatSessionStore = defineStore({
     },
     clear() {
       this.sessions = []
+    },
+    pushMessage(message: ChatMessage) {
+      this.getActiveSession.messages.push({
+        ...message,
+        id: generateUUID(),
+        createTime: nowTimestamp(),
+        updateTime: nowTimestamp()
+      })
     }
   },
   persist: true
