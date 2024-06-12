@@ -50,7 +50,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
 
     appStateStore.chatgptAnswering = false
     appStateStore.chatgptLoading = false
-  })
+  }, 3000)
 }
 </script>
 
