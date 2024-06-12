@@ -29,7 +29,7 @@ const message = defineModel<ChatMessage>('message', {
     background-color: var(--el-fill-color);
     box-sizing: border-box;
     padding: $app-padding-base $app-padding-large;
-    border-radius: $app-border-radius-large;
+    border-radius: calc(1.5rem / 2 + $app-padding-base);
     line-height: 1.5rem;
   }
 
