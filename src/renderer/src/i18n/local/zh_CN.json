@@ -42,6 +42,14 @@
       }
     },
     "chatgpt": {
+      "sidebar": {
+        "session":{
+          "more": {
+            "editName": "修改名称",
+            "delete": "删除会话"
+          }
+        }
+      },
       "body": {
         "input": {
           "question": {

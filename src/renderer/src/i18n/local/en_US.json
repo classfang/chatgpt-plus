@@ -42,6 +42,14 @@
       }
     },
     "chatgpt": {
+      "sidebar": {
+        "session":{
+          "more": {
+            "editName": "Edit Name",
+            "delete": "Delete"
+          }
+        }
+      },
       "body": {
         "input": {
           "question": {

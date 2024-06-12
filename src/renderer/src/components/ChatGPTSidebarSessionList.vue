@@ -26,7 +26,7 @@ const chatSessionStore = useChatSessionStore()
     flex: 1 1 0;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 $app-padding-base;
+    padding: $app-padding-base $app-padding-base 0 $app-padding-base;
     display: flex;
     flex-direction: column;
     align-items: center;

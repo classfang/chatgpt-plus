@@ -3,7 +3,7 @@ import { Edit, Expand, Fold } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
@@ -19,6 +19,16 @@ const createSession = () => {
     ...appSettingStore.openAI
   })
 }
+
+// 监听当前激活会话，自动创建会话
+watch(
+  () => chatSessionStore.activeSessionId,
+  () => {
+    if (!chatSessionStore.activeSessionId) {
+      createSession()
+    }
+  }
+)
 
 onMounted(() => {
   // 创建初始会话
