@@ -13,10 +13,11 @@ const { question } = toRefs(data)
   <div class="chatgpt-body-input">
     <el-input
       v-model="question"
-      type="textarea"
-      size="large"
-      :placeholder="$t('app.chatgpt.body.input.question.placeholder')"
       class="question-input"
+      type="textarea"
+      :placeholder="$t('app.chatgpt.body.input.question.placeholder')"
+      :autosize="{ minRows: 1, maxRows: 8 }"
+      resize="none"
     />
     <Top
       class="question-input-btn"
@@ -38,9 +39,12 @@ const { question } = toRefs(data)
   .question-input {
     min-width: 0;
     flex: 1 1 0;
+    border-radius: var(--el-border-radius-round);
+    overflow: hidden;
 
-    .el-input__wrapper {
-      border-radius: var(--el-border-radius-round);
+    .el-textarea__inner {
+      min-height: $app-icon-size-large !important;
+      padding: 8px 15px;
       box-shadow: none;
       background-color: var(--el-fill-color);
     }
