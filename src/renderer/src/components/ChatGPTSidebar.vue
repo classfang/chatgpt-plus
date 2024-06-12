@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { Edit, Expand, Fold } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
+const chatSessionStore = useChatSessionStore()
+
+// 创建会话
+const createSession = () => {
+  chatSessionStore.createOpenAISession({
+    ...appSettingStore.openAI
+  })
+}
 </script>
 
 <template>
@@ -11,6 +20,7 @@ const appSettingStore = useAppSettingStore()
     class="chatgpt-sidebar"
     :class="{ 'chatgpt-sidebar-visible': appSettingStore.chatgpt.sidebarVisible }"
   >
+    <!-- 头部 -->
     <div class="sidebar-header-container">
       <div
         class="sidebar-header"
@@ -26,11 +36,15 @@ const appSettingStore = useAppSettingStore()
           class="sidebar-expand-icon"
           @click="appSettingStore.chatgpt.sidebarVisible = true"
         />
-        <Edit class="session-create-icon" />
+        <Edit class="session-create-icon" @click="createSession()" />
       </div>
     </div>
+
+    <!-- 会话列表 -->
     <el-scrollbar class="session-list-scrollbar">
-      <div class="session-list"></div>
+      <div class="session-list">
+        <div v-for="s in chatSessionStore.sessions" :key="s.id" class="session-item"></div>
+      </div>
     </el-scrollbar>
   </div>
 </template>
