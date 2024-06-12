@@ -47,6 +47,11 @@ export const useChatSessionStore = defineStore({
         createTime: nowTimestamp(),
         updateTime: nowTimestamp()
       })
+
+      // 设置会话名称
+      if (!this.getActiveSession.name && message.role === 'user') {
+        this.getActiveSession.name = message.content
+      }
     }
   },
   persist: true

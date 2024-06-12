@@ -19,6 +19,8 @@ declare module 'vue' {
     ChatGPTMessageUser: typeof import('./src/components/ChatGPTMessageUser.vue')['default']
     ChatGPTSidebar: typeof import('./src/components/ChatGPTSidebar.vue')['default']
     ChatGPTSidebarHeader: typeof import('./src/components/ChatGPTSidebarHeader.vue')['default']
+    ChatGPTSidebarSession: typeof import('./src/components/ChatGPTSidebarSession.vue')['default']
+    ChatGPTSidebarSessionItem: typeof import('./src/components/ChatGPTSidebarSessionItem.vue')['default']
     ChatGPTSidebarSessionList: typeof import('./src/components/ChatGPTSidebarSessionList.vue')['default']
     ChatGPTUserMessage: typeof import('./src/components/ChatGPTUserMessage.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']

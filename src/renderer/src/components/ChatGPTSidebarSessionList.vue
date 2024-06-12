@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ChatGPTSidebarSession from '@renderer/components/ChatGPTSidebarSession.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
@@ -9,9 +10,7 @@ const chatSessionStore = useChatSessionStore()
   <el-scrollbar class="chatgpt-session-list-scrollbar">
     <div class="session-list">
       <template v-for="s in chatSessionStore.sessions" :key="s.id">
-        <div v-if="s.messages.length > 0" class="session-item">
-          {{ s.id }}
-        </div>
+        <ChatGPTSidebarSession :session="s" />
       </template>
     </div>
   </el-scrollbar>
@@ -26,6 +25,8 @@ const chatSessionStore = useChatSessionStore()
     min-height: 0;
     flex: 1 1 0;
     width: 100%;
+    box-sizing: border-box;
+    padding: 0 $app-padding-base;
     display: flex;
     flex-direction: column;
     align-items: center;
