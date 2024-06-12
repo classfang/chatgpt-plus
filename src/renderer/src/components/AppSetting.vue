@@ -219,7 +219,7 @@ const appSettingStore = useAppSettingStore()
 <style lang="scss">
 .app-setting {
   .dialog-body {
-    height: 450px;
+    height: $app-dialog-height;
 
     .el-tabs--right,
     .el-tabs__content,
@@ -230,10 +230,10 @@ const appSettingStore = useAppSettingStore()
 
     .el-tabs__content {
       box-sizing: border-box;
-      padding: 5px;
+      padding: $app-padding-small;
 
       .setting-openai-scrollbar {
-        height: 440px;
+        height: calc($app-dialog-height - $app-padding-small * 2);
       }
     }
   }

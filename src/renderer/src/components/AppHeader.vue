@@ -76,7 +76,7 @@ onMounted(() => {
 
 <style lang="scss">
 .app-header {
-  height: 40px;
+  height: $app-header-height;
   width: 100%;
   flex-shrink: 0;
   background-color: var(--el-fill-color);
@@ -84,10 +84,10 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  padding: 0 10px;
+  padding: 0 $app-padding-base;
 
   .left-holder {
-    width: 20px;
+    width: $app-icon-size-base;
   }
 
   .title {
@@ -98,8 +98,8 @@ onMounted(() => {
   }
 
   .setting-icon {
-    height: 20px;
-    width: 20px;
+    height: $app-icon-size-base;
+    width: $app-icon-size-base;
   }
 }
 </style>
