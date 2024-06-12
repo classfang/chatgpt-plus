@@ -47,6 +47,24 @@
           "more": {
             "editName": "Edit Name",
             "delete": "Delete"
+          },
+          "dateFlag": {
+            "today": "Today",
+            "previous7": "Previous 7 Days",
+            "previous30": "Previous 30 Days",
+            "january": "January",
+            "february": "February",
+            "march": "March",
+            "april": "April",
+            "may": "May",
+            "june": "June",
+            "july": "July",
+            "august": "August",
+            "september": "September",
+            "october": "October",
+            "november": "November",
+            "december": "December",
+            "earlier": "Earlier"
           }
         }
       },
