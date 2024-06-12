@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Top } from '@element-plus/icons-vue'
+import { Promotion } from '@element-plus/icons-vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { reactive, toRefs } from 'vue'
@@ -71,7 +71,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
         @keydown.enter="sendQuestion"
       />
     </div>
-    <Top
+    <Promotion
       class="question-input-btn"
       :class="{ 'question-input-btn-available': question.trim().length > 0 }"
       @click="sendQuestion"
