@@ -40,6 +40,15 @@
           }
         }
       }
+    },
+    "chatgpt": {
+      "body": {
+        "input": {
+          "question": {
+            "placeholder": "给“ChatGPT”发送消息"
+          }
+        }
+      }
     }
   }
 }

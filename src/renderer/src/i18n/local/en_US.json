@@ -40,6 +40,15 @@
           }
         }
       }
+    },
+    "chatgpt": {
+      "body": {
+        "input": {
+          "question": {
+            "placeholder": "Send a message to ChatGPT"
+          }
+        }
+      }
     }
   }
 }
