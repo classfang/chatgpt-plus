@@ -16,7 +16,7 @@ const chatSessionStore = useChatSessionStore()
   </el-scrollbar>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-session-list-scrollbar {
   height: calc(100% - $app-chatgpt-sidebar-header-height);
   width: 100%;

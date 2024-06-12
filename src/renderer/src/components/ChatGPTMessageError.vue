@@ -12,7 +12,7 @@ const message = defineModel<ChatMessage>('message', {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-message-error {
   width: 100%;
   flex-shrink: 0;

@@ -216,7 +216,7 @@ const appSettingStore = useAppSettingStore()
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app-setting {
   .dialog-body {
     height: $app-dialog-height;

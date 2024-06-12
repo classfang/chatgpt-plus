@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { useAppStateStore } from '@renderer/store/app-state'
+import { renderMarkdown } from '@renderer/utils/markdown-util'
+
+// 仓库
+const appStateStore = useAppStateStore()
+
 // 组件传参
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
@@ -7,12 +13,15 @@ const message = defineModel<ChatMessage>('message', {
 
 <template>
   <div class="chatgpt-message-assistant">
-    <div class="message-content select-text">{{ message.content }}</div>
+    <div
+      class="message-content select-text"
+      v-html="renderMarkdown(message.content, appStateStore.chatgptLoading)"
+    ></div>
     <div class="message-console"></div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-message-assistant {
   width: 100%;
   flex-shrink: 0;
@@ -33,7 +42,34 @@ const message = defineModel<ChatMessage>('message', {
     border-radius: calc(1.5rem / 2 + $app-padding-base);
     line-height: 1.5rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+
+    :deep(p) {
+      margin-block: 0;
+      margin: 0; // markerdown 中 p 标签去除外边距，防止消息框撑开太多
+    }
+
+    :deep(li) {
+      white-space: normal; // 防止列表的 marker 和内容之间存在换行
+    }
+
+    :deep(.chat-message-loading) {
+      font-weight: 500;
+      color: rgb(var(--primary-6));
+      animation: alternate-hide-show 900ms ease-in-out infinite;
+    }
+
+    @keyframes alternate-hide-show {
+      0%,
+      50%,
+      100% {
+        opacity: 1;
+      }
+      60%,
+      90% {
+        opacity: 0;
+      }
+    }
   }
 
   .message-console {

@@ -74,7 +74,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app-header {
   height: $app-header-height;
   width: 100%;

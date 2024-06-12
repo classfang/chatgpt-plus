@@ -20,7 +20,7 @@ const appSettingStore = useAppSettingStore()
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-sidebar {
   height: 100%;
   width: 0;

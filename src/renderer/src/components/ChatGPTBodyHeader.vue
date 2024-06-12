@@ -4,7 +4,7 @@
   <div class="chatgpt-body-header"></div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-body-header {
   height: $app-chatgpt-body-header-height;
   width: 100%;

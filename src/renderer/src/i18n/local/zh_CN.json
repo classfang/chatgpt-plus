@@ -56,6 +56,9 @@
             "placeholder": "给“ChatGPT”发送消息"
           },
           "pleaseConfigure": "请配置 "
+        },
+        "message": {
+          "copied": "已复制"
         }
       }
     }

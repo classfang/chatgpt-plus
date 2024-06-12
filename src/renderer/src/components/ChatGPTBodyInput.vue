@@ -4,7 +4,6 @@ import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import OpenAI from 'openai'
-import { ChatCompletionMessageParam } from 'openai/src/resources/chat/completions'
 import { reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -100,14 +99,14 @@ const sendQuestion = async (event?: KeyboardEvent) => {
 }
 
 // 转换消息列表
-const convertMessages = (messages: ChatMessage[]): ChatCompletionMessageParam[] => {
+const convertMessages = (messages: ChatMessage[]): OpenAI.ChatCompletionMessageParam[] => {
   return messages
     .slice(messages.findLastIndex((m) => m.type === 'separator') + 1)
     .filter((m) => m.type === 'chat')
     .map((m) => ({
       role: m.role,
       content: [{ type: 'text', text: m.content }]
-    })) as ChatCompletionMessageParam[]
+    })) as OpenAI.ChatCompletionMessageParam[]
 }
 
 // 流式回答
@@ -171,7 +170,7 @@ const stopAnswer = () => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-body-input {
   width: 100%;
   box-sizing: border-box;
@@ -187,7 +186,7 @@ const stopAnswer = () => {
     border-radius: $app-border-radius-large;
     overflow: hidden;
 
-    .el-textarea__inner {
+    :deep(.el-textarea__inner) {
       min-height: $app-icon-size-large !important;
       padding: 8px $app-padding-large;
       box-shadow: none;

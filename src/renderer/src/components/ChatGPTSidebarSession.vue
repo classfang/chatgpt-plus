@@ -86,7 +86,7 @@ const editSession = () => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-session-session {
   width: 100%;
   flex-shrink: 0;

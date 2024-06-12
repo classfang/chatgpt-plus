@@ -17,7 +17,7 @@ const chatSessionStore = useChatSessionStore()
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt {
   min-height: 0;
   width: 100%;

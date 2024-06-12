@@ -83,7 +83,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-body-message-list {
   min-height: 0;
   width: 100%;

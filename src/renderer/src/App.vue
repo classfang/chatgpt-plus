@@ -30,7 +30,7 @@ const elementPlusLocale = computed(() => {
   </el-config-provider>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app {
   height: 100vh;
   width: 100vw;

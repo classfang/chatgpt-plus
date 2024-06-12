@@ -59,7 +59,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-sidebar-header-container {
   height: $app-chatgpt-sidebar-header-height;
   width: 100%;

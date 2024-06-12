@@ -19,7 +19,7 @@ const bodyMessageListRef = ref()
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chatgpt-body {
   height: 100%;
   min-width: 0;
