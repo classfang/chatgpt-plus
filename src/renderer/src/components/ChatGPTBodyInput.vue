@@ -57,6 +57,9 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     appStateStore.chatgptLoading = false
   }, 3000)
 }
+
+// 停止回答
+const stopAnswer = () => {}
 </script>
 
 <template>
@@ -71,7 +74,11 @@ const sendQuestion = async (event?: KeyboardEvent) => {
         @keydown.enter="sendQuestion"
       />
     </div>
+    <div v-if="appStateStore.chatgptLoading" class="question-input-btn" @click="stopAnswer()">
+      <div class="stop-answer-icon"></div>
+    </div>
     <Promotion
+      v-else
       class="question-input-btn"
       :class="{ 'question-input-btn-available': question.trim().length > 0 }"
       @click="sendQuestion"
@@ -111,10 +118,19 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     box-sizing: border-box;
     padding: $app-padding-base;
     transition: background-color $app-transition-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &-available {
       background-color: var(--el-fill-color-darker);
       cursor: pointer;
+    }
+
+    .stop-answer-icon {
+      width: 10px;
+      height: 10px;
+      background-color: var(--el-text-color-primary);
     }
   }
 }

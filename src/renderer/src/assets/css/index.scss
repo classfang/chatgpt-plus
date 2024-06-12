@@ -3,7 +3,7 @@ body {
   margin: 0;
   font-family: var(--el-font-family), serif;
   font-size: var(--el-font-size-base);
-  color: var(--el-text-color);
+  color: var(--el-text-color-primary);
 }
 
 // 可拖拽
@@ -19,10 +19,6 @@ body {
 * {
   // 内容不允许选中
   user-select: none;
-
-  &::placeholder {
-    color: var(--color-text-3);
-  }
 }
 
 img {
