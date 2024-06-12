@@ -48,8 +48,8 @@ const editSession = () => {
 <template>
   <div
     v-if="session.messages.length > 0"
-    class="chatgpt-session-session"
-    :class="{ 'chatgpt-session-session-active': chatSessionStore.activeSessionId === session.id }"
+    class="chatgpt-session"
+    :class="{ 'chatgpt-session-active': chatSessionStore.activeSessionId === session.id }"
     @click="activeSession()"
   >
     <el-input
@@ -87,12 +87,13 @@ const editSession = () => {
 </template>
 
 <style lang="scss" scoped>
-.chatgpt-session-session {
+.chatgpt-session {
   width: 100%;
   flex-shrink: 0;
   box-sizing: border-box;
   padding: $app-padding-base;
   border-radius: $app-border-radius-base;
+  background-color: var(--el-fill-color);
   cursor: pointer;
   display: flex;
   gap: $app-padding-base;
