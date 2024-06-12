@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="sidebar-header-container">
+  <div class="chatgpt-sidebar-header-container">
     <div
       class="sidebar-header"
       :class="{ 'sidebar-header-visible': appSettingStore.chatgpt.sidebarVisible }"
@@ -45,7 +45,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-.sidebar-header-container {
+.chatgpt-sidebar-header-container {
   height: $app-chatgpt-sidebar-header-height;
   width: 100%;
   flex-shrink: 0;

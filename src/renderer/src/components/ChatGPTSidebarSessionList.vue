@@ -6,7 +6,7 @@ const chatSessionStore = useChatSessionStore()
 </script>
 
 <template>
-  <el-scrollbar class="session-list-scrollbar">
+  <el-scrollbar class="chatgpt-session-list-scrollbar">
     <div class="session-list">
       <template v-for="s in chatSessionStore.sessions" :key="s.id">
         <div v-if="s.messages.length > 0" class="session-item">
@@ -18,7 +18,7 @@ const chatSessionStore = useChatSessionStore()
 </template>
 
 <style lang="scss">
-.session-list-scrollbar {
+.chatgpt-session-list-scrollbar {
   height: calc(100% - $app-chatgpt-sidebar-header-height);
   width: 100%;
 
