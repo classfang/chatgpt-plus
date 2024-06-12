@@ -3,6 +3,8 @@ import { Promotion } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import OpenAI from 'openai'
+import { ChatCompletionMessageParam } from 'openai/src/resources/chat/completions'
 import { reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -22,6 +24,9 @@ const { question } = toRefs(data)
 
 // 定义事件
 const emits = defineEmits(['update-message'])
+
+// 阻断控制
+let abortCtr = new AbortController()
 
 // 发送提问
 const sendQuestion = async (event?: KeyboardEvent) => {
@@ -57,46 +62,51 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     return
   }
 
-  // // OpenAI实例
-  // const openai = new OpenAI({
-  //   apiKey,
-  //   baseURL,
-  //   dangerouslyAllowBrowser: true
-  // })
-  //
-  // // 流式对话
-  // const stream = await openai.chat.completions.create(
-  //   {
-  //     messages: chatMessages,
-  //     model,
-  //     stream: true,
-  //     max_tokens: maxTokens
-  //   },
-  //   {
-  //     signal: abortCtr?.signal
-  //   }
-  // )
-  //
-  // // 开始回答
-  // startAnswer && startAnswer(sessionId)
-  // // 连续回答
-  // for await (const chunk of stream) {
-  //   Logger.info('chat2openai:', chunk)
-  //   appendAnswer && appendAnswer(sessionId, chunk.choices[0].delta.content ?? '')
-  // }
-  //
-  // // 结束
-  // end && end(sessionId)
+  // OpenAI实例
+  const openai = new OpenAI({
+    baseURL: appSettingStore.openAI.baseUrl,
+    apiKey: appSettingStore.openAI.apiKey,
+    dangerouslyAllowBrowser: true
+  })
 
-  // 回答记录
-  setTimeout(() => {
-    chatSessionStore.pushMessage({
-      type: 'chat',
-      role: 'assistant',
-      content: '我不理解你的问题'
-    })
-    emits('update-message')
-  }, 3000)
+  // 流式对话
+  const stream = await openai.chat.completions.create(
+    {
+      stream: true,
+      messages: convertMessages(chatSessionStore.getActiveSession!.messages),
+      model: chatSessionStore.getActiveSession!.model,
+      max_tokens: chatSessionStore.getActiveSession!.maxTokens,
+      temperature: chatSessionStore.getActiveSession!.temperature,
+      top_p: chatSessionStore.getActiveSession!.topP,
+      presence_penalty: chatSessionStore.getActiveSession!.presencePenalty,
+      frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
+    },
+    {
+      signal: abortCtr.signal
+    }
+  )
+
+  // 连续回答
+  for await (const chunk of stream) {
+    if (abortCtr.signal.aborted) {
+      return
+    }
+    streamAnswer(chunk.choices[0].delta.content ?? '')
+  }
+
+  // 结束回答
+  finishAnswer()
+}
+
+// 转换消息列表
+const convertMessages = (messages: ChatMessage[]): ChatCompletionMessageParam[] => {
+  return messages
+    .slice(messages.findLastIndex((m) => m.type === 'separator') + 1)
+    .filter((m) => m.type === 'chat')
+    .map((m) => ({
+      role: m.role,
+      content: [{ type: 'text', text: m.content }]
+    })) as ChatCompletionMessageParam[]
 }
 
 // 流式回答
@@ -129,7 +139,11 @@ const finishAnswer = () => {
 }
 
 // 停止回答
-const stopAnswer = () => {}
+const stopAnswer = () => {
+  abortCtr.abort()
+  abortCtr = new AbortController()
+  finishAnswer()
+}
 </script>
 
 <template>
