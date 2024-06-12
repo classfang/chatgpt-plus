@@ -1243,15 +1243,15 @@
   resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.4.27.tgz#f05e3cd107d157354bb4ae7a7b5fc9cf73c63b50"
   integrity sha512-DL3NmY2OFlqmYYrzp39yi3LDkKxa5vZVwxWdQ3rG0ekuWscHraeIbnI8t+aZK7qhYqEqWKTUdijadunb9pnrgA==
 
-"@vueuse/core@^10.10.0":
-  version "10.10.0"
-  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-10.10.0.tgz#05a98d3c5674762455a2c552c915d461d83e6490"
-  integrity sha512-vexJ/YXYs2S42B783rI95lMt3GzEwkxzC8Hb0Ndpd8rD+p+Lk/Za4bd797Ym7yq4jXqdSyj3JLChunF/vyYjUw==
+"@vueuse/core@^10.10.1":
+  version "10.10.1"
+  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-10.10.1.tgz#8f62ab7574f7d37511090cc22ce88ef704592b59"
+  integrity sha512-8Vr8wxILdK+qfBjbngav8LVI+6UuM2TQCufRKMPz/GrpLHQ6dbY6kL5PLa9Eobq8JRrMaDyArPX9Jj18fMTPew==
   dependencies:
     "@types/web-bluetooth" "^0.0.20"
-    "@vueuse/metadata" "10.10.0"
-    "@vueuse/shared" "10.10.0"
-    vue-demi ">=0.14.7"
+    "@vueuse/metadata" "10.10.1"
+    "@vueuse/shared" "10.10.1"
+    vue-demi ">=0.14.8"
 
 "@vueuse/core@^9.1.0":
   version "9.13.0"
@@ -1263,22 +1263,22 @@
     "@vueuse/shared" "9.13.0"
     vue-demi "*"
 
-"@vueuse/metadata@10.10.0":
-  version "10.10.0"
-  resolved "https://registry.npmmirror.com/@vueuse/metadata/-/metadata-10.10.0.tgz#53e61e9380670e342cbe6e03d852f3319308cb5b"
-  integrity sha512-UNAo2sTCAW5ge6OErPEHb5z7NEAg3XcO9Cj7OK45aZXfLLH1QkexDcZD77HBi5zvEiLOm1An+p/4b5K3Worpug==
+"@vueuse/metadata@10.10.1":
+  version "10.10.1"
+  resolved "https://registry.npmmirror.com/@vueuse/metadata/-/metadata-10.10.1.tgz#a5a0fed19d1249cfb416464e955092a62d19a830"
+  integrity sha512-dpEL5afVLUqbchwGiLrV6spkl4/6UOKJ3YgxFE+wWLj/LakyIZUC83bfeFgbHkRcNhsAqTQCGR74jImsLfK8pg==
 
 "@vueuse/metadata@9.13.0":
   version "9.13.0"
   resolved "https://registry.npmmirror.com/@vueuse/metadata/-/metadata-9.13.0.tgz#bc25a6cdad1b1a93c36ce30191124da6520539ff"
   integrity sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==
 
-"@vueuse/shared@10.10.0":
-  version "10.10.0"
-  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-10.10.0.tgz#93f7c2210151ff43c2c7677963f7aa3aef5d9896"
-  integrity sha512-2aW33Ac0Uk0U+9yo3Ypg9s5KcR42cuehRWl7vnUHadQyFvCktseyxxEPBi1Eiq4D2yBGACOnqLZpx1eMc7g5Og==
+"@vueuse/shared@10.10.1":
+  version "10.10.1"
+  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-10.10.1.tgz#79f372630f35e108be0d260fda731d73bb67470f"
+  integrity sha512-edqexI+RQpoeqDxTatqBZa+K87ganbrwpoP++Fd9828U3js5jzwcEDeyrYcUgkKZ5LLL8q7M5SOMvSpMrxBPxg==
   dependencies:
-    vue-demi ">=0.14.7"
+    vue-demi ">=0.14.8"
 
 "@vueuse/shared@9.13.0":
   version "9.13.0"
@@ -3627,10 +3627,10 @@ sanitize-filename@^1.6.3:
   dependencies:
     truncate-utf8-bytes "^1.0.0"
 
-sass@^1.77.4:
-  version "1.77.4"
-  resolved "https://registry.npmmirror.com/sass/-/sass-1.77.4.tgz#92059c7bfc56b827c56eb116778d157ec017a5cd"
-  integrity sha512-vcF3Ckow6g939GMA4PeU7b2K/9FALXk2KF9J87txdHzXbUF9XRQRwSxcAs/fGaTnJeBFd7UoV22j3lzMLdM0Pw==
+sass@^1.77.5:
+  version "1.77.5"
+  resolved "https://registry.npmmirror.com/sass/-/sass-1.77.5.tgz#5f9009820297521356e962c0bed13ee36710edfe"
+  integrity sha512-oDfX1mukIlxacPdQqNb6mV2tVCrnE+P3nVYioy72V5tlk56CPNcO4TCuFcaCRKKfJ1M3lH95CleRS+dVKL2qMg==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
@@ -4088,7 +4088,7 @@ vscode-uri@^3.0.8:
   resolved "https://registry.npmmirror.com/vscode-uri/-/vscode-uri-3.0.8.tgz#1770938d3e72588659a172d0fd4642780083ff9f"
   integrity sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==
 
-vue-demi@*, vue-demi@>=0.14.5, vue-demi@>=0.14.7:
+vue-demi@*, vue-demi@>=0.14.5, vue-demi@>=0.14.8:
   version "0.14.8"
   resolved "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.14.8.tgz#00335e9317b45e4a68d3528aaf58e0cec3d5640a"
   integrity sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==

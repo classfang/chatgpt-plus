@@ -21,6 +21,7 @@ import ChatGPTBodyMessageList from '@renderer/components/ChatGPTBodyMessageList.
   min-width: 0;
   background-color: var(--el-fill-color-lighter);
   flex: 1 1 0;
+  display: flex;
   flex-direction: column;
 }
 </style>

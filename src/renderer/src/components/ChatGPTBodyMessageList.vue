@@ -13,6 +13,5 @@
   padding: 0 $app-padding-base;
   display: flex;
   flex-direction: column;
-  background-color: red;
 }
 </style>
