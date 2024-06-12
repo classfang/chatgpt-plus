@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Bottom } from '@element-plus/icons-vue'
 import ChatGPTMessageAssistant from '@renderer/components/ChatGPTMessageAssistant.vue'
 import ChatGPTMessageUser from '@renderer/components/ChatGPTMessageUser.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -74,6 +75,11 @@ onMounted(() => {
         </template>
       </div>
     </el-scrollbar>
+
+    <!-- 置底按钮 -->
+    <transition name="el-fade-in-linear">
+      <Bottom v-if="toBottomBtnVisible" class="to-bottom-btn" @click="scrollToBottom(false)" />
+    </transition>
   </div>
 </template>
 
@@ -82,6 +88,7 @@ onMounted(() => {
   min-height: 0;
   width: 100%;
   flex: 1 1 0;
+  position: relative;
 
   .message-list-container {
     width: 100%;
@@ -90,6 +97,19 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: $app-padding-base;
+  }
+
+  .to-bottom-btn {
+    background-color: var(--el-fill-color-darker);
+    border: 1px solid var(--el-border-color);
+    height: $app-icon-size-base;
+    width: $app-icon-size-base;
+    border-radius: 50%;
+    padding: $app-padding-small;
+    position: absolute;
+    left: 50%;
+    bottom: $app-padding-base;
+    transform: translateX(-50%);
   }
 }
 </style>

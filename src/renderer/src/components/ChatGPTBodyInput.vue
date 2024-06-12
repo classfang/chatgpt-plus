@@ -107,7 +107,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     background-color: var(--el-fill-color);
     height: $app-icon-size-large;
     width: $app-icon-size-large;
-    border-radius: $app-border-radius-large;
+    border-radius: 50%;
     box-sizing: border-box;
     padding: $app-padding-base;
     transition: background-color $app-transition-base;
