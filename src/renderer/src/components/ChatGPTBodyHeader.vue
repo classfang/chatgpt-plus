@@ -9,7 +9,7 @@
   height: $app-chatgpt-body-header-height;
   width: 100%;
   box-sizing: border-box;
-  padding: $app-padding-base;
+  padding: 0 $app-padding-base;
   display: flex;
   align-items: center;
   justify-content: space-between;

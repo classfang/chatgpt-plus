@@ -23,9 +23,12 @@ const bodyMessageListRef = ref()
 .chatgpt-body {
   height: 100%;
   min-width: 0;
-  background-color: var(--el-fill-color-extra-light);
   flex: 1 1 0;
+  box-sizing: border-box;
+  padding: $app-padding-base 0;
+  background-color: var(--el-fill-color-extra-light);
   display: flex;
   flex-direction: column;
+  gap: $app-padding-base;
 }
 </style>

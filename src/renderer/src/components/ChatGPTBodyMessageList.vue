@@ -93,7 +93,7 @@ onMounted(() => {
   .message-list-container {
     width: 100%;
     box-sizing: border-box;
-    padding: $app-padding-base;
+    padding: 0 $app-padding-base;
     display: flex;
     flex-direction: column;
     gap: $app-padding-base;
