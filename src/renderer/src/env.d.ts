@@ -16,7 +16,6 @@ type ChatMessageType = 'chat' | 'error' | 'separator'
 interface BaseEntity {
   id?: string
   createTime?: number
-  updateTime?: number
 }
 
 interface ChatMessageFile {

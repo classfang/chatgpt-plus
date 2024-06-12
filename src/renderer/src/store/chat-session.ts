@@ -24,7 +24,6 @@ export const useChatSessionStore = defineStore({
       this.sessions.unshift({
         id: sessionId,
         createTime: nowTimestamp(),
-        updateTime: nowTimestamp(),
         name: '',
         provider: 'OpenAI',
         messages: [] as ChatMessage[],
@@ -46,8 +45,7 @@ export const useChatSessionStore = defineStore({
       this.getActiveSession.messages.push({
         ...message,
         id: generateUUID(),
-        createTime: nowTimestamp(),
-        updateTime: nowTimestamp()
+        createTime: nowTimestamp()
       })
 
       // 设置会话名称
