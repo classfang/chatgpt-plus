@@ -10,9 +10,10 @@ const appStateStore = useAppStateStore()
 
 // 数据绑定
 const data = reactive({
-  moreDropdownVisible: false
+  moreDropdownVisible: false,
+  sessionNameEditFlag: false
 })
-const { moreDropdownVisible } = toRefs(data)
+const { moreDropdownVisible, sessionNameEditFlag } = toRefs(data)
 
 // 组件传参
 const session = defineModel<ChatSession>('session', {
@@ -34,6 +35,14 @@ const deleteSession = () => {
   }
   chatSessionStore.delete(session.value.id!)
 }
+
+// 修改会话名称
+const editSession = () => {
+  if (appStateStore.chatgptLoading) {
+    return
+  }
+  data.sessionNameEditFlag = true
+}
 </script>
 
 <template>
@@ -43,7 +52,16 @@ const deleteSession = () => {
     :class="{ 'chatgpt-session-session-active': chatSessionStore.activeSessionId === session.id }"
     @click="activeSession()"
   >
-    <div class="session-name single-line-ellipsis">{{ session.name }}</div>
+    <el-input
+      v-if="sessionNameEditFlag"
+      v-model="session.name"
+      class="session-name"
+      @keydown.enter="sessionNameEditFlag = false"
+      @blur="sessionNameEditFlag = false"
+    />
+    <div v-else class="session-name single-line-ellipsis">
+      {{ session.name }}
+    </div>
     <el-dropdown
       trigger="click"
       :disabled="appStateStore.chatgptLoading"
@@ -56,7 +74,7 @@ const deleteSession = () => {
       />
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item :icon="EditPen">
+          <el-dropdown-item :icon="EditPen" @click="editSession()">
             {{ $t('app.chatgpt.sidebar.session.more.editName') }}
           </el-dropdown-item>
           <el-dropdown-item :icon="Delete" @click="deleteSession()">
