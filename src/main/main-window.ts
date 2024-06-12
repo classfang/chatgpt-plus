@@ -23,7 +23,7 @@ export const createWindow = (store: Record<string, any>) => {
     // mac下红绿灯位置
     trafficLightPosition: {
       x: 10,
-      y: 6
+      y: 10
     },
     // 动态背景色
     backgroundColor: nativeTheme.shouldUseDarkColors ? '#28282B' : '#F2F3F5',
