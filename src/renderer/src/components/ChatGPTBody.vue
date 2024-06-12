@@ -19,7 +19,7 @@ import ChatGPTBodyMessageList from '@renderer/components/ChatGPTBodyMessageList.
 .chatgpt-body {
   height: 100%;
   min-width: 0;
-  background-color: var(--el-fill-color-lighter);
+  background-color: var(--el-fill-color-extra-light);
   flex: 1 1 0;
   display: flex;
   flex-direction: column;

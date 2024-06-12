@@ -62,16 +62,16 @@ onMounted(() => {
     align-items: center;
     justify-content: space-between;
 
+    &-visible {
+      width: $app-chatgpt-sidebar-width;
+    }
+
     .sidebar-fold-icon,
     .sidebar-expand-icon,
     .session-create-icon {
       height: $app-icon-size-base;
       width: $app-icon-size-base;
     }
-  }
-
-  .sidebar-header-visible {
-    width: $app-chatgpt-sidebar-width;
   }
 }
 </style>

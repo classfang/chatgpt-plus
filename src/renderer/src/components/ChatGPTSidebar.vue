@@ -28,9 +28,9 @@ const appSettingStore = useAppSettingStore()
   transition: width $app-transition-base;
   display: flex;
   flex-direction: column;
-}
 
-.chatgpt-sidebar-visible {
-  width: $app-chatgpt-sidebar-width;
+  &-visible {
+    width: $app-chatgpt-sidebar-width;
+  }
 }
 </style>
