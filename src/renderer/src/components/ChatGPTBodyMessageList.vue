@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Bottom } from '@element-plus/icons-vue'
 import ChatGPTMessageAssistant from '@renderer/components/ChatGPTMessageAssistant.vue'
+import ChatGPTMessageError from '@renderer/components/ChatGPTMessageError.vue'
 import ChatGPTMessageUser from '@renderer/components/ChatGPTMessageUser.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { ref, nextTick, reactive, toRefs, onMounted } from 'vue'
@@ -67,7 +68,9 @@ onMounted(() => {
           </template>
 
           <!-- 错误消息 -->
-          <template v-else-if="m.type === 'error'"> </template>
+          <template v-else-if="m.type === 'error'">
+            <ChatGPTMessageError :message="m" />
+          </template>
 
           <!-- 分隔消息 -->
           <template v-else-if="m.type === 'separator'"> </template>
