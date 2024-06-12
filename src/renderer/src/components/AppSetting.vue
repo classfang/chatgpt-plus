@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Monitor, Moon, Sunny } from '@element-plus/icons-vue'
 import { OpenAIModels } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { setProxy } from '@renderer/utils/ipc-util'
@@ -23,9 +24,30 @@ const appSettingStore = useAppSettingStore()
               <!-- 主题 -->
               <el-form-item :label="$t('app.setting.item.theme.label')">
                 <el-radio-group v-model="appSettingStore.app.themeModel" size="small">
-                  <el-radio-button :label="$t('app.setting.item.theme.auto')" :value="0" />
-                  <el-radio-button :label="$t('app.setting.item.theme.light')" :value="1" />
-                  <el-radio-button :label="$t('app.setting.item.theme.dark')" :value="2" />
+                  <el-radio-button :value="0">
+                    <el-space :size="5">
+                      <el-icon :size="16">
+                        <Monitor />
+                      </el-icon>
+                      <div>{{ $t('app.setting.item.theme.auto') }}</div>
+                    </el-space>
+                  </el-radio-button>
+                  <el-radio-button :value="1">
+                    <el-space :size="5">
+                      <el-icon :size="16">
+                        <Sunny />
+                      </el-icon>
+                      <div>{{ $t('app.setting.item.theme.light') }}</div>
+                    </el-space>
+                  </el-radio-button>
+                  <el-radio-button :value="2">
+                    <el-space :size="5">
+                      <el-icon :size="16">
+                        <Moon />
+                      </el-icon>
+                      <div>{{ $t('app.setting.item.theme.dark') }}</div>
+                    </el-space>
+                  </el-radio-button>
                 </el-radio-group>
               </el-form-item>
 
