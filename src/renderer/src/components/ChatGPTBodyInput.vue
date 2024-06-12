@@ -14,6 +14,9 @@ const data = reactive({
 })
 const { question } = toRefs(data)
 
+// 定义事件
+const emits = defineEmits(['update-message'])
+
 // 发送提问
 const sendQuestion = async (event?: KeyboardEvent) => {
   // 加载中、内容为空、输入法回车，不发送消息
@@ -36,6 +39,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     content: data.question.trim()
   })
   data.question = ''
+  emits('update-message')
 
   // 正在回答
   appStateStore.chatgptAnswering = true
@@ -47,6 +51,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
       role: 'assistant',
       content: '我不理解你的问题'
     })
+    emits('update-message')
 
     appStateStore.chatgptAnswering = false
     appStateStore.chatgptLoading = false

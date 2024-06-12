@@ -2,14 +2,58 @@
 import ChatGPTMessageAssistant from '@renderer/components/ChatGPTMessageAssistant.vue'
 import ChatGPTMessageUser from '@renderer/components/ChatGPTMessageUser.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { ref, nextTick, reactive, toRefs, onMounted } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
+
+// 数据绑定
+const data = reactive({
+  toBottomBtnVisible: false
+})
+const { toBottomBtnVisible } = toRefs(data)
+
+// ref
+const messageListScrollbarRef = ref()
+
+// 滚动到底部
+const scrollToBottom = (isAuto: boolean) => {
+  nextTick(() => {
+    if (!isAuto || !data.toBottomBtnVisible) {
+      messageListScrollbarRef.value.setScrollTop(messageListScrollbarRef.value.wrapRef.scrollHeight)
+    }
+  })
+}
+
+// 监听消息列表滚动
+const onMessageListScroll = () => {
+  calcToBottomBtnVisible()
+}
+
+// 计算置底按钮是否显示
+const calcToBottomBtnVisible = () => {
+  // 滚动超过一定高度时，显示置底按钮
+  data.toBottomBtnVisible =
+    messageListScrollbarRef.value.wrapRef.scrollHeight -
+      messageListScrollbarRef.value.wrapRef.clientHeight -
+      messageListScrollbarRef.value.wrapRef.scrollTop >
+    1
+  console.log(data.toBottomBtnVisible)
+}
+
+// 暴露方法
+defineExpose({
+  scrollToBottom
+})
+
+onMounted(() => {
+  scrollToBottom(true)
+})
 </script>
 
 <template>
   <div class="chatgpt-body-message-list">
-    <el-scrollbar height="100%">
+    <el-scrollbar ref="messageListScrollbarRef" height="100%" @scroll="onMessageListScroll">
       <div class="message-list-container">
         <template v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
           <!-- 对话消息 -->

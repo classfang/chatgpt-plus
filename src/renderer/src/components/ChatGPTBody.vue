@@ -2,6 +2,10 @@
 import ChatGPTBodyHeader from '@renderer/components/ChatGPTBodyHeader.vue'
 import ChatGPTBodyInput from '@renderer/components/ChatGPTBodyInput.vue'
 import ChatGPTBodyMessageList from '@renderer/components/ChatGPTBodyMessageList.vue'
+import { ref } from 'vue'
+
+// ref
+const bodyMessageListRef = ref()
 </script>
 
 <template>
@@ -9,9 +13,9 @@ import ChatGPTBodyMessageList from '@renderer/components/ChatGPTBodyMessageList.
     <!-- 头部 -->
     <ChatGPTBodyHeader />
     <!-- 消息列表 -->
-    <ChatGPTBodyMessageList />
+    <ChatGPTBodyMessageList ref="bodyMessageListRef" />
     <!-- 输入区域 -->
-    <ChatGPTBodyInput />
+    <ChatGPTBodyInput @update-message="bodyMessageListRef.scrollToBottom(true)" />
   </div>
 </template>
 
