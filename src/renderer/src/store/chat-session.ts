@@ -9,8 +9,8 @@ export const useChatSessionStore = defineStore({
     activeSessionId: ''
   }),
   getters: {
-    getActiveSession(): ChatSession {
-      return this.sessions.find((s) => s.id === this.activeSessionId) ?? ({} as ChatSession)
+    getActiveSession(): ChatSession | undefined {
+      return this.sessions.find((s) => s.id === this.activeSessionId)
     }
   },
   actions: {
@@ -38,6 +38,9 @@ export const useChatSessionStore = defineStore({
       this.sessions = []
     },
     pushMessage(message: ChatMessage) {
+      if (!this.getActiveSession) {
+        return
+      }
       this.getActiveSession.messages.push({
         ...message,
         id: generateUUID(),

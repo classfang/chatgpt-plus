@@ -10,7 +10,10 @@ const chatSessionStore = useChatSessionStore()
 <template>
   <div class="chatgpt">
     <ChatGPTSidebar />
-    <ChatGPTBody :key="chatSessionStore.getActiveSession.id" />
+    <ChatGPTBody
+      v-if="chatSessionStore.getActiveSession"
+      :key="chatSessionStore.getActiveSession.id"
+    />
   </div>
 </template>
 
