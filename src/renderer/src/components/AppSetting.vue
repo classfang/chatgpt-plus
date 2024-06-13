@@ -103,7 +103,12 @@ onMounted(() => {
 
                 <!-- Model -->
                 <el-form-item :label="$t('app.setting.item.openai.model')">
-                  <el-select v-model="appSettingStore.openAI.model" size="small">
+                  <el-select
+                    v-model="appSettingStore.openAI.model"
+                    size="small"
+                    allow-create
+                    filterable
+                  >
                     <el-option-group
                       v-for="group in OpenAIModels"
                       :key="group.label"
