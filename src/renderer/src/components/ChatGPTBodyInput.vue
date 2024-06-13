@@ -55,6 +55,9 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   // 阻断器
   const abortCtrSignal = abortCtr.signal
 
+  // 转换消息列表
+  const sendMessages = convertMessages(chatSessionStore.getActiveSession!.messages)
+
   // 开始回答
   streamAnswer()
 
@@ -79,7 +82,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     // 流式对话
     const sendBody: OpenAI.ChatCompletionCreateParams = {
       stream: true,
-      messages: convertMessages(chatSessionStore.getActiveSession!.messages),
+      messages: sendMessages,
       model: chatSessionStore.getActiveSession!.model,
       max_tokens: chatSessionStore.getActiveSession!.maxTokens,
       temperature: chatSessionStore.getActiveSession!.temperature,
@@ -113,6 +116,7 @@ const sendQuestion = async (event?: KeyboardEvent) => {
 const convertMessages = (messages: ChatMessage[]): OpenAI.ChatCompletionMessageParam[] => {
   return messages
     .slice(messages.findLastIndex((m) => m.type === 'separator') + 1)
+    .slice(-(chatSessionStore.getActiveSession!.contextSize + 1))
     .filter((m) => m.type === 'chat')
     .map((m) => ({
       role: m.role,
