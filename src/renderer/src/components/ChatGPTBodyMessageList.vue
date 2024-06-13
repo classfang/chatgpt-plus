@@ -79,7 +79,9 @@ onMounted(() => {
     </el-scrollbar>
 
     <!-- 置底按钮 -->
-    <Bottom v-if="toBottomBtnVisible" class="to-bottom-btn" @click="scrollToBottom(false)" />
+    <transition name="el-fade-in-linear">
+      <Bottom v-if="toBottomBtnVisible" class="to-bottom-btn" @click="scrollToBottom(false)" />
+    </transition>
   </div>
 </template>
 
