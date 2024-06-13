@@ -22,6 +22,7 @@ declare module 'vue' {
     ChatGPTSidebarHeader: typeof import('./src/components/ChatGPTSidebarHeader.vue')['default']
     ChatGPTSidebarSession: typeof import('./src/components/ChatGPTSidebarSession.vue')['default']
     ChatGPTSidebarSessionList: typeof import('./src/components/ChatGPTSidebarSessionList.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDialog: typeof import('element-plus/es')['ElDialog']
