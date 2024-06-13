@@ -19,7 +19,7 @@ const visible = defineModel<boolean>('visible', {
       width="700"
     >
       <div class="dialog-body">
-        <el-scrollbar height="100%">
+        <el-scrollbar max-height="100%">
           <el-form label-width="auto">
             <!-- Model -->
             <el-form-item :label="$t('app.setting.item.openai.model')">
@@ -135,7 +135,8 @@ const visible = defineModel<boolean>('visible', {
 <style lang="scss" scoped>
 .chatgpt-body-setting {
   .dialog-body {
-    height: $app-dialog-height;
+    padding-top: $app-padding-base;
+    max-height: $app-dialog-height;
   }
 }
 </style>
