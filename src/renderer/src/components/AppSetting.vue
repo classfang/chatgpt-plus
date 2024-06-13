@@ -47,25 +47,19 @@ onMounted(() => {
                 <el-radio-group v-model="appSettingStore.app.themeModel" size="small">
                   <el-radio-button :value="0">
                     <el-space :size="5">
-                      <el-icon :size="15">
-                        <Monitor />
-                      </el-icon>
+                      <Monitor class="setting-item-icon" />
                       <div>{{ $t('app.setting.item.theme.auto') }}</div>
                     </el-space>
                   </el-radio-button>
                   <el-radio-button :value="1">
                     <el-space :size="5">
-                      <el-icon :size="15">
-                        <Sunny />
-                      </el-icon>
+                      <Sunny class="setting-item-icon" />
                       <div>{{ $t('app.setting.item.theme.light') }}</div>
                     </el-space>
                   </el-radio-button>
                   <el-radio-button :value="2">
                     <el-space :size="5">
-                      <el-icon :size="15">
-                        <Moon />
-                      </el-icon>
+                      <Moon class="setting-item-icon" />
                       <div>{{ $t('app.setting.item.theme.dark') }}</div>
                     </el-space>
                   </el-radio-button>
@@ -301,6 +295,11 @@ onMounted(() => {
       .setting-openai-scrollbar {
         height: calc($app-dialog-height - $app-padding-small * 2);
       }
+    }
+
+    .setting-item-icon {
+      height: $app-icon-size-small;
+      width: $app-icon-size-small;
     }
   }
 }
