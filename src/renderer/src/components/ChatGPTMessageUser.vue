@@ -29,9 +29,9 @@ const message = defineModel<ChatMessage>('message', {
     line-break: anywhere;
     background-color: var(--el-fill-color);
     box-sizing: border-box;
-    padding: $app-padding-small $app-padding-base;
+    padding: $app-padding-small;
     border-radius: calc(1.5rem / 2 + $app-padding-small);
-    line-height: 1.5rem;
+    line-height: 1.3rem;
     display: flex;
     justify-content: center;
   }

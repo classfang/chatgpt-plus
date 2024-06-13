@@ -16,7 +16,7 @@ const message = defineModel<ChatMessage>('message', {
 
 <template>
   <div class="chatgpt-message-assistant">
-    <el-avatar :size="40" :src="chatgptAvatar" />
+    <el-avatar :size="38" :src="chatgptAvatar" />
     <div class="message-content-container">
       <div
         class="message-content select-text"
@@ -58,9 +58,9 @@ const message = defineModel<ChatMessage>('message', {
       line-break: anywhere;
       background-color: var(--el-fill-color);
       box-sizing: border-box;
-      padding: $app-padding-small $app-padding-base;
+      padding: $app-padding-small;
       border-radius: calc(1.5rem / 2 + $app-padding-small);
-      line-height: 1.5rem;
+      line-height: 1.3rem;
       display: flex;
       flex-direction: column;
 
