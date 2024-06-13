@@ -25,20 +25,25 @@ const appStateStore = useAppStateStore()
       'chatgpt-body-header-sidebar-header-placeholder': !appSettingStore.chatgpt.sidebarVisible
     }"
   >
+    <div class="model-name" @click="currentChatSettingVisible = true">
+      <div>{{ chatSessionStore.getActiveSession!.model }}</div>
+      <ArrowDownBold class="session-setting-icon" />
+    </div>
+
     <!-- 模型名称下拉列表 -->
-    <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="bottom-start">
-      <div class="model-name">
-        <div>{{ chatSessionStore.getActiveSession!.model }}</div>
-        <ArrowDownBold class="session-setting-icon" />
-      </div>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item :icon="Setting" @click="currentChatSettingVisible = true">
-            {{ $t('app.chatgpt.body.header.currentChat.setting') }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
+    <!--        <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="bottom-start">-->
+    <!--          <div class="model-name" @click="currentChatSettingVisible = true">-->
+    <!--            <div>{{ chatSessionStore.getActiveSession!.model }}</div>-->
+    <!--            <ArrowDownBold class="session-setting-icon" />-->
+    <!--          </div>-->
+    <!--          <template #dropdown>-->
+    <!--            <el-dropdown-menu>-->
+    <!--              <el-dropdown-item :icon="Setting" @click="currentChatSettingVisible = true">-->
+    <!--                {{ $t('app.chatgpt.body.header.currentChat.setting') }}-->
+    <!--              </el-dropdown-item>-->
+    <!--            </el-dropdown-menu>-->
+    <!--          </template>-->
+    <!--        </el-dropdown>-->
 
     <!-- 当前对话设置弹窗 -->
     <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />
@@ -76,9 +81,9 @@ const appStateStore = useAppStateStore()
   }
 }
 
-.dropdown-menu {
-  display: flex;
-  flex-direction: column;
-  padding: $app-padding-base;
-}
+//.dropdown-menu {
+//  display: flex;
+//  flex-direction: column;
+//  padding: $app-padding-base;
+//}
 </style>
