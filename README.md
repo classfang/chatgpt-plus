@@ -1,3 +1,3 @@
-# chatgpt-plus
+# ChatGPT Plus
 
 An Electron application with ChatGPT
