@@ -294,9 +294,9 @@ onMounted(() => {
       height: 100%;
     }
 
-    .el-tabs__content {
+    :deep(.el-tabs__content) {
       box-sizing: border-box;
-      padding: $app-padding-small;
+      padding: $app-padding-extra-small $app-padding-small;
 
       .setting-openai-scrollbar {
         height: calc($app-dialog-height - $app-padding-small * 2);
