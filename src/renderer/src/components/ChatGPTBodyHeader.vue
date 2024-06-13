@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { ArrowDownBold } from '@element-plus/icons-vue'
+import { ArrowDownBold, Setting } from '@element-plus/icons-vue'
+import ChatGPTBodySetting from '@renderer/components/ChatGPTBodySetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { reactive, toRefs } from 'vue'
+
+// 数据绑定
+const data = reactive({
+  currentChatSettingVisible: false
+})
+const { currentChatSettingVisible } = toRefs(data)
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
@@ -18,17 +26,22 @@ const appStateStore = useAppStateStore()
     }"
   >
     <!-- 模型名称下拉列表 -->
-    <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading">
+    <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="bottom-start">
       <div class="model-name">
         <div>{{ chatSessionStore.getActiveSession!.model }}</div>
         <ArrowDownBold class="session-setting-icon" />
       </div>
       <template #dropdown>
-        <div class="session-dropdown-body">
-          <div class="drop"></div>
-        </div>
+        <el-dropdown-menu>
+          <el-dropdown-item :icon="Setting" @click="currentChatSettingVisible = true">
+            {{ $t('app.chatgpt.body.header.currentChat.setting') }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
       </template>
     </el-dropdown>
+
+    <!-- 当前对话设置弹窗 -->
+    <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />
   </div>
 </template>
 
@@ -63,9 +76,9 @@ const appStateStore = useAppStateStore()
   }
 }
 
-.session-dropdown-body {
-  width: $app-chatgpt-session-dropdown-body-width;
+.dropdown-menu {
   display: flex;
   flex-direction: column;
+  padding: $app-padding-base;
 }
 </style>

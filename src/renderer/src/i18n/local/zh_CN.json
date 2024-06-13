@@ -89,6 +89,11 @@
         },
         "message": {
           "copied": "已复制"
+        },
+        "header": {
+          "currentChat": {
+            "setting": "当前对话设置"
+          }
         }
       }
     }

@@ -89,6 +89,11 @@
         },
         "message": {
           "copied": "Copied"
+        },
+        "header": {
+          "currentChat": {
+            "setting": "Current Chat Settings"
+          }
         }
       }
     }
