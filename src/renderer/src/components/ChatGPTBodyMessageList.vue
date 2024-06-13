@@ -23,13 +23,13 @@ const scrollToBottom = (isAuto: boolean) => {
   nextTick(() => {
     if (!isAuto) {
       // 当前距离底部高度
-      const diffHeight =
+      let diffHeight =
         messageListScrollbarRef.value.wrapRef.scrollHeight -
         messageListScrollbarRef.value.wrapRef.clientHeight -
         messageListScrollbarRef.value.wrapRef.scrollTop
 
       // 起始步长
-      let stepHeight = diffHeight / 10
+      let stepHeight = Math.ceil(diffHeight * 0.2)
 
       // 周期任务
       const interval = setInterval(() => {
@@ -39,15 +39,11 @@ const scrollToBottom = (isAuto: boolean) => {
         )
 
         // 修改步长
-        stepHeight *= 0.9
+        diffHeight -= stepHeight
+        stepHeight = Math.ceil(diffHeight * 0.2)
 
         // 判断是否到达底部
-        if (
-          messageListScrollbarRef.value.wrapRef.scrollHeight -
-            messageListScrollbarRef.value.wrapRef.clientHeight -
-            messageListScrollbarRef.value.wrapRef.scrollTop <=
-          1
-        ) {
+        if (diffHeight <= 0) {
           // 停止周期任务
           clearInterval(interval)
 
