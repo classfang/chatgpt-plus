@@ -196,7 +196,7 @@ const stopAnswer = () => {
 .chatgpt-body-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 0 $app-padding-base;
+  padding: 0 $app-padding-base $app-padding-base $app-padding-base;
   display: flex;
   align-items: center;
   justify-content: center;
