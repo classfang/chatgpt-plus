@@ -200,7 +200,7 @@ const stopAnswer = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: $app-padding-base;
+  gap: $app-padding-small;
 
   .question-input {
     min-width: 0;
@@ -210,7 +210,7 @@ const stopAnswer = () => {
 
     :deep(.el-textarea__inner) {
       min-height: $app-icon-size-large !important;
-      padding: 8px $app-padding-large;
+      padding: 8px $app-padding-base;
       box-shadow: none;
       background-color: var(--el-fill-color);
     }
@@ -222,7 +222,7 @@ const stopAnswer = () => {
     width: $app-icon-size-large;
     border-radius: 50%;
     box-sizing: border-box;
-    padding: $app-padding-base;
+    padding: $app-padding-small;
     transition: background-color $app-transition-base;
     display: flex;
     align-items: center;
