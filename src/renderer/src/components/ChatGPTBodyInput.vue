@@ -68,6 +68,9 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     dangerouslyAllowBrowser: true
   })
 
+  // 阻断器
+  const abortCtrSignal = abortCtr.signal
+
   // 流式对话
   const stream = await openai.chat.completions.create(
     {
@@ -81,13 +84,13 @@ const sendQuestion = async (event?: KeyboardEvent) => {
       frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
     },
     {
-      signal: abortCtr.signal
+      signal: abortCtrSignal
     }
   )
 
   // 连续回答
   for await (const chunk of stream) {
-    if (abortCtr.signal.aborted) {
+    if (abortCtrSignal.aborted) {
       return
     }
     streamAnswer(chunk.choices[0].delta.content ?? '')
