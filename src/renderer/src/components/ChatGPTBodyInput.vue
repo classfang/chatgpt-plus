@@ -3,6 +3,7 @@ import { Promotion } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { Logger } from '@renderer/utils/logger'
 import OpenAI from 'openai'
 import { reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -72,27 +73,27 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   const abortCtrSignal = abortCtr.signal
 
   // 流式对话
-  const stream = await openai.chat.completions.create(
-    {
-      stream: true,
-      messages: convertMessages(chatSessionStore.getActiveSession!.messages),
-      model: chatSessionStore.getActiveSession!.model,
-      max_tokens: chatSessionStore.getActiveSession!.maxTokens,
-      temperature: chatSessionStore.getActiveSession!.temperature,
-      top_p: chatSessionStore.getActiveSession!.topP,
-      presence_penalty: chatSessionStore.getActiveSession!.presencePenalty,
-      frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
-    },
-    {
-      signal: abortCtrSignal
-    }
-  )
+  const sendBody: OpenAI.ChatCompletionCreateParams = {
+    stream: true,
+    messages: convertMessages(chatSessionStore.getActiveSession!.messages),
+    model: chatSessionStore.getActiveSession!.model,
+    max_tokens: chatSessionStore.getActiveSession!.maxTokens,
+    temperature: chatSessionStore.getActiveSession!.temperature,
+    top_p: chatSessionStore.getActiveSession!.topP,
+    presence_penalty: chatSessionStore.getActiveSession!.presencePenalty,
+    frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
+  }
+  Logger.info('ChatGPT request body: ', sendBody)
+  const stream = await openai.chat.completions.create(sendBody, {
+    signal: abortCtrSignal
+  })
 
   // 连续回答
   for await (const chunk of stream) {
     if (abortCtrSignal.aborted) {
       return
     }
+    Logger.info('ChatGPT response chunk: ', chunk)
     streamAnswer(chunk.choices[0].delta.content ?? '')
     emits('update-message')
   }
