@@ -19,7 +19,7 @@ const message = defineModel<ChatMessage>('message', {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: $app-padding-base;
+  gap: $app-padding-small;
 
   .message-content {
     min-width: 4rem;
@@ -29,7 +29,7 @@ const message = defineModel<ChatMessage>('message', {
     line-break: anywhere;
     background-color: var(--el-fill-color);
     box-sizing: border-box;
-    padding: $app-padding-base $app-padding-large;
+    padding: $app-padding-small $app-padding-base;
     border-radius: calc(1.5rem / 2 + $app-padding-base);
     line-height: 1.5rem;
     display: flex;
