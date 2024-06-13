@@ -22,8 +22,8 @@ export const createWindow = (store: Record<string, any>) => {
     titleBarStyle: 'hiddenInset',
     // mac下红绿灯位置
     trafficLightPosition: {
-      x: 10,
-      y: 10
+      x: 15,
+      y: 12
     },
     // 动态背景色
     backgroundColor: nativeTheme.shouldUseDarkColors ? '#141414' : '#FFFFFF',
