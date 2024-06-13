@@ -56,8 +56,8 @@
       "sidebar": {
         "session":{
           "more": {
-            "editName": "修改名称",
-            "delete": "删除会话"
+            "editName": "重命名",
+            "delete": "删除"
           },
           "dateFlag": {
             "today": "今天",

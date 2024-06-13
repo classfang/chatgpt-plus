@@ -56,7 +56,7 @@
       "sidebar": {
         "session":{
           "more": {
-            "editName": "Edit Name",
+            "editName": "Rename",
             "delete": "Delete"
           },
           "dateFlag": {
