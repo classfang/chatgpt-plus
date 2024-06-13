@@ -28,6 +28,6 @@ const bodyMessageListRef = ref()
   background-color: var(--el-fill-color-extra-light);
   display: flex;
   flex-direction: column;
-  gap: $app-padding-base;
+  gap: $app-padding-small;
 }
 </style>
