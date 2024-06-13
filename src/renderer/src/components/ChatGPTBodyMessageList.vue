@@ -21,7 +21,43 @@ const messageListScrollbarRef = ref()
 // 滚动到底部
 const scrollToBottom = (isAuto: boolean) => {
   nextTick(() => {
-    if (!isAuto || !data.toBottomBtnVisible) {
+    if (!isAuto) {
+      // 当前距离底部高度
+      const diffHeight =
+        messageListScrollbarRef.value.wrapRef.scrollHeight -
+        messageListScrollbarRef.value.wrapRef.clientHeight -
+        messageListScrollbarRef.value.wrapRef.scrollTop
+
+      // 起始步长
+      let stepHeight = diffHeight / 10
+
+      // 周期任务
+      const interval = setInterval(() => {
+        // 滚动一个步长
+        messageListScrollbarRef.value.setScrollTop(
+          messageListScrollbarRef.value.wrapRef.scrollTop + stepHeight
+        )
+
+        // 修改步长
+        stepHeight *= 0.9
+
+        // 判断是否到达底部
+        if (
+          messageListScrollbarRef.value.wrapRef.scrollHeight -
+            messageListScrollbarRef.value.wrapRef.clientHeight -
+            messageListScrollbarRef.value.wrapRef.scrollTop <=
+          1
+        ) {
+          // 停止周期任务
+          clearInterval(interval)
+
+          // 保证置底
+          messageListScrollbarRef.value.setScrollTop(
+            messageListScrollbarRef.value.wrapRef.scrollHeight
+          )
+        }
+      }, 10)
+    } else if (!data.toBottomBtnVisible) {
       messageListScrollbarRef.value.setScrollTop(messageListScrollbarRef.value.wrapRef.scrollHeight)
     }
   })
