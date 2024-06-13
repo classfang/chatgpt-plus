@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { ArrowDown } from '@element-plus/icons-vue'
+import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
+const appSettingStore = useAppSettingStore()
 </script>
 
 <template>
-  <div class="chatgpt-body-header">
+  <div
+    class="chatgpt-body-header"
+    :class="{
+      'chatgpt-body-header-sidebar-header-placeholder': !appSettingStore.chatgpt.sidebarVisible
+    }"
+  >
     <!-- 模型名称下拉列表 -->
     <el-dropdown trigger="click">
       <div class="model-name">
@@ -31,6 +38,10 @@ const chatSessionStore = useChatSessionStore()
   align-items: center;
   justify-content: flex-start;
   gap: $app-padding-base;
+
+  &-sidebar-header-placeholder {
+    padding-left: calc($app-icon-size-base * 2 + $app-padding-base * 3);
+  }
 
   .model-name {
     display: flex;
