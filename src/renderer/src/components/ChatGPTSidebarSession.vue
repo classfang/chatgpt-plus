@@ -2,11 +2,14 @@
 import { Delete, EditPen, MoreFilled } from '@element-plus/icons-vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
-import { reactive, toRefs } from 'vue'
+import { nextTick, reactive, ref, toRefs } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
 const appStateStore = useAppStateStore()
+
+// ref
+const sessionNameInputRef = ref()
 
 // 数据绑定
 const data = reactive({
@@ -42,6 +45,9 @@ const editSession = () => {
     return
   }
   data.sessionNameEditFlag = true
+  nextTick(() => {
+    sessionNameInputRef.value?.focus()
+  })
 }
 </script>
 
@@ -53,6 +59,7 @@ const editSession = () => {
   >
     <el-input
       v-if="sessionNameEditFlag"
+      ref="sessionNameInputRef"
       v-model="session.name"
       class="session-name"
       @keydown.enter="sessionNameEditFlag = false"
@@ -68,7 +75,10 @@ const editSession = () => {
     >
       <MoreFilled
         class="more-icon"
-        :class="{ 'more-icon-active': moreDropdownVisible }"
+        :class="{
+          'more-icon-active': moreDropdownVisible,
+          'more-icon-hidden': sessionNameEditFlag
+        }"
         @click.stop
       />
       <template #dropdown>
@@ -95,7 +105,6 @@ const editSession = () => {
   background-color: var(--el-fill-color);
   cursor: pointer;
   display: flex;
-  gap: $app-padding-base;
   align-items: center;
   justify-content: center;
 
@@ -104,6 +113,7 @@ const editSession = () => {
 
     .more-icon {
       width: $app-icon-size-small;
+      padding-left: $app-padding-base;
     }
   }
 
@@ -112,6 +122,7 @@ const editSession = () => {
 
     .more-icon {
       width: $app-icon-size-small !important;
+      padding-left: $app-padding-base;
     }
   }
 
@@ -127,6 +138,11 @@ const editSession = () => {
 
     &-active {
       width: $app-icon-size-small !important;
+      padding-left: $app-padding-base;
+    }
+
+    &-hidden {
+      width: 0 !important;
     }
   }
 }
