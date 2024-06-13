@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { ArrowDownBold, Setting, Share } from '@element-plus/icons-vue'
+import { ArrowDownBold, Share } from '@element-plus/icons-vue'
 import ChatGPTBodySetting from '@renderer/components/ChatGPTBodySetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { nowTimestamp } from '@renderer/utils/date-util'
+import { Logger } from '@renderer/utils/logger'
+import html2canvas from 'html2canvas'
 import { reactive, toRefs } from 'vue'
 
 // 数据绑定
@@ -16,6 +19,32 @@ const { currentChatSettingVisible } = toRefs(data)
 const chatSessionStore = useChatSessionStore()
 const appSettingStore = useAppSettingStore()
 const appStateStore = useAppStateStore()
+
+// 分享
+const share = () => {
+  if (appStateStore.chatgptLoading) {
+    return
+  }
+
+  const el = document.getElementById('message-list-container')
+  if (el) {
+    html2canvas(el, {
+      scale: 2, // 缩放比例,默认为1
+      allowTaint: true, // 是否允许跨域图像污染画布
+      useCORS: true // 是否尝试使用CORS从服务器加载图像
+    })
+      .then((canvas) => {
+        // 将图片下载到本地
+        const a = document.createElement('a') // 生成一个a元素
+        a.download = `share-${nowTimestamp()}` // 设置图片名称没有设置则为默认
+        a.href = canvas.toDataURL('image/png') // 将生成的URL设置为a.href属性
+        a.dispatchEvent(new MouseEvent('click')) // 触发a的单击事件
+      })
+      .catch((e: any) => {
+        Logger.error(e.message)
+      })
+  }
+}
 </script>
 
 <template>
@@ -30,7 +59,7 @@ const appStateStore = useAppStateStore()
       <ArrowDownBold class="session-setting-icon" />
     </div>
 
-    <Share class="share-icon" />
+    <Share class="share-icon" @click="share()" />
 
     <!-- 模型名称下拉列表 -->
     <!--        <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="bottom-start">-->

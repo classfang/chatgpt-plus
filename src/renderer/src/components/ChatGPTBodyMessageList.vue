@@ -87,7 +87,7 @@ onMounted(() => {
 <template>
   <div class="chatgpt-body-message-list">
     <el-scrollbar ref="messageListScrollbarRef" height="100%" @scroll="onMessageListScroll">
-      <div class="message-list-container">
+      <div id="message-list-container" class="message-list-container">
         <template v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
           <!-- 对话消息 -->
           <template v-if="m.type === 'chat'">
