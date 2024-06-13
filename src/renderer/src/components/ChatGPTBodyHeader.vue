@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDownBold, Setting } from '@element-plus/icons-vue'
+import { ArrowDownBold, Setting, Share } from '@element-plus/icons-vue'
 import ChatGPTBodySetting from '@renderer/components/ChatGPTBodySetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
@@ -30,6 +30,8 @@ const appStateStore = useAppStateStore()
       <ArrowDownBold class="session-setting-icon" />
     </div>
 
+    <Share class="share-icon" />
+
     <!-- 模型名称下拉列表 -->
     <!--        <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="bottom-start">-->
     <!--          <div class="model-name" @click="currentChatSettingVisible = true">-->
@@ -59,7 +61,6 @@ const appStateStore = useAppStateStore()
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: $app-padding-base;
 
   &-sidebar-header-placeholder {
     padding-left: calc($app-icon-size-base * 2 + $app-padding-base * 3);
@@ -78,6 +79,12 @@ const appStateStore = useAppStateStore()
       height: $app-icon-size-small;
       width: $app-icon-size-small;
     }
+  }
+
+  .share-icon {
+    height: $app-icon-size-base;
+    width: $app-icon-size-base;
+    margin-left: auto;
   }
 }
 
