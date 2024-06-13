@@ -46,7 +46,9 @@
           "log": "Application Log",
           "openLogDir": "Open Log Directory",
           "cache": "Application Cache",
-          "openCacheDir": "Open Cache Directory"
+          "openCacheDir": "Open Cache Directory",
+          "devTools": "Developer Tools",
+          "openDevTools": "Open Developer Tools"
         }
       }
     },

@@ -46,7 +46,9 @@
           "log": "应用日志",
           "openLogDir": "打开日志目录",
           "cache": "应用缓存",
-          "openCacheDir": "打开缓存目录"
+          "openCacheDir": "打开缓存目录",
+          "devTools": "开发者工具",
+          "openDevTools": "打开开发者工具"
         }
       }
     },

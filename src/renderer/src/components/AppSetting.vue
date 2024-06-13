@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { Download, Folder, Monitor, Moon, Sunny } from '@element-plus/icons-vue'
+import { Download, Folder, Monitor, Moon, Sunny, Tools } from '@element-plus/icons-vue'
 import { OpenAIModels } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
-import { getAppVersion, openCacheDir, openLogDir, setProxy } from '@renderer/utils/ipc-util'
+import {
+  getAppVersion,
+  openCacheDir,
+  openDevTools,
+  openLogDir,
+  setProxy
+} from '@renderer/utils/ipc-util'
 import { openInBrowser } from '@renderer/utils/window-util'
 import { onMounted, reactive, toRefs } from 'vue'
 
@@ -254,6 +260,13 @@ onMounted(() => {
               <el-form-item :label="$t('app.setting.item.about.cache')">
                 <el-button size="small" :icon="Folder" @click="openCacheDir()">
                   {{ $t('app.setting.item.about.openCacheDir') }}
+                </el-button>
+              </el-form-item>
+
+              <!-- 开发者工具 -->
+              <el-form-item :label="$t('app.setting.item.about.devTools')">
+                <el-button size="small" :icon="Tools" @click="openDevTools()">
+                  {{ $t('app.setting.item.about.openDevTools') }}
                 </el-button>
               </el-form-item>
             </el-form>
