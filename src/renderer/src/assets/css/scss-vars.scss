@@ -1,5 +1,5 @@
 // 过渡动画
-$app-transition-base: 150ms linear;
+$app-transition-base: var(--el-transition-duration) cubic-bezier(.55,0,.1,1);
 
 // 尺寸
 $app-icon-size-base: 20px;
