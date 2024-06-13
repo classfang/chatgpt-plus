@@ -66,6 +66,14 @@ export const useChatSessionStore = defineStore({
       }
 
       latestMessage.content += content
+    },
+    deleteMessage(messageId: string) {
+      if (!this.getActiveSession) {
+        return
+      }
+      this.getActiveSession.messages = this.getActiveSession.messages.filter(
+        (m) => m.id != messageId
+      )
     }
   },
   persist: true

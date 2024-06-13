@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useAppStateStore } from '@renderer/store/app-state'
+import { useChatSessionStore } from '@renderer/store/chat-session'
 import { renderMarkdown } from '@renderer/utils/markdown-util'
 
 // 仓库
 const appStateStore = useAppStateStore()
+const chatSessionStore = useChatSessionStore()
 
 // 组件传参
 const message = defineModel<ChatMessage>('message', {
@@ -15,7 +17,13 @@ const message = defineModel<ChatMessage>('message', {
   <div class="chatgpt-message-assistant">
     <div
       class="message-content select-text"
-      v-html="renderMarkdown(message.content, appStateStore.chatgptLoading)"
+      v-html="
+        renderMarkdown(
+          message.content,
+          chatSessionStore.getActiveSession?.messages.at(-1)?.id === message.id &&
+            appStateStore.chatgptLoading
+        )
+      "
     ></div>
     <div class="message-console"></div>
   </div>

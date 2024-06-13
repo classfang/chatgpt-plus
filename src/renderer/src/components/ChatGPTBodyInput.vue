@@ -52,6 +52,12 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   data.question = ''
   emits('update-message')
 
+  // 阻断器
+  const abortCtrSignal = abortCtr.signal
+
+  // 开始回答
+  streamAnswer()
+
   // 判断配置是否正确
   if (!appSettingStore.openAI.baseUrl) {
     errorAnswer(t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.openai.baseUrl'))
@@ -62,40 +68,41 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     return
   }
 
-  // OpenAI实例
-  const openai = new OpenAI({
-    baseURL: appSettingStore.openAI.baseUrl,
-    apiKey: appSettingStore.openAI.apiKey,
-    dangerouslyAllowBrowser: true
-  })
+  try {
+    // OpenAI实例
+    const openai = new OpenAI({
+      baseURL: appSettingStore.openAI.baseUrl,
+      apiKey: appSettingStore.openAI.apiKey,
+      dangerouslyAllowBrowser: true
+    })
 
-  // 阻断器
-  const abortCtrSignal = abortCtr.signal
-
-  // 流式对话
-  const sendBody: OpenAI.ChatCompletionCreateParams = {
-    stream: true,
-    messages: convertMessages(chatSessionStore.getActiveSession!.messages),
-    model: chatSessionStore.getActiveSession!.model,
-    max_tokens: chatSessionStore.getActiveSession!.maxTokens,
-    temperature: chatSessionStore.getActiveSession!.temperature,
-    top_p: chatSessionStore.getActiveSession!.topP,
-    presence_penalty: chatSessionStore.getActiveSession!.presencePenalty,
-    frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
-  }
-  Logger.info('ChatGPT request body: ', sendBody)
-  const stream = await openai.chat.completions.create(sendBody, {
-    signal: abortCtrSignal
-  })
-
-  // 连续回答
-  for await (const chunk of stream) {
-    if (abortCtrSignal.aborted) {
-      return
+    // 流式对话
+    const sendBody: OpenAI.ChatCompletionCreateParams = {
+      stream: true,
+      messages: convertMessages(chatSessionStore.getActiveSession!.messages),
+      model: chatSessionStore.getActiveSession!.model,
+      max_tokens: chatSessionStore.getActiveSession!.maxTokens,
+      temperature: chatSessionStore.getActiveSession!.temperature,
+      top_p: chatSessionStore.getActiveSession!.topP,
+      presence_penalty: chatSessionStore.getActiveSession!.presencePenalty,
+      frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
     }
-    Logger.info('ChatGPT response chunk: ', chunk)
-    streamAnswer(chunk.choices[0].delta.content ?? '')
-    emits('update-message')
+    Logger.info('ChatGPT request body: ', sendBody)
+    const stream = await openai.chat.completions.create(sendBody, {
+      signal: abortCtrSignal
+    })
+
+    // 连续回答
+    for await (const chunk of stream) {
+      if (abortCtrSignal.aborted) {
+        return
+      }
+      Logger.info('ChatGPT response chunk: ', chunk)
+      streamAnswer(chunk.choices[0].delta.content ?? '')
+      emits('update-message')
+    }
+  } catch (e: any) {
+    errorAnswer(e.message)
   }
 
   // 结束回答
@@ -114,7 +121,7 @@ const convertMessages = (messages: ChatMessage[]): OpenAI.ChatCompletionMessageP
 }
 
 // 流式回答
-const streamAnswer = (content: string) => {
+const streamAnswer = (content = '') => {
   if (!appStateStore.chatgptAnswering) {
     chatSessionStore.pushMessage({
       type: 'chat',
@@ -128,16 +135,23 @@ const streamAnswer = (content: string) => {
 
 // 错误回答
 const errorAnswer = (content: string) => {
+  // 先关闭之前的回答
+  finishAnswer()
   chatSessionStore.pushMessage({
     type: 'error',
     role: 'assistant',
     content: content
   })
-  finishAnswer()
 }
 
 // 完成回答
 const finishAnswer = () => {
+  // 如果最后一条回答是空的内容则删除
+  const latestMessage = chatSessionStore.getActiveSession?.messages.at(-1)
+  if (latestMessage && !latestMessage.content) {
+    chatSessionStore.deleteMessage(latestMessage.id!)
+  }
+
   appStateStore.chatgptAnswering = false
   appStateStore.chatgptLoading = false
 }
