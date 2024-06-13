@@ -96,7 +96,7 @@ onMounted(() => {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: $app-padding-base;
+    gap: $app-padding-small;
   }
 
   .to-bottom-btn {
@@ -105,11 +105,12 @@ onMounted(() => {
     height: $app-icon-size-base;
     width: $app-icon-size-base;
     border-radius: 50%;
-    padding: $app-padding-small;
+    padding: $app-padding-extra-small;
     position: absolute;
     left: 50%;
-    bottom: $app-padding-base;
+    bottom: $app-padding-small;
     transform: translateX(-50%);
+    cursor: pointer;
   }
 }
 </style>
