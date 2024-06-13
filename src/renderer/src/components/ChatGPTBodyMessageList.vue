@@ -122,12 +122,13 @@ onMounted(() => {
   min-height: 0;
   width: 100%;
   flex: 1 1 0;
-  box-sizing: border-box;
-  padding: 0 $app-padding-base;
   position: relative;
 
   .message-list-container {
     width: 100%;
+    background-color: var(--el-fill-color-extra-light);
+    box-sizing: border-box;
+    padding: $app-padding-base;
     display: flex;
     flex-direction: column;
     gap: $app-padding-small;

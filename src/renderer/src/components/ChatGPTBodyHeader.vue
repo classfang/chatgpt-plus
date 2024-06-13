@@ -29,9 +29,12 @@ const share = () => {
   const el = document.getElementById('message-list-container')
   if (el) {
     html2canvas(el, {
-      scale: 2, // 缩放比例,默认为1
-      allowTaint: true, // 是否允许跨域图像污染画布
-      useCORS: true // 是否尝试使用CORS从服务器加载图像
+      // 缩放比例,默认为1
+      scale: 2,
+      // 是否允许跨域图像污染画布
+      allowTaint: true,
+      // 是否尝试使用CORS从服务器加载图像
+      useCORS: true
     })
       .then((canvas) => {
         // 将图片下载到本地
