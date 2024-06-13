@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ArrowDownBold } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
 const appSettingStore = useAppSettingStore()
+const appStateStore = useAppStateStore()
 </script>
 
 <template>
@@ -16,13 +18,15 @@ const appSettingStore = useAppSettingStore()
     }"
   >
     <!-- 模型名称下拉列表 -->
-    <el-dropdown trigger="click">
+    <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading">
       <div class="model-name">
         <div>{{ chatSessionStore.getActiveSession!.model }}</div>
         <ArrowDownBold class="session-setting-icon" />
       </div>
       <template #dropdown>
-        <div class="model-dropdown-body"></div>
+        <div class="session-dropdown-body">
+          <div class="drop"></div>
+        </div>
       </template>
     </el-dropdown>
   </div>
@@ -59,7 +63,9 @@ const appSettingStore = useAppSettingStore()
   }
 }
 
-.model-dropdown-body {
-  width: $app-chatgpt-body-header-model-dropdown-body-width;
+.session-dropdown-body {
+  width: $app-chatgpt-session-dropdown-body-width;
+  display: flex;
+  flex-direction: column;
 }
 </style>

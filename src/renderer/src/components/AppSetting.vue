@@ -47,7 +47,7 @@ onMounted(() => {
                 <el-radio-group v-model="appSettingStore.app.themeModel" size="small">
                   <el-radio-button :value="0">
                     <el-space :size="5">
-                      <el-icon :size="16">
+                      <el-icon :size="15">
                         <Monitor />
                       </el-icon>
                       <div>{{ $t('app.setting.item.theme.auto') }}</div>
@@ -55,7 +55,7 @@ onMounted(() => {
                   </el-radio-button>
                   <el-radio-button :value="1">
                     <el-space :size="5">
-                      <el-icon :size="16">
+                      <el-icon :size="15">
                         <Sunny />
                       </el-icon>
                       <div>{{ $t('app.setting.item.theme.light') }}</div>
@@ -63,7 +63,7 @@ onMounted(() => {
                   </el-radio-button>
                   <el-radio-button :value="2">
                     <el-space :size="5">
-                      <el-icon :size="16">
+                      <el-icon :size="15">
                         <Moon />
                       </el-icon>
                       <div>{{ $t('app.setting.item.theme.dark') }}</div>
