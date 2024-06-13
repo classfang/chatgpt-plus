@@ -31,17 +31,17 @@ const share = () => {
     return
   }
 
-  ElMessageBox.confirm(
-    t('app.chatgpt.body.header.shareConfirm.content'),
-    t('app.chatgpt.body.header.shareConfirm.title'),
-    {
-      distinguishCancelAndClose: true,
-      confirmButtonText: t('app.chatgpt.body.header.shareConfirm.confirm'),
-      cancelButtonText: t('app.chatgpt.body.header.shareConfirm.cancel')
-    }
-  ).then(() => {
-    const el = document.getElementById('message-list-container')
-    if (el) {
+  const el = document.getElementById('message-list-container')
+  if (el) {
+    ElMessageBox.confirm(
+      t('app.chatgpt.body.header.shareConfirm.content'),
+      t('app.chatgpt.body.header.shareConfirm.title'),
+      {
+        distinguishCancelAndClose: true,
+        confirmButtonText: t('app.chatgpt.body.header.shareConfirm.confirm'),
+        cancelButtonText: t('app.chatgpt.body.header.shareConfirm.cancel')
+      }
+    ).then(() => {
       html2canvas(el, {
         // 缩放比例,默认为1
         scale: 2,
@@ -60,8 +60,8 @@ const share = () => {
         .catch((e: any) => {
           Logger.error(e.message)
         })
-    }
-  })
+    })
+  }
 }
 </script>
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Bottom } from '@element-plus/icons-vue'
+import ChatGPTBodyEmpty from '@renderer/components/ChatGPTBodyEmpty.vue'
 import ChatGPTMessageAssistant from '@renderer/components/ChatGPTMessageAssistant.vue'
 import ChatGPTMessageError from '@renderer/components/ChatGPTMessageError.vue'
 import ChatGPTMessageUser from '@renderer/components/ChatGPTMessageUser.vue'
@@ -86,7 +87,13 @@ onMounted(() => {
 
 <template>
   <div class="chatgpt-body-message-list">
-    <el-scrollbar ref="messageListScrollbarRef" height="100%" @scroll="onMessageListScroll">
+    <!-- 消息列表 -->
+    <el-scrollbar
+      v-if="chatSessionStore.getActiveSession!.messages.length > 0"
+      ref="messageListScrollbarRef"
+      height="100%"
+      @scroll="onMessageListScroll"
+    >
       <div id="message-list-container" class="message-list-container">
         <template v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
           <!-- 对话消息 -->
@@ -109,6 +116,9 @@ onMounted(() => {
         </template>
       </div>
     </el-scrollbar>
+
+    <!-- 空状态 -->
+    <ChatGPTBodyEmpty v-else />
 
     <!-- 置底按钮 -->
     <transition name="el-fade-in-linear">
