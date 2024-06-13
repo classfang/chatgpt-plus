@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDown } from '@element-plus/icons-vue'
+import { ArrowDownBold } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
@@ -19,7 +19,7 @@ const appSettingStore = useAppSettingStore()
     <el-dropdown trigger="click">
       <div class="model-name">
         <div>{{ chatSessionStore.getActiveSession!.model }}</div>
-        <ArrowDown class="session-setting-icon" />
+        <ArrowDownBold class="session-setting-icon" />
       </div>
       <template #dropdown>
         <div class="model-dropdown-body"></div>
@@ -45,7 +45,7 @@ const appSettingStore = useAppSettingStore()
 
   .model-name {
     display: flex;
-    gap: $app-padding-small;
+    gap: $app-padding-extra-small;
     align-items: center;
     justify-content: center;
     font-size: $app-icon-size-small;
