@@ -93,6 +93,12 @@
         "header": {
           "currentChat": {
             "setting": "当前对话设置"
+          },
+          "shareConfirm": {
+            "title": "分享对话",
+            "content": "将为你生成用于分享的图片",
+            "confirm": "确认",
+            "cancel": "取消"
           }
         }
       }

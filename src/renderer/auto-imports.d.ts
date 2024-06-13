@@ -8,4 +8,5 @@ declare global {
   const ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
   const ElCollection$1: typeof import('element-plus/es')['ElCollection$1']
   const ElCollectionItem$1: typeof import('element-plus/es')['ElCollectionItem$1']
+  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
 }
