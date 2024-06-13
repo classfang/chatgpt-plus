@@ -207,7 +207,7 @@ const dateFlagMap = computed(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: $app-padding-base;
+    gap: $app-padding-small;
 
     .date-flag {
       width: 100%;

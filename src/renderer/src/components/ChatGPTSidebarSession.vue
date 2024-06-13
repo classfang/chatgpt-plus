@@ -100,7 +100,7 @@ const editSession = () => {
   width: 100%;
   flex-shrink: 0;
   box-sizing: border-box;
-  padding: $app-padding-base;
+  padding: $app-padding-small;
   border-radius: $app-border-radius-base;
   background-color: var(--el-fill-color);
   cursor: pointer;
@@ -113,7 +113,7 @@ const editSession = () => {
 
     .more-icon {
       width: $app-icon-size-small;
-      padding-left: $app-padding-base;
+      padding-left: $app-padding-small;
     }
   }
 
@@ -122,7 +122,7 @@ const editSession = () => {
 
     .more-icon {
       width: $app-icon-size-small !important;
-      padding-left: $app-padding-base;
+      padding-left: $app-padding-small;
     }
   }
 
@@ -138,11 +138,12 @@ const editSession = () => {
 
     &-active {
       width: $app-icon-size-small !important;
-      padding-left: $app-padding-base;
+      padding-left: $app-padding-small;
     }
 
     &-hidden {
       width: 0 !important;
+      padding-left: 0 !important;
     }
   }
 }
