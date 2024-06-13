@@ -3,8 +3,9 @@
     "setting": {
       "title": "应用设置",
       "appearance": "外观",
-      "network": "网络",
       "openai": "OpenAI",
+      "network": "网络",
+      "about": "关于",
       "item": {
         "theme": {
           "label": "主题",
@@ -16,9 +17,6 @@
           "label": "语言",
           "zhCN": "中文",
           "enUS": "英文"
-        },
-        "proxy": {
-          "label": "网络代理"
         },
         "openai": {
           "baseUrl": "服务地址",
@@ -38,6 +36,17 @@
             "frequencyPenalty": "值越大，越有可能降低重复字词",
             "contextSize": "每次请求携带历史消息条数"
           }
+        },
+        "proxy": {
+          "label": "网络代理"
+        },
+        "about": {
+          "appVersion": "应用版本",
+          "appDownload": "下载新版本",
+          "log": "应用日志",
+          "openLogDir": "打开日志目录",
+          "cache": "应用缓存",
+          "openCacheDir": "打开缓存目录"
         }
       }
     },

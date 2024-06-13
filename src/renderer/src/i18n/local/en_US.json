@@ -3,8 +3,9 @@
     "setting": {
       "title": "Application Settings",
       "appearance": "Appearance",
-      "network": "Network",
       "openai": "OpenAI",
+      "network": "Network",
+      "about": "About",
       "item": {
         "theme": {
           "label": "Theme",
@@ -16,9 +17,6 @@
           "label": "Language",
           "zhCN": "zh_CN",
           "enUS": "en_US"
-        },
-        "proxy": {
-          "label": "Network Proxy"
         },
         "openai": {
           "baseUrl": "Base URL",
@@ -38,6 +36,17 @@
             "frequencyPenalty": "The larger the value, the more likely it is to reduce duplicates",
             "contextSize": "Number of historical messages carried per request"
           }
+        },
+        "proxy": {
+          "label": "Network Proxy"
+        },
+        "about": {
+          "appVersion": "Application Version",
+          "appDownload": "Download Latest Version",
+          "log": "Application Log",
+          "openLogDir": "Open Log Directory",
+          "cache": "Application Cache",
+          "openCacheDir": "Open Cache Directory"
         }
       }
     },

@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { Monitor, Moon, Sunny } from '@element-plus/icons-vue'
+import { Download, Folder, Monitor, Moon, Sunny } from '@element-plus/icons-vue'
 import { OpenAIModels } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
-import { setProxy } from '@renderer/utils/ipc-util'
+import { getAppVersion, openCacheDir, openLogDir, setProxy } from '@renderer/utils/ipc-util'
+import { openInBrowser } from '@renderer/utils/window-util'
+import { onMounted, reactive, toRefs } from 'vue'
+
+// 仓库
+const appSettingStore = useAppSettingStore()
 
 // 组件传参
 const visible = defineModel<boolean>('visible', {
   default: () => false
 })
 
-// 仓库
-const appSettingStore = useAppSettingStore()
+// 数据绑定
+const data = reactive({
+  appVersion: '0.0.0'
+})
+const { appVersion } = toRefs(data)
+
+onMounted(() => {
+  // 获取应用版本号
+  getAppVersion().then((v) => {
+    data.appVersion = v
+  })
+})
 </script>
 
 <template>
@@ -57,20 +72,6 @@ const appSettingStore = useAppSettingStore()
                   <el-radio-button :label="$t('app.setting.item.language.zhCN')" value="zh_CN" />
                   <el-radio-button :label="$t('app.setting.item.language.enUS')" value="en_US" />
                 </el-radio-group>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-
-          <!-- 网络 -->
-          <el-tab-pane :label="$t('app.setting.network')">
-            <el-form label-width="auto">
-              <!-- 网络代理 -->
-              <el-form-item :label="$t('app.setting.item.proxy.label')">
-                <el-input
-                  v-model="appSettingStore.app.proxy"
-                  size="small"
-                  @change="setProxy(appSettingStore.app.proxy)"
-                />
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -209,6 +210,53 @@ const appSettingStore = useAppSettingStore()
                 </el-form-item>
               </el-form>
             </el-scrollbar>
+          </el-tab-pane>
+
+          <!-- 网络 -->
+          <el-tab-pane :label="$t('app.setting.network')">
+            <el-form label-width="auto">
+              <!-- 网络代理 -->
+              <el-form-item :label="$t('app.setting.item.proxy.label')">
+                <el-input
+                  v-model="appSettingStore.app.proxy"
+                  size="small"
+                  @change="setProxy(appSettingStore.app.proxy)"
+                />
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+
+          <!-- 关于 -->
+          <el-tab-pane :label="$t('app.setting.about')">
+            <el-form label-width="auto">
+              <!-- 应用版本 -->
+              <el-form-item :label="$t('app.setting.item.about.appVersion')">
+                <el-space :size="15">
+                  <div>v{{ appVersion }}</div>
+                  <el-button
+                    size="small"
+                    :icon="Download"
+                    @click="openInBrowser('https://github.com/classfang/chatgpt-plus/releases')"
+                  >
+                    {{ $t('app.setting.item.about.appDownload') }}
+                  </el-button>
+                </el-space>
+              </el-form-item>
+
+              <!-- 日志目录 -->
+              <el-form-item :label="$t('app.setting.item.about.log')">
+                <el-button size="small" :icon="Folder" @click="openLogDir()">
+                  {{ $t('app.setting.item.about.openLogDir') }}
+                </el-button>
+              </el-form-item>
+
+              <!-- 缓存目录 -->
+              <el-form-item :label="$t('app.setting.item.about.cache')">
+                <el-button size="small" :icon="Folder" @click="openCacheDir()">
+                  {{ $t('app.setting.item.about.openCacheDir') }}
+                </el-button>
+              </el-form-item>
+            </el-form>
           </el-tab-pane>
         </el-tabs>
       </div>
