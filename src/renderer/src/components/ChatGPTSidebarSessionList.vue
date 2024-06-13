@@ -1,15 +1,192 @@
 <script setup lang="ts">
 import ChatGPTSidebarSession from '@renderer/components/ChatGPTSidebarSession.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import dayjs from 'dayjs'
+import { computed } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
+
+// 计算日期标签
+const dateFlagMap = computed(() => {
+  const map = new Map<number, string>()
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) => dayjs(s.createTime).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+    ),
+    'today'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY-MM-DD') === dayjs().add(-1, 'day').format('YYYY-MM-DD')
+    ),
+    'yesterday'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-1, 'day'), 'day') &&
+        dayjs(s.createTime).isAfter(dayjs().add(-7, 'day'), 'day')
+    ),
+    'previous7'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-7, 'day'), 'day') &&
+        dayjs(s.createTime).isAfter(dayjs().add(-30, 'day'), 'day')
+    ),
+    'previous30'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 0
+    ),
+    'january'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 1
+    ),
+    'february'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 2
+    ),
+    'march'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 3
+    ),
+    'april'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 4
+    ),
+    'may'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 5
+    ),
+    'june'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 6
+    ),
+    'july'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 7
+    ),
+    'august'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 8
+    ),
+    'september'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 9
+    ),
+    'october'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 10
+    ),
+    'november'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex(
+      (s) =>
+        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
+        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).get('month') === 11
+    ),
+    'december'
+  )
+
+  map.set(
+    chatSessionStore.getUsedSessions.findIndex((s) =>
+      dayjs(s.createTime).isBefore(dayjs(), 'year')
+    ),
+    'earlier'
+  )
+
+  return map
+})
 </script>
 
 <template>
   <el-scrollbar class="chatgpt-session-list-scrollbar">
     <div class="session-list">
-      <template v-for="s in chatSessionStore.sessions" :key="s.id">
+      <template v-for="(s, index) in chatSessionStore.getUsedSessions" :key="s.id">
+        <!-- 日期标签 -->
+        <div v-if="dateFlagMap.get(index)" class="date-flag">
+          {{ $t('app.chatgpt.sidebar.session.dateFlag.' + dateFlagMap.get(index)) }}
+        </div>
+
+        <!-- 会话 -->
         <ChatGPTSidebarSession :session="s" />
       </template>
     </div>
@@ -31,6 +208,12 @@ const chatSessionStore = useChatSessionStore()
     flex-direction: column;
     align-items: center;
     gap: $app-padding-base;
+
+    .date-flag {
+      width: 100%;
+      color: var(--el-text-color-secondary);
+      font-size: var(--el-font-size-small);
+    }
   }
 }
 </style>

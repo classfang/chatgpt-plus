@@ -9,6 +9,9 @@ export const useChatSessionStore = defineStore({
     activeSessionId: ''
   }),
   getters: {
+    getUsedSessions(): ChatSession[] {
+      return this.sessions.filter((s) => s.messages.length > 0)
+    },
     getActiveSession(): ChatSession | undefined {
       return this.sessions.find((s) => s.id === this.activeSessionId)
     }

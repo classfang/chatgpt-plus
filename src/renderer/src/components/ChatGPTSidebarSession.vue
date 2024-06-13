@@ -47,7 +47,6 @@ const editSession = () => {
 
 <template>
   <div
-    v-if="session.messages.length > 0"
     class="chatgpt-session"
     :class="{ 'chatgpt-session-active': chatSessionStore.activeSessionId === session.id }"
     @click="activeSession()"

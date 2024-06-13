@@ -50,6 +50,7 @@
           },
           "dateFlag": {
             "today": "今天",
+            "yesterday": "昨天",
             "previous7": "前 7 天",
             "previous30": "前 30 天",
             "january": "一月",
