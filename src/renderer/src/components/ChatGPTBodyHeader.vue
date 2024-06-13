@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Setting } from '@element-plus/icons-vue'
+import { ArrowDown } from '@element-plus/icons-vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
@@ -8,10 +8,16 @@ const chatSessionStore = useChatSessionStore()
 
 <template>
   <div class="chatgpt-body-header">
-    <div class="model-name">
-      <div>{{ chatSessionStore.getActiveSession!.model }}</div>
-      <Setting class="session-setting-icon" />
-    </div>
+    <!-- 模型名称下拉列表 -->
+    <el-dropdown trigger="click">
+      <div class="model-name">
+        <div>{{ chatSessionStore.getActiveSession!.model }}</div>
+        <ArrowDown class="session-setting-icon" />
+      </div>
+      <template #dropdown>
+        <div class="model-dropdown-body"></div>
+      </template>
+    </el-dropdown>
   </div>
 </template>
 
@@ -27,16 +33,22 @@ const chatSessionStore = useChatSessionStore()
   gap: $app-padding-base;
 
   .model-name {
-    font-size: var(--el-font-size-large);
     display: flex;
-    gap: 10px;
+    gap: $app-padding-small;
     align-items: center;
     justify-content: center;
+    font-size: $app-icon-size-small;
+    font-weight: var(--el-font-weight-primary);
+    cursor: pointer;
 
     .session-setting-icon {
-      height: $app-icon-size-base;
-      width: $app-icon-size-base;
+      height: $app-icon-size-small;
+      width: $app-icon-size-small;
     }
   }
+}
+
+.model-dropdown-body {
+  width: $app-chatgpt-body-header-model-dropdown-body-width;
 }
 </style>
