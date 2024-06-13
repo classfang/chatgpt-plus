@@ -44,7 +44,7 @@ onMounted(() => {
             <el-form label-width="auto">
               <!-- 主题 -->
               <el-form-item :label="$t('app.setting.item.theme.label')">
-                <el-radio-group v-model="appSettingStore.app.themeModel" size="small">
+                <el-radio-group v-model="appSettingStore.app.themeModel">
                   <el-radio-button :value="0">
                     <el-space :size="5">
                       <Monitor class="setting-item-icon" />
@@ -68,7 +68,7 @@ onMounted(() => {
 
               <!-- 语言 -->
               <el-form-item :label="$t('app.setting.item.language.label')">
-                <el-radio-group v-model="appSettingStore.app.locale" size="small">
+                <el-radio-group v-model="appSettingStore.app.locale">
                   <el-radio-button :label="$t('app.setting.item.language.zhCN')" value="zh_CN" />
                   <el-radio-button :label="$t('app.setting.item.language.enUS')" value="en_US" />
                 </el-radio-group>
@@ -82,27 +82,17 @@ onMounted(() => {
               <el-form label-width="auto">
                 <!-- Base URL -->
                 <el-form-item :label="$t('app.setting.item.openai.baseUrl')">
-                  <el-input v-model="appSettingStore.openAI.baseUrl" size="small" />
+                  <el-input v-model="appSettingStore.openAI.baseUrl" />
                 </el-form-item>
 
                 <!-- API Key -->
                 <el-form-item :label="$t('app.setting.item.openai.apiKey')">
-                  <el-input
-                    v-model="appSettingStore.openAI.apiKey"
-                    show-password
-                    type="password"
-                    size="small"
-                  />
+                  <el-input v-model="appSettingStore.openAI.apiKey" show-password type="password" />
                 </el-form-item>
 
                 <!-- Model -->
                 <el-form-item :label="$t('app.setting.item.openai.model')">
-                  <el-select
-                    v-model="appSettingStore.openAI.model"
-                    size="small"
-                    allow-create
-                    filterable
-                  >
+                  <el-select v-model="appSettingStore.openAI.model" allow-create filterable>
                     <el-option-group
                       v-for="group in OpenAIModels"
                       :key="group.label"
@@ -129,7 +119,6 @@ onMounted(() => {
                       :min="0"
                       :max="1"
                       :step="0.1"
-                      size="small"
                     />
                   </el-tooltip>
                 </el-form-item>
@@ -145,7 +134,6 @@ onMounted(() => {
                       :min="0"
                       :max="1"
                       :step="0.1"
-                      size="small"
                     />
                   </el-tooltip>
                 </el-form-item>
@@ -161,7 +149,6 @@ onMounted(() => {
                       :min="1024"
                       :max="1024000"
                       :step="1"
-                      size="small"
                     />
                   </el-tooltip>
                 </el-form-item>
@@ -177,7 +164,6 @@ onMounted(() => {
                       :min="-2"
                       :max="2"
                       :step="0.1"
-                      size="small"
                     />
                   </el-tooltip>
                 </el-form-item>
@@ -193,7 +179,6 @@ onMounted(() => {
                       :min="-2"
                       :max="2"
                       :step="0.1"
-                      size="small"
                     />
                   </el-tooltip>
                 </el-form-item>
@@ -209,7 +194,6 @@ onMounted(() => {
                       :min="0"
                       :max="100"
                       :step="1"
-                      size="small"
                     />
                   </el-tooltip>
                 </el-form-item>
@@ -224,7 +208,6 @@ onMounted(() => {
               <el-form-item :label="$t('app.setting.item.proxy.label')">
                 <el-input
                   v-model="appSettingStore.app.proxy"
-                  size="small"
                   @change="setProxy(appSettingStore.app.proxy)"
                 />
               </el-form-item>
@@ -239,7 +222,6 @@ onMounted(() => {
                 <el-space :size="15">
                   <div>v{{ appVersion }}</div>
                   <el-button
-                    size="small"
                     :icon="Download"
                     @click="openInBrowser('https://github.com/classfang/chatgpt-plus/releases')"
                   >
@@ -250,21 +232,21 @@ onMounted(() => {
 
               <!-- 日志目录 -->
               <el-form-item :label="$t('app.setting.item.about.log')">
-                <el-button size="small" :icon="Folder" @click="openLogDir()">
+                <el-button :icon="Folder" @click="openLogDir()">
                   {{ $t('app.setting.item.about.openLogDir') }}
                 </el-button>
               </el-form-item>
 
               <!-- 缓存目录 -->
               <el-form-item :label="$t('app.setting.item.about.cache')">
-                <el-button size="small" :icon="Folder" @click="openCacheDir()">
+                <el-button :icon="Folder" @click="openCacheDir()">
                   {{ $t('app.setting.item.about.openCacheDir') }}
                 </el-button>
               </el-form-item>
 
               <!-- 开发者工具 -->
               <el-form-item :label="$t('app.setting.item.about.devTools')">
-                <el-button size="small" :icon="Tools" @click="openDevTools()">
+                <el-button :icon="Tools" @click="openDevTools()">
                   {{ $t('app.setting.item.about.openDevTools') }}
                 </el-button>
               </el-form-item>

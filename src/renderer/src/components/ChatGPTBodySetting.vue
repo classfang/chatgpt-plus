@@ -23,12 +23,7 @@ const visible = defineModel<boolean>('visible', {
           <el-form label-width="auto">
             <!-- Model -->
             <el-form-item :label="$t('app.setting.item.openai.model')">
-              <el-select
-                v-model="chatSessionStore.getActiveSession!.model"
-                size="small"
-                allow-create
-                filterable
-              >
+              <el-select v-model="chatSessionStore.getActiveSession!.model" allow-create filterable>
                 <el-option-group
                   v-for="group in OpenAIModels"
                   :key="group.label"
@@ -55,7 +50,6 @@ const visible = defineModel<boolean>('visible', {
                   :min="0"
                   :max="1"
                   :step="0.1"
-                  size="small"
                 />
               </el-tooltip>
             </el-form-item>
@@ -68,7 +62,6 @@ const visible = defineModel<boolean>('visible', {
                   :min="0"
                   :max="1"
                   :step="0.1"
-                  size="small"
                 />
               </el-tooltip>
             </el-form-item>
@@ -84,7 +77,6 @@ const visible = defineModel<boolean>('visible', {
                   :min="1024"
                   :max="1024000"
                   :step="1"
-                  size="small"
                 />
               </el-tooltip>
             </el-form-item>
@@ -100,7 +92,6 @@ const visible = defineModel<boolean>('visible', {
                   :min="-2"
                   :max="2"
                   :step="0.1"
-                  size="small"
                 />
               </el-tooltip>
             </el-form-item>
@@ -116,7 +107,6 @@ const visible = defineModel<boolean>('visible', {
                   :min="-2"
                   :max="2"
                   :step="0.1"
-                  size="small"
                 />
               </el-tooltip>
             </el-form-item>
@@ -132,7 +122,6 @@ const visible = defineModel<boolean>('visible', {
                   :min="0"
                   :max="100"
                   :step="1"
-                  size="small"
                 />
               </el-tooltip>
             </el-form-item>
