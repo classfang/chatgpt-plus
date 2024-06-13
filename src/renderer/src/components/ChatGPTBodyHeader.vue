@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OpenAIModels } from '@renderer/config/OpenAIConfig'
+import { Setting } from '@element-plus/icons-vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
@@ -8,16 +8,10 @@ const chatSessionStore = useChatSessionStore()
 
 <template>
   <div class="chatgpt-body-header">
-    <el-select v-model="chatSessionStore.getActiveSession!.model" allow-create filterable>
-      <el-option-group v-for="group in OpenAIModels" :key="group.label" :label="group.label">
-        <el-option
-          v-for="item in group.options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-option-group>
-    </el-select>
+    <div class="model-name">
+      <div>{{ chatSessionStore.getActiveSession!.model }}</div>
+      <Setting class="session-setting-icon" />
+    </div>
   </div>
 </template>
 
@@ -29,8 +23,20 @@ const chatSessionStore = useChatSessionStore()
   padding: 0 $app-padding-base;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: $app-padding-base;
-  background-color: red;
+
+  .model-name {
+    font-size: var(--el-font-size-large);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+    .session-setting-icon {
+      height: $app-icon-size-base;
+      width: $app-icon-size-base;
+    }
+  }
 }
 </style>
