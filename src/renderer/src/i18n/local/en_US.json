@@ -100,11 +100,19 @@
           "currentChat": {
             "setting": "Current Chat Settings"
           },
-          "shareConfirm": {
-            "title": "Share Chat",
-            "content": "An image will be generated for you to share",
-            "confirm": "Confirm",
-            "cancel": "Cancel"
+          "share": {
+            "image": {
+              "title": "Share Image",
+              "content": "An image will be generated for you to share",
+              "confirm": "Confirm",
+              "cancel": "Cancel"
+            },
+            "text": {
+              "title": "Share Text",
+              "content": "An text file will be generated for you to share",
+              "confirm": "Confirm",
+              "cancel": "Cancel"
+            }
           }
         },
         "empty": {

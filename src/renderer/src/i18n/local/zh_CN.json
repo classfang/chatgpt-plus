@@ -100,11 +100,19 @@
           "currentChat": {
             "setting": "当前对话设置"
           },
-          "shareConfirm": {
-            "title": "分享对话",
-            "content": "将为你生成用于分享的图片",
-            "confirm": "确认",
-            "cancel": "取消"
+          "share": {
+            "image": {
+              "title": "分享图片",
+              "content": "将为你生成用于分享的图片",
+              "confirm": "确认",
+              "cancel": "取消"
+            },
+            "text": {
+              "title": "分享文本",
+              "content": "将为你生成用于分享的文本文档",
+              "confirm": "确认",
+              "cancel": "取消"
+            }
           }
         },
         "empty": {

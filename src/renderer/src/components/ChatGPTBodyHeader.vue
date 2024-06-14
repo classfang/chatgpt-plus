@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ArrowDownBold, Share } from '@element-plus/icons-vue'
+import { ArrowDownBold, Picture, Share, Document } from '@element-plus/icons-vue'
 import ChatGPTBodySetting from '@renderer/components/ChatGPTBodySetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { nowTimestamp } from '@renderer/utils/date-util'
+import { exportTextFile } from '@renderer/utils/download-util'
 import { Logger } from '@renderer/utils/logger'
 import { ElMessageBox } from 'element-plus'
 import html2canvas from 'html2canvas'
@@ -25,8 +26,8 @@ const chatSessionStore = useChatSessionStore()
 const appSettingStore = useAppSettingStore()
 const appStateStore = useAppStateStore()
 
-// 分享
-const share = () => {
+// 分享图片
+const shareImage = () => {
   if (appStateStore.chatgptLoading) {
     return
   }
@@ -34,12 +35,12 @@ const share = () => {
   const el = document.getElementById('message-list-container')
   if (el) {
     ElMessageBox.confirm(
-      t('app.chatgpt.body.header.shareConfirm.content'),
-      t('app.chatgpt.body.header.shareConfirm.title'),
+      t('app.chatgpt.body.header.share.image.content'),
+      t('app.chatgpt.body.header.share.image.title'),
       {
         distinguishCancelAndClose: true,
-        confirmButtonText: t('app.chatgpt.body.header.shareConfirm.confirm'),
-        cancelButtonText: t('app.chatgpt.body.header.shareConfirm.cancel')
+        confirmButtonText: t('app.chatgpt.body.header.share.image.confirm'),
+        cancelButtonText: t('app.chatgpt.body.header.share.image.cancel')
       }
     ).then(() => {
       html2canvas(el, {
@@ -63,6 +64,32 @@ const share = () => {
     })
   }
 }
+
+// 分享文本
+const shareText = () => {
+  if (appStateStore.chatgptLoading) {
+    return
+  }
+
+  const messages = chatSessionStore.getActiveSession?.messages
+  if (messages && messages.length > 0) {
+    ElMessageBox.confirm(
+      t('app.chatgpt.body.header.share.text.content'),
+      t('app.chatgpt.body.header.share.text.title'),
+      {
+        distinguishCancelAndClose: true,
+        confirmButtonText: t('app.chatgpt.body.header.share.text.confirm'),
+        cancelButtonText: t('app.chatgpt.body.header.share.text.cancel')
+      }
+    ).then(() => {
+      // 生成导出文本（使用一些 Markdown 语法）
+      const exportText = messages.map((m) => `#### ${m.role}: \n${m.content}\n\n---\n\n`).join('')
+
+      // 导出文本
+      exportTextFile(`share-text-${nowTimestamp()}.txt`, exportText)
+    })
+  }
+}
 </script>
 
 <template>
@@ -77,22 +104,25 @@ const share = () => {
       <ArrowDownBold class="session-setting-icon" />
     </div>
 
-    <Share class="share-icon" @click="share()" />
-
-    <!-- 模型名称下拉列表 -->
-    <!--        <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="bottom-start">-->
-    <!--          <div class="model-name" @click="currentChatSettingVisible = true">-->
-    <!--            <div>{{ chatSessionStore.getActiveSession!.model }}</div>-->
-    <!--            <ArrowDownBold class="session-setting-icon" />-->
-    <!--          </div>-->
-    <!--          <template #dropdown>-->
-    <!--            <el-dropdown-menu>-->
-    <!--              <el-dropdown-item :icon="Setting" @click="currentChatSettingVisible = true">-->
-    <!--                {{ $t('app.chatgpt.body.header.currentChat.setting') }}-->
-    <!--              </el-dropdown-item>-->
-    <!--            </el-dropdown-menu>-->
-    <!--          </template>-->
-    <!--        </el-dropdown>-->
+    <!-- 分享下拉列表 -->
+    <el-dropdown
+      class="share-dropdown"
+      trigger="click"
+      :disabled="appStateStore.chatgptLoading"
+      placement="bottom-start"
+    >
+      <Share class="share-icon" />
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item :icon="Picture" @click="shareImage()">
+            {{ $t('app.chatgpt.body.header.share.image.title') }}
+          </el-dropdown-item>
+          <el-dropdown-item :icon="Document" @click="shareText()">
+            {{ $t('app.chatgpt.body.header.share.text.title') }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
 
     <!-- 当前对话设置弹窗 -->
     <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />
@@ -128,16 +158,14 @@ const share = () => {
     }
   }
 
-  .share-icon {
-    height: $app-icon-size-base;
-    width: $app-icon-size-base;
+  .share-dropdown {
     margin-left: auto;
+
+    .share-icon {
+      height: $app-icon-size-base;
+      width: $app-icon-size-base;
+      outline: none;
+    }
   }
 }
-
-//.dropdown-menu {
-//  display: flex;
-//  flex-direction: column;
-//  padding: $app-padding-base;
-//}
 </style>
