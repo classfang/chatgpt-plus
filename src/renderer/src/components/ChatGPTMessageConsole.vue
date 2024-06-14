@@ -35,12 +35,19 @@ const message = defineModel<ChatMessage>('message', {
       />
     </template>
     <el-button :icon="CopyDocument" text circle @click="clipboardWriteText(message.content)" />
-    <el-button
-      :icon="Refresh"
-      text
-      circle
-      @click="!appStateStore.chatgptLoading && emits('regenerate')"
-    />
+    <template
+      v-if="
+        message.role === 'assistant' &&
+        chatSessionStore.getActiveSession?.messages.at(0)?.id != message.id
+      "
+    >
+      <el-button
+        :icon="Refresh"
+        text
+        circle
+        @click="!appStateStore.chatgptLoading && emits('regenerate')"
+      />
+    </template>
     <el-button
       :icon="Delete"
       text

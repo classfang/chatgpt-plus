@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // 组件传参
+import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
+
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
 })
@@ -8,6 +10,7 @@ const message = defineModel<ChatMessage>('message', {
 <template>
   <div class="chatgpt-message-user">
     <div class="message-content select-text">{{ message.content }}</div>
+    <ChatGPTMessageConsole v-model:message="message" class="message-console" />
   </div>
 </template>
 
@@ -33,6 +36,18 @@ const message = defineModel<ChatMessage>('message', {
     line-height: 1.3rem;
     display: flex;
     justify-content: center;
+  }
+
+  .message-console {
+    opacity: 0;
+    transition: opacity $app-transition-base;
+    justify-content: flex-end;
+  }
+
+  &:hover {
+    .message-console {
+      opacity: 1;
+    }
   }
 }
 </style>
