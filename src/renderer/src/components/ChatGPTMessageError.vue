@@ -1,7 +1,8 @@
 <script setup lang="ts">
-// 组件传参
 import chatgptAvatar from '@renderer/assets/image/chatgpt-avatar.png'
+import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
 
+// 组件传参
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
 })
@@ -12,7 +13,7 @@ const message = defineModel<ChatMessage>('message', {
     <el-avatar :size="38" :src="chatgptAvatar" />
     <div class="message-content-container">
       <div class="message-content select-text">{{ message.content }}</div>
-      <div class="message-console"></div>
+      <ChatGPTMessageConsole v-model:message="message" />
     </div>
   </div>
 </template>
@@ -48,10 +49,6 @@ const message = defineModel<ChatMessage>('message', {
       display: flex;
       justify-content: center;
       color: var(--el-color-error);
-    }
-
-    .message-console {
-      height: $app-chatgpt-message-console-height;
     }
   }
 }

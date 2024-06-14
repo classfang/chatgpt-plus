@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import chatgptAvatar from '@renderer/assets/image/chatgpt-avatar.png'
+import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { renderMarkdown } from '@renderer/utils/markdown-util'
@@ -28,7 +29,7 @@ const message = defineModel<ChatMessage>('message', {
           )
         "
       ></div>
-      <div class="message-console"></div>
+      <ChatGPTMessageConsole v-model:message="message" />
     </div>
   </div>
 </template>
@@ -90,10 +91,6 @@ const message = defineModel<ChatMessage>('message', {
           opacity: 0;
         }
       }
-    }
-
-    .message-console {
-      height: $app-chatgpt-message-console-height;
     }
   }
 }

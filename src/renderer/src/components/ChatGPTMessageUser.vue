@@ -8,7 +8,6 @@ const message = defineModel<ChatMessage>('message', {
 <template>
   <div class="chatgpt-message-user">
     <div class="message-content select-text">{{ message.content }}</div>
-    <div class="message-console"></div>
   </div>
 </template>
 
@@ -34,10 +33,6 @@ const message = defineModel<ChatMessage>('message', {
     line-height: 1.3rem;
     display: flex;
     justify-content: center;
-  }
-
-  .message-console {
-    height: $app-chatgpt-message-console-height;
   }
 }
 </style>

@@ -141,7 +141,7 @@ onMounted(() => {
     padding: $app-padding-base;
     display: flex;
     flex-direction: column;
-    gap: $app-padding-small;
+    gap: $app-padding-base;
   }
 
   .to-bottom-btn {
