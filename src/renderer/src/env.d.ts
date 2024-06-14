@@ -30,6 +30,8 @@ interface ChatMessage extends BaseEntity {
   content: string
   images?: ChatMessageFile[]
   files?: ChatMessageFile[]
+  choices?: string[]
+  choiceIndex?: number
 }
 
 interface OpenAIOption {

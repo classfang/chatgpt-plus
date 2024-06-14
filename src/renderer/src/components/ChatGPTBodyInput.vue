@@ -29,15 +29,17 @@ const emits = defineEmits(['update-message'])
 let abortCtr = new AbortController()
 
 // 发送提问
-const sendQuestion = async (event?: KeyboardEvent) => {
+const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => {
   // 加载中、内容为空、输入法回车，不发送消息
-  if (appStateStore.chatgptLoading || !data.question.trim() || event?.isComposing) {
-    event?.preventDefault()
-    return
-  } else if (event?.shiftKey) {
-    return
-  } else {
-    event?.preventDefault()
+  if (!regenerateFlag) {
+    if (appStateStore.chatgptLoading || !data.question.trim() || event?.isComposing) {
+      event?.preventDefault()
+      return
+    } else if (event?.shiftKey) {
+      return
+    } else {
+      event?.preventDefault()
+    }
   }
 
   // 加载中
@@ -47,25 +49,31 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   const noSessionNameFlag = chatSessionStore.getActiveSession!.name.trim().length === 0
 
   // 提问记录
-  chatSessionStore.pushMessage({
-    type: 'chat',
-    role: 'user',
-    content: data.question.trim()
-  })
-  data.question = ''
-  emits('update-message')
+  if (!regenerateFlag) {
+    chatSessionStore.pushMessage({
+      type: 'chat',
+      role: 'user',
+      content: data.question.trim()
+    })
+    data.question = ''
+    emits('update-message')
+  }
 
   // 阻断器
   const abortCtrSignal = abortCtr.signal
+
+  // 开始回答
+  if (!regenerateFlag) {
+    streamAnswer()
+  } else {
+    appStateStore.chatgptAnswering = true
+  }
 
   // 转换消息列表
   const sendMessages = convertMessages(
     chatSessionStore.getActiveSession!.messages,
     chatSessionStore.getActiveSession!.contextSize
   )
-
-  // 开始回答
-  streamAnswer()
 
   // 判断配置是否正确
   if (!appSettingStore.openAI.baseUrl) {
@@ -100,13 +108,8 @@ const sendQuestion = async (event?: KeyboardEvent) => {
       errorAnswer(error.message)
     },
     end: () => {
-      // 自动生成标题
-      if (noSessionNameFlag && appSettingStore.openAI.autoGenerateSessionName) {
-        generateSessionName(chatSessionStore.getActiveSession!.id!)
-      }
-
       // 结束回答
-      finishAnswer()
+      finishAnswer(noSessionNameFlag, regenerateFlag)
     }
   })
 }
@@ -117,7 +120,7 @@ const convertMessages = (
   contextSize?: number
 ): OpenAI.ChatCompletionMessageParam[] => {
   return messages
-    .slice(contextSize ? -(contextSize + 1) : 0)
+    .slice(contextSize ? -(contextSize + 1) : 0, messages.length - 1)
     .filter((m) => m.type === 'chat')
     .map((m) => ({
       role: m.role,
@@ -150,11 +153,23 @@ const errorAnswer = (content: string) => {
 }
 
 // 完成回答
-const finishAnswer = () => {
+const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => {
   // 如果最后一条回答是空的内容则删除
   const latestMessage = chatSessionStore.getActiveSession?.messages.at(-1)
   if (latestMessage && !latestMessage.content) {
     chatSessionStore.deleteMessage(latestMessage.id!)
+  }
+
+  // 自动生成标题
+  if (noSessionNameFlag && appSettingStore.openAI.autoGenerateSessionName) {
+    generateSessionName(chatSessionStore.getActiveSession!.id!)
+  }
+
+  // 保存当前回答到最后一个choice
+  if (regenerateFlag) {
+    // 最新一条消息
+    const latestMessage = chatSessionStore.getActiveSession!.messages.at(-1)!
+    latestMessage.choices![latestMessage.choices!.length - 1] = latestMessage.content
   }
 
   appStateStore.chatgptAnswering = false
@@ -206,7 +221,33 @@ const generateSessionName = async (sessionId: string) => {
 
 // 重新生成
 const regenerate = (messageId: string) => {
-  console.log(messageId)
+  // 删除之后的所有消息
+  if (!chatSessionStore.deleteMessagesFrom(messageId)) {
+    return
+  }
+
+  // 最新一条消息
+  const latestMessage = chatSessionStore.getActiveSession!.messages.at(-1)!
+
+  // 初始化choices
+  if (!latestMessage.choices) {
+    latestMessage.choices = [latestMessage.content, '']
+  } else {
+    latestMessage.choices.push('')
+  }
+
+  // 初始化choiceIndex
+  if (!latestMessage.choiceIndex) {
+    latestMessage.choiceIndex = 1
+  } else {
+    latestMessage.choiceIndex++
+  }
+
+  // 清空当前内容
+  latestMessage.content = ''
+
+  // 重新生成
+  sendQuestion(undefined, true)
 }
 
 // 暴露函数

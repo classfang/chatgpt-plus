@@ -181,7 +181,7 @@ const dateFlagMap = computed(() => {
 
 // 滚动到顶部
 const scrollToTop = () => {
-  sessionListScrollbarRef.value.setScrollTop(0)
+  sessionListScrollbarRef.value?.setScrollTop(0)
 }
 
 // 暴露方法

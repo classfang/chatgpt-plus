@@ -75,6 +75,17 @@ export const useChatSessionStore = defineStore({
         (m) => m.id != messageId
       )
     },
+    deleteMessagesFrom(messageId: string) {
+      if (!this.getActiveSession) {
+        return false
+      }
+      const fromIndex = this.getActiveSession.messages.findIndex((m) => m.id === messageId)
+      if (fromIndex <= 0) {
+        return false
+      }
+      this.getActiveSession.messages = this.getActiveSession.messages.splice(0, fromIndex + 1)
+      return true
+    },
     getSessionById(sessionId: string): ChatSession | undefined {
       return this.sessions.find((s) => s.id === sessionId)
     }
