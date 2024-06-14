@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Download, Folder, Monitor, Moon, Sunny, Tools } from '@element-plus/icons-vue'
+import buildInfo from '@renderer/assets/json/build-info.json'
 import { OpenAIModels } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import {
@@ -10,6 +11,7 @@ import {
   setProxy
 } from '@renderer/utils/ipc-util'
 import { openInBrowser } from '@renderer/utils/window-util'
+import dayjs from 'dayjs'
 import { onMounted, reactive, toRefs } from 'vue'
 
 // 仓库
@@ -228,6 +230,11 @@ onMounted(() => {
                     {{ $t('app.setting.item.about.appDownload') }}
                   </el-button>
                 </el-space>
+              </el-form-item>
+
+              <!-- 构建时间 -->
+              <el-form-item :label="$t('app.setting.item.about.buildTime')">
+                <div>{{ dayjs(buildInfo.buildTime).format('YYYY-MM-DD HH:mm:ss.SSS') }}</div>
               </el-form-item>
 
               <!-- 日志目录 -->

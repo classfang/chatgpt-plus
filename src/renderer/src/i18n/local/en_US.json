@@ -42,6 +42,7 @@
         },
         "about": {
           "appVersion": "Application Version",
+          "buildTime": "Build Time",
           "appDownload": "Download Latest Version",
           "log": "Application Log",
           "openLogDir": "Open Log Directory",

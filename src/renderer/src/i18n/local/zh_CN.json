@@ -42,6 +42,7 @@
         },
         "about": {
           "appVersion": "应用版本",
+          "buildTime": "构建时间",
           "appDownload": "下载新版本",
           "log": "应用日志",
           "openLogDir": "打开日志目录",
