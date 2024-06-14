@@ -2,7 +2,7 @@
 import ChatGPTSidebarSession from '@renderer/components/ChatGPTSidebarSession.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import dayjs from 'dayjs'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
@@ -175,6 +175,11 @@ const dateFlagMap = computed(() => {
 
   return map
 })
+
+onMounted(() => {
+  // 当前会话进入视窗
+  document.querySelector('.chatgpt-session-active')?.scrollIntoView()
+})
 </script>
 
 <template>
@@ -189,6 +194,9 @@ const dateFlagMap = computed(() => {
         <!-- 会话 -->
         <ChatGPTSidebarSession :session="s" />
       </template>
+
+      <!-- 空底部，用于占位 -->
+      <div></div>
     </div>
   </el-scrollbar>
 </template>

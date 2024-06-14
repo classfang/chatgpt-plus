@@ -2,7 +2,7 @@
 import { Delete, EditPen, MoreFilled } from '@element-plus/icons-vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
-import { nextTick, reactive, ref, toRefs } from 'vue'
+import { nextTick, reactive, ref, toRefs, onMounted } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
