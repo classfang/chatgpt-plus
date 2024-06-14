@@ -1,4 +1,9 @@
 import { Platform } from '@electron-toolkit/utils'
+import i18n from '@renderer/i18n'
+import { ElMessage } from 'element-plus'
+
+// 多语言
+const { t } = i18n.global
 
 export const getPlatform = (): Platform => {
   return window.electron.ipcRenderer.sendSync('process-platform')
@@ -37,6 +42,7 @@ export const readLocalImageBase64 = (path: string) => {
 }
 
 export const clipboardWriteText = (text: string) => {
+  ElMessage.success(t('app.chatgpt.body.message.copied'))
   return window.electron.ipcRenderer.invoke('clipboard-write-text', text)
 }
 

@@ -29,7 +29,7 @@ const message = defineModel<ChatMessage>('message', {
           )
         "
       ></div>
-      <ChatGPTMessageConsole v-model:message="message" />
+      <ChatGPTMessageConsole v-model:message="message" class="message-console" />
     </div>
   </div>
 </template>
@@ -90,6 +90,17 @@ const message = defineModel<ChatMessage>('message', {
         90% {
           opacity: 0;
         }
+      }
+    }
+
+    .message-console {
+      opacity: 0;
+      transition: opacity $app-transition-base;
+    }
+
+    &:hover {
+      .message-console {
+        opacity: 1;
       }
     }
   }

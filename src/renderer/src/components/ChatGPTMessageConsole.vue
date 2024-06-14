@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // 组件传参
 import { CopyDocument } from '@element-plus/icons-vue'
+import { clipboardWriteText } from '@renderer/utils/ipc-util'
 
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
@@ -9,7 +10,7 @@ const message = defineModel<ChatMessage>('message', {
 
 <template>
   <div class="chatgpt-message-console">
-    <CopyDocument class="console-icon" />
+    <CopyDocument class="console-icon" @click="clipboardWriteText(message.content)" />
   </div>
 </template>
 
@@ -24,6 +25,7 @@ const message = defineModel<ChatMessage>('message', {
   .console-icon {
     height: $app-icon-size-small;
     width: $app-icon-size-small;
+    cursor: pointer;
   }
 }
 </style>
