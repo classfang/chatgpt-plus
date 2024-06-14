@@ -199,6 +199,16 @@ onMounted(() => {
                     />
                   </el-tooltip>
                 </el-form-item>
+
+                <!-- Auto Generate Title -->
+                <el-form-item :label="$t('app.setting.item.openai.autoGenerateTitle')">
+                  <el-tooltip
+                    :content="$t('app.setting.item.openai.explain.autoGenerateTitle')"
+                    placement="right"
+                  >
+                    <el-switch v-model="appSettingStore.openAI.autoGenerateTitle" />
+                  </el-tooltip>
+                </el-form-item>
               </el-form>
             </el-scrollbar>
           </el-tab-pane>

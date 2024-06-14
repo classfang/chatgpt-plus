@@ -28,13 +28,15 @@
           "presencePenalty": "话题新鲜度",
           "frequencyPenalty": "频率惩罚度",
           "contextSize": "上下文大小",
+          "autoGenerateTitle": "自动生成标题",
           "explain": {
             "temperature": "值越大，回复越随机",
             "topP": "与随机性类似，但不要和随机性一起更改",
             "maxTokens": "单次交互所用的最大 Token 数",
             "presencePenalty": "值越大，越有可能扩展到新话题",
             "frequencyPenalty": "值越大，越有可能降低重复字词",
-            "contextSize": "每次请求携带历史消息条数"
+            "contextSize": "每次请求携带历史消息条数",
+            "autoGenerateTitle": "根据对话内容生成合适的标题"
           }
         },
         "proxy": {

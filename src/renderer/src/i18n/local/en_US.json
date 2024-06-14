@@ -28,13 +28,15 @@
           "presencePenalty": "Presence Penalty",
           "frequencyPenalty": "Frequency Penalty",
           "contextSize": "Context Size",
+          "autoGenerateTitle": "Auto Generate Title",
           "explain": {
             "temperature": "The larger the value, the more random the response",
             "topP": "Similar to randomness, but do not change with randomness",
             "maxTokens": "The maximum number of tokens used in a single interaction",
             "presencePenalty": "The larger the value, the more likely it is to expand to new topics",
             "frequencyPenalty": "The larger the value, the more likely it is to reduce duplicates",
-            "contextSize": "Number of historical messages carried per request"
+            "contextSize": "Number of historical messages carried per request",
+            "autoGenerateTitle": "Generate the appropriate title based on the conversation content"
           }
         },
         "proxy": {
