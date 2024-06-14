@@ -169,7 +169,9 @@ const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => 
   if (regenerateFlag) {
     // 最新一条消息
     const latestMessage = chatSessionStore.getActiveSession!.messages.at(-1)!
-    latestMessage.choices![latestMessage.choices!.length - 1] = latestMessage.content
+    if (latestMessage.choices) {
+      latestMessage.choices[latestMessage.choices.length - 1] = latestMessage.content
+    }
   }
 
   appStateStore.chatgptAnswering = false
@@ -229,18 +231,23 @@ const regenerate = (messageId: string) => {
   // 最新一条消息
   const latestMessage = chatSessionStore.getActiveSession!.messages.at(-1)!
 
-  // 初始化choices
-  if (!latestMessage.choices) {
-    latestMessage.choices = [latestMessage.content, '']
+  // 错误消息修改类型即可
+  if (latestMessage.type === 'error') {
+    latestMessage.type = 'chat'
   } else {
-    latestMessage.choices.push('')
-  }
+    // 初始化choices
+    if (!latestMessage.choices) {
+      latestMessage.choices = [latestMessage.content, '']
+    } else {
+      latestMessage.choices.push('')
+    }
 
-  // 初始化choiceIndex
-  if (!latestMessage.choiceIndex) {
-    latestMessage.choiceIndex = 1
-  } else {
-    latestMessage.choiceIndex++
+    // 初始化choiceIndex
+    if (!latestMessage.choiceIndex) {
+      latestMessage.choiceIndex = 1
+    } else {
+      latestMessage.choiceIndex++
+    }
   }
 
   // 清空当前内容
