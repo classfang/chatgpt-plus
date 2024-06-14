@@ -2,9 +2,13 @@
 import ChatGPTSidebarHeader from '@renderer/components/ChatGPTSidebarHeader.vue'
 import ChatGPTSidebarSessionList from '@renderer/components/ChatGPTSidebarSessionList.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
+import { ref } from 'vue'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
+
+// ref
+const sessionListRef = ref()
 </script>
 
 <template>
@@ -13,10 +17,10 @@ const appSettingStore = useAppSettingStore()
     :class="{ 'chatgpt-sidebar-visible': appSettingStore.chatgpt.sidebarVisible }"
   >
     <!-- 头部 -->
-    <ChatGPTSidebarHeader />
+    <ChatGPTSidebarHeader @create-session="sessionListRef.scrollToTop()" />
 
     <!-- 会话列表 -->
-    <ChatGPTSidebarSessionList />
+    <ChatGPTSidebarSessionList ref="sessionListRef" />
   </div>
 </template>
 

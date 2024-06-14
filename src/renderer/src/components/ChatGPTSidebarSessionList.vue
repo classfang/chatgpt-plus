@@ -2,10 +2,13 @@
 import ChatGPTSidebarSession from '@renderer/components/ChatGPTSidebarSession.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import dayjs from 'dayjs'
-import { computed, onMounted } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
+
+// ref
+const sessionListScrollbarRef = ref()
 
 // 计算日期标签
 const dateFlagMap = computed(() => {
@@ -176,14 +179,26 @@ const dateFlagMap = computed(() => {
   return map
 })
 
+// 滚动到顶部
+const scrollToTop = () => {
+  sessionListScrollbarRef.value.setScrollTop(0)
+}
+
+// 暴露方法
+defineExpose({
+  scrollToTop
+})
+
 onMounted(() => {
-  // 当前会话进入视窗
-  document.querySelector('.chatgpt-session-active')?.scrollIntoView()
+  nextTick(() => {
+    // 当前会话进入视窗
+    document.querySelector('.chatgpt-session-active')?.scrollIntoView()
+  })
 })
 </script>
 
 <template>
-  <el-scrollbar class="chatgpt-session-list-scrollbar">
+  <el-scrollbar ref="sessionListScrollbarRef" class="chatgpt-session-list-scrollbar">
     <div class="session-list">
       <template v-for="(s, index) in chatSessionStore.getUsedSessions" :key="s.id">
         <!-- 日期标签 -->

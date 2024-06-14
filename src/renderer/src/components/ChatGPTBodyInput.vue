@@ -59,7 +59,10 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   const abortCtrSignal = abortCtr.signal
 
   // 转换消息列表
-  const sendMessages = convertMessages(chatSessionStore.getActiveSession!.messages)
+  const sendMessages = convertMessages(
+    chatSessionStore.getActiveSession!.messages,
+    chatSessionStore.getActiveSession!.contextSize
+  )
 
   // 开始回答
   streamAnswer()
@@ -121,10 +124,13 @@ const sendQuestion = async (event?: KeyboardEvent) => {
 }
 
 // 转换消息列表
-const convertMessages = (messages: ChatMessage[]): OpenAI.ChatCompletionMessageParam[] => {
+const convertMessages = (
+  messages: ChatMessage[],
+  contextSize?: number
+): OpenAI.ChatCompletionMessageParam[] => {
   return messages
     .slice(messages.findLastIndex((m) => m.type === 'separator') + 1)
-    .slice(-(chatSessionStore.getActiveSession!.contextSize + 1))
+    .slice(contextSize ? -(contextSize + 1) : 0)
     .filter((m) => m.type === 'chat')
     .map((m) => ({
       role: m.role,
@@ -192,12 +198,13 @@ const generateSessionName = async (sessionId: string) => {
       stream: true,
       model: chatSessionStore.getActiveSession!.model,
       messages: [
+        ...convertMessages(chatSessionStore.getActiveSession!.messages),
         {
           role: 'user',
           content: [
             {
               type: 'text',
-              text: `Please summarize a short title based on the following conversation: ${JSON.stringify(chatSessionStore.getActiveSession!.messages)}`
+              text: t('app.chatgpt.prompt.generateTitle')
             }
           ]
         }

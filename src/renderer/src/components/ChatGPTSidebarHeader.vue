@@ -10,6 +10,9 @@ const appSettingStore = useAppSettingStore()
 const chatSessionStore = useChatSessionStore()
 const appStateStore = useAppStateStore()
 
+// 定义事件
+const emits = defineEmits(['create-session'])
+
 // 创建会话
 const createSession = () => {
   if (appStateStore.chatgptLoading) {
@@ -18,12 +21,14 @@ const createSession = () => {
   chatSessionStore.create({
     ...appSettingStore.openAI
   })
+  emits('create-session')
 }
 
-// 监听当前激活会话，自动创建会话
+// 监听当前激活会话
 watch(
   () => chatSessionStore.activeSessionId,
   () => {
+    // 如果没有当前会话，表示会话已经全部删除，自动创建会话
     if (!chatSessionStore.activeSessionId) {
       createSession()
     }
