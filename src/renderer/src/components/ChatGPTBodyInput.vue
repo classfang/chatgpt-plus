@@ -129,7 +129,6 @@ const convertMessages = (
   contextSize?: number
 ): OpenAI.ChatCompletionMessageParam[] => {
   return messages
-    .slice(messages.findLastIndex((m) => m.type === 'separator') + 1)
     .slice(contextSize ? -(contextSize + 1) : 0)
     .filter((m) => m.type === 'chat')
     .map((m) => ({
