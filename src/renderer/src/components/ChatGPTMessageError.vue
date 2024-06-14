@@ -6,6 +6,9 @@ import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vu
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
 })
+
+// 定义事件
+const emits = defineEmits(['regenerate'])
 </script>
 
 <template>
@@ -13,7 +16,11 @@ const message = defineModel<ChatMessage>('message', {
     <el-avatar :size="38" :src="chatgptAvatar" />
     <div class="message-content-container">
       <div class="message-content select-text">{{ message.content }}</div>
-      <ChatGPTMessageConsole v-model:message="message" class="message-console" />
+      <ChatGPTMessageConsole
+        v-model:message="message"
+        class="message-console"
+        @regenerate="emits('regenerate')"
+      />
     </div>
   </div>
 </template>
@@ -33,7 +40,7 @@ const message = defineModel<ChatMessage>('message', {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: $app-padding-small;
+    gap: $app-padding-extra-small;
 
     .message-content {
       min-width: 4rem;

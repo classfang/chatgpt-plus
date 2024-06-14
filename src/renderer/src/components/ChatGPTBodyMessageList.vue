@@ -10,14 +10,17 @@ import { ref, nextTick, reactive, toRefs, onMounted } from 'vue'
 // 仓库
 const chatSessionStore = useChatSessionStore()
 
+// ref
+const messageListScrollbarRef = ref()
+
+// 定义事件
+const emits = defineEmits(['regenerate'])
+
 // 数据绑定
 const data = reactive({
   toBottomBtnVisible: false
 })
 const { toBottomBtnVisible } = toRefs(data)
-
-// ref
-const messageListScrollbarRef = ref()
 
 // 滚动到底部
 const scrollToBottom = (isAuto: boolean) => {
@@ -102,13 +105,13 @@ onMounted(() => {
               <ChatGPTMessageUser :message="m" />
             </template>
             <template v-else-if="m.role === 'assistant'">
-              <ChatGPTMessageAssistant :message="m" />
+              <ChatGPTMessageAssistant :message="m" @regenerate="emits('regenerate', m.id)" />
             </template>
           </template>
 
           <!-- 错误消息 -->
           <template v-else-if="m.type === 'error'">
-            <ChatGPTMessageError :message="m" />
+            <ChatGPTMessageError :message="m" @regenerate="emits('regenerate', m.id)" />
           </template>
 
           <!-- 分隔消息 -->

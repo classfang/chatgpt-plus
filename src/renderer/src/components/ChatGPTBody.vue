@@ -6,6 +6,7 @@ import { ref } from 'vue'
 
 // ref
 const bodyMessageListRef = ref()
+const bodyInputRef = ref()
 </script>
 
 <template>
@@ -13,9 +14,15 @@ const bodyMessageListRef = ref()
     <!-- 头部 -->
     <ChatGPTBodyHeader />
     <!-- 消息列表 -->
-    <ChatGPTBodyMessageList ref="bodyMessageListRef" />
+    <ChatGPTBodyMessageList
+      ref="bodyMessageListRef"
+      @regenerate="(messageId: string) => bodyInputRef.regenerate(messageId)"
+    />
     <!-- 输入区域 -->
-    <ChatGPTBodyInput @update-message="bodyMessageListRef.scrollToBottom(true)" />
+    <ChatGPTBodyInput
+      ref="bodyInputRef"
+      @update-message="bodyMessageListRef.scrollToBottom(true)"
+    />
   </div>
 </template>
 

@@ -9,6 +9,9 @@ import { renderMarkdown } from '@renderer/utils/markdown-util'
 const appStateStore = useAppStateStore()
 const chatSessionStore = useChatSessionStore()
 
+// 定义事件
+const emits = defineEmits(['regenerate'])
+
 // 组件传参
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
@@ -29,7 +32,11 @@ const message = defineModel<ChatMessage>('message', {
           )
         "
       ></div>
-      <ChatGPTMessageConsole v-model:message="message" class="message-console" />
+      <ChatGPTMessageConsole
+        v-model:message="message"
+        class="message-console"
+        @regenerate="emits('regenerate')"
+      />
     </div>
   </div>
 </template>
@@ -49,7 +56,7 @@ const message = defineModel<ChatMessage>('message', {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: $app-padding-small;
+    gap: $app-padding-extra-small;
 
     .message-content {
       min-width: 4rem;

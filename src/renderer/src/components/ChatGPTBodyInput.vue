@@ -203,6 +203,16 @@ const generateSessionName = async (sessionId: string) => {
     }
   })
 }
+
+// 重新生成
+const regenerate = (messageId: string) => {
+  console.log(messageId)
+}
+
+// 暴露函数
+defineExpose({
+  regenerate
+})
 </script>
 
 <template>
