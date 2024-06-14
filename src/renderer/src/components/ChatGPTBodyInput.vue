@@ -3,7 +3,7 @@ import { Promotion } from '@element-plus/icons-vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
-import { Logger } from '@renderer/utils/logger'
+import { openaiChat } from '@renderer/utils/openai-util'
 import OpenAI from 'openai'
 import { reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -77,16 +77,11 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     return
   }
 
-  try {
-    // OpenAI实例
-    const openai = new OpenAI({
-      baseURL: appSettingStore.openAI.baseUrl,
-      apiKey: appSettingStore.openAI.apiKey,
-      dangerouslyAllowBrowser: true
-    })
-
-    // 流式对话
-    const sendBody: OpenAI.ChatCompletionCreateParams = {
+  // OpenAI对话
+  await openaiChat({
+    baseURL: appSettingStore.openAI.baseUrl,
+    apiKey: appSettingStore.openAI.apiKey,
+    params: {
       stream: true,
       messages: sendMessages,
       model: chatSessionStore.getActiveSession!.model,
@@ -95,32 +90,25 @@ const sendQuestion = async (event?: KeyboardEvent) => {
       top_p: chatSessionStore.getActiveSession!.topP,
       presence_penalty: chatSessionStore.getActiveSession!.presencePenalty,
       frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
-    }
-    Logger.info('ChatGPT request body: ', sendBody)
-    const stream = await openai.chat.completions.create(sendBody, {
-      signal: abortCtrSignal
-    })
-
-    // 连续回答
-    for await (const chunk of stream) {
-      if (abortCtrSignal.aborted) {
-        return
-      }
-      Logger.info('ChatGPT response chunk: ', chunk)
-      streamAnswer(chunk.choices[0].delta.content ?? '')
+    },
+    abortCtrSignal: abortCtrSignal,
+    answer: (content: string) => {
+      streamAnswer(content)
       emits('update-message')
+    },
+    error: (error: any) => {
+      errorAnswer(error.message)
+    },
+    end: () => {
+      // 自动生成标题
+      if (noSessionNameFlag && appSettingStore.openAI.autoGenerateSessionName) {
+        generateSessionName(chatSessionStore.getActiveSession!.id!)
+      }
+
+      // 结束回答
+      finishAnswer()
     }
-  } catch (e: any) {
-    errorAnswer(e.message)
-  }
-
-  // 自动生成标题
-  if (noSessionNameFlag && appSettingStore.openAI.autoGenerateSessionName) {
-    generateSessionName(chatSessionStore.getActiveSession!.id!)
-  }
-
-  // 结束回答
-  finishAnswer()
+  })
 }
 
 // 转换消息列表
@@ -184,16 +172,11 @@ const stopAnswer = () => {
 const generateSessionName = async (sessionId: string) => {
   let sessionName = ''
 
-  try {
-    // OpenAI实例
-    const openai = new OpenAI({
-      baseURL: appSettingStore.openAI.baseUrl,
-      apiKey: appSettingStore.openAI.apiKey,
-      dangerouslyAllowBrowser: true
-    })
-
-    // 流式对话
-    const sendBody: OpenAI.ChatCompletionCreateParams = {
+  // OpenAI对话
+  await openaiChat({
+    baseURL: appSettingStore.openAI.baseUrl,
+    apiKey: appSettingStore.openAI.apiKey,
+    params: {
       stream: true,
       model: chatSessionStore.getActiveSession!.model,
       messages: [
@@ -208,24 +191,17 @@ const generateSessionName = async (sessionId: string) => {
           ]
         }
       ]
-    }
-    Logger.info('ChatGPT generateSessionName request body: ', sendBody)
-    const stream = await openai.chat.completions.create(sendBody)
-
-    // 连续回答
-    for await (const chunk of stream) {
-      Logger.info('ChatGPT generateSessionName response chunk: ', chunk)
+    },
+    answer: (content: string) => {
       // 拼接名称
-      sessionName = (sessionName + (chunk.choices[0].delta.content ?? '')).trim()
+      sessionName = content.trim()
       // 根据id获取session
       const session = chatSessionStore.getSessionById(sessionId)
       if (session && sessionName.length > 0) {
         session.name = sessionName
       }
     }
-  } catch (e: any) {
-    Logger.info('ChatGPT generateSessionName error: ', e.message)
-  }
+  })
 }
 </script>
 
