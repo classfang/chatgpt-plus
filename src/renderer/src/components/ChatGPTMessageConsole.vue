@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CopyDocument, Delete, Refresh } from '@element-plus/icons-vue'
+import { ArrowLeft, ArrowRight, CopyDocument, Delete, Refresh } from '@element-plus/icons-vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { clipboardWriteText } from '@renderer/utils/ipc-util'
@@ -19,6 +19,21 @@ const message = defineModel<ChatMessage>('message', {
 
 <template>
   <div class="chatgpt-message-console">
+    <template v-if="message.type === 'chat' && message.role === 'assistant' && message.choices">
+      <el-button
+        :icon="ArrowLeft"
+        text
+        circle
+        @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, -1)"
+      />
+      <div>{{ (message.choiceIndex ?? 0) + 1 }} / {{ message.choices.length }}</div>
+      <el-button
+        :icon="ArrowRight"
+        text
+        circle
+        @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, 1)"
+      />
+    </template>
     <el-button :icon="CopyDocument" text circle @click="clipboardWriteText(message.content)" />
     <el-button
       :icon="Refresh"

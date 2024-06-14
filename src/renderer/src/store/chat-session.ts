@@ -88,6 +88,25 @@ export const useChatSessionStore = defineStore({
     },
     getSessionById(sessionId: string): ChatSession | undefined {
       return this.sessions.find((s) => s.id === sessionId)
+    },
+    messageChoice(messageId: string, step: number) {
+      if (!this.getActiveSession) {
+        return
+      }
+
+      const message = this.getActiveSession.messages.find((m) => m.id === messageId)
+      if (!message || !message.choices || message.choiceIndex === undefined) {
+        return
+      }
+
+      message.choiceIndex += step
+      if (message.choiceIndex < 0) {
+        message.choiceIndex = 0
+      } else if (message.choiceIndex > message.choices.length - 1) {
+        message.choiceIndex = message.choices.length - 1
+      }
+
+      message.content = message.choices[message.choiceIndex]
     }
   },
   persist: true
