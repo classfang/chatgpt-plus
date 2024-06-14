@@ -194,7 +194,7 @@ const generateSessionName = async (sessionId: string) => {
     },
     answer: (content: string) => {
       // 拼接名称
-      sessionName = content.trim()
+      sessionName += content.trim()
       // 根据id获取session
       const session = chatSessionStore.getSessionById(sessionId)
       if (session && sessionName.length > 0) {
