@@ -192,7 +192,7 @@ defineExpose({
 onMounted(() => {
   nextTick(() => {
     // 当前会话进入视窗
-    document.querySelector('.chatgpt-session-active')?.scrollIntoView()
+    document.querySelector('.chatgpt-session-active')?.scrollIntoView(false)
   })
 })
 </script>
