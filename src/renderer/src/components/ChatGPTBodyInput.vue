@@ -43,6 +43,9 @@ const sendQuestion = async (event?: KeyboardEvent) => {
   // 加载中
   appStateStore.chatgptLoading = true
 
+  // 是否无标题
+  const noSessionNameFlag = chatSessionStore.getActiveSession!.name.trim().length === 0
+
   // 提问记录
   chatSessionStore.pushMessage({
     type: 'chat',
@@ -108,6 +111,11 @@ const sendQuestion = async (event?: KeyboardEvent) => {
     errorAnswer(e.message)
   }
 
+  // 自动生成标题
+  if (noSessionNameFlag && appSettingStore.openAI.autoGenerateSessionName) {
+    generateSessionName(chatSessionStore.getActiveSession!.id!)
+  }
+
   // 结束回答
   finishAnswer()
 }
@@ -165,6 +173,53 @@ const stopAnswer = () => {
   abortCtr.abort()
   abortCtr = new AbortController()
   finishAnswer()
+}
+
+// 生成会话名称
+const generateSessionName = async (sessionId: string) => {
+  let sessionName = ''
+
+  try {
+    // OpenAI实例
+    const openai = new OpenAI({
+      baseURL: appSettingStore.openAI.baseUrl,
+      apiKey: appSettingStore.openAI.apiKey,
+      dangerouslyAllowBrowser: true
+    })
+
+    // 流式对话
+    const sendBody: OpenAI.ChatCompletionCreateParams = {
+      stream: true,
+      model: chatSessionStore.getActiveSession!.model,
+      messages: [
+        {
+          role: 'user',
+          content: [
+            {
+              type: 'text',
+              text: `Please summarize a short title based on the following conversation: ${JSON.stringify(chatSessionStore.getActiveSession!.messages)}`
+            }
+          ]
+        }
+      ]
+    }
+    Logger.info('ChatGPT generateSessionName request body: ', sendBody)
+    const stream = await openai.chat.completions.create(sendBody)
+
+    // 连续回答
+    for await (const chunk of stream) {
+      Logger.info('ChatGPT generateSessionName response chunk: ', chunk)
+      // 拼接名称
+      sessionName = (sessionName + (chunk.choices[0].delta.content ?? '')).trim()
+      // 根据id获取session
+      const session = chatSessionStore.getSessionById(sessionId)
+      if (session && sessionName.length > 0) {
+        session.name = sessionName
+      }
+    }
+  } catch (e: any) {
+    Logger.info('ChatGPT generateSessionName error: ', e.message)
+  }
 }
 </script>
 

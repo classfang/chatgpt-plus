@@ -51,7 +51,7 @@ export const useChatSessionStore = defineStore({
         createTime: nowTimestamp()
       })
 
-      // 设置会话名称
+      // 设置会话标题
       if (!this.getActiveSession.name && message.role === 'user') {
         this.getActiveSession.name = message.content
       }
@@ -74,6 +74,9 @@ export const useChatSessionStore = defineStore({
       this.getActiveSession.messages = this.getActiveSession.messages.filter(
         (m) => m.id != messageId
       )
+    },
+    getSessionById(sessionId: string): ChatSession | undefined {
+      return this.sessions.find((s) => s.id === sessionId)
     }
   },
   persist: true

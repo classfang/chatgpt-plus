@@ -201,12 +201,12 @@ onMounted(() => {
                 </el-form-item>
 
                 <!-- Auto Generate Title -->
-                <el-form-item :label="$t('app.setting.item.openai.autoGenerateTitle')">
+                <el-form-item :label="$t('app.setting.item.openai.autoGenerateSessionName')">
                   <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.autoGenerateTitle')"
+                    :content="$t('app.setting.item.openai.explain.autoGenerateSessionName')"
                     placement="right"
                   >
-                    <el-switch v-model="appSettingStore.openAI.autoGenerateTitle" />
+                    <el-switch v-model="appSettingStore.openAI.autoGenerateSessionName" />
                   </el-tooltip>
                 </el-form-item>
               </el-form>

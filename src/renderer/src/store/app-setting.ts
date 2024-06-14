@@ -28,7 +28,7 @@ export const useAppSettingStore = defineStore({
       contextSize: 5,
 
       // 功能配置
-      autoGenerateTitle: true
+      autoGenerateSessionName: true
     },
     chatgpt: {
       sidebarVisible: true
