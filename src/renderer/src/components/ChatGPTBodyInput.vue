@@ -121,13 +121,16 @@ const convertMessages = (
   contextSize?: number,
   ignoreSize = 0
 ): OpenAI.ChatCompletionMessageParam[] => {
-  return messages
-    .slice(contextSize ? -(contextSize + 1 + ignoreSize) : 0, messages.length - ignoreSize)
-    .filter((m) => m.type === 'chat')
-    .map((m) => ({
-      role: m.role,
-      content: [{ type: 'text', text: m.content }]
-    })) as OpenAI.ChatCompletionMessageParam[]
+  return (
+    messages
+      // 跳过 ignoreSize 条记录，截取最后 contextSize 条记录，
+      .slice(contextSize ? -(contextSize + 1 + ignoreSize) : 0, messages.length - ignoreSize)
+      .filter((m) => m.type === 'chat')
+      .map((m) => ({
+        role: m.role,
+        content: [{ type: 'text', text: m.content }]
+      })) as OpenAI.ChatCompletionMessageParam[]
+  )
 }
 
 // 流式回答
