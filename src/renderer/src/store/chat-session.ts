@@ -20,6 +20,7 @@ export const useChatSessionStore = defineStore({
     create(option: OpenAIOption) {
       const firstSession = this.sessions.at(0)
       if (firstSession && firstSession.messages.length === 0) {
+        firstSession.createTime = nowTimestamp()
         this.activeSessionId = firstSession.id!
         return
       }
