@@ -30,6 +30,10 @@ const markdown = new MarkdownIt({
   highlight: (str: string, lang: string) => {
     // 可能带有 endFlag
     let insertEndFlag = false
+    if (str && str.endsWith(endFlag)) {
+      str = str.replace(endFlag, '')
+      insertEndFlag = true
+    }
     if (lang && lang.endsWith(endFlag)) {
       lang = lang.replace(endFlag, '')
       insertEndFlag = true
