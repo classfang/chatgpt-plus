@@ -72,7 +72,8 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
   // 转换消息列表
   const sendMessages = convertMessages(
     chatSessionStore.getActiveSession!.messages,
-    chatSessionStore.getActiveSession!.contextSize
+    chatSessionStore.getActiveSession!.contextSize,
+    1
   )
 
   // 判断配置是否正确
@@ -117,10 +118,11 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
 // 转换消息列表
 const convertMessages = (
   messages: ChatMessage[],
-  contextSize?: number
+  contextSize?: number,
+  ignoreSize = 0
 ): OpenAI.ChatCompletionMessageParam[] => {
   return messages
-    .slice(contextSize ? -(contextSize + 1) : 0, messages.length - 1)
+    .slice(contextSize ? -(contextSize + 1 + ignoreSize) : 0, messages.length - ignoreSize)
     .filter((m) => m.type === 'chat')
     .map((m) => ({
       role: m.role,
