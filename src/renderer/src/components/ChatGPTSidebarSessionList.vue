@@ -16,6 +16,7 @@ const sessionListScrollbarRef = ref()
 const dateFlagMap = computed(() => {
   const map = new Map<number, string>()
 
+  // 动态获取今天
   const today = dayjs(appStateStore.dayKey)
 
   map.set(
