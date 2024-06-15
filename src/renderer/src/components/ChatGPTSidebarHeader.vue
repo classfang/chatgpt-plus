@@ -40,6 +40,9 @@ onMounted(() => {
   if (chatSessionStore.sessions.length === 0) {
     createSession()
   }
+
+  // 刷新 dayKey，用于更具日期自动刷新组件
+  appStateStore.startDayKeyInterval()
 })
 </script>
 

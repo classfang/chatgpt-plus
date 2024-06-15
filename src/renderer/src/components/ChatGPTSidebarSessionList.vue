@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import ChatGPTSidebarSession from '@renderer/components/ChatGPTSidebarSession.vue'
+import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import dayjs from 'dayjs'
 import { computed, nextTick, onMounted, ref } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
+const appStateStore = useAppStateStore()
 
 // ref
 const sessionListScrollbarRef = ref()
@@ -14,17 +16,18 @@ const sessionListScrollbarRef = ref()
 const dateFlagMap = computed(() => {
   const map = new Map<number, string>()
 
+  const today = dayjs(appStateStore.dayKey)
+
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
-      (s) => dayjs(s.createTime).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+      (s) => dayjs(s.createTime).format('YYYY-MM-DD') === today.format('YYYY-MM-DD')
     ),
     'today'
   )
 
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
-      (s) =>
-        dayjs(s.createTime).format('YYYY-MM-DD') === dayjs().add(-1, 'day').format('YYYY-MM-DD')
+      (s) => dayjs(s.createTime).format('YYYY-MM-DD') === today.add(-1, 'day').format('YYYY-MM-DD')
     ),
     'yesterday'
   )
@@ -32,9 +35,9 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-1, 'day'), 'day') &&
-        dayjs(s.createTime).isAfter(dayjs().add(-7, 'day'), 'day')
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-1, 'day'), 'day') &&
+        dayjs(s.createTime).isAfter(today.add(-7, 'day'), 'day')
     ),
     'previous7'
   )
@@ -42,9 +45,9 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-7, 'day'), 'day') &&
-        dayjs(s.createTime).isAfter(dayjs().add(-30, 'day'), 'day')
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-7, 'day'), 'day') &&
+        dayjs(s.createTime).isAfter(today.add(-30, 'day'), 'day')
     ),
     'previous30'
   )
@@ -52,8 +55,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 0
     ),
     'january'
@@ -62,8 +65,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 1
     ),
     'february'
@@ -72,8 +75,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 2
     ),
     'march'
@@ -82,8 +85,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 3
     ),
     'april'
@@ -92,8 +95,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 4
     ),
     'may'
@@ -102,8 +105,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 5
     ),
     'june'
@@ -112,8 +115,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 6
     ),
     'july'
@@ -122,8 +125,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 7
     ),
     'august'
@@ -132,8 +135,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 8
     ),
     'september'
@@ -142,8 +145,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 9
     ),
     'october'
@@ -152,8 +155,8 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 10
     ),
     'november'
@@ -162,17 +165,15 @@ const dateFlagMap = computed(() => {
   map.set(
     chatSessionStore.getUsedSessions.findIndex(
       (s) =>
-        dayjs(s.createTime).format('YYYY') === dayjs().format('YYYY') &&
-        dayjs(s.createTime).isBefore(dayjs().add(-30, 'day'), 'day') &&
+        dayjs(s.createTime).format('YYYY') === today.format('YYYY') &&
+        dayjs(s.createTime).isBefore(today.add(-30, 'day'), 'day') &&
         dayjs(s.createTime).get('month') === 11
     ),
     'december'
   )
 
   map.set(
-    chatSessionStore.getUsedSessions.findIndex((s) =>
-      dayjs(s.createTime).isBefore(dayjs(), 'year')
-    ),
+    chatSessionStore.getUsedSessions.findIndex((s) => dayjs(s.createTime).isBefore(today, 'year')),
     'earlier'
   )
 
