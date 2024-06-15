@@ -305,7 +305,7 @@ defineExpose({
 
     :deep(.el-textarea__inner) {
       min-height: $app-icon-size-large !important;
-      padding: 8px $app-padding-base;
+      padding: $app-padding-small $app-padding-base;
       box-shadow: none;
       background-color: var(--el-fill-color);
     }
