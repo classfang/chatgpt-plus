@@ -1,5 +1,5 @@
 appId: cn.junki.chatgpt
-productName: ChatGPT Plus
+productName: ChatGPT-Plus
 directories:
   buildResources: build
 files:
@@ -13,7 +13,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: ChatGPT Plus
+  executableName: ChatGPT-Plus
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
