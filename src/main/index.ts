@@ -15,7 +15,7 @@ const store = initStore()
 const logger = initLogger(appConfig.logsPath)
 
 // 临时缓存目录
-const creatcachePath = () => {
+const creatCachePath = () => {
   try {
     fs.mkdirSync(appConfig.cachePath)
   } catch (e: any) {
@@ -41,7 +41,7 @@ app.whenReady().then(() => {
   })
 
   // 创建缓存目录
-  creatcachePath()
+  creatCachePath()
 
   // 创建窗口
   mainWindow = createWindow(store)
@@ -88,7 +88,7 @@ ipcMain.handle('get-app-version', () => {
 
 // 保存网络文件
 ipcMain.handle('save-file-by-url', async (_event, url: string, fileName: string) => {
-  creatcachePath()
+  creatCachePath()
   // 请求文件
   const fetchResp = await fetch(url)
   const blob = await fetchResp.blob()
@@ -105,7 +105,7 @@ ipcMain.handle('save-file-by-url', async (_event, url: string, fileName: string)
 
 // 保存base64文件
 ipcMain.handle('save-file-by-base64', async (_event, base64: string, fileName: string) => {
-  creatcachePath()
+  creatCachePath()
 
   // 去除base64数据前缀
   const commaIndex = base64.indexOf(',')
@@ -120,7 +120,7 @@ ipcMain.handle('save-file-by-base64', async (_event, base64: string, fileName: s
 
 // 保存本地文件
 ipcMain.handle('save-file-by-path', async (_event, path: string, fileName: string) => {
-  creatcachePath()
+  creatCachePath()
   const filePath = join(appConfig.cachePath, fileName)
   fs.copyFileSync(path, filePath)
 
