@@ -323,7 +323,8 @@ defineExpose({
     border-radius: 50%;
     box-sizing: border-box;
     padding: $app-padding-small;
-    transition: background-color $app-transition-base;
+    color: var(--el-text-color-secondary);
+    transition: all $app-transition-base;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -331,6 +332,7 @@ defineExpose({
     &-available {
       background-color: var(--el-fill-color-darker);
       cursor: pointer;
+      color: var(--el-text-color-primary);
     }
 
     .stop-answer-icon {

@@ -165,6 +165,13 @@ const shareText = () => {
       height: $app-icon-size-base;
       width: $app-icon-size-base;
       outline: none;
+      color: var(--el-text-color-secondary);
+      transition: color $app-transition-base;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--el-text-color-primary);
+      }
     }
   }
 }
