@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Download, Folder, Monitor, Moon, Sunny, Tools } from '@element-plus/icons-vue'
+import { Download, Folder, Monitor, Moon, Setting, Sunny, Tools } from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
 import { OpenAIModels } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
@@ -17,16 +17,12 @@ import { onMounted, reactive, toRefs } from 'vue'
 // 仓库
 const appSettingStore = useAppSettingStore()
 
-// 组件传参
-const visible = defineModel<boolean>('visible', {
-  default: () => false
-})
-
 // 数据绑定
 const data = reactive({
+  appSettingVisible: false,
   appVersion: '0.0.0'
 })
-const { appVersion } = toRefs(data)
+const { appSettingVisible, appVersion } = toRefs(data)
 
 onMounted(() => {
   // 获取应用版本号
@@ -38,7 +34,9 @@ onMounted(() => {
 
 <template>
   <div class="app-setting">
-    <el-dialog v-model="visible" :title="$t('app.setting.title')" width="700">
+    <Setting class="setting-icon" @click="appSettingVisible = true" />
+
+    <el-dialog v-model="appSettingVisible" :title="$t('app.setting.title')" width="700">
       <div class="dialog-body">
         <el-tabs tab-position="left">
           <!-- 外观 -->
@@ -277,6 +275,12 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .app-setting {
+  .setting-icon {
+    height: $app-icon-size-base;
+    width: $app-icon-size-base;
+    cursor: pointer;
+  }
+
   .dialog-body {
     height: $app-dialog-height;
 
