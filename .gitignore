@@ -8,4 +8,3 @@ stats.html
 
 # Project exclude paths
 /src/preload/index.d.ts
-/src/renderer/src/assets/json/build-info.json
