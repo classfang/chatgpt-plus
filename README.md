@@ -5,7 +5,7 @@
 <h4 align="center">An Electron application with ChatGPT</h4>
 
 ## 1. Why ChatGPT Plus
-You can use chatgpt on pay-as-you-go basis with just openai key.
+You can use ChatGPT Plus on pay-as-you-go basis with just openai key.
 
 <img src="/demo/1.png" alt="demo">
 
