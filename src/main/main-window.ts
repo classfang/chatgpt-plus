@@ -40,7 +40,7 @@ export const createWindow = (store: Record<string, any>) => {
   })
 
   // 准备就绪后显示主窗口
-  mainWindow.on('ready-to-show', () => {
+  mainWindow.once('ready-to-show', () => {
     mainWindow.show()
   })
 
