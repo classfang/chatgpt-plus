@@ -8,5 +8,9 @@ export const appConfig = {
 }
 export const mainWindowConfig = {
   minWidth: 1000,
-  minHeight: 700
+  minHeight: 700,
+  trafficLightPosition: {
+    x: 15,
+    y: 12
+  }
 }

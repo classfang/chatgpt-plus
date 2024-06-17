@@ -21,10 +21,7 @@ export const createWindow = (store: Record<string, any>) => {
     // mac下不显示标题栏
     titleBarStyle: 'hiddenInset',
     // mac下红绿灯位置
-    trafficLightPosition: {
-      x: 15,
-      y: 12
-    },
+    trafficLightPosition: mainWindowConfig.trafficLightPosition,
     // 动态背景色
     backgroundColor: nativeTheme.shouldUseDarkColors ? '#141414' : '#FFFFFF',
     ...(process.platform === 'linux' ? { icon } : {}),
