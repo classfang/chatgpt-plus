@@ -7,6 +7,10 @@
 ## 1. Why ChatGPT Plus
 You can use chatgpt on pay-as-you-go basis with just openai key.
 
+<img src="/demo/1.png" alt="demo">
+
+<img src="/demo/2.png" alt="demo">
+
 ## 2. Roadmap and contributing
 We're looking to add more features to ChatGPT Plus. The highest priorities are:
 
