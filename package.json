@@ -5,6 +5,10 @@
   "main": "./out/main/index.mjs",
   "author": "junki.cn",
   "homepage": "https://junki.cn",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/classfang/chatgpt-plus.git"
+  },
   "engines": {
     "node": ">=21.1.0"
   },
