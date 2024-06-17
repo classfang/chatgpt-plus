@@ -5,12 +5,15 @@ import { OpenAIModels } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import {
   getAppVersion,
+  onMainWindowFocus,
   openCacheDir,
   openDevTools,
   openLogDir,
   setProxy
 } from '@renderer/utils/ipc-util'
+import { Logger } from '@renderer/utils/logger'
 import { openInBrowser } from '@renderer/utils/window-util'
+import axios from 'axios'
 import dayjs from 'dayjs'
 import { onMounted, reactive, toRefs } from 'vue'
 
@@ -20,21 +23,61 @@ const appSettingStore = useAppSettingStore()
 // 数据绑定
 const data = reactive({
   appSettingVisible: false,
+  badge: {
+    appVersion: false
+  },
   appVersion: '0.0.0'
 })
-const { appSettingVisible, appVersion } = toRefs(data)
+const { appSettingVisible, badge, appVersion } = toRefs(data)
+
+// 检查新版本
+const checkAppVersion = () => {
+  axios
+    .get('https://api.github.com/repos/classfang/chatgpt-plus/releases/latest')
+    .then((response) => {
+      const json = response.data
+      if (json.name) {
+        const appVersionArray = data.appVersion.split('.')
+        const newVersionArray = json.name.split('.')
+        for (let i = 0; i < newVersionArray.length; i++) {
+          if (Number(newVersionArray[i]) > Number(appVersionArray[i])) {
+            data.badge.appVersion = true
+            break // 跳出循环，因为发现有新版本
+          } else if (Number(newVersionArray[i]) < Number(appVersionArray[i])) {
+            data.badge.appVersion = false
+            break // 跳出循环，因为发现当前版本已经是最新的
+          }
+        }
+      }
+    })
+    .catch((error) => {
+      Logger.error('Error get the latest release:', error)
+    })
+}
 
 onMounted(() => {
   // 获取应用版本号
   getAppVersion().then((v) => {
     data.appVersion = v
+    checkAppVersion()
+  })
+
+  // 每次获得焦点检查最新版本，限制一小时内不重复检查
+  let lastCheckTime = 0
+  onMainWindowFocus(() => {
+    if (new Date().getTime() - lastCheckTime > 1000 * 60 * 60) {
+      checkAppVersion()
+      lastCheckTime = new Date().getTime()
+    }
   })
 })
 </script>
 
 <template>
   <div class="app-setting">
-    <Setting class="setting-icon" @click="appSettingVisible = true" />
+    <el-badge is-dot :hidden="!badge.appVersion">
+      <Setting class="setting-icon" @click="appSettingVisible = true" />
+    </el-badge>
 
     <el-dialog v-model="appSettingVisible" :title="$t('app.setting.title')" width="700">
       <div class="dialog-body">
@@ -225,18 +268,25 @@ onMounted(() => {
           </el-tab-pane>
 
           <!-- 关于 -->
-          <el-tab-pane :label="$t('app.setting.about')">
+          <el-tab-pane>
+            <template #label>
+              <el-badge is-dot :hidden="!badge.appVersion">
+                {{ $t('app.setting.about') }}
+              </el-badge>
+            </template>
             <el-form label-width="auto">
               <!-- 应用版本 -->
               <el-form-item :label="$t('app.setting.item.about.appVersion')">
                 <el-space :size="15">
                   <div>v{{ appVersion }}</div>
-                  <el-button
-                    :icon="Download"
-                    @click="openInBrowser('https://github.com/classfang/chatgpt-plus/releases')"
-                  >
-                    {{ $t('app.setting.item.about.appDownload') }}
-                  </el-button>
+                  <el-badge is-dot :hidden="!badge.appVersion">
+                    <el-button
+                      :icon="Download"
+                      @click="openInBrowser('https://github.com/classfang/chatgpt-plus/releases')"
+                    >
+                      {{ $t('app.setting.item.about.appDownload') }}
+                    </el-button>
+                  </el-badge>
                 </el-space>
               </el-form-item>
 
