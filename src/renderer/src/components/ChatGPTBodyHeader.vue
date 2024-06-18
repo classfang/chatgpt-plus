@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ArrowDownBold, Picture, Share, Document } from '@element-plus/icons-vue'
+import AppIcon from '@renderer/components/AppIcon.vue'
 import ChatGPTBodySetting from '@renderer/components/ChatGPTBodySetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
@@ -101,7 +102,7 @@ const shareText = () => {
   >
     <div class="model-name" @click="currentChatSettingVisible = true">
       <div>{{ chatSessionStore.getActiveSession!.chatOption.model }}</div>
-      <ArrowDownBold class="session-setting-icon" />
+      <AppIcon name="arrow-down" :width="18" :height="18" />
     </div>
 
     <!-- 分享下拉列表 -->
@@ -151,11 +152,6 @@ const shareText = () => {
     font-size: $app-icon-size-small;
     font-weight: var(--el-font-weight-primary);
     cursor: pointer;
-
-    .session-setting-icon {
-      height: $app-icon-size-small;
-      width: $app-icon-size-small;
-    }
   }
 
   .share-dropdown {

@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { ArrowLeft, ArrowRight, CopyDocument, Delete, Refresh } from '@element-plus/icons-vue'
+import {
+  ArrowLeft,
+  ArrowRight,
+  CopyDocument,
+  Delete,
+  Refresh,
+  VideoPlay
+} from '@element-plus/icons-vue'
+import AppIcon from '@renderer/components/AppIcon.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { clipboardWriteText } from '@renderer/utils/ipc-util'
@@ -21,39 +29,46 @@ const message = defineModel<ChatMessage>('message', {
   <div class="chatgpt-message-console">
     <template v-if="message.type === 'chat' && message.role === 'assistant' && message.choices">
       <el-button
-        :icon="ArrowLeft"
         text
         circle
         @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, -1)"
-      />
+      >
+        <AppIcon name="arrow-left" :width="18" :height="18" />
+      </el-button>
       <div>{{ (message.choiceIndex ?? 0) + 1 }} / {{ message.choices.length }}</div>
       <el-button
-        :icon="ArrowRight"
         text
         circle
         @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, 1)"
-      />
+      >
+        <AppIcon name="arrow-right" :width="18" :height="18" />
+      </el-button>
     </template>
-    <el-button :icon="CopyDocument" text circle @click="clipboardWriteText(message.content)" />
+    <template v-if="message.content && message.content.length > 0">
+      <el-button text circle>
+        <AppIcon name="speech" :width="18" :height="18" />
+      </el-button>
+    </template>
+    <el-button text circle @click="clipboardWriteText(message.content)">
+      <AppIcon name="copy" :width="18" :height="18" />
+    </el-button>
     <template
       v-if="
         message.role === 'assistant' &&
         chatSessionStore.getActiveSession?.messages.at(0)?.id != message.id
       "
     >
-      <el-button
-        :icon="Refresh"
-        text
-        circle
-        @click="!appStateStore.chatgptLoading && emits('regenerate')"
-      />
+      <el-button text circle @click="!appStateStore.chatgptLoading && emits('regenerate')">
+        <AppIcon name="refresh" :width="18" :height="18" />
+      </el-button>
     </template>
     <el-button
-      :icon="Delete"
       text
       circle
       @click="!appStateStore.chatgptLoading && chatSessionStore.deleteMessage(message.id!)"
-    />
+    >
+      <AppIcon name="delete" :width="18" :height="18" />
+    </el-button>
   </div>
 </template>
 
