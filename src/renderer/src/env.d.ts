@@ -47,7 +47,7 @@ interface ChatOption {
 
 interface SpeechOption {
   model: string
-  voice: string
+  voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer'
   speed: number
 }
 

@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import AppIcon from '@renderer/components/AppIcon.vue'
+import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { clipboardWriteText } from '@renderer/utils/ipc-util'
+import { Logger } from '@renderer/utils/logger'
+import { openaiSpeech } from '@renderer/utils/openai-util'
 import { reactive, toRefs } from 'vue'
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
 const appStateStore = useAppStateStore()
+const appSettingStore = useAppSettingStore()
 
 // 数据绑定
 const data = reactive({
@@ -24,20 +28,71 @@ const message = defineModel<ChatMessage>('message', {
   default: () => {}
 })
 
+// 音频播放对象
+const audioContext = new AudioContext()
+let audioBufferSource = audioContext.createBufferSource()
+
 // 发音
 const speechStart = () => {
   if (data.speechLoading) {
     return
   }
   data.speechLoading = true
-  setTimeout(() => {
-    data.speechLoading = false
-    data.speechFlag = true
-  }, 3000)
+
+  // 调用发音能力
+  openaiSpeech({
+    apiKey: appSettingStore.openAI.apiKey,
+    baseURL: appSettingStore.openAI.baseUrl,
+    params: {
+      input: message.value.content,
+      model: chatSessionStore.getActiveSession!.speechOption.model,
+      voice: chatSessionStore.getActiveSession!.speechOption.voice,
+      speed: chatSessionStore.getActiveSession!.speechOption.speed
+    }
+  })
+    .then((audioData) => {
+      // 断开之前的音频连接
+      audioBufferSource.disconnect()
+      // 创建新的数据源对象
+      audioBufferSource = audioContext.createBufferSource()
+      // 转换音频数据
+      audioContext.decodeAudioData(
+        audioData,
+        (buffer) => {
+          // 设置缓冲区数据
+          audioBufferSource.buffer = buffer
+
+          // 连接到输出设备
+          audioBufferSource.connect(audioContext.destination)
+
+          // 播放音频
+          audioBufferSource.start()
+
+          // 修改状态
+          data.speechLoading = false
+          data.speechFlag = true
+
+          // 播放结束
+          audioBufferSource.onended = () => {
+            data.speechFlag = false
+          }
+        },
+        (error) => {
+          data.speechFlag = false
+          Logger.error('Error decoding audio data: ', error.message)
+        }
+      )
+    })
+    .catch((error) => {
+      data.speechLoading = false
+      Logger.error('openai speech error: ', error.message)
+    })
 }
 
 // 停止发音
 const speechStop = () => {
+  // 断开音频连接
+  audioBufferSource.disconnect()
   data.speechFlag = false
 }
 </script>

@@ -11,6 +11,13 @@ export interface OpenAIChatParam {
   error?: (error: any) => void
 }
 
+export interface OpenAISpeechParam {
+  baseURL: string
+  apiKey: string
+  abortCtrSignal?: AbortSignal
+  params: OpenAI.Audio.SpeechCreateParams
+}
+
 // 对话
 export const openaiChat = async (param: OpenAIChatParam) => {
   try {
@@ -45,9 +52,23 @@ export const openaiChat = async (param: OpenAIChatParam) => {
       param.answer && param.answer(completion.choices[0].message.content ?? '')
     }
   } catch (e: any) {
-    Logger.info('openai chat error: ', e.message)
+    Logger.error('openai chat error: ', e.message)
     param.error && param.error(e)
   }
 
   param.end && param.end()
+}
+
+// 发音
+export const openaiSpeech = async (param: OpenAISpeechParam) => {
+  // OpenAI实例
+  const openai = new OpenAI({
+    apiKey: param.apiKey,
+    baseURL: param.baseURL,
+    dangerouslyAllowBrowser: true
+  })
+  const mp3 = await openai.audio.speech.create({
+    ...param.params
+  })
+  return await mp3.arrayBuffer()
 }
