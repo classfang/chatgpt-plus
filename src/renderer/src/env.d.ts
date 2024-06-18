@@ -34,7 +34,7 @@ interface ChatMessage extends BaseEntity {
   choiceIndex?: number
 }
 
-interface OpenAIOption {
+interface ChatOption {
   model: string
   temperature: number
   topP: number
@@ -42,10 +42,19 @@ interface OpenAIOption {
   presencePenalty: number
   frequencyPenalty: number
   contextSize: number
+  autoGenerateSessionName: boolean
 }
 
-interface ChatSession extends BaseEntity, OpenAIOption {
+interface SpeechOption {
+  model: string
+  voice: string
+  speed: number
+}
+
+interface ChatSession extends BaseEntity {
   name: string
   provider: LLMProvider
   messages: ChatMessage[]
+  chatOption: ChatOption
+  speechOption: SpeechOption
 }

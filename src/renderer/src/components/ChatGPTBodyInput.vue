@@ -72,7 +72,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
   // 转换消息列表
   const sendMessages = convertMessages(
     chatSessionStore.getActiveSession!.messages,
-    chatSessionStore.getActiveSession!.contextSize,
+    chatSessionStore.getActiveSession!.chatOption.contextSize,
     1
   )
 
@@ -93,12 +93,12 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     params: {
       stream: true,
       messages: sendMessages,
-      model: chatSessionStore.getActiveSession!.model,
-      max_tokens: chatSessionStore.getActiveSession!.maxTokens,
-      temperature: chatSessionStore.getActiveSession!.temperature,
-      top_p: chatSessionStore.getActiveSession!.topP,
-      presence_penalty: chatSessionStore.getActiveSession!.presencePenalty,
-      frequency_penalty: chatSessionStore.getActiveSession!.frequencyPenalty
+      model: chatSessionStore.getActiveSession!.chatOption.model,
+      max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
+      temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
+      top_p: chatSessionStore.getActiveSession!.chatOption.topP,
+      presence_penalty: chatSessionStore.getActiveSession!.chatOption.presencePenalty,
+      frequency_penalty: chatSessionStore.getActiveSession!.chatOption.frequencyPenalty
     },
     abortCtrSignal: abortCtrSignal,
     answer: (content: string) => {
@@ -166,7 +166,7 @@ const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => 
   }
 
   // 自动生成标题
-  if (noSessionNameFlag && appSettingStore.openAI.autoGenerateSessionName) {
+  if (noSessionNameFlag && chatSessionStore.getActiveSession!.chatOption.autoGenerateSessionName) {
     generateSessionName(chatSessionStore.getActiveSession!.id!)
   }
 
@@ -200,7 +200,7 @@ const generateSessionName = async (sessionId: string) => {
     apiKey: appSettingStore.openAI.apiKey,
     params: {
       stream: true,
-      model: chatSessionStore.getActiveSession!.model,
+      model: chatSessionStore.getActiveSession!.chatOption.model,
       messages: [
         ...convertMessages(chatSessionStore.getActiveSession!.messages),
         {

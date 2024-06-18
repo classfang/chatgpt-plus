@@ -40,3 +40,46 @@ export const OpenAIModels = [
     ]
   }
 ]
+
+export const OpenAISpeechModels = [
+  {
+    label: 'tts-1',
+    options: [
+      {
+        value: 'tts-1',
+        label: 'tts-1'
+      },
+      {
+        value: 'tts-1-hd',
+        label: 'tts-1-hd'
+      }
+    ]
+  }
+]
+
+export const OpenAISpeechVoices = [
+  {
+    value: 'alloy',
+    label: 'alloy'
+  },
+  {
+    value: 'echo',
+    label: 'echo'
+  },
+  {
+    value: 'fable',
+    label: 'fable'
+  },
+  {
+    value: 'onyx',
+    label: 'onyx'
+  },
+  {
+    value: 'nova',
+    label: 'nova'
+  },
+  {
+    value: 'shimmer',
+    label: 'shimmer'
+  }
+]

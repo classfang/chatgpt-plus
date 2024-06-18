@@ -4,6 +4,8 @@
       "title": "Application Settings",
       "appearance": "Appearance",
       "openai": "OpenAI",
+      "chat": "Chat",
+      "speech": "Speech",
       "network": "Network",
       "about": "About",
       "item": {
@@ -20,7 +22,9 @@
         },
         "openai": {
           "baseUrl": "Base URL",
-          "apiKey": "API Key",
+          "apiKey": "API Key"
+        },
+        "chat": {
           "model": "Model",
           "temperature": "Temperature",
           "topP": "Top P",
@@ -38,6 +42,11 @@
             "contextSize": "Number of historical messages carried per request",
             "autoGenerateSessionName": "Generate the appropriate title based on the conversation content"
           }
+        },
+        "speech": {
+          "model": "Model",
+          "voice": "Voice",
+          "speed": "Speed"
         },
         "proxy": {
           "label": "Network Proxy"

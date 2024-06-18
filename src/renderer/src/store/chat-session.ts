@@ -17,7 +17,7 @@ export const useChatSessionStore = defineStore({
     }
   },
   actions: {
-    create(option: OpenAIOption) {
+    create(setting: { chatOption: ChatOption; speechOption: SpeechOption }) {
       const firstSession = this.sessions.at(0)
       if (firstSession && firstSession.messages.length === 0) {
         firstSession.createTime = nowTimestamp()
@@ -31,7 +31,8 @@ export const useChatSessionStore = defineStore({
         name: '',
         provider: 'OpenAI',
         messages: [] as ChatMessage[],
-        ...option
+        chatOption: setting.chatOption,
+        speechOption: setting.speechOption
       })
       this.activeSessionId = sessionId
     },

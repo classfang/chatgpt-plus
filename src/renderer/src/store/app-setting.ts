@@ -19,16 +19,23 @@ export const useAppSettingStore = defineStore({
       apiKey: '',
 
       // 对话配置
-      model: 'gpt-4o',
-      temperature: 1,
-      topP: 1,
-      maxTokens: 4096,
-      presencePenalty: 0,
-      frequencyPenalty: 0,
-      contextSize: 5,
+      chatOption: {
+        model: 'gpt-4o',
+        temperature: 1,
+        topP: 1,
+        maxTokens: 4096,
+        presencePenalty: 0,
+        frequencyPenalty: 0,
+        contextSize: 5,
+        autoGenerateSessionName: true
+      },
 
-      // 功能配置
-      autoGenerateSessionName: true
+      // 发音配置
+      speechOption: {
+        model: 'tts-1',
+        voice: 'alloy',
+        speed: 1
+      } as SpeechOption
     },
     chatgpt: {
       sidebarVisible: true

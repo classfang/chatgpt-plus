@@ -100,7 +100,7 @@ const shareText = () => {
     }"
   >
     <div class="model-name" @click="currentChatSettingVisible = true">
-      <div>{{ chatSessionStore.getActiveSession!.model }}</div>
+      <div>{{ chatSessionStore.getActiveSession!.chatOption.model }}</div>
       <ArrowDownBold class="session-setting-icon" />
     </div>
 

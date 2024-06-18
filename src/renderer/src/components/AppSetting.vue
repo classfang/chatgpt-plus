@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Download, Folder, Monitor, Moon, Setting, Sunny, Tools } from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
-import { OpenAIModels } from '@renderer/config/OpenAIConfig'
+import { OpenAIModels, OpenAISpeechModels, OpenAISpeechVoices } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import {
   getAppVersion,
@@ -121,137 +121,194 @@ onMounted(() => {
 
           <!-- OpenAI -->
           <el-tab-pane :label="$t('app.setting.openai')">
-            <el-scrollbar height="100%">
-              <el-form label-width="auto">
-                <!-- Base URL -->
-                <el-form-item :label="$t('app.setting.item.openai.baseUrl')">
-                  <el-input v-model="appSettingStore.openAI.baseUrl" />
-                </el-form-item>
+            <el-form label-width="auto">
+              <!-- Base URL -->
+              <el-form-item :label="$t('app.setting.item.openai.baseUrl')">
+                <el-input v-model="appSettingStore.openAI.baseUrl" />
+              </el-form-item>
 
-                <!-- API Key -->
-                <el-form-item :label="$t('app.setting.item.openai.apiKey')">
-                  <el-input v-model="appSettingStore.openAI.apiKey" show-password type="password" />
-                </el-form-item>
+              <!-- API Key -->
+              <el-form-item :label="$t('app.setting.item.openai.apiKey')">
+                <el-input v-model="appSettingStore.openAI.apiKey" show-password type="password" />
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
 
-                <!-- Model -->
-                <el-form-item :label="$t('app.setting.item.openai.model')">
-                  <el-select v-model="appSettingStore.openAI.model" allow-create filterable>
-                    <el-option-group
-                      v-for="group in OpenAIModels"
-                      :key="group.label"
-                      :label="group.label"
-                    >
-                      <el-option
-                        v-for="item in group.options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      />
-                    </el-option-group>
-                  </el-select>
-                </el-form-item>
-
-                <!-- Temperature -->
-                <el-form-item :label="$t('app.setting.item.openai.temperature')">
-                  <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.temperature')"
-                    placement="right"
+          <!-- 对话 -->
+          <el-tab-pane :label="$t('app.setting.chat')">
+            <el-form label-width="auto">
+              <!-- Model -->
+              <el-form-item :label="$t('app.setting.item.chat.model')">
+                <el-select
+                  v-model="appSettingStore.openAI.chatOption.model"
+                  allow-create
+                  filterable
+                >
+                  <el-option-group
+                    v-for="group in OpenAIModels"
+                    :key="group.label"
+                    :label="group.label"
                   >
-                    <el-input-number
-                      v-model="appSettingStore.openAI.temperature"
-                      :min="0"
-                      :max="1"
-                      :step="0.1"
+                    <el-option
+                      v-for="item in group.options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
                     />
-                  </el-tooltip>
-                </el-form-item>
+                  </el-option-group>
+                </el-select>
+              </el-form-item>
 
-                <!-- Top P -->
-                <el-form-item :label="$t('app.setting.item.openai.topP')">
-                  <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.topP')"
-                    placement="right"
+              <!-- Temperature -->
+              <el-form-item :label="$t('app.setting.item.chat.temperature')">
+                <el-tooltip
+                  :content="$t('app.setting.item.chat.explain.temperature')"
+                  placement="right"
+                >
+                  <el-input-number
+                    v-model="appSettingStore.openAI.chatOption.temperature"
+                    :min="0"
+                    :max="1"
+                    :step="0.1"
+                  />
+                </el-tooltip>
+              </el-form-item>
+
+              <!-- Top P -->
+              <el-form-item :label="$t('app.setting.item.chat.topP')">
+                <el-tooltip :content="$t('app.setting.item.chat.explain.topP')" placement="right">
+                  <el-input-number
+                    v-model="appSettingStore.openAI.chatOption.topP"
+                    :min="0"
+                    :max="1"
+                    :step="0.1"
+                  />
+                </el-tooltip>
+              </el-form-item>
+
+              <!-- Max Tokens -->
+              <el-form-item :label="$t('app.setting.item.chat.maxTokens')">
+                <el-tooltip
+                  :content="$t('app.setting.item.chat.explain.maxTokens')"
+                  placement="right"
+                >
+                  <el-input-number
+                    v-model="appSettingStore.openAI.chatOption.maxTokens"
+                    :min="1024"
+                    :max="1024000"
+                    :step="1"
+                  />
+                </el-tooltip>
+              </el-form-item>
+
+              <!-- Presence Penalty -->
+              <el-form-item :label="$t('app.setting.item.chat.presencePenalty')">
+                <el-tooltip
+                  :content="$t('app.setting.item.chat.explain.presencePenalty')"
+                  placement="right"
+                >
+                  <el-input-number
+                    v-model="appSettingStore.openAI.chatOption.presencePenalty"
+                    :min="-2"
+                    :max="2"
+                    :step="0.1"
+                  />
+                </el-tooltip>
+              </el-form-item>
+
+              <!-- Frequency Penalty -->
+              <el-form-item :label="$t('app.setting.item.chat.frequencyPenalty')">
+                <el-tooltip
+                  :content="$t('app.setting.item.chat.explain.frequencyPenalty')"
+                  placement="right"
+                >
+                  <el-input-number
+                    v-model="appSettingStore.openAI.chatOption.frequencyPenalty"
+                    :min="-2"
+                    :max="2"
+                    :step="0.1"
+                  />
+                </el-tooltip>
+              </el-form-item>
+
+              <!-- Context Size -->
+              <el-form-item :label="$t('app.setting.item.chat.contextSize')">
+                <el-tooltip
+                  :content="$t('app.setting.item.chat.explain.contextSize')"
+                  placement="right"
+                >
+                  <el-input-number
+                    v-model="appSettingStore.openAI.chatOption.contextSize"
+                    :min="0"
+                    :max="100"
+                    :step="1"
+                  />
+                </el-tooltip>
+              </el-form-item>
+
+              <!-- Auto Generate Title -->
+              <el-form-item :label="$t('app.setting.item.chat.autoGenerateSessionName')">
+                <el-tooltip
+                  :content="$t('app.setting.item.chat.explain.autoGenerateSessionName')"
+                  placement="right"
+                >
+                  <el-switch v-model="appSettingStore.openAI.chatOption.autoGenerateSessionName" />
+                </el-tooltip>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+
+          <!-- 发音 -->
+          <el-tab-pane :label="$t('app.setting.speech')">
+            <el-form label-width="auto">
+              <!-- Model -->
+              <el-form-item :label="$t('app.setting.item.speech.model')">
+                <el-select
+                  v-model="appSettingStore.openAI.speechOption.model"
+                  allow-create
+                  filterable
+                >
+                  <el-option-group
+                    v-for="group in OpenAISpeechModels"
+                    :key="group.label"
+                    :label="group.label"
                   >
-                    <el-input-number
-                      v-model="appSettingStore.openAI.topP"
-                      :min="0"
-                      :max="1"
-                      :step="0.1"
+                    <el-option
+                      v-for="item in group.options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
                     />
-                  </el-tooltip>
-                </el-form-item>
+                  </el-option-group>
+                </el-select>
+              </el-form-item>
 
-                <!-- Max Tokens -->
-                <el-form-item :label="$t('app.setting.item.openai.maxTokens')">
-                  <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.maxTokens')"
-                    placement="right"
-                  >
-                    <el-input-number
-                      v-model="appSettingStore.openAI.maxTokens"
-                      :min="1024"
-                      :max="1024000"
-                      :step="1"
-                    />
-                  </el-tooltip>
-                </el-form-item>
+              <!-- voice -->
+              <el-form-item :label="$t('app.setting.item.speech.voice')">
+                <el-select
+                  v-model="appSettingStore.openAI.speechOption.voice"
+                  allow-create
+                  filterable
+                >
+                  <el-option
+                    v-for="item in OpenAISpeechVoices"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </el-form-item>
 
-                <!-- Presence Penalty -->
-                <el-form-item :label="$t('app.setting.item.openai.presencePenalty')">
-                  <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.presencePenalty')"
-                    placement="right"
-                  >
-                    <el-input-number
-                      v-model="appSettingStore.openAI.presencePenalty"
-                      :min="-2"
-                      :max="2"
-                      :step="0.1"
-                    />
-                  </el-tooltip>
-                </el-form-item>
-
-                <!-- Frequency Penalty -->
-                <el-form-item :label="$t('app.setting.item.openai.frequencyPenalty')">
-                  <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.frequencyPenalty')"
-                    placement="right"
-                  >
-                    <el-input-number
-                      v-model="appSettingStore.openAI.frequencyPenalty"
-                      :min="-2"
-                      :max="2"
-                      :step="0.1"
-                    />
-                  </el-tooltip>
-                </el-form-item>
-
-                <!-- Context Size -->
-                <el-form-item :label="$t('app.setting.item.openai.contextSize')">
-                  <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.contextSize')"
-                    placement="right"
-                  >
-                    <el-input-number
-                      v-model="appSettingStore.openAI.contextSize"
-                      :min="0"
-                      :max="100"
-                      :step="1"
-                    />
-                  </el-tooltip>
-                </el-form-item>
-
-                <!-- Auto Generate Title -->
-                <el-form-item :label="$t('app.setting.item.openai.autoGenerateSessionName')">
-                  <el-tooltip
-                    :content="$t('app.setting.item.openai.explain.autoGenerateSessionName')"
-                    placement="right"
-                  >
-                    <el-switch v-model="appSettingStore.openAI.autoGenerateSessionName" />
-                  </el-tooltip>
-                </el-form-item>
-              </el-form>
-            </el-scrollbar>
+              <!-- speed -->
+              <el-form-item :label="$t('app.setting.item.speech.speed')">
+                <el-input-number
+                  v-model="appSettingStore.openAI.speechOption.speed"
+                  :min="0.25"
+                  :max="4.0"
+                  :step="0.01"
+                />
+              </el-form-item>
+            </el-form>
           </el-tab-pane>
 
           <!-- 网络 -->
