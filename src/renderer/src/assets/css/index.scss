@@ -41,3 +41,17 @@ img {
   overflow: hidden;    /* 超出部分隐藏 */
   text-overflow: ellipsis; /* 超出部分显示省略号 */
 }
+
+// 旋转动画
+.rotate {
+  animation: rotateAnimation 2s linear infinite;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

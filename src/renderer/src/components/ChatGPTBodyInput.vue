@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Promotion } from '@element-plus/icons-vue'
+import AppIcon from '@renderer/components/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -280,9 +281,12 @@ defineExpose({
         @keydown.enter="sendQuestion"
       />
     </div>
-    <div v-if="appStateStore.chatgptLoading" class="question-input-btn" @click="stopAnswer()">
-      <div class="stop-answer-icon"></div>
-    </div>
+    <AppIcon
+      v-if="appStateStore.chatgptLoading"
+      name="stop"
+      class="question-input-btn question-input-btn-available"
+      @click="stopAnswer()"
+    />
     <Promotion
       v-else
       class="question-input-btn"
@@ -333,12 +337,6 @@ defineExpose({
       background-color: var(--el-fill-color-darker);
       cursor: pointer;
       color: var(--el-text-color-primary);
-    }
-
-    .stop-answer-icon {
-      width: 10px;
-      height: 10px;
-      background-color: var(--el-text-color-primary);
     }
   }
 }

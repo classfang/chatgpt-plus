@@ -61,6 +61,22 @@ defineProps({
       ></path>
     </svg>
   </template>
+  <template v-else-if="name === 'stop'">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      :width="width"
+      :height="height"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        fill-rule="evenodd"
+        d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12m7.5-3.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+  </template>
   <template v-else-if="name === 'copy'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -153,6 +169,26 @@ defineProps({
         d="M9.293 18.707a1 1 0 0 1 0-1.414L14.586 12 9.293 6.707a1 1 0 0 1 1.414-1.414l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414 0"
         clip-rule="evenodd"
       ></path>
+    </svg>
+  </template>
+  <template v-else-if="name === 'loading'">
+    <svg
+      stroke="currentColor"
+      fill="none"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      :width="width"
+      :height="height"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line x1="12" y1="2" x2="12" y2="6"></line>
+      <line x1="12" y1="18" x2="12" y2="22"></line>
+      <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+      <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+      <line x1="2" y1="12" x2="6" y2="12"></line>
+      <line x1="18" y1="12" x2="22" y2="12"></line>
+      <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+      <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
     </svg>
   </template>
 </template>
