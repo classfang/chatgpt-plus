@@ -203,26 +203,24 @@ const visible = defineModel<boolean>('visible', {
 </template>
 
 <style lang="scss" scoped>
-.chatgpt-body-setting {
-  .dialog-body {
-    height: $app-dialog-height;
+.dialog-body {
+  height: $app-dialog-height;
 
-    :deep(.el-tabs) {
+  :deep(.el-tabs) {
+    height: 100%;
+
+    .el-tabs--right,
+    .el-tabs__content,
+    .el-tabs--left,
+    .el-tabs__content,
+    .el-tab-pane {
       height: 100%;
-
-      .el-tabs--right,
-      .el-tabs__content,
-      .el-tabs--left,
-      .el-tabs__content,
-      .el-tab-pane {
-        height: 100%;
-      }
     }
+  }
 
-    :deep(.el-tabs__content) {
-      box-sizing: border-box;
-      padding: $app-padding-extra-small $app-padding-small;
-    }
+  :deep(.el-tabs__content) {
+    box-sizing: border-box;
+    padding: $app-padding-extra-small $app-padding-small;
   }
 }
 </style>
