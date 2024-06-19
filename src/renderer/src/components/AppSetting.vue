@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Download, Folder, Monitor, Moon, Setting, Sunny, Tools } from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
+import AppIcon from '@renderer/components/AppIcon.vue'
 import { OpenAIModels, OpenAISpeechModels, OpenAISpeechVoices } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import {
@@ -44,7 +45,7 @@ const checkAppVersion = () => {
             data.badge.appVersion = true
             break // 跳出循环，因为发现有新版本
           } else if (Number(newVersionArray[i]) < Number(appVersionArray[i])) {
-            data.badge.appVersion = true
+            data.badge.appVersion = false
             break // 跳出循环，因为发现当前版本已经是最新的
           }
         }
@@ -76,7 +77,7 @@ onMounted(() => {
 <template>
   <div class="app-setting">
     <el-badge is-dot :hidden="!badge.appVersion">
-      <Setting class="setting-icon" @click="appSettingVisible = true" />
+      <AppIcon name="setting" class="setting-icon" @click="appSettingVisible = true" />
     </el-badge>
 
     <el-dialog v-model="appSettingVisible" :title="$t('app.setting.title')" width="700">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDownBold, Picture, Share, Document } from '@element-plus/icons-vue'
+import { Picture, Share, Document } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/AppIcon.vue'
 import AppSetting from '@renderer/components/AppSetting.vue'
 import ChatGPTBodySetting from '@renderer/components/ChatGPTBodySetting.vue'
@@ -103,7 +103,7 @@ const shareText = () => {
   >
     <div class="model-name" @click="currentChatSettingVisible = true">
       <div>{{ chatSessionStore.getActiveSession!.chatOption.model }}</div>
-      <AppIcon name="arrow-down" :width="18" :height="18" />
+      <AppIcon name="arrow-down" class="model-name-icon" />
     </div>
 
     <!-- 分享下拉列表 -->
@@ -144,7 +144,7 @@ const shareText = () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: $app-padding-small;
+  gap: $app-padding-base;
 
   &-sidebar-header-placeholder {
     padding-left: calc($app-icon-size-base * 2 + $app-padding-base * 3);
@@ -157,7 +157,18 @@ const shareText = () => {
     justify-content: center;
     font-size: $app-icon-size-small;
     font-weight: var(--el-font-weight-primary);
+    color: var(--el-text-color-secondary);
+    transition: color $app-transition-base;
     cursor: pointer;
+
+    &:hover {
+      color: var(--el-text-color-primary);
+    }
+
+    .model-name-icon {
+      height: $app-icon-size-base;
+      width: $app-icon-size-base;
+    }
   }
 
   .share-dropdown {
