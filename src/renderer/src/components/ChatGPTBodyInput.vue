@@ -5,7 +5,12 @@ import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { generateUUID } from '@renderer/utils/id-util'
-import { readLocalImageBase64, saveFileByPath, selectFile } from '@renderer/utils/ipc-util'
+import {
+  readLocalImageBase64,
+  saveFileByBase64,
+  saveFileByPath,
+  selectFile
+} from '@renderer/utils/ipc-util'
 import { Logger } from '@renderer/utils/logger'
 import { openaiChat } from '@renderer/utils/openai-util'
 import OpenAI from 'openai'
@@ -37,7 +42,12 @@ let abortCtr = new AbortController()
 const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => {
   // 加载中、内容为空、输入法回车，不发送消息
   if (!regenerateFlag) {
-    if (appStateStore.chatgptLoading || !data.question.trim() || event?.isComposing) {
+    if (
+      appStateStore.chatgptLoading ||
+      appStateStore.uploading ||
+      !data.question.trim() ||
+      event?.isComposing
+    ) {
       event?.preventDefault()
       return
     } else if (event?.shiftKey) {
@@ -296,10 +306,10 @@ const regenerate = (messageId: string) => {
 
 // 选择附件
 const selectAttachment = async () => {
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.uploading) {
     return
   }
-  appStateStore.chatgptLoading = true
+  appStateStore.uploading = true
 
   try {
     // 支持图片类型：https://platform.openai.com/docs/guides/vision/what-type-of-files-can-i-upload
@@ -317,7 +327,58 @@ const selectAttachment = async () => {
   } catch (error) {
     Logger.error('selectAttachment error: ', error)
   } finally {
-    appStateStore.chatgptLoading = false
+    appStateStore.uploading = false
+  }
+}
+
+// 输入框粘贴监听
+const handleInputPaste = (event: ClipboardEvent) => {
+  // 获取粘贴的内容
+  const items = event.clipboardData?.items
+  if (!items) {
+    return
+  }
+
+  // 只获取第一张图片
+  const item = items[0]
+  if (item && item.kind === 'file' && item.type.startsWith('image/')) {
+    // 阻止默认粘贴行为
+    event.preventDefault()
+    // 获取图片数据
+    const blob = item.getAsFile()
+    if (blob) {
+      const reader = new FileReader()
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target && e.target.result) {
+          // 获取 base64 数据
+          const imageUrl = e.target.result as string
+          if (!imageUrl) {
+            return
+          }
+          const imageBase64 = imageUrl.split('base64,')[1]
+          if (!imageBase64) {
+            return
+          }
+
+          // 随机文件名
+          const extname = '.png'
+          const fileName = `${generateUUID()}${extname}`
+
+          // 保存到本地
+          saveFileByBase64(imageBase64, fileName).then((path) => {
+            // 保存成功后添加到图片预览
+            data.imageList.push({
+              name: fileName,
+              extname: extname,
+              path: path,
+              size: blob.size
+            })
+          })
+        }
+      }
+      // 加载图片数据
+      reader.readAsDataURL(blob)
+    }
   }
 }
 
@@ -361,6 +422,7 @@ defineExpose({
           :autosize="{ minRows: 1, maxRows: 8 }"
           resize="none"
           @keydown.enter="sendQuestion"
+          @paste="handleInputPaste"
         />
       </div>
     </div>
@@ -377,7 +439,9 @@ defineExpose({
     <Promotion
       v-else
       class="question-input-btn"
-      :class="{ 'question-input-btn-available': question.trim().length > 0 }"
+      :class="{
+        'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploading
+      }"
       @click="sendQuestion"
     />
   </div>

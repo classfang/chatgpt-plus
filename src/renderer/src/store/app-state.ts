@@ -6,6 +6,7 @@ export const useAppStateStore = defineStore({
   state: () => ({
     chatgptLoading: false,
     chatgptAnswering: false,
+    uploading: false,
     dayKey: dayjs().format('YYYYMMDD')
   }),
   actions: {
