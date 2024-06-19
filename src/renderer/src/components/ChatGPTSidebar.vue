@@ -22,9 +22,6 @@ const sessionListRef = ref()
 
     <!-- 会话列表 -->
     <ChatGPTSidebarSessionList ref="sessionListRef" />
-
-    <!-- 应用设置 -->
-    <AppSetting />
   </div>
 </template>
 

@@ -44,7 +44,7 @@ const checkAppVersion = () => {
             data.badge.appVersion = true
             break // 跳出循环，因为发现有新版本
           } else if (Number(newVersionArray[i]) < Number(appVersionArray[i])) {
-            data.badge.appVersion = false
+            data.badge.appVersion = true
             break // 跳出循环，因为发现当前版本已经是最新的
           }
         }
@@ -388,7 +388,7 @@ onMounted(() => {
   padding: 0 $app-padding-base;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   .setting-icon {
     height: $app-icon-size-base;
