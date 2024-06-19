@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ArrowDownBold, Picture, Share, Document } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/AppIcon.vue'
+import AppSetting from '@renderer/components/AppSetting.vue'
 import ChatGPTBodySetting from '@renderer/components/ChatGPTBodySetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
@@ -125,6 +126,9 @@ const shareText = () => {
       </template>
     </el-dropdown>
 
+    <!-- 应用设置 -->
+    <AppSetting />
+
     <!-- 当前对话设置弹窗 -->
     <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />
   </div>
@@ -136,10 +140,11 @@ const shareText = () => {
   width: 100%;
   box-sizing: border-box;
   padding: 0 $app-padding-base;
+  transition: padding-left $app-transition-base;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  transition: padding-left $app-transition-base;
+  gap: $app-padding-small;
 
   &-sidebar-header-placeholder {
     padding-left: calc($app-icon-size-base * 2 + $app-padding-base * 3);

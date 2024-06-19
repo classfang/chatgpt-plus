@@ -382,18 +382,19 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .app-setting {
-  height: $app-setting-btn-height;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 $app-padding-base;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  height: $app-icon-size-base;
+  width: $app-icon-size-base;
 
   .setting-icon {
-    height: $app-icon-size-base;
-    width: $app-icon-size-base;
+    height: 100%;
+    width: 100%;
+    color: var(--el-text-color-secondary);
+    transition: color $app-transition-base;
     cursor: pointer;
+
+    &:hover {
+      color: var(--el-text-color-primary);
+    }
   }
 
   .dialog-body {

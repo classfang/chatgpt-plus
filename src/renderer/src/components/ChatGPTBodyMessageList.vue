@@ -38,7 +38,7 @@ const scrollToBottom = (isAuto: boolean) => {
       // 周期任务
       const interval = setInterval(() => {
         // 滚动一个步长
-        messageListScrollbarRef.value.setScrollTop(
+        messageListScrollbarRef.value?.setScrollTop(
           messageListScrollbarRef.value.wrapRef.scrollTop + stepHeight
         )
 
@@ -52,13 +52,15 @@ const scrollToBottom = (isAuto: boolean) => {
           clearInterval(interval)
 
           // 保证置底
-          messageListScrollbarRef.value.setScrollTop(
+          messageListScrollbarRef.value?.setScrollTop(
             messageListScrollbarRef.value.wrapRef.scrollHeight
           )
         }
       }, 10)
     } else if (!data.toBottomBtnVisible) {
-      messageListScrollbarRef.value.setScrollTop(messageListScrollbarRef.value.wrapRef.scrollHeight)
+      messageListScrollbarRef.value?.setScrollTop(
+        messageListScrollbarRef.value.wrapRef.scrollHeight
+      )
     }
   })
 }
