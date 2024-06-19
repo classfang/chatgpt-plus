@@ -382,6 +382,14 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .app-setting {
+  height: $app-setting-btn-height;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 $app-padding-base;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   .setting-icon {
     height: $app-icon-size-base;
     width: $app-icon-size-base;

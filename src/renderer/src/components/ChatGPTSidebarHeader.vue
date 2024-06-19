@@ -74,7 +74,7 @@ onMounted(() => {
     box-sizing: border-box;
     padding: 0 $app-padding-base;
     position: absolute;
-    top: $app-header-height;
+    top: 0;
     left: 0;
     display: flex;
     align-items: center;

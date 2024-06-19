@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppSetting from '@renderer/components/AppSetting.vue'
 import ChatGPTSidebarHeader from '@renderer/components/ChatGPTSidebarHeader.vue'
 import ChatGPTSidebarSessionList from '@renderer/components/ChatGPTSidebarSessionList.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
@@ -21,6 +22,9 @@ const sessionListRef = ref()
 
     <!-- 会话列表 -->
     <ChatGPTSidebarSessionList ref="sessionListRef" />
+
+    <!-- 应用设置 -->
+    <AppSetting />
   </div>
 </template>
 

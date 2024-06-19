@@ -5,6 +5,10 @@ import { ElMessage } from 'element-plus'
 // 多语言
 const { t } = i18n.global
 
+export const setThemeSource = (themeSource = 'system') => {
+  window.electron.ipcRenderer.send('set-theme-source', themeSource)
+}
+
 export const getPlatform = (): Platform => {
   return window.electron.ipcRenderer.sendSync('process-platform')
 }

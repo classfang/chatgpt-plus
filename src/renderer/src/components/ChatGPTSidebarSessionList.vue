@@ -220,7 +220,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .chatgpt-session-list-scrollbar {
-  height: calc(100% - $app-chatgpt-sidebar-header-height);
+  height: calc(100% - $app-chatgpt-sidebar-header-height - $app-setting-btn-height);
   width: 100%;
 
   .session-list {
@@ -228,7 +228,7 @@ onMounted(() => {
     flex: 1 1 0;
     width: 100%;
     box-sizing: border-box;
-    padding: $app-padding-base $app-padding-base 0 $app-padding-base;
+    padding: $app-padding-base;
     display: flex;
     flex-direction: column;
     align-items: center;

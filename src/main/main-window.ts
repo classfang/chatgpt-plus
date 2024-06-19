@@ -18,8 +18,6 @@ export const createWindow = (store: Record<string, any>) => {
     minHeight: mainWindowConfig.minHeight,
     show: false,
     autoHideMenuBar: true,
-    // mac下不显示标题栏
-    titleBarStyle: 'hiddenInset',
     // mac下红绿灯位置
     trafficLightPosition: mainWindowConfig.trafficLightPosition,
     // 动态背景色

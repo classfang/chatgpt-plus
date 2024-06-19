@@ -3,7 +3,7 @@ import { initLogger } from './logger'
 import { createWindow } from './main-window'
 import { initStore } from './store'
 import { electronApp, optimizer, platform } from '@electron-toolkit/utils'
-import { app, BrowserWindow, clipboard, dialog, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, shell } from 'electron'
 import fs from 'fs'
 import { join } from 'path'
 import * as vm from 'vm'
@@ -69,6 +69,11 @@ app.on('before-quit', async (e) => {
   mainWindow.destroy()
   // 退出应用
   app.exit()
+})
+
+// 切换主题
+ipcMain.on('set-theme-source', (_event, themeSource: 'system' | 'light' | 'dark') => {
+  nativeTheme.themeSource = themeSource
 })
 
 // 获取系统类型
