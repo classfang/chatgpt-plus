@@ -23,9 +23,9 @@ const chatSessionStore = useChatSessionStore()
 // 数据绑定
 const data = reactive({
   question: '',
-  attachmentList: [] as ChatMessageFile[]
+  imageList: [] as ChatMessageFile[]
 })
-const { question, attachmentList } = toRefs(data)
+const { question, imageList } = toRefs(data)
 
 // 定义事件
 const emits = defineEmits(['update-message'])
@@ -59,10 +59,10 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       type: 'chat',
       role: 'user',
       content: data.question.trim(),
-      images: data.attachmentList
+      images: data.imageList
     })
     data.question = ''
-    data.attachmentList = []
+    data.imageList = []
     emits('update-message')
   }
 
@@ -307,7 +307,7 @@ const selectAttachment = async () => {
 
     for (const file of files) {
       file.path = await saveFileByPath(file.path, `${generateUUID()}${file.extname}`)
-      data.attachmentList.push({
+      data.imageList.push({
         name: file.name,
         extname: file.extname,
         path: file.path,
@@ -321,9 +321,9 @@ const selectAttachment = async () => {
   }
 }
 
-// 删除附件
-const deleteAttachment = (index: number) => {
-  data.attachmentList.splice(index, 1)
+// 删除图片
+const deleteImage = (index: number) => {
+  data.imageList.splice(index, 1)
 }
 
 // 暴露函数
@@ -336,17 +336,17 @@ defineExpose({
   <div class="chatgpt-body-input">
     <div class="question-input">
       <!-- 附件列表 -->
-      <div v-if="attachmentList.length > 0" class="question-input-file-list">
-        <div v-for="(att, index) in attachmentList" :key="att.path" class="file-item">
+      <div v-if="imageList.length > 0" class="question-input-file-list">
+        <div v-for="(att, index) in imageList" :key="att.path" class="file-item">
           <el-image
             v-if="['.png', '.jpg', '.jpeg', '.webp', '.gif'].includes(att.extname.toLowerCase())"
             class="item-image"
             :src="`file://${att.path}`"
-            :preview-src-list="attachmentList.map((a) => `file://${a.path}`)"
+            :preview-src-list="imageList.map((a) => `file://${a.path}`)"
             :initial-index="index"
             fit="cover"
           />
-          <CircleCloseFilled class="item-close-btn" @click="deleteAttachment(index)" />
+          <CircleCloseFilled class="item-close-btn" @click="deleteImage(index)" />
         </div>
       </div>
       <div class="question-input-textarea-container">
