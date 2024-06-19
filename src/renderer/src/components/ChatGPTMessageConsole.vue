@@ -98,7 +98,13 @@ const speechStop = () => {
 </script>
 
 <template>
-  <div class="chatgpt-message-console">
+  <div
+    class="chatgpt-message-console"
+    :class="{
+      'chatgpt-message-console-visible':
+        chatSessionStore.getActiveSession?.messages.at(-1)?.id == message.id
+    }"
+  >
     <template v-if="message.type === 'chat' && message.role === 'assistant' && message.choices">
       <el-button
         text
@@ -154,6 +160,10 @@ const speechStop = () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+  &-visible {
+    opacity: 1 !important;
+  }
 
   button {
     margin: 0;
