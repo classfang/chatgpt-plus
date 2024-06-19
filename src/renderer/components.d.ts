@@ -7,7 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AppHeader: typeof import('./src/components/AppHeader.vue')['default']
     AppIcon: typeof import('./src/components/AppIcon.vue')['default']
     AppSetting: typeof import('./src/components/AppSetting.vue')['default']
     ChatGPT: typeof import('./src/components/ChatGPT.vue')['default']
