@@ -68,11 +68,16 @@ watch(
   }
 )
 
+// 设置会话名称为标题
+const setSessionNameTitle = () => {
+  document.title = chatSessionStore.getActiveSession?.name || 'ChatGPT Plus'
+}
+
 // 监听标题
 watch(
   () => chatSessionStore.getActiveSession?.name,
-  (newTitle) => {
-    document.title = newTitle || 'ChatGPT Plus'
+  () => {
+    setSessionNameTitle()
   }
 )
 
@@ -81,6 +86,8 @@ onMounted(() => {
   updateTheme()
   // 设置语言
   locale.value = appSettingStore.app.locale
+  // 设置标题
+  setSessionNameTitle()
 })
 </script>
 
