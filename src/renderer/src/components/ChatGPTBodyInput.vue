@@ -4,7 +4,9 @@ import AppIcon from '@renderer/components/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
-import { selectFile } from '@renderer/utils/ipc-util'
+import { generateUUID } from '@renderer/utils/id-util'
+import { readLocalImageBase64, saveFileByPath, selectFile } from '@renderer/utils/ipc-util'
+import { Logger } from '@renderer/utils/logger'
 import { openaiChat } from '@renderer/utils/openai-util'
 import OpenAI from 'openai'
 import { reactive, toRefs } from 'vue'
@@ -56,9 +58,11 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     chatSessionStore.pushMessage({
       type: 'chat',
       role: 'user',
-      content: data.question.trim()
+      content: data.question.trim(),
+      images: data.attachmentList
     })
     data.question = ''
+    data.attachmentList = []
     emits('update-message')
   }
 
@@ -73,7 +77,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
   }
 
   // 转换消息列表
-  const sendMessages = convertMessages(
+  const sendMessages = await convertMessages(
     chatSessionStore.getActiveSession!.messages,
     chatSessionStore.getActiveSession!.chatOption.contextSize,
     1
@@ -119,21 +123,41 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
 }
 
 // 转换消息列表
-const convertMessages = (
+const convertMessages = async (
   messages: ChatMessage[],
   contextSize?: number,
-  ignoreSize = 0
-): OpenAI.ChatCompletionMessageParam[] => {
-  return (
-    messages
-      // 跳过 ignoreSize 条记录，截取最后 contextSize 条记录，
-      .slice(contextSize ? -(contextSize + 1 + ignoreSize) : 0, messages.length - ignoreSize)
-      .filter((m) => m.type === 'chat')
-      .map((m) => ({
-        role: m.role,
-        content: [{ type: 'text', text: m.content }]
-      })) as OpenAI.ChatCompletionMessageParam[]
-  )
+  ignoreSize = 0,
+  ignoreImage = false
+): Promise<OpenAI.ChatCompletionMessageParam[]> => {
+  const chatMessages = messages
+    // 跳过 ignoreSize 条记录，截取最后 contextSize 条记录，
+    .slice(contextSize ? -(contextSize + 1 + ignoreSize) : 0, messages.length - ignoreSize)
+    .filter((m) => m.type === 'chat')
+
+  const convertMessageResult = [] as OpenAI.ChatCompletionMessageParam[]
+  for (const m of chatMessages) {
+    const content = [{ type: 'text', text: m.content }] as OpenAI.ChatCompletionContentPart[]
+
+    // 处理用户消息中的图片
+    if (!ignoreImage && m.role === 'user' && m.images && m.images.length > 0) {
+      for (const image of m.images) {
+        const imageBase64Data = await readLocalImageBase64(image.path)
+        content.push({
+          type: 'image_url',
+          image_url: {
+            url: `data:image/${image.extname.replace('.', '')};base64,${imageBase64Data}`
+          }
+        })
+      }
+    }
+
+    convertMessageResult.push({
+      role: m.role,
+      content: content
+    } as OpenAI.ChatCompletionMessageParam)
+  }
+
+  return convertMessageResult
 }
 
 // 流式回答
@@ -205,7 +229,12 @@ const generateSessionName = async (sessionId: string) => {
       stream: true,
       model: chatSessionStore.getActiveSession!.chatOption.model,
       messages: [
-        ...convertMessages(chatSessionStore.getActiveSession!.messages),
+        ...(await convertMessages(
+          chatSessionStore.getActiveSession!.messages,
+          undefined,
+          undefined,
+          true
+        )),
         {
           role: 'user',
           content: [
@@ -267,16 +296,29 @@ const regenerate = (messageId: string) => {
 
 // 选择附件
 const selectAttachment = async () => {
-  // 支持图片类型：https://platform.openai.com/docs/guides/vision/what-type-of-files-can-i-upload
-  const files = await selectFile(true, ['.png', '.jpg', '.jpeg', '.webp', '.gif'])
-  files.forEach((file) => {
-    data.attachmentList.push({
-      name: file.name,
-      extname: file.extname,
-      path: file.path,
-      size: file.stat.size
-    })
-  })
+  if (appStateStore.chatgptLoading) {
+    return
+  }
+  appStateStore.chatgptLoading = true
+
+  try {
+    // 支持图片类型：https://platform.openai.com/docs/guides/vision/what-type-of-files-can-i-upload
+    const files = await selectFile(true, ['.png', '.jpg', '.jpeg', '.webp', '.gif'])
+
+    for (const file of files) {
+      file.path = await saveFileByPath(file.path, `${generateUUID()}${file.extname}`)
+      data.attachmentList.push({
+        name: file.name,
+        extname: file.extname,
+        path: file.path,
+        size: file.stat.size
+      })
+    }
+  } catch (error) {
+    Logger.error('selectAttachment error: ', error)
+  } finally {
+    appStateStore.chatgptLoading = false
+  }
 }
 
 // 删除附件
