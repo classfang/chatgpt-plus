@@ -20,6 +20,7 @@ interface BaseEntity {
 
 interface ChatMessageFile {
   name: string
+  extname: string
   path: string
   size: number
 }

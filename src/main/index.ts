@@ -5,7 +5,7 @@ import { initStore } from './store'
 import { electronApp, optimizer, platform } from '@electron-toolkit/utils'
 import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, shell } from 'electron'
 import fs from 'fs'
-import { join } from 'path'
+import { join, basename, extname } from 'path'
 import * as vm from 'vm'
 
 // 初始化仓库
@@ -208,6 +208,23 @@ ipcMain.handle('add-cache-files', (_event, cacheFiles: { name: string; data: str
     }
   })
   return resultFlag
+})
+
+// 选择文件返回地址
+ipcMain.handle('select-file', (_event, multiSelections = false, extensions = ['*']) => {
+  const result = dialog.showOpenDialogSync(mainWindow, {
+    properties: multiSelections ? ['openFile', 'multiSelections'] : ['openFile'],
+    filters: [{ name: 'Select File', extensions }]
+  })
+  if (result && result.length > 0) {
+    return result.map((path) => ({
+      path,
+      name: basename(path),
+      extname: extname(path),
+      stat: fs.statSync(path)
+    }))
+  }
+  return []
 })
 
 // 选择文件并读取内容

@@ -1,6 +1,7 @@
 import { Platform } from '@electron-toolkit/utils'
 import i18n from '@renderer/i18n'
 import { ElMessage } from 'element-plus'
+import { Stats } from 'fs'
 
 // 多语言
 const { t } = i18n.global
@@ -62,8 +63,15 @@ export const addCacheFiles = (cacheFiles: { name: string; data: string }[]): Pro
   return window.electron.ipcRenderer.invoke('add-cache-files', cacheFiles)
 }
 
-export const selectFileAndRead = (filters: string[]) => {
-  return window.electron.ipcRenderer.invoke('select-file-and-read', filters)
+export const selectFile = (
+  multiSelections?: boolean,
+  extensions?: string[]
+): Promise<[{ name: string; extname: string; path: string; stat: Stats }]> => {
+  return window.electron.ipcRenderer.invoke('select-file', multiSelections, extensions)
+}
+
+export const selectFileAndRead = (extensions?: string[]) => {
+  return window.electron.ipcRenderer.invoke('select-file-and-read', extensions)
 }
 
 export const openDevTools = () => {

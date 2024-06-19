@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Promotion } from '@element-plus/icons-vue'
+import { CircleCloseFilled, Promotion } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { selectFile } from '@renderer/utils/ipc-util'
 import { openaiChat } from '@renderer/utils/openai-util'
 import OpenAI from 'openai'
 import { reactive, toRefs } from 'vue'
@@ -19,9 +20,10 @@ const chatSessionStore = useChatSessionStore()
 
 // 数据绑定
 const data = reactive({
-  question: ''
+  question: '',
+  attachmentList: [] as ChatMessageFile[]
 })
-const { question } = toRefs(data)
+const { question, attachmentList } = toRefs(data)
 
 // 定义事件
 const emits = defineEmits(['update-message'])
@@ -263,6 +265,25 @@ const regenerate = (messageId: string) => {
   sendQuestion(undefined, true)
 }
 
+// 选择附件
+const selectAttachment = async () => {
+  // 支持图片类型：https://platform.openai.com/docs/guides/vision/what-type-of-files-can-i-upload
+  const files = await selectFile(true, ['.png', '.jpg', '.jpeg', '.webp', '.gif'])
+  files.forEach((file) => {
+    data.attachmentList.push({
+      name: file.name,
+      extname: file.extname,
+      path: file.path,
+      size: file.stat.size
+    })
+  })
+}
+
+// 删除附件
+const deleteAttachment = (index: number) => {
+  data.attachmentList.splice(index, 1)
+}
+
 // 暴露函数
 defineExpose({
   regenerate
@@ -272,21 +293,45 @@ defineExpose({
 <template>
   <div class="chatgpt-body-input">
     <div class="question-input">
-      <el-input
-        v-model="question"
-        type="textarea"
-        :placeholder="$t('app.chatgpt.body.input.question.placeholder')"
-        :autosize="{ minRows: 1, maxRows: 8 }"
-        resize="none"
-        @keydown.enter="sendQuestion"
-      />
+      <!-- 附件列表 -->
+      <div v-if="attachmentList.length > 0" class="question-input-file-list">
+        <div v-for="(att, index) in attachmentList" :key="att.path" class="file-item">
+          <el-image
+            v-if="['.png', '.jpg', '.jpeg', '.webp', '.gif'].includes(att.extname.toLowerCase())"
+            class="item-image"
+            :src="`file://${att.path}`"
+            :preview-src-list="attachmentList.map((a) => `file://${a.path}`)"
+            :initial-index="index"
+            fit="cover"
+          />
+          <CircleCloseFilled class="item-close-btn" @click="deleteAttachment(index)" />
+        </div>
+      </div>
+      <div class="question-input-textarea-container">
+        <!-- 附件选择 -->
+        <AppIcon name="attachment" class="attachment-btn" @click="selectAttachment()" />
+
+        <!-- 文本域 -->
+        <el-input
+          v-model="question"
+          type="textarea"
+          :placeholder="$t('app.chatgpt.body.input.question.placeholder')"
+          :autosize="{ minRows: 1, maxRows: 8 }"
+          resize="none"
+          @keydown.enter="sendQuestion"
+        />
+      </div>
     </div>
+
+    <!-- 停止按钮 -->
     <AppIcon
       v-if="appStateStore.chatgptLoading"
       name="stop"
       class="question-input-btn question-input-btn-available"
       @click="stopAnswer()"
     />
+
+    <!-- 发送按钮 -->
     <Promotion
       v-else
       class="question-input-btn"
@@ -311,12 +356,59 @@ defineExpose({
     flex: 1 1 0;
     border-radius: $app-border-radius-large;
     overflow: hidden;
+    background-color: var(--el-fill-color);
+    display: flex;
+    flex-direction: column;
+    gap: $app-padding-small;
 
-    :deep(.el-textarea__inner) {
-      min-height: $app-icon-size-large !important;
-      padding: $app-padding-small $app-padding-base;
-      box-shadow: none;
-      background-color: var(--el-fill-color);
+    .question-input-file-list {
+      box-sizing: border-box;
+      padding: $app-padding-small;
+      display: flex;
+      gap: $app-padding-small;
+      flex-wrap: wrap;
+
+      .file-item {
+        height: 60px;
+        width: 60px;
+        position: relative;
+
+        .item-image {
+          height: 100%;
+          width: 100%;
+          border-radius: $app-border-radius-base;
+        }
+
+        .item-close-btn {
+          height: $app-icon-size-small;
+          width: $app-icon-size-small;
+          position: absolute;
+          top: calc($app-icon-size-small / -2);
+          right: calc($app-icon-size-small / -2);
+        }
+      }
+    }
+
+    .question-input-textarea-container {
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+
+      .attachment-btn {
+        height: $app-icon-size-large;
+        width: $app-icon-size-large;
+        border-radius: 50%;
+        box-sizing: border-box;
+        padding: $app-padding-small;
+        cursor: pointer;
+        color: var(--el-text-color-primary);
+      }
+
+      :deep(.el-textarea__inner) {
+        padding: $app-padding-small $app-padding-extra-small $app-padding-small 0;
+        box-shadow: none;
+        background-color: var(--el-fill-color);
+      }
     }
   }
 
