@@ -139,6 +139,7 @@ const shareText = () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  transition: padding-left $app-transition-base;
 
   &-sidebar-header-placeholder {
     padding-left: calc($app-icon-size-base * 2 + $app-padding-base * 3);
