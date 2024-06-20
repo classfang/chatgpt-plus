@@ -1,8 +1,11 @@
 <script setup lang="ts">
 // 组件传参
-import { Download } from '@element-plus/icons-vue'
+import { CircleCloseFilled, Download } from '@element-plus/icons-vue'
 import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
+import FileIcon from '@renderer/components/FileIcon.vue'
 import { downloadFile } from '@renderer/utils/download-util'
+import { formatFileSize } from '@renderer/utils/file-util'
+import { showItemInFolder } from '@renderer/utils/ipc-util'
 
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
@@ -12,17 +15,22 @@ const message = defineModel<ChatMessage>('message', {
 <template>
   <div class="chatgpt-message-user">
     <div class="message-content select-text">
+      <!-- 文本内容 -->
       <span>{{ message.content }}</span>
+
+      <!-- 图片列表 -->
       <div v-if="message.images && message.images.length > 0" class="file-list">
-        <div v-for="(att, index) in message.images" :key="att.path" class="file-item">
+        <template v-for="(att, index) in message.images" :key="att.path">
           <el-dropdown trigger="contextmenu">
-            <el-image
-              class="item-image"
-              :src="`file://${att.path}`"
-              :preview-src-list="message.images.map((a) => `file://${a.path}`)"
-              :initial-index="index"
-              fit="cover"
-            />
+            <div class="image-item">
+              <el-image
+                class="item-image"
+                :src="`file://${att.path}`"
+                :preview-src-list="message.images.map((a) => `file://${a.path}`)"
+                :initial-index="index"
+                fit="cover"
+              />
+            </div>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item
@@ -33,7 +41,31 @@ const message = defineModel<ChatMessage>('message', {
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-        </div>
+        </template>
+      </div>
+
+      <!-- 文件列表 -->
+      <div v-if="message.files && message.files.length > 0" class="file-list">
+        <template v-for="att in message.files" :key="att.path">
+          <el-dropdown trigger="contextmenu">
+            <div class="file-item" @click="showItemInFolder(att.path)">
+              <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
+              <div class="file-item-body">
+                <div class="file-item-name">{{ att.name }}</div>
+                <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
+              </div>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item
+                  :icon="Download"
+                  @click="downloadFile(`file://${att.path}`, att.name)"
+                  >{{ $t('app.chatgpt.body.message.download') }}</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </template>
       </div>
     </div>
 
@@ -70,16 +102,59 @@ const message = defineModel<ChatMessage>('message', {
       gap: $app-padding-small;
       flex-wrap: wrap;
 
-      .file-item {
-        height: 60px;
-        width: 60px;
+      .image-item {
+        height: $app-chatgpt-message-file-height;
+        width: $app-chatgpt-message-file-height;
         position: relative;
+        cursor: pointer;
 
         .item-image {
-          height: 60px;
-          width: 60px;
+          height: 100%;
+          width: 100%;
           border-radius: $app-border-radius-base;
-          cursor: pointer;
+        }
+      }
+
+      .file-item {
+        height: $app-chatgpt-message-file-height;
+        box-sizing: border-box;
+        padding: $app-padding-small;
+        background-color: var(--el-fill-color-darker);
+        border-radius: $app-border-radius-base;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $app-padding-extra-small;
+        cursor: pointer;
+
+        .file-icon {
+          flex-shrink: 0;
+          height: 100%;
+        }
+
+        .file-item-body {
+          height: 100%;
+          min-width: 0;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .file-item-name {
+            font-size: var(--el-font-size-base);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .file-item-size {
+            font-size: var(--el-font-size-small);
+            color: var(--el-text-color-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }

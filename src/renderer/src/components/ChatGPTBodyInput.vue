@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { formatFileSize } from '../utils/file-util'
 import { CircleCloseFilled, Promotion } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/AppIcon.vue'
+import FileIcon from '@renderer/components/FileIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -9,7 +11,8 @@ import {
   readLocalImageBase64,
   saveFileByBase64,
   saveFileByPath,
-  selectFile
+  selectFile,
+  showItemInFolder
 } from '@renderer/utils/ipc-util'
 import { Logger } from '@renderer/utils/logger'
 import { openaiChat } from '@renderer/utils/openai-util'
@@ -28,9 +31,10 @@ const chatSessionStore = useChatSessionStore()
 // 数据绑定
 const data = reactive({
   question: '',
-  imageList: [] as ChatMessageFile[]
+  imageList: [] as ChatMessageFile[],
+  fileList: [] as ChatMessageFile[]
 })
-const { question, imageList } = toRefs(data)
+const { question, imageList, fileList } = toRefs(data)
 
 // 定义事件
 const emits = defineEmits(['update-message'])
@@ -69,10 +73,12 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       type: 'chat',
       role: 'user',
       content: data.question.trim(),
-      images: data.imageList
+      images: data.imageList,
+      files: data.fileList
     })
     data.question = ''
     data.imageList = []
+    data.fileList = []
     emits('update-message')
   }
 
@@ -313,16 +319,26 @@ const selectAttachment = async () => {
 
   try {
     // 支持图片类型：https://platform.openai.com/docs/guides/vision/what-type-of-files-can-i-upload
-    const files = await selectFile(true, ['.png', '.jpg', '.jpeg', '.webp', '.gif'])
+    const imageExtensions = ['.png', '.jpg', '.jpeg', '.webp', '.gif']
+    const fileExtensions = ['.text', '.pdf', '.docx', '.pptx', '.xlsx']
+    const files = await selectFile(true, [...imageExtensions, ...fileExtensions])
 
     for (const file of files) {
+      // 保存文件到缓存目录
       file.path = await saveFileByPath(file.path, `${generateUUID()}${file.extname}`)
-      data.imageList.push({
+      const chatFile = {
         name: file.name,
         extname: file.extname,
         path: file.path,
         size: file.stat.size
-      })
+      }
+
+      // 图片和文件分开存储
+      if (imageExtensions.includes(chatFile.extname.toLowerCase())) {
+        data.imageList.push(chatFile)
+      } else if (fileExtensions.includes(chatFile.extname.toLowerCase())) {
+        data.fileList.push(chatFile)
+      }
     }
   } catch (error) {
     Logger.error('selectAttachment error: ', error)
@@ -387,6 +403,11 @@ const deleteImage = (index: number) => {
   data.imageList.splice(index, 1)
 }
 
+// 删除文件
+const deleteFile = (index: number) => {
+  data.fileList.splice(index, 1)
+}
+
 // 暴露函数
 defineExpose({
   regenerate
@@ -396,9 +417,9 @@ defineExpose({
 <template>
   <div class="chatgpt-body-input">
     <div class="question-input">
-      <!-- 附件列表 -->
+      <!-- 图片列表 -->
       <div v-if="imageList.length > 0" class="question-input-file-list">
-        <div v-for="(att, index) in imageList" :key="att.path" class="file-item">
+        <div v-for="(att, index) in imageList" :key="att.path" class="image-item">
           <el-image
             class="item-image"
             :src="`file://${att.path}`"
@@ -407,6 +428,22 @@ defineExpose({
             fit="cover"
           />
           <CircleCloseFilled class="item-close-btn" @click="deleteImage(index)" />
+        </div>
+      </div>
+      <!-- 文件列表 -->
+      <div v-if="fileList.length > 0" class="question-input-file-list">
+        <div
+          v-for="(att, index) in fileList"
+          :key="att.path"
+          class="file-item"
+          @click="showItemInFolder(att.path)"
+        >
+          <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
+          <div class="file-item-body">
+            <div class="file-item-name">{{ att.name }}</div>
+            <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
+          </div>
+          <CircleCloseFilled class="item-close-btn" @click="deleteFile(index)" />
         </div>
       </div>
       <div class="question-input-textarea-container">
@@ -464,18 +501,17 @@ defineExpose({
     background-color: var(--el-fill-color);
     display: flex;
     flex-direction: column;
-    gap: $app-padding-small;
 
     .question-input-file-list {
       box-sizing: border-box;
-      padding: $app-padding-small;
+      padding: $app-padding-small $app-padding-small 0 $app-padding-small;
       display: flex;
       gap: $app-padding-small;
       flex-wrap: wrap;
 
-      .file-item {
-        height: 60px;
-        width: 60px;
+      .image-item {
+        height: $app-chatgpt-message-file-height;
+        width: $app-chatgpt-message-file-height;
         position: relative;
 
         .item-image {
@@ -492,6 +528,58 @@ defineExpose({
           top: calc($app-icon-size-small / -2);
           right: calc($app-icon-size-small / -2);
           cursor: pointer;
+        }
+      }
+
+      .file-item {
+        height: $app-chatgpt-message-file-height;
+        box-sizing: border-box;
+        padding: $app-padding-small;
+        background-color: var(--el-fill-color-darker);
+        border-radius: $app-border-radius-base;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $app-padding-extra-small;
+        cursor: pointer;
+
+        .item-close-btn {
+          height: $app-icon-size-small;
+          width: $app-icon-size-small;
+          position: absolute;
+          top: calc($app-icon-size-small / -2);
+          right: calc($app-icon-size-small / -2);
+          cursor: pointer;
+        }
+
+        .file-icon {
+          flex-shrink: 0;
+          height: 100%;
+        }
+
+        .file-item-body {
+          height: 100%;
+          min-width: 0;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .file-item-name {
+            font-size: var(--el-font-size-base);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .file-item-size {
+            font-size: var(--el-font-size-small);
+            color: var(--el-text-color-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }

@@ -48,5 +48,6 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    FileIcon: typeof import('./src/components/FileIcon.vue')['default']
   }
 }
