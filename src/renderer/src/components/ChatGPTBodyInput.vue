@@ -8,6 +8,7 @@ import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { generateUUID } from '@renderer/utils/id-util'
 import {
+  langChainLoadFile,
   readLocalImageBase64,
   saveFileByBase64,
   saveFileByPath,
@@ -143,7 +144,7 @@ const convertMessages = async (
   messages: ChatMessage[],
   contextSize?: number,
   ignoreSize = 0,
-  ignoreImage = false
+  ignoreFile = false
 ): Promise<OpenAI.ChatCompletionMessageParam[]> => {
   const chatMessages = messages
     // 跳过 ignoreSize 条记录，截取最后 contextSize 条记录，
@@ -152,10 +153,23 @@ const convertMessages = async (
 
   const convertMessageResult = [] as OpenAI.ChatCompletionMessageParam[]
   for (const m of chatMessages) {
-    const content = [{ type: 'text', text: m.content }] as OpenAI.ChatCompletionContentPart[]
+    // 真实发送的文本
+    let realText = m.content
+
+    // 将文件内容拼接到用户消息中
+    if (!ignoreFile && m.files && m.files.length > 0) {
+      const fileContentList: Record<string, string> = {}
+      for (const f of m.files) {
+        fileContentList[f.name] = await langChainLoadFile(f.path)
+      }
+      realText = `Files Data:\n${JSON.stringify(fileContentList)}\n${realText}`
+    }
+
+    // 文本消息
+    const content = [{ type: 'text', text: realText }] as OpenAI.ChatCompletionContentPart[]
 
     // 处理用户消息中的图片
-    if (!ignoreImage && m.role === 'user' && m.images && m.images.length > 0) {
+    if (!ignoreFile && m.role === 'user' && m.images && m.images.length > 0) {
       for (const image of m.images) {
         const imageBase64Data = await readLocalImageBase64(image.path)
         content.push({
@@ -427,7 +441,7 @@ defineExpose({
             :initial-index="index"
             fit="cover"
           />
-          <CircleCloseFilled class="item-close-btn" @click="deleteImage(index)" />
+          <CircleCloseFilled class="item-close-btn" @click.stop="deleteImage(index)" />
         </div>
       </div>
       <!-- 文件列表 -->
@@ -443,7 +457,7 @@ defineExpose({
             <div class="file-item-name">{{ att.name }}</div>
             <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
           </div>
-          <CircleCloseFilled class="item-close-btn" @click="deleteFile(index)" />
+          <CircleCloseFilled class="item-close-btn" @click.stop="deleteFile(index)" />
         </div>
       </div>
       <div class="question-input-textarea-container">

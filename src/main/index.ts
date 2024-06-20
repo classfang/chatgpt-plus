@@ -1,4 +1,5 @@
 import { appConfig } from './config'
+import { initLangChain } from './lang-chain'
 import { initLogger } from './logger'
 import { createWindow } from './main-window'
 import { initStore } from './store'
@@ -45,6 +46,9 @@ app.whenReady().then(() => {
 
   // 创建窗口
   mainWindow = createWindow(store)
+
+  // 初始化LangChain
+  initLangChain()
 
   // 激活应用（点击dock栏图标、任务栏图标）
   app.on('activate', () => {

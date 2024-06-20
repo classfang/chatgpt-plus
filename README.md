@@ -18,7 +18,7 @@ We're looking to add more features to ChatGPT Plus. The highest priorities are:
 - [x] Regenerate
 - [x] Speech
 - [x] Image input
-- [ ] File input
+- [x] File input
 - [ ] Image generation
 - [ ] Cache cleanup
 
