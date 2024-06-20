@@ -14,13 +14,16 @@ You can use ChatGPT Plus on pay-as-you-go basis with just openai key.
 ## 2. Roadmap and contributing
 We're looking to add more features to ChatGPT Plus. The highest priorities are:
 
-- [x] Text chat
+- [x] Text Chat
 - [x] Regenerate
 - [x] Speech
-- [x] Image input
-- [x] File input
-- [x] Cache cleanup
-- [ ] Image generation
+- [x] Image Input
+- [x] File Input
+- [x] Clear Cache
+- [ ] Prompt Library
+- [ ] Image Generation
+- [ ] Web Search
+
 
 If you're a developer who'd like to help with any of these, please open an issue to discuss the best way to tackle the challenge.
 
