@@ -19,8 +19,8 @@ We're looking to add more features to ChatGPT Plus. The highest priorities are:
 - [x] Speech
 - [x] Image input
 - [x] File input
+- [x] Cache cleanup
 - [ ] Image generation
-- [ ] Cache cleanup
 
 If you're a developer who'd like to help with any of these, please open an issue to discuss the best way to tackle the challenge.
 

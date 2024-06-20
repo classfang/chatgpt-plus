@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { Download, Folder, Monitor, Moon, Setting, Sunny, Tools } from '@element-plus/icons-vue'
+import { Brush, Download, Folder, Monitor, Moon, Sunny, Tools } from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
 import AppIcon from '@renderer/components/AppIcon.vue'
 import { OpenAIModels, OpenAISpeechModels, OpenAISpeechVoices } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useAppStateStore } from '@renderer/store/app-state'
+import { useChatSessionStore } from '@renderer/store/chat-session'
 import {
+  clearCacheFiles,
   getAppVersion,
   onMainWindowFocus,
   openCacheDir,
@@ -20,6 +23,8 @@ import { onMounted, reactive, toRefs } from 'vue'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
+const appStateStore = useAppStateStore()
+const chatSessionStore = useChatSessionStore()
 
 // 数据绑定
 const data = reactive({
@@ -54,6 +59,32 @@ const checkAppVersion = () => {
     .catch((error) => {
       Logger.error('Error get the latest release:', error)
     })
+}
+
+// 清理缓存
+const clearCache = async () => {
+  if (appStateStore.clearCacheFlag) {
+    return
+  }
+  appStateStore.clearCacheFlag = true
+
+  // 需要排除的文件
+  const ignoreFiles: string[] = []
+  chatSessionStore.sessions.forEach((session) =>
+    session.messages.forEach((message) => {
+      if (message.images && message.images.length > 0) {
+        message.images.forEach((image) => ignoreFiles.push(image.path))
+      }
+      if (message.files && message.files.length > 0) {
+        message.files.forEach((file) => ignoreFiles.push(file.path))
+      }
+    })
+  )
+
+  // 清理缓存文件
+  await clearCacheFiles(ignoreFiles)
+
+  appStateStore.clearCacheFlag = false
 }
 
 onMounted(() => {
@@ -364,6 +395,13 @@ onMounted(() => {
               <el-form-item :label="$t('app.setting.item.about.cache')">
                 <el-button :icon="Folder" @click="openCacheDir()">
                   {{ $t('app.setting.item.about.openCacheDir') }}
+                </el-button>
+                <el-button
+                  :icon="Brush"
+                  :loading="appStateStore.clearCacheFlag"
+                  @click="clearCache()"
+                >
+                  {{ $t('app.setting.item.about.clearCache') }}
                 </el-button>
               </el-form-item>
 

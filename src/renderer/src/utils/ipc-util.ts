@@ -51,8 +51,8 @@ export const clipboardWriteText = (text: string) => {
   return window.electron.ipcRenderer.invoke('clipboard-write-text', text)
 }
 
-export const clearCacheFiles = (images: string[]) => {
-  return window.electron.ipcRenderer.invoke('clear-cache-files', images)
+export const clearCacheFiles = (ignoreFiles: string[]) => {
+  return window.electron.ipcRenderer.invoke('clear-cache-files', ignoreFiles)
 }
 
 export const getCacheFiles = (): Promise<{ name: string; data: string }[]> => {

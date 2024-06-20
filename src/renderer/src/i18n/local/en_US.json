@@ -59,6 +59,7 @@
           "openLogDir": "Open Log Directory",
           "cache": "Application Cache",
           "openCacheDir": "Open Cache Directory",
+          "clearCache": "Clear Cache",
           "devTools": "Developer Tools",
           "openDevTools": "Open Developer Tools"
         }

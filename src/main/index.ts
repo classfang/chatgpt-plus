@@ -164,23 +164,6 @@ ipcMain.handle('clipboard-write-text', (_event, text: string) => {
   clipboard.writeText(text)
 })
 
-// 清理缓存
-ipcMain.handle('clear-cache-files', (_event, images: string[]) => {
-  if (images.length === 0) {
-    return
-  }
-  const files: string[] = fs.readdirSync(appConfig.cachePath)
-  if (!files || files.length === 0) {
-    return
-  }
-  files.forEach((file) => {
-    const filePath = join(appConfig.cachePath, file)
-    if (!images.includes(filePath)) {
-      fs.unlinkSync(filePath)
-    }
-  })
-})
-
 // 获取缓存文件列表
 ipcMain.handle('get-cache-files', () => {
   const files: string[] = fs.readdirSync(appConfig.cachePath)
@@ -212,6 +195,23 @@ ipcMain.handle('add-cache-files', (_event, cacheFiles: { name: string; data: str
     }
   })
   return resultFlag
+})
+
+// 清理缓存文件
+ipcMain.handle('clear-cache-files', (_event, ignoreFiles: string[]) => {
+  if (ignoreFiles.length === 0) {
+    return
+  }
+  const files: string[] = fs.readdirSync(appConfig.cachePath)
+  if (!files || files.length === 0) {
+    return
+  }
+  files.forEach((file) => {
+    const filePath = join(appConfig.cachePath, file)
+    if (!ignoreFiles.includes(filePath)) {
+      fs.unlinkSync(filePath)
+    }
+  })
 })
 
 // 选择文件返回地址
