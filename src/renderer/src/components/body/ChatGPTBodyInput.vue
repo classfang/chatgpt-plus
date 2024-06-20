@@ -18,7 +18,7 @@ import {
 import { Logger } from '@renderer/utils/logger'
 import { openaiChat } from '@renderer/utils/openai-util'
 import OpenAI from 'openai'
-import { reactive, toRefs } from 'vue'
+import { nextTick, onMounted, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 // i18n
@@ -40,8 +40,18 @@ const { question, imageList, fileList } = toRefs(data)
 // 定义事件
 const emits = defineEmits(['update-message'])
 
+// ref
+const inputTextareaRef = ref()
+
 // 阻断控制
 let abortCtr = new AbortController()
+
+// 文本域获得焦点
+const inputTextareaFocus = () => {
+  nextTick(() => {
+    inputTextareaRef.value?.focus()
+  })
+}
 
 // 发送提问
 const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => {
@@ -426,6 +436,11 @@ const deleteFile = (index: number) => {
 defineExpose({
   regenerate
 })
+
+onMounted(() => {
+  // 自动聚焦
+  inputTextareaFocus()
+})
 </script>
 
 <template>
@@ -466,6 +481,7 @@ defineExpose({
 
         <!-- 文本域 -->
         <el-input
+          ref="inputTextareaRef"
           v-model="question"
           type="textarea"
           :placeholder="$t('app.chatgpt.body.input.question.placeholder')"
