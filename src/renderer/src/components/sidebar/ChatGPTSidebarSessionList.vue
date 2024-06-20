@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChatGPTSidebarSession from '@renderer/components/ChatGPTSidebarSession.vue'
+import ChatGPTSidebarSession from '@renderer/components/sidebar/ChatGPTSidebarSession.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import dayjs from 'dayjs'

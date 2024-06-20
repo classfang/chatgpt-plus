@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Download } from '@element-plus/icons-vue'
-import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
-import FileIcon from '@renderer/components/FileIcon.vue'
+import FileIcon from '@renderer/components/icon/FileIcon.vue'
+import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 import { downloadFile } from '@renderer/utils/download-util'
 import { formatFileSize } from '@renderer/utils/file-util'
 import { showItemInFolder } from '@renderer/utils/ipc-util'

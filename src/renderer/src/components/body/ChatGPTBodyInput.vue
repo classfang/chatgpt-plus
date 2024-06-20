@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { formatFileSize } from '../utils/file-util'
+import { formatFileSize } from '../../utils/file-util'
 import { CircleCloseFilled, Promotion } from '@element-plus/icons-vue'
-import AppIcon from '@renderer/components/AppIcon.vue'
-import FileIcon from '@renderer/components/FileIcon.vue'
+import AppIcon from '@renderer/components/icon/AppIcon.vue'
+import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'

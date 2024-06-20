@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import chatgptAvatar from '@renderer/assets/image/chatgpt-avatar.png'
-import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
+import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 
 // 组件传参
 const message = defineModel<ChatMessage>('message', {

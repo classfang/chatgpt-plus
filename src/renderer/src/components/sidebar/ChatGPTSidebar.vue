@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AppSetting from '@renderer/components/AppSetting.vue'
-import ChatGPTSidebarHeader from '@renderer/components/ChatGPTSidebarHeader.vue'
-import ChatGPTSidebarSessionList from '@renderer/components/ChatGPTSidebarSessionList.vue'
+import AppSetting from '@renderer/components/setting/AppSetting.vue'
+import ChatGPTSidebarHeader from '@renderer/components/sidebar/ChatGPTSidebarHeader.vue'
+import ChatGPTSidebarSessionList from '@renderer/components/sidebar/ChatGPTSidebarSessionList.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { ref } from 'vue'
 

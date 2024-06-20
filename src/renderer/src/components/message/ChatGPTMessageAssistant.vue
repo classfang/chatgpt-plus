@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import chatgptAvatar from '@renderer/assets/image/chatgpt-avatar.png'
-import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
+import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { renderMarkdown } from '@renderer/utils/markdown-util'

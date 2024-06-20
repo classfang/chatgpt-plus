@@ -4,11 +4,7 @@ defineProps({
     type: String,
     default: () => ''
   },
-  width: {
-    type: Number,
-    default: () => 24
-  },
-  height: {
+  size: {
     type: Number,
     default: () => 24
   }
@@ -19,8 +15,8 @@ defineProps({
   <template v-if="name === 'menu'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -35,8 +31,8 @@ defineProps({
   <template v-else-if="name === 'edit'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="currentColor"
       viewBox="0 0 24 24"
     >
@@ -48,8 +44,8 @@ defineProps({
   <template v-else-if="name === 'speech'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -64,8 +60,8 @@ defineProps({
   <template v-else-if="name === 'stop'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -80,8 +76,8 @@ defineProps({
   <template v-else-if="name === 'copy'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -96,8 +92,8 @@ defineProps({
   <template v-else-if="name === 'refresh'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -110,8 +106,8 @@ defineProps({
   <template v-else-if="name === 'delete'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -126,8 +122,8 @@ defineProps({
   <template v-else-if="name === 'arrow-down'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -142,8 +138,8 @@ defineProps({
   <template v-else-if="name === 'arrow-left'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -158,8 +154,8 @@ defineProps({
   <template v-else-if="name === 'arrow-right'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -177,8 +173,8 @@ defineProps({
       fill="none"
       stroke-width="2"
       viewBox="0 0 24 24"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       xmlns="http://www.w3.org/2000/svg"
     >
       <line x1="12" y1="2" x2="12" y2="6"></line>
@@ -194,8 +190,8 @@ defineProps({
   <template v-else-if="name === 'setting'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >
@@ -216,8 +212,8 @@ defineProps({
   <template v-else-if="name === 'attachment'">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
       fill="none"
       viewBox="0 0 24 24"
     >

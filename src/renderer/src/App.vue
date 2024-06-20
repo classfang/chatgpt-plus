@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChatGPT from '@renderer/components/ChatGPT.vue'
+import ChatGPT from '@renderer/components/main/ChatGPT.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { setThemeSource } from '@renderer/utils/ipc-util'

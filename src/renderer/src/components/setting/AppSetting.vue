@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Brush, Download, Folder, Monitor, Moon, Sunny, Tools } from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
-import AppIcon from '@renderer/components/AppIcon.vue'
+import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { OpenAIModels, OpenAISpeechModels, OpenAISpeechVoices } from '@renderer/config/OpenAIConfig'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'

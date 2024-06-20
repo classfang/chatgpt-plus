@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppIcon from '@renderer/components/AppIcon.vue'
+import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -111,7 +111,7 @@ const speechStop = () => {
         circle
         @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, -1)"
       >
-        <AppIcon name="arrow-left" :width="18" :height="18" />
+        <AppIcon name="arrow-left" :size="18" />
       </el-button>
       <div>{{ (message.choiceIndex ?? 0) + 1 }} / {{ message.choices.length }}</div>
       <el-button
@@ -119,20 +119,20 @@ const speechStop = () => {
         circle
         @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, 1)"
       >
-        <AppIcon name="arrow-right" :width="18" :height="18" />
+        <AppIcon name="arrow-right" :size="18" />
       </el-button>
     </template>
     <template v-if="message.content && message.content.length > 0">
       <el-button v-if="speechFlag" text circle @click="speechStop()">
-        <AppIcon name="stop" :width="18" :height="18" />
+        <AppIcon name="stop" :size="18" />
       </el-button>
       <el-button v-else text circle @click="speechStart()">
         <AppIcon v-if="speechLoading" class="rotate" name="loading" :width="18" :height="18" />
-        <AppIcon v-else name="speech" :width="18" :height="18" />
+        <AppIcon v-else name="speech" :size="18" />
       </el-button>
     </template>
     <el-button text circle @click="clipboardWriteText(message.content)">
-      <AppIcon name="copy" :width="18" :height="18" />
+      <AppIcon name="copy" :size="18" />
     </el-button>
     <template
       v-if="
@@ -141,7 +141,7 @@ const speechStop = () => {
       "
     >
       <el-button text circle @click="!appStateStore.chatgptLoading && emits('regenerate')">
-        <AppIcon name="refresh" :width="18" :height="18" />
+        <AppIcon name="refresh" :size="18" />
       </el-button>
     </template>
     <el-button
@@ -149,7 +149,7 @@ const speechStop = () => {
       circle
       @click="!appStateStore.chatgptLoading && chatSessionStore.deleteMessage(message.id!)"
     >
-      <AppIcon name="delete" :width="18" :height="18" />
+      <AppIcon name="delete" :size="18" />
     </el-button>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ChatGPTBodyHeader from '@renderer/components/ChatGPTBodyHeader.vue'
-import ChatGPTBodyInput from '@renderer/components/ChatGPTBodyInput.vue'
-import ChatGPTBodyMessageList from '@renderer/components/ChatGPTBodyMessageList.vue'
+import ChatGPTBodyHeader from '@renderer/components/body/ChatGPTBodyHeader.vue'
+import ChatGPTBodyInput from '@renderer/components/body/ChatGPTBodyInput.vue'
+import ChatGPTBodyMessageList from '@renderer/components/body/ChatGPTBodyMessageList.vue'
 import { ref } from 'vue'
 
 // ref
