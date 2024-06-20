@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // 组件传参
+import { Download } from '@element-plus/icons-vue'
 import ChatGPTMessageConsole from '@renderer/components/ChatGPTMessageConsole.vue'
+import { downloadFile } from '@renderer/utils/download-util'
 
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
@@ -13,13 +15,24 @@ const message = defineModel<ChatMessage>('message', {
       <span>{{ message.content }}</span>
       <div v-if="message.images && message.images.length > 0" class="file-list">
         <div v-for="(att, index) in message.images" :key="att.path" class="file-item">
-          <el-image
-            class="item-image"
-            :src="`file://${att.path}`"
-            :preview-src-list="message.images.map((a) => `file://${a.path}`)"
-            :initial-index="index"
-            fit="cover"
-          />
+          <el-dropdown trigger="contextmenu">
+            <el-image
+              class="item-image"
+              :src="`file://${att.path}`"
+              :preview-src-list="message.images.map((a) => `file://${a.path}`)"
+              :initial-index="index"
+              fit="cover"
+            />
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item
+                  :icon="Download"
+                  @click="downloadFile(`file://${att.path}`, att.name)"
+                  >{{ $t('app.chatgpt.body.message.download') }}</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </div>
     </div>

@@ -103,7 +103,9 @@
           "pleaseConfigure": "Please configure the "
         },
         "message": {
-          "copied": "Copied"
+          "copied": "Copied",
+          "preview": "Preview",
+          "download": "Download"
         },
         "header": {
           "currentChat": {

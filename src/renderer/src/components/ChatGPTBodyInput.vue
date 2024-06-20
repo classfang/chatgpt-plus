@@ -400,7 +400,6 @@ defineExpose({
       <div v-if="imageList.length > 0" class="question-input-file-list">
         <div v-for="(att, index) in imageList" :key="att.path" class="file-item">
           <el-image
-            v-if="['.png', '.jpg', '.jpeg', '.webp', '.gif'].includes(att.extname.toLowerCase())"
             class="item-image"
             :src="`file://${att.path}`"
             :preview-src-list="imageList.map((a) => `file://${a.path}`)"
@@ -491,6 +490,7 @@ defineExpose({
           position: absolute;
           top: calc($app-icon-size-small / -2);
           right: calc($app-icon-size-small / -2);
+          cursor: pointer;
         }
       }
     }
