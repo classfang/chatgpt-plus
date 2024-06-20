@@ -20,6 +20,7 @@ We're looking to add more features to ChatGPT Plus. The highest priorities are:
 - [x] Image Input
 - [x] File Input
 - [x] Clear Cache
+- [ ] System Prompt
 - [ ] Prompt Library
 - [ ] Image Generation
 - [ ] Web Search
