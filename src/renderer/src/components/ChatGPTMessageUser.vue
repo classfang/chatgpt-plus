@@ -76,17 +76,10 @@ const message = defineModel<ChatMessage>('message', {
         position: relative;
 
         .item-image {
-          height: 100%;
-          width: 100%;
+          height: 60px;
+          width: 60px;
           border-radius: $app-border-radius-base;
-        }
-
-        .item-close-btn {
-          height: $app-icon-size-small;
-          width: $app-icon-size-small;
-          position: absolute;
-          top: calc($app-icon-size-small / -2);
-          right: calc($app-icon-size-small / -2);
+          cursor: pointer;
         }
       }
     }

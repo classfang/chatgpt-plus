@@ -482,6 +482,7 @@ defineExpose({
           height: 100%;
           width: 100%;
           border-radius: $app-border-radius-base;
+          cursor: pointer;
         }
 
         .item-close-btn {
