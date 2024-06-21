@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { formatFileSize } from '../../utils/file-util'
 import { CircleCloseFilled, Promotion } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
+import { toolsDefine, toolsUse } from '@renderer/service/tool-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { formatFileSize } from '@renderer/utils/file-util'
 import { generateUUID } from '@renderer/utils/id-util'
 import {
   langChainLoadFile,
@@ -110,6 +111,9 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     1
   )
 
+  // 是否开启工具
+  const toolEnabled = chatSessionStore.getActiveSession!.internetSearchOption?.enabled
+
   // 判断配置是否正确
   if (!appSettingStore.openAI.baseUrl) {
     errorAnswer(t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.openai.baseUrl'))
@@ -119,7 +123,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     errorAnswer(t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.openai.apiKey'))
     return
   }
-  if (chatSessionStore.getActiveSession!.internetSearchOption?.enabled) {
+  if (toolEnabled) {
     if (!appSettingStore.internetSearchOption.google.baseUrl) {
       errorAnswer(
         t('app.chatgpt.body.input.pleaseConfigure') +
@@ -142,6 +146,11 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     }
   }
 
+  // 工具调用参数记录
+  let toolCallId = ''
+  let functionName = ''
+  let functionArguments = ''
+
   // OpenAI对话
   await openaiChat({
     baseURL: appSettingStore.openAI.baseUrl,
@@ -149,6 +158,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     params: {
       stream: true,
       messages: sendMessages,
+      tools: toolEnabled ? toolsDefine : undefined,
       model: chatSessionStore.getActiveSession!.chatOption.model,
       max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
       temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
@@ -157,16 +167,83 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       frequency_penalty: chatSessionStore.getActiveSession!.chatOption.frequencyPenalty
     },
     abortCtrSignal: abortCtrSignal,
-    answer: (content: string) => {
-      streamAnswer(content)
+    answer: (chunk: OpenAI.ChatCompletionChunk) => {
+      // 是否是tool_calls
+      if (
+        toolEnabled &&
+        chunk.choices[0].delta.tool_calls &&
+        chunk.choices[0].delta.tool_calls[0]
+      ) {
+        if (chunk.choices[0].delta.tool_calls[0].id) {
+          toolCallId = chunk.choices[0].delta.tool_calls[0].id
+        }
+        if (chunk.choices[0].delta.tool_calls[0].function?.name) {
+          functionName = chunk.choices[0].delta.tool_calls[0].function?.name
+        }
+        if (chunk.choices[0].delta.tool_calls[0].function?.arguments) {
+          functionArguments += chunk.choices[0].delta.tool_calls[0].function?.arguments
+        }
+      } else {
+        streamAnswer(chunk.choices[0].delta.content ?? '')
+      }
       emits('update-message')
     },
     error: (error: any) => {
       errorAnswer(error.message)
     },
-    end: () => {
-      // 结束回答
-      finishAnswer(noSessionNameFlag, regenerateFlag)
+    end: async () => {
+      if (toolEnabled) {
+        // 执行工具并继续调用
+        sendMessages.push({
+          role: 'assistant',
+          content: null,
+          tool_calls: [
+            {
+              id: toolCallId,
+              type: 'function',
+              function: { name: functionName, arguments: functionArguments }
+            }
+          ]
+        })
+        sendMessages.push({
+          role: 'tool',
+          tool_call_id: toolCallId,
+          content: await toolsUse(
+            functionName,
+            functionArguments,
+            appSettingStore.internetSearchOption
+          )
+        })
+        await openaiChat({
+          baseURL: appSettingStore.openAI.baseUrl,
+          apiKey: appSettingStore.openAI.apiKey,
+          params: {
+            stream: true,
+            messages: sendMessages,
+            model: chatSessionStore.getActiveSession!.chatOption.model,
+            max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
+            temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
+            top_p: chatSessionStore.getActiveSession!.chatOption.topP,
+            presence_penalty: chatSessionStore.getActiveSession!.chatOption.presencePenalty,
+            frequency_penalty: chatSessionStore.getActiveSession!.chatOption.frequencyPenalty
+          },
+          abortCtrSignal: abortCtrSignal,
+          answer: (chunk: OpenAI.ChatCompletionChunk) => {
+            streamAnswer(chunk.choices[0].delta.content ?? '')
+            emits('update-message')
+          },
+          error: (error: any) => {
+            errorAnswer(error.message)
+          },
+          end: () => {
+            // 结束回答
+            finishAnswer(noSessionNameFlag, regenerateFlag)
+          }
+        })
+      } else {
+        // 结束回答
+        finishAnswer(noSessionNameFlag, regenerateFlag)
+      }
     }
   })
 }
@@ -308,9 +385,9 @@ const generateSessionName = async (sessionId: string) => {
         }
       ]
     },
-    answer: (content: string) => {
+    answer: (chunk: OpenAI.ChatCompletionChunk) => {
       // 拼接名称
-      sessionName += content.trim()
+      sessionName += chunk.choices[0].delta.content?.trim() ?? ''
       // 根据id获取session
       const session = chatSessionStore.getSessionById(sessionId)
       if (session && sessionName.length > 0) {

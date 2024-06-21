@@ -6,7 +6,7 @@ export interface OpenAIChatParam {
   apiKey: string
   params: OpenAI.ChatCompletionCreateParams
   abortCtrSignal?: AbortSignal
-  answer?: (content: string) => void
+  answer?: (chunk: OpenAI.ChatCompletionChunk) => void
   end?: () => void
   error?: (error: any) => void
 }
@@ -39,17 +39,17 @@ export const openaiChat = async (param: OpenAIChatParam) => {
       // 连续回答
       for await (const chunk of stream) {
         if (param.abortCtrSignal?.aborted) {
-          return
+          return null
         }
         Logger.info('openai chat response chunk: ', chunk)
-        param.answer && param.answer(chunk.choices[0].delta.content ?? '')
+        param.answer && param.answer(chunk)
       }
     } else {
       const completion = await openai.chat.completions.create(param.params)
 
       // 一次性回答
       Logger.info('openai chat response completion: ', completion)
-      param.answer && param.answer(completion.choices[0].message.content ?? '')
+      return completion
     }
   } catch (e: any) {
     Logger.error('openai chat error: ', e.message)
@@ -57,6 +57,8 @@ export const openaiChat = async (param: OpenAIChatParam) => {
   }
 
   param.end && param.end()
+
+  return null
 }
 
 // 发音

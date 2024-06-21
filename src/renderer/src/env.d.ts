@@ -54,6 +54,11 @@ interface SpeechOption {
 
 interface InternetSearchOption {
   enabled: boolean
+  google: {
+    baseUrl: string
+    key: string
+    cx: string
+  }
 }
 
 interface ChatSession extends BaseEntity {
