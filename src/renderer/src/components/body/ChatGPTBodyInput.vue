@@ -432,9 +432,15 @@ const deleteFile = (index: number) => {
   data.fileList.splice(index, 1)
 }
 
+// 修改问题输入
+const updateQuestion = (prompt: string) => {
+  data.question = prompt
+}
+
 // 暴露函数
 defineExpose({
-  regenerate
+  regenerate,
+  updateQuestion
 })
 
 onMounted(() => {

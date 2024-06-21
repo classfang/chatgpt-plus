@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Bottom } from '@element-plus/icons-vue'
-import ChatGPTBodyEmpty from '@renderer/components/body/ChatGPTBodyEmpty.vue'
 import ChatGPTMessageAssistant from '@renderer/components/message/ChatGPTMessageAssistant.vue'
 import ChatGPTMessageError from '@renderer/components/message/ChatGPTMessageError.vue'
+import ChatGPTMessageSystem from '@renderer/components/message/ChatGPTMessageSystem.vue'
 import ChatGPTMessageUser from '@renderer/components/message/ChatGPTMessageUser.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { ref, nextTick, reactive, toRefs, onMounted } from 'vue'
@@ -93,12 +93,7 @@ onMounted(() => {
 <template>
   <div class="chatgpt-body-message-list">
     <!-- 消息列表 -->
-    <el-scrollbar
-      v-if="chatSessionStore.getActiveSession!.messages.length > 0"
-      ref="messageListScrollbarRef"
-      height="100%"
-      @scroll="onMessageListScroll"
-    >
+    <el-scrollbar ref="messageListScrollbarRef" height="100%" @scroll="onMessageListScroll">
       <div id="message-list-container" class="message-list-container">
         <template v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
           <!-- 对话消息 -->
@@ -108,6 +103,9 @@ onMounted(() => {
             </template>
             <template v-else-if="m.role === 'assistant'">
               <ChatGPTMessageAssistant :message="m" @regenerate="emits('regenerate', m.id)" />
+            </template>
+            <template v-else-if="m.role === 'system'">
+              <ChatGPTMessageSystem :message="m" />
             </template>
           </template>
 
@@ -121,9 +119,6 @@ onMounted(() => {
         </template>
       </div>
     </el-scrollbar>
-
-    <!-- 空状态 -->
-    <ChatGPTBodyEmpty v-else />
 
     <!-- 置底按钮 -->
     <transition name="el-fade-in-linear">

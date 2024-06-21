@@ -1,24 +1,13 @@
 <script setup lang="ts">
 import prompts from '@renderer/assets/json/prompts.json'
 import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useChatSessionStore } from '@renderer/store/chat-session'
 import { getRandomElements } from '@renderer/utils/array-util'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
-const chatSessionStore = useChatSessionStore()
 
-// 使用Prompt
-const usePrompt = (prompt: string[]) => {
-  chatSessionStore.pushMessage(
-    {
-      type: 'chat',
-      role: 'system',
-      content: prompt[1]
-    },
-    prompt[0]
-  )
-}
+// 事件
+const emits = defineEmits(['use-prompt'])
 </script>
 
 <template>
@@ -27,7 +16,7 @@ const usePrompt = (prompt: string[]) => {
       v-for="p in getRandomElements(prompts[appSettingStore.app.locale], 4)"
       :key="p[0]"
       class="prompt-item"
-      @click="usePrompt(p)"
+      @click="emits('use-prompt', p[1])"
     >
       {{ p[0] }}
     </div>

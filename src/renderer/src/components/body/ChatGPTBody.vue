@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import ChatGPTBodyEmpty from '@renderer/components/body/ChatGPTBodyEmpty.vue'
 import ChatGPTBodyHeader from '@renderer/components/body/ChatGPTBodyHeader.vue'
 import ChatGPTBodyInput from '@renderer/components/body/ChatGPTBodyInput.vue'
 import ChatGPTBodyMessageList from '@renderer/components/body/ChatGPTBodyMessageList.vue'
+import { useChatSessionStore } from '@renderer/store/chat-session'
 import { ref } from 'vue'
+
+// 仓库
+const chatSessionStore = useChatSessionStore()
 
 // ref
 const bodyMessageListRef = ref()
@@ -15,9 +20,12 @@ const bodyInputRef = ref()
     <ChatGPTBodyHeader />
     <!-- 消息列表 -->
     <ChatGPTBodyMessageList
+      v-if="chatSessionStore.getActiveSession!.messages.length > 0"
       ref="bodyMessageListRef"
       @regenerate="(messageId: string) => bodyInputRef.regenerate(messageId)"
     />
+    <!-- 空状态 -->
+    <ChatGPTBodyEmpty v-else @use-prompt="(prompt) => bodyInputRef.updateQuestion(prompt)" />
     <!-- 输入区域 -->
     <ChatGPTBodyInput
       ref="bodyInputRef"
