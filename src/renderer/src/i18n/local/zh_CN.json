@@ -6,6 +6,7 @@
       "openai": "OpenAI",
       "chat": "对话",
       "speech": "发音",
+      "internetSearch": "互联网搜索",
       "network": "网络",
       "about": "关于",
       "item": {
@@ -47,6 +48,14 @@
           "model": "模型",
           "voice": "发音人",
           "speed": "语速"
+        },
+        "internetSearch": {
+          "enabled": "开启互联网搜索",
+          "google": {
+            "baseUrl": "谷歌搜索服务地址",
+            "key": "谷歌搜索 API 密钥",
+            "cx": "谷歌搜索引擎 ID"
+          }
         },
         "proxy": {
           "label": "网络代理"

@@ -17,12 +17,15 @@ export const useChatSessionStore = defineStore({
     }
   },
   actions: {
-    create(setting: { chatOption: ChatOption; speechOption: SpeechOption }) {
+    create(setting: {
+      chatOption: ChatOption
+      speechOption: SpeechOption
+      internetSearchOption: InternetSearchOption
+    }) {
       const firstSession = this.sessions.at(0)
+      // 如果存在新的空对话，则删除
       if (firstSession && firstSession.messages.length === 0) {
-        firstSession.createTime = nowTimestamp()
-        this.activeSessionId = firstSession.id!
-        return
+        this.sessions.shift()
       }
       const sessionId = generateUUID()
       this.sessions.unshift({
@@ -32,7 +35,8 @@ export const useChatSessionStore = defineStore({
         provider: 'OpenAI',
         messages: [] as ChatMessage[],
         chatOption: setting.chatOption,
-        speechOption: setting.speechOption
+        speechOption: setting.speechOption,
+        internetSearchOption: setting.internetSearchOption
       })
       this.activeSessionId = sessionId
     },

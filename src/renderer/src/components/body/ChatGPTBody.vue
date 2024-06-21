@@ -29,7 +29,7 @@ const bodyInputRef = ref()
     <!-- 输入区域 -->
     <ChatGPTBodyInput
       ref="bodyInputRef"
-      @update-message="bodyMessageListRef.scrollToBottom(true)"
+      @update-message="bodyMessageListRef?.scrollToBottom(true)"
     />
   </div>
 </template>

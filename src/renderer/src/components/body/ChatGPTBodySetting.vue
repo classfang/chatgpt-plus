@@ -197,6 +197,21 @@ const visible = defineModel<boolean>('visible', {
             </el-form-item>
           </el-form>
         </el-tab-pane>
+
+        <!-- Internet Search -->
+        <el-tab-pane
+          v-if="chatSessionStore.getActiveSession!.internetSearchOption"
+          :label="$t('app.setting.internetSearch')"
+        >
+          <el-form label-width="auto">
+            <!-- Enabled -->
+            <el-form-item :label="$t('app.setting.item.internetSearch.enabled')">
+              <el-switch
+                v-model="chatSessionStore.getActiveSession!.internetSearchOption.enabled"
+              />
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </el-dialog>

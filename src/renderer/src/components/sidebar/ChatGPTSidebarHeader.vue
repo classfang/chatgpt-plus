@@ -19,7 +19,8 @@ const createSession = () => {
     return
   }
   chatSessionStore.create({
-    ...appSettingStore.openAI
+    ...appSettingStore.openAI,
+    internetSearchOption: appSettingStore.internetSearchOption
   })
   emits('create-session')
 }

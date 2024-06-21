@@ -39,6 +39,14 @@ export const useAppSettingStore = defineStore({
     },
     chatgpt: {
       sidebarVisible: true
+    },
+    internetSearchOption: {
+      enabled: false,
+      google: {
+        baseUrl: 'https://www.googleapis.com/customsearch/v1',
+        key: '',
+        cx: ''
+      }
     }
   }),
   persist: true

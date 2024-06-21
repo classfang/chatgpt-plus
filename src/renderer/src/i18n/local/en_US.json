@@ -6,6 +6,7 @@
       "openai": "OpenAI",
       "chat": "Chat",
       "speech": "Speech",
+      "internetSearch": "Internet Search",
       "network": "Network",
       "about": "About",
       "item": {
@@ -47,6 +48,14 @@
           "model": "Model",
           "voice": "Voice",
           "speed": "Speed"
+        },
+        "internetSearch": {
+          "enabled": "Open Internet Search",
+          "google": {
+            "baseUrl": "Google Search Base Url",
+            "key": "Google Search API Key",
+            "cx": "Google Search Engine ID"
+          }
         },
         "proxy": {
           "label": "Network Proxy"

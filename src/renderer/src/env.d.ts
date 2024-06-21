@@ -52,10 +52,15 @@ interface SpeechOption {
   speed: number
 }
 
+interface InternetSearchOption {
+  enabled: boolean
+}
+
 interface ChatSession extends BaseEntity {
   name: string
   provider: LLMProvider
   messages: ChatMessage[]
   chatOption: ChatOption
   speechOption: SpeechOption
+  internetSearchOption: InternetSearchOption
 }

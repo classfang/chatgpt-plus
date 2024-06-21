@@ -343,6 +343,39 @@ onMounted(() => {
             </el-form>
           </el-tab-pane>
 
+          <!-- Internet Search -->
+          <el-tab-pane :label="$t('app.setting.internetSearch')">
+            <el-form label-width="auto">
+              <!-- Enabled -->
+              <el-form-item :label="$t('app.setting.item.internetSearch.enabled')">
+                <el-switch v-model="appSettingStore.internetSearchOption.enabled" />
+              </el-form-item>
+
+              <!-- Base URL -->
+              <el-form-item :label="$t('app.setting.item.internetSearch.google.baseUrl')">
+                <el-input v-model="appSettingStore.internetSearchOption.google.baseUrl" />
+              </el-form-item>
+
+              <!-- key -->
+              <el-form-item :label="$t('app.setting.item.internetSearch.google.key')">
+                <el-input
+                  v-model="appSettingStore.internetSearchOption.google.key"
+                  show-password
+                  type="password"
+                />
+              </el-form-item>
+
+              <!-- cx -->
+              <el-form-item :label="$t('app.setting.item.internetSearch.google.cx')">
+                <el-input
+                  v-model="appSettingStore.internetSearchOption.google.cx"
+                  show-password
+                  type="password"
+                />
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+
           <!-- 网络 -->
           <el-tab-pane :label="$t('app.setting.network')">
             <el-form label-width="auto">
