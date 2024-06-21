@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { MoreFilled } from '@element-plus/icons-vue'
+import { MoreFilled, Search } from '@element-plus/icons-vue'
 import prompts from '@renderer/assets/json/prompts.json'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { getRandomElements } from '@renderer/utils/array-util'
-import { reactive, toRefs } from 'vue'
+import { computed, reactive, toRefs } from 'vue'
 
 // 仓库
 const appSettingStore = useAppSettingStore()
@@ -13,10 +13,13 @@ const emits = defineEmits(['use-prompt'])
 
 // 数据绑定
 const data = reactive({
-  randomPrompts: getRandomElements(prompts[appSettingStore.app.locale], 4),
-  dialogVisible: false
+  dialogVisible: false,
+  promptKeyword: ''
 })
-const { randomPrompts, dialogVisible } = toRefs(data)
+const { dialogVisible, promptKeyword } = toRefs(data)
+
+// 计算属性
+const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.app.locale], 4))
 </script>
 
 <template>
@@ -24,19 +27,42 @@ const { randomPrompts, dialogVisible } = toRefs(data)
     <div
       v-for="p in randomPrompts"
       :key="p[0]"
-      class="prompt-item"
+      class="fast-prompt-item"
       @click="emits('use-prompt', p[1])"
     >
       {{ p[0] }}
     </div>
-    <div class="prompt-item" @click="dialogVisible = true">
+    <div class="fast-prompt-item" @click="dialogVisible = true">
       <el-icon>
         <MoreFilled />
       </el-icon>
     </div>
 
     <el-dialog v-model="dialogVisible" :title="$t('app.chatgpt.body.prompt.title')" width="700">
-      <div class="dialog-body"></div>
+      <div class="dialog-body">
+        <div class="prompt-search">
+          <el-input v-model="promptKeyword" :prefix-icon="Search" />
+        </div>
+        <div class="prompt-list">
+          <el-scrollbar height="100%">
+            <template v-for="p in prompts[appSettingStore.app.locale]" :key="p[0]">
+              <div
+                v-if="p[0].includes(promptKeyword) || p[0].includes(promptKeyword)"
+                class="prompt-item"
+                @click="
+                  () => {
+                    dialogVisible = false
+                    emits('use-prompt', p[1])
+                  }
+                "
+              >
+                <div class="prompt-item-title">{{ p[0] }}</div>
+                <el-text class="prompt-item-content" line-clamp="1">{{ p[1] }}</el-text>
+              </div>
+            </template>
+          </el-scrollbar>
+        </div>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -53,7 +79,7 @@ const { randomPrompts, dialogVisible } = toRefs(data)
   gap: $app-padding-base;
   font-size: var(--el-font-size-base);
 
-  .prompt-item {
+  .fast-prompt-item {
     height: 30px;
     box-sizing: border-box;
     padding: 0 $app-padding-small;
@@ -74,6 +100,34 @@ const { randomPrompts, dialogVisible } = toRefs(data)
 
   .dialog-body {
     height: $app-dialog-height;
+
+    .prompt-search {
+      width: 400px;
+      padding: $app-padding-small;
+    }
+
+    .prompt-list {
+      height: calc($app-dialog-height - 30px);
+
+      .prompt-item {
+        padding: $app-padding-small;
+        border-radius: $app-border-radius-base;
+        cursor: pointer;
+        transition: all $app-transition-base;
+
+        &:hover {
+          background-color: var(--el-fill-color-dark);
+        }
+
+        .prompt-item-title {
+          font-weight: var(--el-font-weight-primary);
+        }
+
+        .prompt-item-content {
+          color: var(--el-text-color-secondary);
+        }
+      }
+    }
   }
 }
 </style>

@@ -25,9 +25,5 @@ const emits = defineEmits(['use-prompt'])
   justify-content: center;
   gap: $app-padding-large;
   font-size: var(--el-font-size-large);
-
-  * {
-    flex-shrink: 0;
-  }
 }
 </style>
