@@ -192,7 +192,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       errorAnswer(error.message)
     },
     end: async () => {
-      if (toolEnabled) {
+      if (toolEnabled && toolCallId && functionName && functionArguments) {
         // 执行工具并继续调用
         sendMessages.push({
           role: 'assistant',
