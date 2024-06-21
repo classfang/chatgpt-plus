@@ -119,6 +119,28 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     errorAnswer(t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.openai.apiKey'))
     return
   }
+  if (chatSessionStore.getActiveSession!.internetSearchOption?.enabled) {
+    if (!appSettingStore.internetSearchOption.google.baseUrl) {
+      errorAnswer(
+        t('app.chatgpt.body.input.pleaseConfigure') +
+          t('app.setting.item.internetSearch.google.baseUrl')
+      )
+      return
+    }
+    if (!appSettingStore.internetSearchOption.google.key) {
+      errorAnswer(
+        t('app.chatgpt.body.input.pleaseConfigure') +
+          t('app.setting.item.internetSearch.google.key')
+      )
+      return
+    }
+    if (!appSettingStore.internetSearchOption.google.cx) {
+      errorAnswer(
+        t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.internetSearch.google.cx')
+      )
+      return
+    }
+  }
 
   // OpenAI对话
   await openaiChat({
