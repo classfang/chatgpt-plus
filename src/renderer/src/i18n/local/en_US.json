@@ -55,6 +55,9 @@
             "baseUrl": "Google Search Base Url",
             "key": "Google Search API Key",
             "cx": "Google Search Engine ID"
+          },
+          "explain": {
+            "enabled": "ChatGPT determines whether to invoke it. Token consumption increases."
           }
         },
         "proxy": {

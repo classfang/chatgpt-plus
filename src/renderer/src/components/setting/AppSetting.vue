@@ -348,7 +348,12 @@ onMounted(() => {
             <el-form label-width="auto">
               <!-- Enabled -->
               <el-form-item :label="$t('app.setting.item.internetSearch.enabled')">
-                <el-switch v-model="appSettingStore.internetSearchOption.enabled" />
+                <el-tooltip
+                  :content="$t('app.setting.item.internetSearch.explain.enabled')"
+                  placement="right"
+                >
+                  <el-switch v-model="appSettingStore.internetSearchOption.enabled" />
+                </el-tooltip>
               </el-form-item>
 
               <!-- Base URL -->
