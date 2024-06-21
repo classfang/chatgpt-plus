@@ -129,6 +129,9 @@
         },
         "empty": {
           "content": "Hello, can I help you?"
+        },
+        "prompt": {
+          "title": "Prompts"
         }
       }
     }
