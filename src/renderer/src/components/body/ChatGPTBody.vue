@@ -39,7 +39,6 @@ const bodyInputRef = ref()
   height: 100%;
   min-width: 0;
   flex: 1 1 0;
-  box-sizing: border-box;
   background-color: var(--el-fill-color-extra-light);
   display: flex;
   flex-direction: column;

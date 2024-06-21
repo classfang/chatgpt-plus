@@ -52,7 +52,7 @@ const emits = defineEmits(['regenerate'])
       box-sizing: border-box;
       padding: $app-padding-small;
       border-radius: calc(1.5rem / 2 + $app-padding-small);
-      line-height: 1.3rem;
+      line-height: $app-line-height-base;
       display: flex;
       justify-content: center;
       color: var(--el-color-error);
