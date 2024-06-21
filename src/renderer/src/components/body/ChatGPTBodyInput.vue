@@ -2,6 +2,7 @@
 import { CircleCloseFilled, Promotion } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
+import { openaiChat } from '@renderer/service/openai-service'
 import { toolsDefine, toolsUse } from '@renderer/service/tool-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
@@ -17,7 +18,6 @@ import {
   showItemInFolder
 } from '@renderer/utils/ipc-util'
 import { Logger } from '@renderer/utils/logger'
-import { openaiChat } from '@renderer/utils/openai-util'
 import OpenAI from 'openai'
 import { nextTick, onMounted, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
