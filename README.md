@@ -2,7 +2,7 @@
   <img src="/resources/icon.png" alt="logo" width="120">
 </p>
 <h2 align="center">ChatGPT Plus</h2>
-<h4 align="center">An Electron application with ChatGPT</h4>
+<h4 align="center">ChatGPT client(linux, mac, win)</h4>
 
 ## 1. Why ChatGPT Plus
 You can use ChatGPT Plus on pay-as-you-go basis with just openai key.
@@ -20,8 +20,8 @@ We're looking to add more features to ChatGPT Plus. The highest priorities are:
 - [x] Image Input
 - [x] File Input
 - [x] Clear Cache
-- [ ] System Prompt
-- [ ] Prompt Library
+- [x] System Prompt
+- [x] Prompt Library
 - [ ] Image Generation
 - [ ] Web Search
 

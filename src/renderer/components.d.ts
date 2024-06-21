@@ -15,6 +15,7 @@ declare module 'vue' {
     ChatGPTBodyHeader: typeof import('./src/components/body/ChatGPTBodyHeader.vue')['default']
     ChatGPTBodyInput: typeof import('./src/components/body/ChatGPTBodyInput.vue')['default']
     ChatGPTBodyMessageList: typeof import('./src/components/body/ChatGPTBodyMessageList.vue')['default']
+    ChatGPTBodyPrompt: typeof import('./src/components/body/ChatGPTBodyPrompt.vue')['default']
     ChatGPTBodySetting: typeof import('./src/components/body/ChatGPTBodySetting.vue')['default']
     ChatGPTMessageAssistant: typeof import('./src/components/message/ChatGPTMessageAssistant.vue')['default']
     ChatGPTMessageConsole: typeof import('./src/components/message/ChatGPTMessageConsole.vue')['default']
