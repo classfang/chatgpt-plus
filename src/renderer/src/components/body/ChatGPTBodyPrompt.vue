@@ -40,8 +40,22 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
 
     <el-dialog v-model="dialogVisible" :title="$t('app.chatgpt.body.prompt.title')" width="700">
       <div class="dialog-body">
-        <div class="prompt-search">
-          <el-input v-model="promptKeyword" :prefix-icon="Search" />
+        <div class="prompt-list-header">
+          <div class="prompt-count">
+            {{
+              (prompts[appSettingStore.app.locale] as string[][]).filter(
+                (p) => p[0].includes(promptKeyword) || p[0].includes(promptKeyword)
+              ).length
+            }}
+            {{ $t('app.chatgpt.body.prompt.count') }}
+          </div>
+          <div class="prompt-search">
+            <el-input
+              v-model="promptKeyword"
+              :placeholder="$t('app.chatgpt.body.prompt.search')"
+              :prefix-icon="Search"
+            />
+          </div>
         </div>
         <div class="prompt-list">
           <el-scrollbar height="100%">
@@ -101,13 +115,25 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
   .dialog-body {
     height: $app-dialog-height;
 
-    .prompt-search {
-      width: 400px;
+    .prompt-list-header {
+      height: 50px;
+      box-sizing: border-box;
       padding: $app-padding-small;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .prompt-search {
+        width: 400px;
+      }
+
+      .prompt-count {
+        font-weight: var(--el-font-weight-primary);
+      }
     }
 
     .prompt-list {
-      height: calc($app-dialog-height - 30px);
+      height: calc($app-dialog-height - 50px);
 
       .prompt-item {
         padding: $app-padding-small;

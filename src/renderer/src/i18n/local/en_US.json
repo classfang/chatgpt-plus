@@ -131,7 +131,9 @@
           "content": "Hello, can I help you?"
         },
         "prompt": {
-          "title": "Prompts"
+          "title": "Prompts",
+          "search": "Search Prompts",
+          "count": "Prompts"
         }
       }
     }
