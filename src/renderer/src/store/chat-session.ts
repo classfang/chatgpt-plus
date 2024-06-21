@@ -43,7 +43,7 @@ export const useChatSessionStore = defineStore({
     clear() {
       this.sessions = []
     },
-    pushMessage(message: ChatMessage) {
+    pushMessage(message: ChatMessage, sessionName?: string) {
       if (!this.getActiveSession) {
         return
       }
@@ -54,7 +54,9 @@ export const useChatSessionStore = defineStore({
       })
 
       // 设置会话标题
-      if (!this.getActiveSession.name && message.role === 'user') {
+      if (sessionName) {
+        this.getActiveSession.name = sessionName
+      } else if (!this.getActiveSession.name && message.role === 'user') {
         this.getActiveSession.name = message.content
       }
     },
