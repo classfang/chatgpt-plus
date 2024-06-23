@@ -106,6 +106,29 @@ const shareText = () => {
       <AppIcon name="arrow-down" class="model-name-icon" />
     </div>
 
+    <!-- 联网开关 -->
+    <el-tooltip
+      :content="
+        chatSessionStore.getActiveSession!.internetSearchOption.enabled
+          ? $t('app.chatgpt.body.header.internetSearch.turnedOn')
+          : $t('app.chatgpt.body.header.internetSearch.turnedOff')
+      "
+      placement="bottom"
+    >
+      <AppIcon
+        :name="
+          chatSessionStore.getActiveSession!.internetSearchOption.enabled
+            ? 'with-net'
+            : 'without-net'
+        "
+        class="net-icon"
+        @click="
+          chatSessionStore.getActiveSession!.internetSearchOption.enabled =
+            !chatSessionStore.getActiveSession!.internetSearchOption.enabled
+        "
+      />
+    </el-tooltip>
+
     <!-- 分享下拉列表 -->
     <el-dropdown
       class="share-dropdown"
@@ -171,9 +194,21 @@ const shareText = () => {
     }
   }
 
-  .share-dropdown {
+  .net-icon {
     margin-left: auto;
+    height: $app-icon-size-base;
+    width: $app-icon-size-base;
+    color: var(--el-text-color-secondary);
+    transition: color $app-transition-base;
+    cursor: pointer;
+    outline: none;
 
+    &:hover {
+      color: var(--el-text-color-primary);
+    }
+  }
+
+  .share-dropdown {
     .share-icon {
       height: $app-icon-size-base;
       width: $app-icon-size-base;

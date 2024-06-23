@@ -124,6 +124,10 @@
           "currentChat": {
             "setting": "Current Chat Settings"
           },
+          "internetSearch": {
+            "turnedOn": "Internet search turned on",
+            "turnedOff": "Internet search turned off"
+          },
           "share": {
             "image": {
               "title": "Share Image",

@@ -124,6 +124,10 @@
           "currentChat": {
             "setting": "当前对话设置"
           },
+          "internetSearch": {
+            "turnedOn": "已开启互联网搜索",
+            "turnedOff": "已关闭互联网搜索"
+          },
           "share": {
             "image": {
               "title": "分享图片",
