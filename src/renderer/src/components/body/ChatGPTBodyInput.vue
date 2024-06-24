@@ -3,7 +3,7 @@ import { CircleCloseFilled, Promotion } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import { openaiChat } from '@renderer/service/openai-service'
-import { toolsDefine, toolsUse } from '@renderer/service/tool-service'
+import { getToolsDefine, ToolEnum, toolsUse } from '@renderer/service/tool-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -111,8 +111,14 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     1
   )
 
-  // 是否开启工具
-  const toolEnabled = chatSessionStore.getActiveSession!.internetSearchOption?.enabled
+  // 工具名称列表
+  const toolNameList: ToolEnum[] = []
+  if (chatSessionStore.getActiveSession!.textToImageOption?.enabled) {
+    toolNameList.push(ToolEnum.TEXT_TO_IMAGE)
+  }
+  if (chatSessionStore.getActiveSession!.internetSearchOption?.enabled) {
+    toolNameList.push(ToolEnum.INTERNET_SEARCH)
+  }
 
   // 判断配置是否正确
   if (!appSettingStore.openAI.baseUrl) {
@@ -123,7 +129,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     errorAnswer(t('app.chatgpt.body.input.pleaseConfigure') + t('app.setting.item.openai.apiKey'))
     return
   }
-  if (toolEnabled) {
+  if (toolNameList.includes(ToolEnum.INTERNET_SEARCH)) {
     if (!appSettingStore.internetSearchOption.google.baseUrl) {
       errorAnswer(
         t('app.chatgpt.body.input.pleaseConfigure') +
@@ -158,7 +164,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     params: {
       stream: true,
       messages: sendMessages,
-      tools: toolEnabled ? toolsDefine : undefined,
+      tools: toolNameList.length > 0 ? getToolsDefine(toolNameList) : undefined,
       model: chatSessionStore.getActiveSession!.chatOption.model,
       max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
       temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
@@ -170,7 +176,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     answer: (chunk: OpenAI.ChatCompletionChunk) => {
       // 是否是tool_calls（当前只获取第一个工具调用）
       if (
-        toolEnabled &&
+        toolNameList.length > 0 &&
         chunk.choices[0].delta.tool_calls &&
         chunk.choices[0].delta.tool_calls[0]
       ) {
@@ -192,7 +198,12 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       errorAnswer(error.message)
     },
     end: async () => {
-      if (toolEnabled && toolCallId && functionName && functionArguments) {
+      if (
+        toolCallId &&
+        functionName &&
+        functionArguments &&
+        ToolEnum.INTERNET_SEARCH === functionName
+      ) {
         // 执行工具并继续调用
         sendMessages.push({
           role: 'assistant',
