@@ -168,7 +168,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     },
     abortCtrSignal: abortCtrSignal,
     answer: (chunk: OpenAI.ChatCompletionChunk) => {
-      // 是否是tool_calls
+      // 是否是tool_calls（当前只获取第一个工具调用）
       if (
         toolEnabled &&
         chunk.choices[0].delta.tool_calls &&
