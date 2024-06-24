@@ -1,4 +1,4 @@
-export const formatFileSize = (size: number): string => {
+export const formatFileSize = (size: number | undefined): string => {
   if (!size || size === 0) return '0 Bytes'
 
   const units = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']

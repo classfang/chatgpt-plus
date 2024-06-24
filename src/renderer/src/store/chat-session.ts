@@ -66,7 +66,7 @@ export const useChatSessionStore = defineStore({
         this.getActiveSession.name = message.content
       }
     },
-    appendMessageContent(content: string) {
+    appendMessageContent(content: string, images?: ChatMessageFile[]) {
       if (!this.getActiveSession) {
         return
       }
@@ -76,6 +76,9 @@ export const useChatSessionStore = defineStore({
       }
 
       latestMessage.content += content
+      if (images) {
+        latestMessage.images = images
+      }
     },
     deleteMessage(messageId: string) {
       if (!this.getActiveSession) {
@@ -116,7 +119,8 @@ export const useChatSessionStore = defineStore({
         message.choiceIndex = message.choices.length - 1
       }
 
-      message.content = message.choices[message.choiceIndex]
+      message.content = message.choices[message.choiceIndex].content
+      message.images = message.choices[message.choiceIndex].images
     }
   },
   persist: true

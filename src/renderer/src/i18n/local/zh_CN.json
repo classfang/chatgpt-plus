@@ -130,7 +130,8 @@
         "message": {
           "copied": "已复制",
           "preview": "预览",
-          "download": "下载"
+          "download": "下载",
+          "textToImageContent": "为你生成以下图片："
         },
         "header": {
           "currentChat": {

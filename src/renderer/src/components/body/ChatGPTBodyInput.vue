@@ -189,8 +189,8 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
         if (chunk.choices[0].delta.tool_calls[0].function?.arguments) {
           functionArguments += chunk.choices[0].delta.tool_calls[0].function?.arguments
         }
-      } else {
-        streamAnswer(chunk.choices[0].delta.content ?? '')
+      } else if (chunk.choices[0].delta.content) {
+        streamAnswer(chunk.choices[0].delta.content)
       }
       emits('update-message')
     },
@@ -198,59 +198,71 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       errorAnswer(error.message)
     },
     end: async () => {
-      if (
-        toolCallId &&
-        functionName &&
-        functionArguments &&
-        ToolEnum.INTERNET_SEARCH === functionName
-      ) {
-        // 执行工具并继续调用
-        sendMessages.push({
-          role: 'assistant',
-          content: null,
-          tool_calls: [
-            {
-              id: toolCallId,
-              type: 'function',
-              function: { name: functionName, arguments: functionArguments }
-            }
-          ]
-        })
-        sendMessages.push({
-          role: 'tool',
-          tool_call_id: toolCallId,
-          content: await toolsUse(
+      if (toolCallId && functionName && functionArguments) {
+        // 运行插件
+        try {
+          const toolResult = await toolsUse(
             functionName,
             functionArguments,
-            appSettingStore.internetSearchOption
+            abortCtrSignal,
+            chatSessionStore.getActiveSession!,
+            appSettingStore
           )
-        })
-        await openaiChat({
-          baseURL: appSettingStore.openAI.baseUrl,
-          apiKey: appSettingStore.openAI.apiKey,
-          params: {
-            stream: true,
-            messages: sendMessages,
-            model: chatSessionStore.getActiveSession!.chatOption.model,
-            max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
-            temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
-            top_p: chatSessionStore.getActiveSession!.chatOption.topP,
-            presence_penalty: chatSessionStore.getActiveSession!.chatOption.presencePenalty,
-            frequency_penalty: chatSessionStore.getActiveSession!.chatOption.frequencyPenalty
-          },
-          abortCtrSignal: abortCtrSignal,
-          answer: (chunk: OpenAI.ChatCompletionChunk) => {
-            streamAnswer(chunk.choices[0].delta.content ?? '')
-            emits('update-message')
-          },
-          error: (error: any) => {
-            errorAnswer(error.message)
-          },
-          end: () => {
+
+          // 针对不同的插件进行结果处理
+          if (ToolEnum.TEXT_TO_IMAGE === functionName) {
+            // 图片生成回答
+            streamAnswer(t('app.chatgpt.body.message.textToImageContent'), JSON.parse(toolResult))
             // 结束回答
             finishAnswer(noSessionNameFlag, regenerateFlag)
+          } else if (ToolEnum.INTERNET_SEARCH === functionName) {
+            // 继续调用对话能力
+            sendMessages.push({
+              role: 'assistant',
+              content: null,
+              tool_calls: [
+                {
+                  id: toolCallId,
+                  type: 'function',
+                  function: { name: functionName, arguments: functionArguments }
+                }
+              ]
+            })
+            sendMessages.push({
+              role: 'tool',
+              tool_call_id: toolCallId,
+              content: toolResult
+            })
+            await openaiChat({
+              baseURL: appSettingStore.openAI.baseUrl,
+              apiKey: appSettingStore.openAI.apiKey,
+              params: {
+                stream: true,
+                messages: sendMessages,
+                model: chatSessionStore.getActiveSession!.chatOption.model,
+                max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
+                temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
+                top_p: chatSessionStore.getActiveSession!.chatOption.topP,
+                presence_penalty: chatSessionStore.getActiveSession!.chatOption.presencePenalty,
+                frequency_penalty: chatSessionStore.getActiveSession!.chatOption.frequencyPenalty
+              },
+              abortCtrSignal: abortCtrSignal,
+              answer: (chunk: OpenAI.ChatCompletionChunk) => {
+                streamAnswer(chunk.choices[0].delta.content ?? '')
+                emits('update-message')
+              },
+              error: (error: any) => {
+                errorAnswer(error.message)
+              },
+              end: () => {
+                // 结束回答
+                finishAnswer(noSessionNameFlag, regenerateFlag)
+              }
+            })
           }
-        })
+        } catch (error: any) {
+          errorAnswer(error.message)
+        }
       } else {
         // 结束回答
         finishAnswer(noSessionNameFlag, regenerateFlag)
@@ -311,16 +323,17 @@ const convertMessages = async (
 }
 
 // 流式回答
-const streamAnswer = (content = '') => {
+const streamAnswer = (content = '', images?: ChatMessageFile[]) => {
   if (!appStateStore.chatgptAnswering) {
     chatSessionStore.pushMessage({
       type: 'chat',
       role: 'assistant',
-      content: content
+      content: content,
+      images: images
     })
     appStateStore.chatgptAnswering = true
   }
-  chatSessionStore.appendMessageContent(content)
+  chatSessionStore.appendMessageContent(content, images)
 }
 
 // 错误回答
@@ -352,7 +365,8 @@ const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => 
     // 最新一条消息
     const latestMessage = chatSessionStore.getActiveSession!.messages.at(-1)!
     if (latestMessage.choices) {
-      latestMessage.choices[latestMessage.choices.length - 1] = latestMessage.content
+      latestMessage.choices[latestMessage.choices.length - 1].content = latestMessage.content
+      latestMessage.choices[latestMessage.choices.length - 1].images = latestMessage.images
     }
   }
 
@@ -424,10 +438,17 @@ const regenerate = (messageId: string) => {
   } else {
     // 初始化choices
     if (!latestMessage.choices) {
-      latestMessage.choices = [latestMessage.content, '']
-    } else {
-      latestMessage.choices.push('')
+      latestMessage.choices = [
+        {
+          content: latestMessage.content,
+          images: latestMessage.images
+        }
+      ]
     }
+    latestMessage.choices.push({
+      content: '',
+      images: []
+    })
 
     // 初始化choiceIndex
     if (!latestMessage.choiceIndex) {
@@ -439,6 +460,7 @@ const regenerate = (messageId: string) => {
 
   // 清空当前内容
   latestMessage.content = ''
+  latestMessage.images = []
 
   // 重新生成
   sendQuestion(undefined, true)

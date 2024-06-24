@@ -130,7 +130,8 @@
         "message": {
           "copied": "Copied",
           "preview": "Preview",
-          "download": "Download"
+          "download": "Download",
+          "textToImageContent": "Generate the images for you:"
         },
         "header": {
           "currentChat": {

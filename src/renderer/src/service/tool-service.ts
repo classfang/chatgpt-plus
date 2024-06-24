@@ -1,3 +1,5 @@
+import { generateUUID } from '@renderer/utils/id-util'
+import { saveFileByBase64 } from '@renderer/utils/ipc-util'
 import { Logger } from '@renderer/utils/logger'
 import axios from 'axios'
 import dayjs from 'dayjs'
@@ -58,15 +60,62 @@ export const getToolsDefine = (
 export const toolsUse = async (
   functionName: string,
   functionArguments: string,
-  internetSearchOption: InternetSearchOption
+  abortCtrSignal: AbortSignal,
+  chatSession: ChatSession,
+  appSettingStore: any
 ) => {
-  if (functionName === ToolEnum.INTERNET_SEARCH) {
+  if (functionName === ToolEnum.TEXT_TO_IMAGE) {
+    // OpenAI实例
+    const openai = new OpenAI({
+      apiKey: appSettingStore.openAI.apiKey,
+      baseURL: appSettingStore.openAI.baseUrl,
+      dangerouslyAllowBrowser: true
+    })
+
+    // OpenAI 绘画
+    const imagesResponse = await openai.images.generate(
+      {
+        prompt: JSON.parse(functionArguments).description,
+        response_format: 'b64_json',
+        model: chatSession.textToImageOption.model,
+        n: chatSession.textToImageOption.n,
+        quality: chatSession.textToImageOption.quality,
+        size: chatSession.textToImageOption.size,
+        style: chatSession.textToImageOption.style
+      },
+      {
+        signal: abortCtrSignal
+      }
+    )
+    Logger.info('toolsUse text_to_image resp: ', imagesResponse)
+
+    // 获取图片地址
+    const images: ChatMessageFile[] = []
+    if (imagesResponse.data) {
+      // 保存图片
+      for (const imgData of imagesResponse.data) {
+        const extname = '.png'
+        const name = `${generateUUID()}${extname}`
+        const path = await saveFileByBase64(imgData.b64_json!, name)
+        images.push({
+          name,
+          extname,
+          path
+        })
+      }
+    }
+
+    Logger.info('toolsUse text_to_image save result: ', images)
+    return JSON.stringify(images)
+  } else if (functionName === ToolEnum.INTERNET_SEARCH) {
+    const internetSearchOption = appSettingStore.internetSearchOption
     const resp = await axios.get(internetSearchOption.google.baseUrl, {
       params: {
         key: internetSearchOption.google.key,
         cx: internetSearchOption.google.cx,
         q: JSON.parse(functionArguments).query
-      }
+      },
+      signal: abortCtrSignal
     })
     Logger.info('toolsUse internet_search resp: ', resp)
     return JSON.stringify(

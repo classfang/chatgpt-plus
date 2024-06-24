@@ -108,6 +108,7 @@ const shareText = () => {
 
     <!-- 联网开关 -->
     <el-tooltip
+      v-if="chatSessionStore.getActiveSession!.internetSearchOption"
       :content="
         chatSessionStore.getActiveSession!.internetSearchOption.enabled
           ? $t('app.chatgpt.body.header.internetSearch.turnedOn')
@@ -183,6 +184,7 @@ const shareText = () => {
     color: var(--el-text-color-secondary);
     transition: color $app-transition-base;
     cursor: pointer;
+    margin-right: auto;
 
     &:hover {
       color: var(--el-text-color-primary);
@@ -195,7 +197,6 @@ const shareText = () => {
   }
 
   .net-icon {
-    margin-left: auto;
     height: $app-icon-size-base;
     width: $app-icon-size-base;
     color: var(--el-text-color-secondary);

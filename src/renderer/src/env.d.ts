@@ -22,7 +22,12 @@ interface ChatMessageFile {
   name: string
   extname: string
   path: string
-  size: number
+  size?: number
+}
+
+interface ChatMessageChoose {
+  content: string
+  images?: ChatMessageFile[]
 }
 
 interface ChatMessage extends BaseEntity {
@@ -31,7 +36,7 @@ interface ChatMessage extends BaseEntity {
   content: string
   images?: ChatMessageFile[]
   files?: ChatMessageFile[]
-  choices?: string[]
+  choices?: ChatMessageChoose[]
   choiceIndex?: number
 }
 
