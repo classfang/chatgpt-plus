@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { OpenAIModels, OpenAISpeechModels, OpenAISpeechVoices } from '@renderer/config/OpenAIConfig'
+import {
+  OpenAIImageModelDallE3,
+  OpenAIImageModels,
+  OpenAIImageSizes,
+  OpenAIModels,
+  OpenAISpeechModels,
+  OpenAISpeechVoices
+} from '@renderer/config/OpenAIConfig'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库
@@ -194,6 +201,92 @@ const visible = defineModel<boolean>('visible', {
                 :max="4.0"
                 :step="0.01"
               />
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
+
+        <!-- 文生图 -->
+        <el-tab-pane
+          v-if="chatSessionStore.getActiveSession!.textToImageOption"
+          :label="$t('app.setting.textToImage')"
+        >
+          <el-form label-width="auto">
+            <!-- Enabled -->
+            <el-form-item :label="$t('app.setting.item.textToImage.enabled')">
+              <el-tooltip
+                :content="$t('app.setting.item.textToImage.explain.enabled')"
+                placement="right"
+              >
+                <el-switch v-model="chatSessionStore.getActiveSession!.textToImageOption.enabled" />
+              </el-tooltip>
+            </el-form-item>
+            <!-- Model -->
+            <el-form-item :label="$t('app.setting.item.textToImage.model')">
+              <el-select
+                v-model="chatSessionStore.getActiveSession!.textToImageOption.model"
+                allow-create
+                filterable
+              >
+                <el-option
+                  v-for="item in OpenAIImageModels"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+            <!-- n -->
+            <el-form-item :label="$t('app.setting.item.textToImage.n')">
+              <el-input-number
+                v-model="chatSessionStore.getActiveSession!.textToImageOption.n"
+                :min="1"
+                :max="
+                  chatSessionStore.getActiveSession!.textToImageOption.model ===
+                  OpenAIImageModelDallE3
+                    ? 1
+                    : 4
+                "
+                :step="1"
+              />
+            </el-form-item>
+            <!-- quality -->
+            <el-form-item
+              v-if="
+                chatSessionStore.getActiveSession!.textToImageOption.model ===
+                OpenAIImageModelDallE3
+              "
+              :label="$t('app.setting.item.textToImage.quality')"
+            >
+              <el-select v-model="chatSessionStore.getActiveSession!.textToImageOption.quality">
+                <el-option label="standard" value="standard" />
+                <el-option label="hd" value="hd" />
+              </el-select>
+            </el-form-item>
+            <!-- size -->
+            <el-form-item :label="$t('app.setting.item.textToImage.size')">
+              <el-select v-model="chatSessionStore.getActiveSession!.textToImageOption.size">
+                <el-option
+                  v-for="item in OpenAIImageSizes[
+                    chatSessionStore.getActiveSession!.textToImageOption.model
+                  ]"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+            <!-- style -->
+            <el-form-item
+              v-if="
+                chatSessionStore.getActiveSession!.textToImageOption.model ===
+                OpenAIImageModelDallE3
+              "
+              :label="$t('app.setting.item.textToImage.style')"
+            >
+              <el-select v-model="chatSessionStore.getActiveSession!.textToImageOption.style">
+                <el-option label="vivid" value="vivid" />
+                <el-option label="natural" value="natural" />
+              </el-select>
             </el-form-item>
           </el-form>
         </el-tab-pane>

@@ -6,6 +6,7 @@
       "openai": "OpenAI",
       "chat": "对话",
       "speech": "发音",
+      "textToImage": "图片生成",
       "internetSearch": "互联网搜索",
       "network": "网络",
       "about": "关于",
@@ -48,6 +49,17 @@
           "model": "模型",
           "voice": "发音人",
           "speed": "语速"
+        },
+        "textToImage": {
+          "enabled": "开启图片生成",
+          "model": "模型",
+          "n": "生成数量",
+          "quality": "图片质量",
+          "size": "图片尺寸",
+          "style": "图片风格",
+          "explain": {
+            "enabled": "ChatGPT 会自动判断是否调用"
+          }
         },
         "internetSearch": {
           "enabled": "开启互联网搜索",

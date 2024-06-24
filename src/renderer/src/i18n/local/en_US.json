@@ -6,6 +6,7 @@
       "openai": "OpenAI",
       "chat": "Chat",
       "speech": "Speech",
+      "textToImage": "Text To Image",
       "internetSearch": "Internet Search",
       "network": "Network",
       "about": "About",
@@ -49,8 +50,19 @@
           "voice": "Voice",
           "speed": "Speed"
         },
+        "textToImage": {
+          "enabled": "Enable Image Generation",
+          "model": "Model",
+          "n": "Number",
+          "quality": "Quality",
+          "size": "Size",
+          "style": "Style",
+          "explain": {
+            "enabled": "ChatGPT determines whether to invoke it."
+          }
+        },
         "internetSearch": {
-          "enabled": "Open Internet Search",
+          "enabled": "Enable Internet Search",
           "google": {
             "baseUrl": "Google Search Base Url",
             "key": "Google Search API Key",

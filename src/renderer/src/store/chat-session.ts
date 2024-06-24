@@ -20,6 +20,7 @@ export const useChatSessionStore = defineStore({
     create(setting: {
       chatOption: ChatOption
       speechOption: SpeechOption
+      textToImageOption: TextToImageOption
       internetSearchOption: InternetSearchOption
     }) {
       const firstSession = this.sessions.at(0)
@@ -36,6 +37,7 @@ export const useChatSessionStore = defineStore({
         messages: [] as ChatMessage[],
         chatOption: setting.chatOption,
         speechOption: setting.speechOption,
+        textToImageOption: setting.textToImageOption,
         internetSearchOption: setting.internetSearchOption
       })
       this.activeSessionId = sessionId

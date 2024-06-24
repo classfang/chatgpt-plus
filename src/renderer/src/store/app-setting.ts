@@ -35,7 +35,17 @@ export const useAppSettingStore = defineStore({
         model: 'tts-1',
         voice: 'alloy',
         speed: 1
-      } as SpeechOption
+      } as SpeechOption,
+
+      // 文生图配置
+      textToImageOption: {
+        enabled: false,
+        model: 'dall-e-3',
+        n: 1,
+        quality: 'standard',
+        size: '1024x1024',
+        style: 'vivid'
+      } as TextToImageOption
     },
     chatgpt: {
       sidebarVisible: true

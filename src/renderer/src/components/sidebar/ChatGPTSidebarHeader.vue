@@ -3,6 +3,7 @@ import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { copyObj } from '@renderer/utils/object-util'
 import { onMounted, watch } from 'vue'
 
 // 仓库
@@ -18,10 +19,12 @@ const createSession = () => {
   if (appStateStore.chatgptLoading) {
     return
   }
-  chatSessionStore.create({
-    ...appSettingStore.openAI,
-    internetSearchOption: appSettingStore.internetSearchOption
-  })
+  chatSessionStore.create(
+    copyObj({
+      ...appSettingStore.openAI,
+      internetSearchOption: appSettingStore.internetSearchOption
+    })
+  )
   emits('create-session')
 }
 

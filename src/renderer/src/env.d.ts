@@ -52,6 +52,15 @@ interface SpeechOption {
   speed: number
 }
 
+interface TextToImageOption {
+  enabled: boolean
+  model: string
+  n: number
+  quality: 'standard' | 'hd'
+  size: '256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792'
+  style: 'vivid' | 'natural'
+}
+
 interface InternetSearchOption {
   enabled: boolean
   google: {
@@ -68,4 +77,5 @@ interface ChatSession extends BaseEntity {
   chatOption: ChatOption
   speechOption: SpeechOption
   internetSearchOption: InternetSearchOption
+  textToImageOption: TextToImageOption
 }

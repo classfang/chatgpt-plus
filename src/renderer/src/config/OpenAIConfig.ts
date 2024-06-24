@@ -83,3 +83,47 @@ export const OpenAISpeechVoices = [
     label: 'shimmer'
   }
 ]
+
+export const OpenAIImageModels = [
+  {
+    value: 'dall-e-2',
+    label: 'dall-e-2'
+  },
+  {
+    value: 'dall-e-3',
+    label: 'dall-e-3'
+  }
+]
+
+export const OpenAIImageModelDallE3 = 'dall-e-3'
+
+export const OpenAIImageSizes = {
+  'dall-e-2': [
+    {
+      value: '256x256',
+      label: '256x256'
+    },
+    {
+      value: '512x512',
+      label: '512x512'
+    },
+    {
+      value: '1024x1024',
+      label: '1024x1024'
+    }
+  ],
+  'dall-e-3': [
+    {
+      value: '1024x1024',
+      label: '1024x1024'
+    },
+    {
+      value: '1792x1024',
+      label: '1792x1024'
+    },
+    {
+      value: '1024x1792',
+      label: '1024x1792'
+    }
+  ]
+}
