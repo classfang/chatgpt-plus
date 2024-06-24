@@ -1,5 +1,6 @@
 import { Logger } from '@renderer/utils/logger'
 import axios from 'axios'
+import dayjs from 'dayjs'
 import OpenAI from 'openai'
 
 // 工具定义
@@ -14,7 +15,7 @@ export const toolsDefine: OpenAI.Chat.Completions.ChatCompletionTool[] = [
         properties: {
           query: {
             type: 'string',
-            description: 'What to search for'
+            description: `What to search for. Note that today's date is ${dayjs().format('YYYY-MM-DD')}, please describe the time in the question, specific to the date.`
           }
         },
         required: ['query']
