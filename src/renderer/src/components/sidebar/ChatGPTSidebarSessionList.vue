@@ -220,7 +220,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .chatgpt-session-list-scrollbar {
-  height: calc(100% - $app-chatgpt-sidebar-header-height);
+  height: calc(100% - $app-chatgpt-sidebar-header-height - $app-chatgpt-sidebar-footer-height);
   width: 100%;
 
   .session-list {
@@ -238,6 +238,7 @@ onMounted(() => {
       width: 100%;
       color: var(--el-text-color-secondary);
       font-size: var(--el-font-size-small);
+      line-height: $app-line-height-min;
     }
   }
 }

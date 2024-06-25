@@ -4,6 +4,11 @@
       "confirm": "确认",
       "cancel": "取消"
     },
+    "state": {
+      "default": "OpenAI 提供技术支持",
+      "openAIApiKeyMiss": "OpenAI 密钥未配置",
+      "chatgptAnswering": "正在回答"
+    },
     "setting": {
       "title": "应用设置",
       "appearance": "外观",

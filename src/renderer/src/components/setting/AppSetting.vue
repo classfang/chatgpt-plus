@@ -195,6 +195,19 @@ const clearChat = () => {
   })
 }
 
+// 打开设置页
+const openDialog = () => {
+  if (appStateStore.chatgptLoading) {
+    return
+  }
+  data.appSettingVisible = true
+}
+
+// 暴露方法
+defineExpose({
+  openDialog
+})
+
 onMounted(() => {
   // 获取应用版本号
   getAppVersion().then((v) => {
@@ -216,7 +229,7 @@ onMounted(() => {
 <template>
   <div class="app-setting">
     <el-badge is-dot :hidden="!badge.appVersion">
-      <AppIcon name="setting" class="setting-icon" @click="appSettingVisible = true" />
+      <AppIcon name="setting" class="setting-icon" @click="openDialog()" />
     </el-badge>
 
     <el-dialog v-model="appSettingVisible" :title="$t('app.setting.title')" width="700">
@@ -683,13 +696,6 @@ onMounted(() => {
   .setting-icon {
     height: 100%;
     width: 100%;
-    color: var(--el-text-color-secondary);
-    transition: color $app-transition-base;
-    cursor: pointer;
-
-    &:hover {
-      color: var(--el-text-color-primary);
-    }
   }
 
   .dialog-body {

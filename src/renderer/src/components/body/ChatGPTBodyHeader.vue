@@ -2,7 +2,6 @@
 import { Picture, Share, Document } from '@element-plus/icons-vue'
 import ChatGPTBodySetting from '@renderer/components/body/ChatGPTBodySetting.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
-import AppSetting from '@renderer/components/setting/AppSetting.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -149,9 +148,6 @@ const shareText = () => {
         </el-dropdown-menu>
       </template>
     </el-dropdown>
-
-    <!-- 应用设置 -->
-    <AppSetting />
 
     <!-- 当前对话设置弹窗 -->
     <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />

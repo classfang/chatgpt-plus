@@ -4,6 +4,11 @@
       "confirm": "Confirm",
       "cancel": "Cancel"
     },
+    "state": {
+      "default": "Power By OpenAI",
+      "openAIApiKeyMiss": "Required openai api key",
+      "chatgptAnswering": "Be answering"
+    },
     "setting": {
       "title": "Application Settings",
       "appearance": "Appearance",

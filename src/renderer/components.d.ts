@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppIcon: typeof import('./src/components/icon/AppIcon.vue')['default']
     AppSetting: typeof import('./src/components/setting/AppSetting.vue')['default']
+    AppState: typeof import('./src/components/state/AppState.vue')['default']
     ChatGPT: typeof import('./src/components/main/ChatGPT.vue')['default']
     ChatGPTBody: typeof import('./src/components/body/ChatGPTBody.vue')['default']
     ChatGPTBodyEmpty: typeof import('./src/components/body/ChatGPTBodyEmpty.vue')['default']
@@ -22,6 +23,7 @@ declare module 'vue' {
     ChatGPTMessageError: typeof import('./src/components/message/ChatGPTMessageError.vue')['default']
     ChatGPTMessageUser: typeof import('./src/components/message/ChatGPTMessageUser.vue')['default']
     ChatGPTSidebar: typeof import('./src/components/sidebar/ChatGPTSidebar.vue')['default']
+    ChatGPTSidebarFooter: typeof import('./src/components/sidebar/ChatGPTSidebarFooter.vue')['default']
     ChatGPTSidebarHeader: typeof import('./src/components/sidebar/ChatGPTSidebarHeader.vue')['default']
     ChatGPTSidebarSession: typeof import('./src/components/sidebar/ChatGPTSidebarSession.vue')['default']
     ChatGPTSidebarSessionList: typeof import('./src/components/sidebar/ChatGPTSidebarSessionList.vue')['default']
