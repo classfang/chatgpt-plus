@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Download } from '@element-plus/icons-vue'
-import chatgptAvatar from '@renderer/assets/image/chatgpt-avatar.png'
 import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -23,7 +22,6 @@ const message = defineModel<ChatMessage>('message', {
 
 <template>
   <div class="chatgpt-message-assistant">
-    <el-avatar :size="38" :src="chatgptAvatar" />
     <div class="message-content-container">
       <div class="message-content">
         <div
@@ -98,13 +96,13 @@ const message = defineModel<ChatMessage>('message', {
     gap: $app-padding-extra-small;
 
     .message-content {
-      min-width: 4rem;
+      min-width: calc($app-line-height-base + $app-padding-small * 2);
       max-width: 80%;
       flex: 1 1 0;
       background-color: var(--el-fill-color);
       box-sizing: border-box;
       padding: $app-padding-small;
-      border-radius: calc($app-line-height-base / 2 + $app-padding-extra-small);
+      border-radius: calc($app-line-height-base / 2 + $app-padding-small);
       display: flex;
       flex-direction: column;
       gap: $app-padding-extra-small;

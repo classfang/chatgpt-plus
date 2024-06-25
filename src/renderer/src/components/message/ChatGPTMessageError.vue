@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import chatgptAvatar from '@renderer/assets/image/chatgpt-avatar.png'
 import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 
 // 组件传参
@@ -13,7 +12,6 @@ const emits = defineEmits(['regenerate'])
 
 <template>
   <div class="chatgpt-message-error">
-    <el-avatar :size="38" :src="chatgptAvatar" />
     <div class="message-content-container">
       <div class="message-content select-text">{{ message.content }}</div>
       <ChatGPTMessageConsole
@@ -43,7 +41,7 @@ const emits = defineEmits(['regenerate'])
     gap: $app-padding-extra-small;
 
     .message-content {
-      min-width: 4rem;
+      min-width: calc($app-line-height-base + $app-padding-small * 2);
       max-width: 80%;
       flex: 1 1 0;
       white-space: pre-wrap;
@@ -51,7 +49,7 @@ const emits = defineEmits(['regenerate'])
       background-color: var(--el-fill-color);
       box-sizing: border-box;
       padding: $app-padding-small;
-      border-radius: calc($app-line-height-base / 2 + $app-padding-extra-small);
+      border-radius: calc($app-line-height-base / 2 + $app-padding-small);
       line-height: $app-line-height-base;
       display: flex;
       justify-content: center;

@@ -2,7 +2,6 @@
 import { Bottom } from '@element-plus/icons-vue'
 import ChatGPTMessageAssistant from '@renderer/components/message/ChatGPTMessageAssistant.vue'
 import ChatGPTMessageError from '@renderer/components/message/ChatGPTMessageError.vue'
-import ChatGPTMessageSystem from '@renderer/components/message/ChatGPTMessageSystem.vue'
 import ChatGPTMessageUser from '@renderer/components/message/ChatGPTMessageUser.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { ref, nextTick, reactive, toRefs, onMounted } from 'vue'
@@ -103,9 +102,6 @@ onMounted(() => {
             </template>
             <template v-else-if="m.role === 'assistant'">
               <ChatGPTMessageAssistant :message="m" @regenerate="emits('regenerate', m.id)" />
-            </template>
-            <template v-else-if="m.role === 'system'">
-              <ChatGPTMessageSystem :message="m" />
             </template>
           </template>
 
