@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { Brush, Download, Folder, Monitor, Moon, Sunny, Tools } from '@element-plus/icons-vue'
+import {
+  Brush,
+  Download,
+  Folder,
+  Monitor,
+  Moon,
+  Sunny,
+  Tools,
+  Upload
+} from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import {
@@ -14,15 +23,19 @@ import i18n from '@renderer/i18n'
 import {
   clearCacheFiles,
   getAppVersion,
+  getCacheFiles,
   onMainWindowFocus,
   openCacheDir,
   openDevTools,
   openLogDir,
+  saveFileByBase64,
+  selectFileAndRead,
   setProxy
 } from '@renderer/service/ipc-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
+import { exportTextFile } from '@renderer/utils/download-util'
 import { Logger } from '@renderer/utils/logger'
 import { openInBrowser } from '@renderer/utils/window-util'
 import axios from 'axios'
@@ -103,7 +116,48 @@ const cleanCache = async () => {
   appStateStore.cleanCacheFlag = false
 }
 
-// 清空对话
+// 导出对话记录
+const exportChat = async () => {
+  appStateStore.exportChatFlag = true
+  exportTextFile(
+    `data-${dayjs().format('YYYYMMDDHHmmss')}.cgp`,
+    JSON.stringify({
+      sessions: chatSessionStore.sessions,
+      activeSessionId: chatSessionStore.activeSessionId,
+      cacheFiles: await getCacheFiles()
+    })
+  )
+  appStateStore.exportChatFlag = false
+}
+
+// 导入对话记录
+const importChat = async () => {
+  appStateStore.importChatFlag = true
+
+  const content = await selectFileAndRead(['.cgp'])
+  const contentJson = JSON.parse(new TextDecoder().decode(content))
+  if (contentJson.sessions) {
+    chatSessionStore.sessions = contentJson.sessions
+  }
+  if (contentJson.activeSessionId) {
+    chatSessionStore.activeSessionId = contentJson.activeSessionId
+  }
+  if (contentJson.cacheFiles) {
+    for (const cacheFile of contentJson.cacheFiles) {
+      if (cacheFile.data && cacheFile.name) {
+        await saveFileByBase64(cacheFile.data, cacheFile.name)
+      }
+    }
+  }
+
+  ElMessage.success(
+    t('app.setting.item.data.importChatCount').replace('_', contentJson.sessions?.length ?? 0)
+  )
+
+  appStateStore.importChatFlag = false
+}
+
+// 清空对话记录
 const clearChat = () => {
   ElMessageBox.confirm(
     t('app.setting.item.data.clearChatConfirm'),
@@ -114,7 +168,7 @@ const clearChat = () => {
       cancelButtonText: t('app.common.cancel')
     }
   ).then(() => {
-    // TODO
+    chatSessionStore.clear()
   })
 }
 
@@ -525,6 +579,16 @@ onMounted(() => {
 
               <!-- 对话数据 -->
               <el-form-item :label="$t('app.setting.item.data.chat')">
+                <el-button
+                  :icon="Download"
+                  :loading="appStateStore.exportChatFlag"
+                  @click="exportChat()"
+                >
+                  {{ $t('app.setting.item.data.exportChat') }}
+                </el-button>
+                <el-button :icon="Upload" @click="importChat()">
+                  {{ $t('app.setting.item.data.importChat') }}
+                </el-button>
                 <el-button :icon="Brush" @click="clearChat()">
                   {{ $t('app.setting.item.data.clearChat') }}
                 </el-button>

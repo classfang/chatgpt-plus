@@ -89,7 +89,10 @@
           "cleanFileCount": "共删除 _ 个文件",
           "chat": "对话记录",
           "clearChat": "清空对话",
-          "clearChatConfirm": "确认删除所有对话记录吗？"
+          "clearChatConfirm": "确认删除所有对话记录吗？",
+          "exportChat": "导出对话数据",
+          "importChat": "导入对话数据",
+          "importChatCount": "共导入 _ 个对话"
         },
         "about": {
           "appVersion": "应用版本",

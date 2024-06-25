@@ -89,7 +89,10 @@
           "cleanFileCount": "_ files were deleted",
           "chat": "Chat Data",
           "clearChat": "Clear Chat",
-          "clearChatConfirm": "Are you sure to delete all chat records?"
+          "clearChatConfirm": "Are you sure to delete all chat records?",
+          "exportChat": "Export Chat Records",
+          "importChat": "Import Chat Records",
+          "importChatCount": "_ chat were imported"
         },
         "about": {
           "appVersion": "Application Version",

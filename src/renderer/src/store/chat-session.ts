@@ -17,6 +17,10 @@ export const useChatSessionStore = defineStore({
     }
   },
   actions: {
+    clear() {
+      this.sessions = []
+      this.activeSessionId = ''
+    },
     create(setting: {
       chatOption: ChatOption
       speechOption: SpeechOption
@@ -45,9 +49,6 @@ export const useChatSessionStore = defineStore({
     delete(id: string) {
       this.sessions = this.sessions.filter((s) => s.id != id)
       this.activeSessionId = this.sessions.at(0)?.id ?? ''
-    },
-    clear() {
-      this.sessions = []
     },
     pushMessage(message: ChatMessage, sessionName?: string) {
       if (!this.getActiveSession) {
