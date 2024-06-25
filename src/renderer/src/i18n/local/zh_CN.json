@@ -92,7 +92,11 @@
           "clearChatConfirm": "确认删除所有对话记录吗？",
           "exportChat": "导出对话数据",
           "importChat": "导入对话数据",
-          "importChatCount": "共导入 _ 个对话"
+          "importChatCount": "共导入 _ 个对话",
+          "setting": "设置数据",
+          "exportSetting": "导出设置数据",
+          "importSetting": "导入设置数据",
+          "importSettingSuccess": "导入设置成功"
         },
         "about": {
           "appVersion": "应用版本",

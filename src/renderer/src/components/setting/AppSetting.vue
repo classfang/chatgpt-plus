@@ -116,14 +116,40 @@ const cleanCache = async () => {
   appStateStore.cleanCacheFlag = false
 }
 
+// 导出设置数据
+const exportSetting = () => {
+  appStateStore.exportSettingFlag = true
+  exportTextFile(
+    `setting-${dayjs().format('YYYYMMDDHHmmss')}.cgps`,
+    JSON.stringify({
+      appSetting: appSettingStore.getStoreJson
+    })
+  )
+  appStateStore.exportSettingFlag = false
+}
+
+// 导入设置数据
+const importSetting = async () => {
+  appStateStore.importSettingFlag = true
+
+  const content = await selectFileAndRead(['.cgps'])
+  const contentJson = JSON.parse(new TextDecoder().decode(content))
+  if (contentJson.appSetting) {
+    appSettingStore.setStoreFromJson(contentJson.appSetting)
+  }
+
+  ElMessage.success(t('app.setting.item.data.importSettingSuccess'))
+
+  appStateStore.importSettingFlag = false
+}
+
 // 导出对话记录
 const exportChat = async () => {
   appStateStore.exportChatFlag = true
   exportTextFile(
-    `data-${dayjs().format('YYYYMMDDHHmmss')}.cgp`,
+    `data-${dayjs().format('YYYYMMDDHHmmss')}.cgpd`,
     JSON.stringify({
-      sessions: chatSessionStore.sessions,
-      activeSessionId: chatSessionStore.activeSessionId,
+      chatSession: chatSessionStore.getStoreJson,
       cacheFiles: await getCacheFiles()
     })
   )
@@ -134,13 +160,10 @@ const exportChat = async () => {
 const importChat = async () => {
   appStateStore.importChatFlag = true
 
-  const content = await selectFileAndRead(['.cgp'])
+  const content = await selectFileAndRead(['.cgpd'])
   const contentJson = JSON.parse(new TextDecoder().decode(content))
-  if (contentJson.sessions) {
-    chatSessionStore.sessions = contentJson.sessions
-  }
-  if (contentJson.activeSessionId) {
-    chatSessionStore.activeSessionId = contentJson.activeSessionId
+  if (contentJson.chatSession) {
+    chatSessionStore.setStoreFromJson(contentJson.chatSession)
   }
   if (contentJson.cacheFiles) {
     for (const cacheFile of contentJson.cacheFiles) {
@@ -574,6 +597,20 @@ onMounted(() => {
                   @click="cleanCache()"
                 >
                   {{ $t('app.setting.item.data.cleanCache') }}
+                </el-button>
+              </el-form-item>
+
+              <!-- 设置数据 -->
+              <el-form-item :label="$t('app.setting.item.data.setting')">
+                <el-button
+                  :icon="Download"
+                  :loading="appStateStore.exportSettingFlag"
+                  @click="exportSetting()"
+                >
+                  {{ $t('app.setting.item.data.exportSetting') }}
+                </el-button>
+                <el-button :icon="Upload" @click="importSetting()">
+                  {{ $t('app.setting.item.data.importSetting') }}
                 </el-button>
               </el-form-item>
 

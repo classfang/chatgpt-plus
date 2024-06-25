@@ -9,6 +9,12 @@ export const useChatSessionStore = defineStore({
     activeSessionId: ''
   }),
   getters: {
+    getStoreJson(): string {
+      return JSON.stringify({
+        sessions: this.sessions,
+        activeSessionId: this.activeSessionId
+      })
+    },
     getUsedSessions(): ChatSession[] {
       return this.sessions.filter((s) => s.messages.length > 0)
     },
@@ -17,6 +23,22 @@ export const useChatSessionStore = defineStore({
     }
   },
   actions: {
+    setStoreFromJson(jsonStr: string) {
+      let importFlag = false
+      if (!jsonStr) {
+        return importFlag
+      }
+      const json = JSON.parse(jsonStr)
+      if (json.sessions !== undefined) {
+        this.sessions = json.sessions
+        importFlag = true
+      }
+      if (json.activeSessionId !== undefined) {
+        this.activeSessionId = json.activeSessionId
+        importFlag = true
+      }
+      return importFlag
+    },
     clear() {
       this.sessions = []
       this.activeSessionId = ''

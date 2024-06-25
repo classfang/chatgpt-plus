@@ -59,5 +59,41 @@ export const useAppSettingStore = defineStore({
       }
     }
   }),
+  getters: {
+    getStoreJson(): string {
+      return JSON.stringify({
+        app: this.app,
+        openAI: this.openAI,
+        chatgpt: this.chatgpt,
+        internetSearchOption: this.internetSearchOption
+      })
+    }
+  },
+  actions: {
+    setStoreFromJson(jsonStr: string) {
+      let importFlag = false
+      if (!jsonStr) {
+        return importFlag
+      }
+      const json = JSON.parse(jsonStr)
+      if (json.app !== undefined) {
+        this.app = json.app
+        importFlag = true
+      }
+      if (json.openAI !== undefined) {
+        this.openAI = json.openAI
+        importFlag = true
+      }
+      if (json.chatgpt !== undefined) {
+        this.chatgpt = json.chatgpt
+        importFlag = true
+      }
+      if (json.internetSearchOption !== undefined) {
+        this.internetSearchOption = json.internetSearchOption
+        importFlag = true
+      }
+      return importFlag
+    }
+  },
   persist: true
 })
