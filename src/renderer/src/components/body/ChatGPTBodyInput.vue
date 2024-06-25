@@ -678,8 +678,8 @@ onMounted(() => {
       flex-wrap: wrap;
 
       .image-item {
-        height: $app-chatgpt-message-file-height;
-        width: $app-chatgpt-message-file-height;
+        height: $app-chatgpt-input-image-height;
+        width: $app-chatgpt-input-image-height;
         position: relative;
 
         .item-image {
@@ -700,7 +700,7 @@ onMounted(() => {
       }
 
       .file-item {
-        height: $app-chatgpt-message-file-height;
+        height: $app-chatgpt-input-file-height;
         box-sizing: border-box;
         padding: $app-padding-small;
         background-color: var(--el-fill-color-darker);

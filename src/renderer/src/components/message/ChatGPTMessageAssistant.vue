@@ -142,8 +142,8 @@ const message = defineModel<ChatMessage>('message', {
         flex-wrap: wrap;
 
         .image-item {
-          height: $app-chatgpt-message-file-height;
-          width: $app-chatgpt-message-file-height;
+          height: $app-chatgpt-message-image-height;
+          width: $app-chatgpt-message-image-height;
           position: relative;
           cursor: pointer;
 
