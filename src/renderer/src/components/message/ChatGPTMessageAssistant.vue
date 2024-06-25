@@ -126,9 +126,12 @@ const message = defineModel<ChatMessage>('message', {
           margin-block: 0;
         }
 
+        p:not(:first-of-type) {
+          margin-top: calc($app-line-height-base / 2);
+        }
+
         p:not(:last-of-type) {
-          // 除了最后一个p标签，增加段后距离
-          margin-bottom: $app-line-height-base;
+          margin-bottom: calc($app-line-height-base / 2);
         }
 
         li {
