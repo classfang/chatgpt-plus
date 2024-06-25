@@ -601,47 +601,53 @@ onMounted(() => {
 
               <!-- 缓存目录 -->
               <el-form-item :label="$t('app.setting.item.data.cache')">
-                <el-button :icon="Folder" @click="openCacheDir()">
-                  {{ $t('app.setting.item.data.openCacheDir') }}
-                </el-button>
-                <el-button
-                  :icon="Brush"
-                  :loading="appStateStore.cleanCacheFlag"
-                  @click="cleanCache()"
-                >
-                  {{ $t('app.setting.item.data.cleanCache') }}
-                </el-button>
+                <el-space wrap>
+                  <el-button :icon="Folder" @click="openCacheDir()">
+                    {{ $t('app.setting.item.data.openCacheDir') }}
+                  </el-button>
+                  <el-button
+                    :icon="Brush"
+                    :loading="appStateStore.cleanCacheFlag"
+                    @click="cleanCache()"
+                  >
+                    {{ $t('app.setting.item.data.cleanCache') }}
+                  </el-button>
+                </el-space>
               </el-form-item>
 
               <!-- 设置数据 -->
               <el-form-item :label="$t('app.setting.item.data.setting')">
-                <el-button
-                  :icon="Download"
-                  :loading="appStateStore.exportSettingFlag"
-                  @click="exportSetting()"
-                >
-                  {{ $t('app.setting.item.data.exportSetting') }}
-                </el-button>
-                <el-button :icon="Upload" @click="importSetting()">
-                  {{ $t('app.setting.item.data.importSetting') }}
-                </el-button>
+                <el-space wrap>
+                  <el-button
+                    :icon="Download"
+                    :loading="appStateStore.exportSettingFlag"
+                    @click="exportSetting()"
+                  >
+                    {{ $t('app.setting.item.data.exportSetting') }}
+                  </el-button>
+                  <el-button :icon="Upload" @click="importSetting()">
+                    {{ $t('app.setting.item.data.importSetting') }}
+                  </el-button>
+                </el-space>
               </el-form-item>
 
               <!-- 对话数据 -->
               <el-form-item :label="$t('app.setting.item.data.chat')">
-                <el-button
-                  :icon="Download"
-                  :loading="appStateStore.exportChatFlag"
-                  @click="exportChat()"
-                >
-                  {{ $t('app.setting.item.data.exportChat') }}
-                </el-button>
-                <el-button :icon="Upload" @click="importChat()">
-                  {{ $t('app.setting.item.data.importChat') }}
-                </el-button>
-                <el-button :icon="Brush" @click="clearChat()">
-                  {{ $t('app.setting.item.data.clearChat') }}
-                </el-button>
+                <el-space wrap>
+                  <el-button
+                    :icon="Download"
+                    :loading="appStateStore.exportChatFlag"
+                    @click="exportChat()"
+                  >
+                    {{ $t('app.setting.item.data.exportChat') }}
+                  </el-button>
+                  <el-button :icon="Upload" @click="importChat()">
+                    {{ $t('app.setting.item.data.importChat') }}
+                  </el-button>
+                  <el-button :icon="Brush" @click="clearChat()">
+                    {{ $t('app.setting.item.data.clearChat') }}
+                  </el-button>
+                </el-space>
               </el-form-item>
             </el-form>
           </el-tab-pane>
