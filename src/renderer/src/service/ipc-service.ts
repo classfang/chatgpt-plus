@@ -7,11 +7,15 @@ import { Stats } from 'fs'
 const { t } = i18n.global
 
 export const setThemeSource = (themeSource = 'system') => {
-  window.electron.ipcRenderer.send('set-theme-source', themeSource)
+  return window.electron.ipcRenderer.invoke('set-theme-source', themeSource)
 }
 
-export const getPlatform = (): Platform => {
-  return window.electron.ipcRenderer.sendSync('process-platform')
+export const getPlatform = (): Promise<Platform> => {
+  return window.electron.ipcRenderer.invoke('process-platform')
+}
+
+export const getCachePathSync = (): string => {
+  return window.electron.ipcRenderer.sendSync('get-cache-path')
 }
 
 export const openCacheDir = () => {

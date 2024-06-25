@@ -6,6 +6,7 @@ import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { downloadFile } from '@renderer/utils/download-util'
 import { renderMarkdown } from '@renderer/utils/markdown-util'
+import { join } from '@renderer/utils/path-util'
 
 // 仓库
 const appStateStore = useAppStateStore()
@@ -43,8 +44,10 @@ const message = defineModel<ChatMessage>('message', {
               <div class="image-item">
                 <el-image
                   class="item-image"
-                  :src="`file://${att.path}`"
-                  :preview-src-list="message.images.map((a) => `file://${a.path}`)"
+                  :src="`file://${join(appStateStore.cachePath, att.name)}`"
+                  :preview-src-list="
+                    message.images.map((a) => `file://${join(appStateStore.cachePath, a.name)}`)
+                  "
                   :initial-index="index"
                   fit="cover"
                 />
@@ -53,7 +56,9 @@ const message = defineModel<ChatMessage>('message', {
                 <el-dropdown-menu>
                   <el-dropdown-item
                     :icon="Download"
-                    @click="downloadFile(`file://${att.path}`, att.name)"
+                    @click="
+                      downloadFile(`file://${join(appStateStore.cachePath, att.name)}`, att.name)
+                    "
                     >{{ $t('app.chatgpt.body.message.download') }}</el-dropdown-item
                   >
                 </el-dropdown-menu>

@@ -1,3 +1,4 @@
+import { getCachePathSync } from '@renderer/service/ipc-service'
 import dayjs from 'dayjs'
 import { defineStore } from 'pinia'
 
@@ -8,7 +9,8 @@ export const useAppStateStore = defineStore({
     chatgptAnswering: false,
     uploading: false,
     clearCacheFlag: false,
-    dayKey: dayjs().format('YYYYMMDD')
+    dayKey: dayjs().format('YYYYMMDD'),
+    cachePath: getCachePathSync()
   }),
   actions: {
     startDayKeyInterval() {

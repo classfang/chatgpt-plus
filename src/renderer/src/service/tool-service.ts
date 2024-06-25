@@ -1,5 +1,5 @@
+import { saveFileByBase64 } from '@renderer/service/ipc-service'
 import { generateUUID } from '@renderer/utils/id-util'
-import { saveFileByBase64 } from '@renderer/utils/ipc-util'
 import { Logger } from '@renderer/utils/logger'
 import axios from 'axios'
 import dayjs from 'dayjs'

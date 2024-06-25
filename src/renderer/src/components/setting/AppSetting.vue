@@ -10,9 +10,6 @@ import {
   OpenAISpeechModels,
   OpenAISpeechVoices
 } from '@renderer/config/OpenAIConfig'
-import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
 import {
   clearCacheFiles,
   getAppVersion,
@@ -21,7 +18,10 @@ import {
   openDevTools,
   openLogDir,
   setProxy
-} from '@renderer/utils/ipc-util'
+} from '@renderer/service/ipc-service'
+import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useAppStateStore } from '@renderer/store/app-state'
+import { useChatSessionStore } from '@renderer/store/chat-session'
 import { Logger } from '@renderer/utils/logger'
 import { openInBrowser } from '@renderer/utils/window-util'
 import axios from 'axios'

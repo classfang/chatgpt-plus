@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import ChatGPT from '@renderer/components/main/ChatGPT.vue'
+import { setThemeSource } from '@renderer/service/ipc-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useChatSessionStore } from '@renderer/store/chat-session'
-import { setThemeSource } from '@renderer/utils/ipc-util'
 import { startDarkThemeListener } from '@renderer/utils/window-util'
 import { useDark } from '@vueuse/core'
 import en from 'element-plus/es/locale/lang/en'

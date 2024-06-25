@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
+import { clipboardWriteText } from '@renderer/service/ipc-service'
 import { openaiSpeech } from '@renderer/service/openai-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
-import { clipboardWriteText } from '@renderer/utils/ipc-util'
 import { Logger } from '@renderer/utils/logger'
 import { reactive, toRefs } from 'vue'
 

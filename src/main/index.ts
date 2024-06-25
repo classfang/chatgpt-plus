@@ -76,13 +76,18 @@ app.on('before-quit', async (e) => {
 })
 
 // 切换主题
-ipcMain.on('set-theme-source', (_event, themeSource: 'system' | 'light' | 'dark') => {
+ipcMain.handle('set-theme-source', (_event, themeSource: 'system' | 'light' | 'dark') => {
   nativeTheme.themeSource = themeSource
 })
 
 // 获取系统类型
-ipcMain.on('process-platform', (event) => {
-  event.returnValue = platform
+ipcMain.handle('process-platform', () => {
+  return platform
+})
+
+// 获取缓存目录路径
+ipcMain.on('get-cache-path', (event) => {
+  event.returnValue = appConfig.cachePath
 })
 
 // 打开开发者控制台
