@@ -1,5 +1,9 @@
 {
   "app": {
+    "common": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
     "setting": {
       "title": "Application Settings",
       "appearance": "Appearance",
@@ -8,6 +12,7 @@
       "speech": "Speech",
       "textToImage": "Text To Image",
       "internetSearch": "Internet Search",
+      "data": "Data",
       "network": "Network",
       "about": "About",
       "item": {
@@ -75,16 +80,21 @@
         "proxy": {
           "label": "Network Proxy"
         },
-        "about": {
-          "appVersion": "Application Version",
-          "buildTime": "Build Time",
-          "appDownload": "Download Latest Version",
+        "data": {
           "log": "Application Log",
           "openLogDir": "Open Log Directory",
           "cache": "Application Cache",
           "openCacheDir": "Open Cache Directory",
-          "clearCache": "Clear Cache",
-          "clearFileCount": "_ files were cleared",
+          "cleanCache": "Clean Cache",
+          "cleanFileCount": "_ files were deleted",
+          "chat": "Chat Data",
+          "clearChat": "Clear Chat",
+          "clearChatConfirm": "Are you sure to delete all chat records?"
+        },
+        "about": {
+          "appVersion": "Application Version",
+          "buildTime": "Build Time",
+          "appDownload": "Download Latest Version",
           "devTools": "Developer Tools",
           "openDevTools": "Open Developer Tools"
         }

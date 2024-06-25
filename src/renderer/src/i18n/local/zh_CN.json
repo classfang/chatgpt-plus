@@ -1,5 +1,9 @@
 {
   "app": {
+    "common": {
+      "confirm": "确认",
+      "cancel": "取消"
+    },
     "setting": {
       "title": "应用设置",
       "appearance": "外观",
@@ -8,6 +12,7 @@
       "speech": "发音",
       "textToImage": "图片生成",
       "internetSearch": "互联网搜索",
+      "data": "数据",
       "network": "网络",
       "about": "关于",
       "item": {
@@ -75,16 +80,21 @@
         "proxy": {
           "label": "网络代理"
         },
-        "about": {
-          "appVersion": "应用版本",
-          "buildTime": "构建时间",
-          "appDownload": "下载新版本",
+        "data": {
           "log": "应用日志",
           "openLogDir": "打开日志目录",
           "cache": "应用缓存",
           "openCacheDir": "打开缓存目录",
-          "clearCache": "清理缓存",
-          "clearFileCount": "共清理 _ 个文件",
+          "cleanCache": "清理缓存",
+          "cleanFileCount": "共删除 _ 个文件",
+          "chat": "对话记录",
+          "clearChat": "清空对话",
+          "clearChatConfirm": "确认删除所有对话记录吗？"
+        },
+        "about": {
+          "appVersion": "应用版本",
+          "buildTime": "构建时间",
+          "appDownload": "下载新版本",
           "devTools": "开发者工具",
           "openDevTools": "打开开发者工具"
         }

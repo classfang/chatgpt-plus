@@ -27,7 +27,7 @@ import { Logger } from '@renderer/utils/logger'
 import { openInBrowser } from '@renderer/utils/window-util'
 import axios from 'axios'
 import dayjs from 'dayjs'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { onMounted, reactive, toRefs } from 'vue'
 
 // 多语言
@@ -74,11 +74,11 @@ const checkAppVersion = () => {
 }
 
 // 清理缓存
-const clearCache = async () => {
-  if (appStateStore.clearCacheFlag) {
+const cleanCache = async () => {
+  if (appStateStore.cleanCacheFlag) {
     return
   }
-  appStateStore.clearCacheFlag = true
+  appStateStore.cleanCacheFlag = true
 
   // 需要排除的文件
   const ignoreFiles: string[] = []
@@ -97,10 +97,25 @@ const clearCache = async () => {
   const clearFileCount = await clearCacheFiles(ignoreFiles)
 
   ElMessage.success(
-    t('app.setting.item.about.clearFileCount').replace('_', clearFileCount.toString())
+    t('app.setting.item.data.cleanFileCount').replace('_', clearFileCount.toString())
   )
 
-  appStateStore.clearCacheFlag = false
+  appStateStore.cleanCacheFlag = false
+}
+
+// 清空对话
+const clearChat = () => {
+  ElMessageBox.confirm(
+    t('app.setting.item.data.clearChatConfirm'),
+    t('app.setting.item.data.clearChat'),
+    {
+      distinguishCancelAndClose: true,
+      confirmButtonText: t('app.common.confirm'),
+      cancelButtonText: t('app.common.cancel')
+    }
+  ).then(() => {
+    // TODO
+  })
 }
 
 onMounted(() => {
@@ -484,6 +499,39 @@ onMounted(() => {
             </el-form>
           </el-tab-pane>
 
+          <!-- 数据 -->
+          <el-tab-pane :label="$t('app.setting.data')">
+            <el-form label-width="auto">
+              <!-- 日志目录 -->
+              <el-form-item :label="$t('app.setting.item.data.log')">
+                <el-button :icon="Folder" @click="openLogDir()">
+                  {{ $t('app.setting.item.data.openLogDir') }}
+                </el-button>
+              </el-form-item>
+
+              <!-- 缓存目录 -->
+              <el-form-item :label="$t('app.setting.item.data.cache')">
+                <el-button :icon="Folder" @click="openCacheDir()">
+                  {{ $t('app.setting.item.data.openCacheDir') }}
+                </el-button>
+                <el-button
+                  :icon="Brush"
+                  :loading="appStateStore.cleanCacheFlag"
+                  @click="cleanCache()"
+                >
+                  {{ $t('app.setting.item.data.cleanCache') }}
+                </el-button>
+              </el-form-item>
+
+              <!-- 对话数据 -->
+              <el-form-item :label="$t('app.setting.item.data.chat')">
+                <el-button :icon="Brush" @click="clearChat()">
+                  {{ $t('app.setting.item.data.clearChat') }}
+                </el-button>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+
           <!-- 关于 -->
           <el-tab-pane>
             <template #label>
@@ -510,27 +558,6 @@ onMounted(() => {
               <!-- 构建时间 -->
               <el-form-item :label="$t('app.setting.item.about.buildTime')">
                 <div>{{ dayjs(buildInfo.buildTime).format('YYYY-MM-DD HH:mm:ss.SSS') }}</div>
-              </el-form-item>
-
-              <!-- 日志目录 -->
-              <el-form-item :label="$t('app.setting.item.about.log')">
-                <el-button :icon="Folder" @click="openLogDir()">
-                  {{ $t('app.setting.item.about.openLogDir') }}
-                </el-button>
-              </el-form-item>
-
-              <!-- 缓存目录 -->
-              <el-form-item :label="$t('app.setting.item.about.cache')">
-                <el-button :icon="Folder" @click="openCacheDir()">
-                  {{ $t('app.setting.item.about.openCacheDir') }}
-                </el-button>
-                <el-button
-                  :icon="Brush"
-                  :loading="appStateStore.clearCacheFlag"
-                  @click="clearCache()"
-                >
-                  {{ $t('app.setting.item.about.clearCache') }}
-                </el-button>
               </el-form-item>
 
               <!-- 开发者工具 -->

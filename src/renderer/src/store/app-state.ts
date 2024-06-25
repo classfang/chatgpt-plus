@@ -8,7 +8,7 @@ export const useAppStateStore = defineStore({
     chatgptLoading: false,
     chatgptAnswering: false,
     uploading: false,
-    clearCacheFlag: false,
+    cleanCacheFlag: false,
     dayKey: dayjs().format('YYYYMMDD'),
     cachePath: getCachePathSync()
   }),
