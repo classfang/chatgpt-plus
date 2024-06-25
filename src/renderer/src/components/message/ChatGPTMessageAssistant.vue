@@ -107,23 +107,36 @@ const message = defineModel<ChatMessage>('message', {
       flex-direction: column;
       gap: $app-padding-extra-small;
 
-      .markdown-html {
+      :deep(.markdown-html) {
         white-space: pre-wrap;
         line-break: anywhere;
         line-height: $app-line-height-base;
         display: flex;
         flex-direction: column;
 
-        :deep(p) {
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        ul,
+        ol {
           margin-block: 0;
-          margin: 0; // markerdown 中 p 标签去除外边距，防止消息框撑开太多
         }
 
-        :deep(li) {
-          white-space: normal; // 防止列表的 marker 和内容之间存在换行
+        p:not(:last-of-type) {
+          // 除了最后一个p标签，增加段后距离
+          margin-bottom: $app-line-height-base;
         }
 
-        :deep(.chat-message-loading) {
+        li {
+          // 防止列表的 marker 和内容之间存在换行
+          white-space: normal;
+        }
+
+        .chat-message-loading {
           font-weight: var(--el-font-weight-primary);
           color: var(--el-color-primary);
           animation: alternate-hide-show 900ms ease-in-out infinite;
