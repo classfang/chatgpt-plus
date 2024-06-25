@@ -293,7 +293,7 @@ const convertMessages = async (
     if (!ignoreFile && m.files && m.files.length > 0) {
       const fileContentList: Record<string, string> = {}
       for (const f of m.files) {
-        fileContentList[f.name] = await langChainLoadFile(join(appStateStore.cachePath, f.name))
+        fileContentList[f.name] = await langChainLoadFile(join(appStateStore.cachePath, f.saveName))
       }
       realText = `Files Data:\n${JSON.stringify(fileContentList)}\n${realText}`
     }
@@ -305,7 +305,7 @@ const convertMessages = async (
     if (!ignoreFile && m.role === 'user' && m.images && m.images.length > 0) {
       for (const image of m.images) {
         const imageBase64Data = await readLocalImageBase64(
-          join(appStateStore.cachePath, image.name)
+          join(appStateStore.cachePath, image.saveName)
         )
         content.push({
           type: 'image_url',
@@ -484,9 +484,10 @@ const selectAttachment = async () => {
 
     for (const file of files) {
       // 保存文件到缓存目录
-      await saveFileByPath(file.path, `${generateUUID()}${file.extname}`)
-      const chatFile = {
+      const saveName = await saveFileByPath(file.path, `${generateUUID()}${file.extname}`)
+      const chatFile: ChatMessageFile = {
         name: file.name,
+        saveName: saveName,
         extname: file.extname,
         size: file.stat.size
       }
@@ -539,10 +540,11 @@ const handleInputPaste = (event: ClipboardEvent) => {
           const fileName = `${generateUUID()}${extname}`
 
           // 保存到本地
-          saveFileByBase64(imageBase64, fileName).then(() => {
+          saveFileByBase64(imageBase64, fileName).then((saveName) => {
             // 保存成功后添加到图片预览
             data.imageList.push({
               name: fileName,
+              saveName: saveName,
               extname: extname,
               size: blob.size
             })
@@ -587,12 +589,12 @@ onMounted(() => {
     <div class="question-input">
       <!-- 图片列表 -->
       <div v-if="imageList.length > 0" class="question-input-file-list">
-        <div v-for="(att, index) in imageList" :key="att.name" class="image-item">
+        <div v-for="(att, index) in imageList" :key="att.saveName" class="image-item">
           <el-image
             class="item-image"
-            :src="`file://${join(appStateStore.cachePath, att.name)}`"
+            :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
             :preview-src-list="
-              imageList.map((a) => `file://${join(appStateStore.cachePath, a.name)}`)
+              imageList.map((a) => `file://${join(appStateStore.cachePath, a.saveName)}`)
             "
             :initial-index="index"
             fit="cover"
@@ -604,13 +606,13 @@ onMounted(() => {
       <div v-if="fileList.length > 0" class="question-input-file-list">
         <div
           v-for="(att, index) in fileList"
-          :key="att.name"
+          :key="att.saveName"
           class="file-item"
-          @click="showItemInFolder(join(appStateStore.cachePath, att.name))"
+          @click="showItemInFolder(join(appStateStore.cachePath, att.saveName))"
         >
           <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
           <div class="file-item-body">
-            <div class="file-item-name">{{ att.name }}</div>
+            <div class="file-item-name">{{ att.saveName }}</div>
             <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
           </div>
           <CircleCloseFilled class="item-close-btn" @click.stop="deleteFile(index)" />

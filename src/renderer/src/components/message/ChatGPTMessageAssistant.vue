@@ -39,14 +39,14 @@ const message = defineModel<ChatMessage>('message', {
 
         <!-- 图片列表 -->
         <div v-if="message.images && message.images.length > 0" class="file-list">
-          <template v-for="(att, index) in message.images" :key="att.path">
+          <template v-for="(att, index) in message.images" :key="att.saveName">
             <el-dropdown trigger="contextmenu">
               <div class="image-item">
                 <el-image
                   class="item-image"
-                  :src="`file://${join(appStateStore.cachePath, att.name)}`"
+                  :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
                   :preview-src-list="
-                    message.images.map((a) => `file://${join(appStateStore.cachePath, a.name)}`)
+                    message.images.map((a) => `file://${join(appStateStore.cachePath, a.saveName)}`)
                   "
                   :initial-index="index"
                   fit="cover"
@@ -57,7 +57,10 @@ const message = defineModel<ChatMessage>('message', {
                   <el-dropdown-item
                     :icon="Download"
                     @click="
-                      downloadFile(`file://${join(appStateStore.cachePath, att.name)}`, att.name)
+                      downloadFile(
+                        `file://${join(appStateStore.cachePath, att.saveName)}`,
+                        att.name
+                      )
                     "
                     >{{ $t('app.chatgpt.body.message.download') }}</el-dropdown-item
                   >

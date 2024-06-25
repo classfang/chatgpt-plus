@@ -84,6 +84,7 @@
           "cache": "应用缓存",
           "openCacheDir": "打开缓存目录",
           "clearCache": "清理缓存",
+          "clearFileCount": "共清理 _ 个文件",
           "devTools": "开发者工具",
           "openDevTools": "打开开发者工具"
         }

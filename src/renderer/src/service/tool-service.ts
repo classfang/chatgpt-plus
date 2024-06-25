@@ -96,11 +96,11 @@ export const toolsUse = async (
       for (const imgData of imagesResponse.data) {
         const extname = '.png'
         const name = `${generateUUID()}${extname}`
-        const path = await saveFileByBase64(imgData.b64_json!, name)
+        const saveName = await saveFileByBase64(imgData.b64_json!, name)
         images.push({
           name,
-          extname,
-          path
+          saveName,
+          extname
         })
       }
     }

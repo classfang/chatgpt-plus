@@ -10,6 +10,7 @@ import {
   OpenAISpeechModels,
   OpenAISpeechVoices
 } from '@renderer/config/OpenAIConfig'
+import i18n from '@renderer/i18n'
 import {
   clearCacheFiles,
   getAppVersion,
@@ -26,7 +27,11 @@ import { Logger } from '@renderer/utils/logger'
 import { openInBrowser } from '@renderer/utils/window-util'
 import axios from 'axios'
 import dayjs from 'dayjs'
+import { ElMessage } from 'element-plus'
 import { onMounted, reactive, toRefs } from 'vue'
+
+// 多语言
+const { t } = i18n.global
 
 // 仓库
 const appSettingStore = useAppSettingStore()
@@ -80,16 +85,20 @@ const clearCache = async () => {
   chatSessionStore.sessions.forEach((session) =>
     session.messages.forEach((message) => {
       if (message.images && message.images.length > 0) {
-        message.images.forEach((image) => ignoreFiles.push(image.path))
+        message.images.forEach((image) => ignoreFiles.push(image.saveName))
       }
       if (message.files && message.files.length > 0) {
-        message.files.forEach((file) => ignoreFiles.push(file.path))
+        message.files.forEach((file) => ignoreFiles.push(file.saveName))
       }
     })
   )
 
   // 清理缓存文件
-  await clearCacheFiles(ignoreFiles)
+  const clearFileCount = await clearCacheFiles(ignoreFiles)
+
+  ElMessage.success(
+    t('app.setting.item.about.clearFileCount').replace('_', clearFileCount.toString())
+  )
 
   appStateStore.clearCacheFlag = false
 }

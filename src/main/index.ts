@@ -114,7 +114,7 @@ ipcMain.handle('save-file-by-url', async (_event, url: string, fileName: string)
   fileStream.write(buffer)
   fileStream.end()
 
-  return filePath
+  return fileName
 })
 
 // 保存base64文件
@@ -129,7 +129,7 @@ ipcMain.handle('save-file-by-base64', async (_event, base64: string, fileName: s
   const filePath = join(appConfig.cachePath, fileName)
   fs.writeFileSync(filePath, Buffer.from(base64, 'base64'), 'binary')
 
-  return filePath
+  return fileName
 })
 
 // 保存本地文件
@@ -138,7 +138,7 @@ ipcMain.handle('save-file-by-path', async (_event, path: string, fileName: strin
   const filePath = join(appConfig.cachePath, fileName)
   fs.copyFileSync(path, filePath)
 
-  return filePath
+  return fileName
 })
 
 // 打开缓存目录
@@ -204,19 +204,20 @@ ipcMain.handle('add-cache-files', (_event, cacheFiles: { name: string; data: str
 
 // 清理缓存文件
 ipcMain.handle('clear-cache-files', (_event, ignoreFiles: string[]) => {
-  if (ignoreFiles.length === 0) {
-    return
-  }
+  let clearFileCount = 0
   const files: string[] = fs.readdirSync(appConfig.cachePath)
   if (!files || files.length === 0) {
-    return
+    return clearFileCount
   }
-  files.forEach((file) => {
-    const filePath = join(appConfig.cachePath, file)
-    if (!ignoreFiles.includes(filePath)) {
+  files.forEach((fileName) => {
+    if (!ignoreFiles.includes(fileName)) {
+      const filePath = join(appConfig.cachePath, fileName)
       fs.unlinkSync(filePath)
+      clearFileCount++
     }
   })
+
+  return clearFileCount
 })
 
 // 选择文件返回地址

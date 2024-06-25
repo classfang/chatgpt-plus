@@ -25,14 +25,14 @@ const message = defineModel<ChatMessage>('message', {
 
       <!-- 图片列表 -->
       <div v-if="message.images && message.images.length > 0" class="file-list">
-        <template v-for="(att, index) in message.images" :key="att.name">
+        <template v-for="(att, index) in message.images" :key="att.saveName">
           <el-dropdown trigger="contextmenu">
             <div class="image-item">
               <el-image
                 class="item-image"
-                :src="`file://${join(appStateStore.cachePath, att.name)}`"
+                :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
                 :preview-src-list="
-                  message.images.map((a) => `file://${join(appStateStore.cachePath, a.name)}`)
+                  message.images.map((a) => `file://${join(appStateStore.cachePath, a.saveName)}`)
                 "
                 :initial-index="index"
                 fit="cover"
@@ -43,7 +43,7 @@ const message = defineModel<ChatMessage>('message', {
                 <el-dropdown-item
                   :icon="Download"
                   @click="
-                    downloadFile(`file://${join(appStateStore.cachePath, att.name)}`, att.name)
+                    downloadFile(`file://${join(appStateStore.cachePath, att.saveName)}`, att.name)
                   "
                   >{{ $t('app.chatgpt.body.message.download') }}</el-dropdown-item
                 >
@@ -55,11 +55,11 @@ const message = defineModel<ChatMessage>('message', {
 
       <!-- 文件列表 -->
       <div v-if="message.files && message.files.length > 0" class="file-list">
-        <template v-for="att in message.files" :key="att.path">
+        <template v-for="att in message.files" :key="att.saveName">
           <el-dropdown trigger="contextmenu">
             <div
               class="file-item"
-              @click="showItemInFolder(join(appStateStore.cachePath, att.name))"
+              @click="showItemInFolder(join(appStateStore.cachePath, att.saveName))"
             >
               <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
               <div class="file-item-body">
@@ -72,7 +72,7 @@ const message = defineModel<ChatMessage>('message', {
                 <el-dropdown-item
                   :icon="Download"
                   @click="
-                    downloadFile(`file://${join(appStateStore.cachePath, att.name)}`, att.name)
+                    downloadFile(`file://${join(appStateStore.cachePath, att.saveName)}`, att.name)
                   "
                   >{{ $t('app.chatgpt.body.message.download') }}</el-dropdown-item
                 >

@@ -84,6 +84,7 @@
           "cache": "Application Cache",
           "openCacheDir": "Open Cache Directory",
           "clearCache": "Clear Cache",
+          "clearFileCount": "_ files were cleared",
           "devTools": "Developer Tools",
           "openDevTools": "Open Developer Tools"
         }
