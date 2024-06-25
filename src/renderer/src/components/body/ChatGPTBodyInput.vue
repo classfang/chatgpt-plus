@@ -40,7 +40,7 @@ const data = reactive({
 const { question, imageList, fileList } = toRefs(data)
 
 // 定义事件
-const emits = defineEmits(['update-message'])
+const emits = defineEmits(['send-question', 'update-message'])
 
 // ref
 const inputTextareaRef = ref()
@@ -76,6 +76,8 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
 
   // 加载中
   appStateStore.chatgptLoading = true
+
+  emits('send-question')
 
   // 是否无标题
   const noSessionNameFlag = chatSessionStore.getActiveSession!.name.trim().length === 0
