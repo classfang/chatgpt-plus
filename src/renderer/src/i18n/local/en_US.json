@@ -158,7 +158,8 @@
           "copied": "Copied",
           "preview": "Preview",
           "download": "Download",
-          "textToImageContent": "Generate the images for you:"
+          "textToImageContent": "Generate the images for you:",
+          "searchResult": "Searched _ sites"
         },
         "header": {
           "currentChat": {

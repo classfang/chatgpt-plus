@@ -6,6 +6,7 @@ import { useChatSessionStore } from '@renderer/store/chat-session'
 import { downloadFile } from '@renderer/utils/download-util'
 import { renderMarkdown } from '@renderer/utils/markdown-util'
 import { join } from '@renderer/utils/path-util'
+import { openInBrowser } from '@renderer/utils/window-util'
 
 // 仓库
 const appStateStore = useAppStateStore()
@@ -24,6 +25,25 @@ const message = defineModel<ChatMessage>('message', {
   <div class="chatgpt-message-assistant">
     <div class="message-content-container">
       <div class="message-content">
+        <!-- 搜索结果列表 -->
+        <el-collapse
+          v-if="message.searchItems && message.searchItems.length > 0"
+          class="search-item-list-collapse"
+        >
+          <el-collapse-item
+            :title="`${$t('app.chatgpt.body.message.searchResult').replace('_', String(message.searchItems.length))}`"
+          >
+            <div class="search-item-list">
+              <template v-for="item in message.searchItems" :key="item.link">
+                <el-text class="search-item" line-clamp="1" @click="openInBrowser(item.link)">
+                  {{ item.title }}
+                </el-text>
+              </template>
+            </div>
+          </el-collapse-item>
+        </el-collapse>
+
+        <!-- Markdown内容 -->
         <div
           class="markdown-html select-text"
           v-html="
@@ -60,8 +80,8 @@ const message = defineModel<ChatMessage>('message', {
                         att.name
                       )
                     "
-                    >{{ $t('app.chatgpt.body.message.download') }}</el-dropdown-item
-                  >
+                    >{{ $t('app.chatgpt.body.message.download') }}
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -105,7 +125,7 @@ const message = defineModel<ChatMessage>('message', {
       border-radius: calc($app-line-height-base / 2 + $app-padding-small);
       display: flex;
       flex-direction: column;
-      gap: $app-padding-extra-small;
+      gap: $app-padding-small;
 
       :deep(.markdown-html) {
         white-space: pre-wrap;
@@ -173,6 +193,37 @@ const message = defineModel<ChatMessage>('message', {
             height: 100%;
             width: 100%;
             border-radius: $app-border-radius-base;
+          }
+        }
+      }
+
+      .search-item-list-collapse {
+        border: none;
+
+        :deep(.el-collapse-item__header) {
+          height: calc($app-line-height-base + $app-padding-small);
+          padding-bottom: $app-padding-small;
+          background-color: transparent;
+          font-size: var(--el-font-size-base);
+        }
+
+        :deep(.el-collapse-item__wrap) {
+          background-color: transparent;
+        }
+
+        .search-item-list {
+          display: flex;
+          flex-direction: column;
+          gap: $app-padding-extra-small;
+
+          .search-item {
+            width: 100%;
+            cursor: pointer;
+            transition: color $app-transition-base;
+
+            &:hover {
+              color: var(--el-color-primary);
+            }
           }
         }
       }

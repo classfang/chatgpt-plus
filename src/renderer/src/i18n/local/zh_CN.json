@@ -158,7 +158,8 @@
           "copied": "已复制",
           "preview": "预览",
           "download": "下载",
-          "textToImageContent": "为你生成以下图片："
+          "textToImageContent": "为你生成以下图片：",
+          "searchResult": "已搜索 _ 个网站"
         },
         "header": {
           "currentChat": {

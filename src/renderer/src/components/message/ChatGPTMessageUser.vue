@@ -109,7 +109,7 @@ const message = defineModel<ChatMessage>('message', {
     line-height: $app-line-height-base;
     display: flex;
     flex-direction: column;
-    gap: $app-padding-extra-small;
+    gap: $app-padding-small;
 
     .file-list {
       display: flex;
