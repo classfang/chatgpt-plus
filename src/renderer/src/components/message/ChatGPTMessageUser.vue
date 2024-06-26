@@ -104,7 +104,7 @@ const message = defineModel<ChatMessage>('message', {
     line-break: anywhere;
     background-color: var(--el-fill-color);
     box-sizing: border-box;
-    padding: $app-padding-small;
+    padding: $app-padding-small $app-padding-base;
     border-radius: calc($app-line-height-base / 2 + $app-padding-small);
     line-height: $app-line-height-base;
     display: flex;
