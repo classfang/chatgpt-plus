@@ -35,9 +35,12 @@ const message = defineModel<ChatMessage>('message', {
           >
             <div class="search-item-list">
               <template v-for="item in message.searchItems" :key="item.link">
-                <el-text class="search-item" line-clamp="1" @click="openInBrowser(item.link)">
-                  {{ item.title }}
-                </el-text>
+                <div class="search-item" @click="openInBrowser(item.link)">
+                  <el-text class="search-item-title" line-clamp="1">
+                    {{ item.title }}
+                  </el-text>
+                  <div class="search-item-display-link">{{ item.displayLink }}</div>
+                </div>
               </template>
             </div>
           </el-collapse-item>
@@ -215,14 +218,33 @@ const message = defineModel<ChatMessage>('message', {
           display: flex;
           flex-direction: column;
           gap: $app-padding-extra-small;
+          font-size: var(--el-font-size-base);
 
           .search-item {
             width: 100%;
             cursor: pointer;
             transition: color $app-transition-base;
+            display: flex;
+            align-items: center;
+            gap: $app-padding-small;
 
             &:hover {
               color: var(--el-color-primary);
+
+              .search-item-title {
+                color: var(--el-color-primary);
+              }
+            }
+
+            .search-item-title {
+              min-width: 0;
+              max-width: max-content;
+              flex: 1 1 0;
+              transition: color $app-transition-base;
+            }
+
+            .search-item-display-link {
+              color: var(--el-text-color-secondary);
             }
           }
         }
