@@ -7,6 +7,7 @@ export const useAppStateStore = defineStore({
   state: () => ({
     chatgptLoading: false,
     chatgptAnswering: false,
+    currentToolName: null as null | string,
     uploading: false,
     cleanCacheFlag: false,
     exportChatFlag: false,

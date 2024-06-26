@@ -7,7 +7,11 @@
     "state": {
       "default": "OpenAI 提供技术支持",
       "openAIApiKeyMiss": "OpenAI 密钥未配置",
-      "chatgptAnswering": "正在回答"
+      "chatgptAnswering": "正在回答",
+      "currentTool": {
+        "text_to_image": "正在生成图片",
+        "internet_search": "正在互联网搜索"
+      }
     },
     "setting": {
       "title": "应用设置",

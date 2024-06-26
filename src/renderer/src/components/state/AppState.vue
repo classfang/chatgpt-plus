@@ -12,6 +12,9 @@ const appSettingStore = useAppSettingStore()
     <template v-if="!appSettingStore.openAI.apiKey">
       {{ $t('app.state.openAIApiKeyMiss') }}
     </template>
+    <template v-else-if="appStateStore.currentToolName">
+      {{ $t(`app.state.currentTool.${appStateStore.currentToolName}`) }}
+    </template>
     <template v-else-if="appStateStore.chatgptAnswering">
       {{ $t('app.state.chatgptAnswering') }}
     </template>

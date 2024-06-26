@@ -204,6 +204,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       if (toolCallId && functionName && functionArguments) {
         // 运行插件
         try {
+          appStateStore.currentToolName = functionName
           const toolResult = await toolsUse(
             functionName,
             functionArguments,
@@ -211,6 +212,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
             chatSessionStore.getActiveSession!,
             appSettingStore
           )
+          appStateStore.currentToolName = null
 
           // 针对不同的插件进行结果处理
           if (ToolEnum.TEXT_TO_IMAGE === functionName) {

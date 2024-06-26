@@ -7,7 +7,11 @@
     "state": {
       "default": "Power By OpenAI",
       "openAIApiKeyMiss": "Required openai api key",
-      "chatgptAnswering": "Be answering"
+      "chatgptAnswering": "Be answering",
+      "currentTool": {
+        "text_to_image": "Generating image",
+        "internet_search": "Searching on the Internet"
+      }
     },
     "setting": {
       "title": "Application Settings",
