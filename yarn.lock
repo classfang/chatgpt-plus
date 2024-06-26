@@ -3979,10 +3979,24 @@ one-time@^1.0.0:
   dependencies:
     fn.name "1.x.x"
 
-openai@^4.41.1, openai@^4.49.1, openai@^4.52.0:
+openai@^4.41.1, openai@^4.49.1:
   version "4.52.0"
   resolved "https://registry.npmmirror.com/openai/-/openai-4.52.0.tgz#5f93bdbef05ca3407d92f7a68717234ac0ffd09e"
   integrity sha512-xmiNcdA9QJ5wffHpZDpIsge6AsPTETJ6h5iqDNuFQ7qGSNtonHn8Qe0VHy4UwLE8rBWiSqh4j+iSvuYZSeKkPg==
+  dependencies:
+    "@types/node" "^18.11.18"
+    "@types/node-fetch" "^2.6.4"
+    abort-controller "^3.0.0"
+    agentkeepalive "^4.2.1"
+    form-data-encoder "1.7.2"
+    formdata-node "^4.3.2"
+    node-fetch "^2.6.7"
+    web-streams-polyfill "^3.2.1"
+
+openai@^4.52.1:
+  version "4.52.1"
+  resolved "https://registry.npmmirror.com/openai/-/openai-4.52.1.tgz#44acc362a844fa2927b0cfa1fb70fb51e388af65"
+  integrity sha512-kv2hevAWZZ3I/vd2t8znGO2rd8wkowncsfcYpo8i+wU9ML+JEcdqiViANXXjWWGjIhajFNixE6gOY1fEgqILAg==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
