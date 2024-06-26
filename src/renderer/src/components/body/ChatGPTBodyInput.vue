@@ -221,6 +221,8 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
             // 结束回答
             finishAnswer(noSessionNameFlag, regenerateFlag)
           } else if (ToolEnum.INTERNET_SEARCH === functionName) {
+            // 记录搜索结果
+            streamAnswer('', undefined, JSON.parse(toolResult))
             // 继续调用对话能力
             sendMessages.push({
               role: 'assistant',
@@ -330,17 +332,22 @@ const convertMessages = async (
 }
 
 // 流式回答
-const streamAnswer = (content = '', images?: ChatMessageFile[]) => {
+const streamAnswer = (
+  content = '',
+  images?: ChatMessageFile[],
+  searchItems?: InternetSearchResultItem[]
+) => {
   if (!appStateStore.chatgptAnswering) {
     chatSessionStore.pushMessage({
       type: 'chat',
       role: 'assistant',
       content: content,
-      images: images
+      images: images,
+      searchItems: searchItems
     })
     appStateStore.chatgptAnswering = true
   }
-  chatSessionStore.appendMessageContent(content, images)
+  chatSessionStore.appendMessageContent(content, images, searchItems)
 }
 
 // 错误回答
@@ -374,6 +381,8 @@ const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => 
     if (latestMessage.choices) {
       latestMessage.choices[latestMessage.choices.length - 1].content = latestMessage.content
       latestMessage.choices[latestMessage.choices.length - 1].images = latestMessage.images
+      latestMessage.choices[latestMessage.choices.length - 1].searchItems =
+        latestMessage.searchItems
     }
   }
 
@@ -448,13 +457,15 @@ const regenerate = (messageId: string) => {
       latestMessage.choices = [
         {
           content: latestMessage.content,
-          images: latestMessage.images
+          images: latestMessage.images,
+          searchItems: latestMessage.searchItems
         }
       ]
     }
     latestMessage.choices.push({
       content: '',
-      images: []
+      images: [],
+      searchItems: []
     })
 
     // 初始化choiceIndex
@@ -468,6 +479,7 @@ const regenerate = (messageId: string) => {
   // 清空当前内容
   latestMessage.content = ''
   latestMessage.images = []
+  latestMessage.searchItems = []
 
   // 重新生成
   sendQuestion(undefined, true)

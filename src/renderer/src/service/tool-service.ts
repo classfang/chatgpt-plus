@@ -119,9 +119,11 @@ export const toolsUse = async (
     })
     Logger.info('toolsUse internet_search resp: ', resp)
     return JSON.stringify(
-      resp.data.items.map((item) => ({
+      resp.data.items.map((item: any) => ({
         title: item.title,
-        snippet: item.snippet
+        snippet: item.snippet,
+        link: item.link,
+        displayLink: item.displayLink
       }))
     )
   }
