@@ -376,14 +376,7 @@ const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => 
 
   // 保存当前回答到最后一个choice
   if (regenerateFlag) {
-    // 最新一条消息
-    const latestMessage = chatSessionStore.getActiveSession!.messages.at(-1)!
-    if (latestMessage.choices) {
-      latestMessage.choices[latestMessage.choices.length - 1].content = latestMessage.content
-      latestMessage.choices[latestMessage.choices.length - 1].images = latestMessage.images
-      latestMessage.choices[latestMessage.choices.length - 1].searchItems =
-        latestMessage.searchItems
-    }
+    chatSessionStore.saveChoice()
   }
 
   appStateStore.chatgptAnswering = false
@@ -452,34 +445,11 @@ const regenerate = (messageId: string) => {
   if (latestMessage.type === 'error') {
     latestMessage.type = 'chat'
   } else {
-    // 初始化choices
-    if (!latestMessage.choices) {
-      latestMessage.choices = [
-        {
-          content: latestMessage.content,
-          images: latestMessage.images,
-          searchItems: latestMessage.searchItems
-        }
-      ]
-    }
-    latestMessage.choices.push({
-      content: '',
-      images: [],
-      searchItems: []
-    })
-
-    // 初始化choiceIndex
-    if (!latestMessage.choiceIndex) {
-      latestMessage.choiceIndex = 1
-    } else {
-      latestMessage.choiceIndex++
-    }
+    chatSessionStore.pushChoice()
   }
 
   // 清空当前内容
-  latestMessage.content = ''
-  latestMessage.images = []
-  latestMessage.searchItems = []
+  chatSessionStore.clearLatestMessage()
 
   // 重新生成
   sendQuestion(undefined, true)

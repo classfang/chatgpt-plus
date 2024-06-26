@@ -109,7 +109,7 @@ const speechStop = () => {
       <el-button
         text
         circle
-        @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, -1)"
+        @click="!appStateStore.chatgptLoading && chatSessionStore.changeChoice(message.id!, -1)"
       >
         <AppIcon name="arrow-left" :size="18" />
       </el-button>
@@ -117,7 +117,7 @@ const speechStop = () => {
       <el-button
         text
         circle
-        @click="!appStateStore.chatgptLoading && chatSessionStore.messageChoice(message.id!, 1)"
+        @click="!appStateStore.chatgptLoading && chatSessionStore.changeChoice(message.id!, 1)"
       >
         <AppIcon name="arrow-right" :size="18" />
       </el-button>

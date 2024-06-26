@@ -132,7 +132,7 @@ export const useChatSessionStore = defineStore({
     getSessionById(sessionId: string): ChatSession | undefined {
       return this.sessions.find((s) => s.id === sessionId)
     },
-    messageChoice(messageId: string, step: number) {
+    changeChoice(messageId: string, step: number) {
       if (!this.getActiveSession) {
         return
       }
@@ -152,6 +152,67 @@ export const useChatSessionStore = defineStore({
       message.content = message.choices[message.choiceIndex].content
       message.images = message.choices[message.choiceIndex].images
       message.searchItems = message.choices[message.choiceIndex].searchItems
+    },
+    saveChoice() {
+      if (!this.getActiveSession) {
+        return
+      }
+      const latestMessage = this.getActiveSession.messages.at(-1)
+      if (!latestMessage) {
+        return
+      }
+
+      if (latestMessage.choices) {
+        latestMessage.choices[latestMessage.choices.length - 1].content = latestMessage.content
+        latestMessage.choices[latestMessage.choices.length - 1].images = latestMessage.images
+        latestMessage.choices[latestMessage.choices.length - 1].searchItems =
+          latestMessage.searchItems
+      }
+    },
+    pushChoice() {
+      if (!this.getActiveSession) {
+        return
+      }
+      const latestMessage = this.getActiveSession.messages.at(-1)
+      if (!latestMessage) {
+        return
+      }
+
+      // 初始化choices
+      if (!latestMessage.choices) {
+        latestMessage.choices = [
+          {
+            content: latestMessage.content,
+            images: latestMessage.images,
+            searchItems: latestMessage.searchItems
+          }
+        ]
+      }
+      latestMessage.choices.push({
+        content: '',
+        images: [],
+        searchItems: []
+      })
+
+      // 初始化choiceIndex
+      if (!latestMessage.choiceIndex) {
+        latestMessage.choiceIndex = 1
+      } else {
+        latestMessage.choiceIndex++
+      }
+    },
+    clearLatestMessage() {
+      if (!this.getActiveSession) {
+        return
+      }
+      const latestMessage = this.getActiveSession.messages.at(-1)
+      if (!latestMessage) {
+        return
+      }
+
+      latestMessage.content = ''
+      latestMessage.images = []
+      latestMessage.searchItems = []
     }
   },
   persist: true
