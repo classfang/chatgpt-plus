@@ -12,6 +12,8 @@ export const useAppStateStore = defineStore({
     cleanCacheFlag: false,
     exportChatFlag: false,
     importChatFlag: false,
+    exportMemoryFlag: false,
+    importMemoryFlag: false,
     exportSettingFlag: false,
     importSettingFlag: false,
     dayKey: dayjs().format('YYYYMMDD'),

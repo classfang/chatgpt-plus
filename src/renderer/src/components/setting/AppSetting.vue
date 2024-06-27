@@ -35,6 +35,7 @@ import {
 } from '@renderer/service/ipc-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
+import { useChatMemoryStore } from '@renderer/store/chat-memory'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { exportTextFile } from '@renderer/utils/download-util'
 import { Logger } from '@renderer/utils/logger'
@@ -51,6 +52,7 @@ const { t } = i18n.global
 const appSettingStore = useAppSettingStore()
 const appStateStore = useAppStateStore()
 const chatSessionStore = useChatSessionStore()
+const chatMemoryStore = useChatMemoryStore()
 
 // 数据绑定
 const data = reactive({
@@ -163,8 +165,9 @@ const importChat = async () => {
 
   const content = await selectFileAndRead(['.cgpd'])
   const contentJson = JSON.parse(new TextDecoder().decode(content))
+  let importCount = 0
   if (contentJson.chatSession) {
-    chatSessionStore.setStoreFromJson(contentJson.chatSession)
+    importCount = chatSessionStore.setStoreFromJson(contentJson.chatSession)
   }
   if (contentJson.cacheFiles) {
     for (const cacheFile of contentJson.cacheFiles) {
@@ -174,9 +177,7 @@ const importChat = async () => {
     }
   }
 
-  ElMessage.success(
-    t('app.setting.item.data.importChatCount').replace('_', contentJson.sessions?.length ?? 0)
-  )
+  ElMessage.success(t('app.setting.item.data.importChatCount').replace('_', String(importCount)))
 
   appStateStore.importChatFlag = false
 }
@@ -193,6 +194,49 @@ const clearChat = () => {
     }
   ).then(() => {
     chatSessionStore.clear()
+  })
+}
+
+// 导出记忆数据
+const exportMemory = async () => {
+  appStateStore.exportMemoryFlag = true
+  exportTextFile(
+    `data-${dayjs().format('YYYYMMDDHHmmss')}.cgpm`,
+    JSON.stringify({
+      chatMemory: chatMemoryStore.getStoreJson
+    })
+  )
+  appStateStore.exportMemoryFlag = false
+}
+
+// 导入记忆数据
+const importMemory = async () => {
+  appStateStore.importMemoryFlag = true
+
+  const content = await selectFileAndRead(['.cgpm'])
+  const contentJson = JSON.parse(new TextDecoder().decode(content))
+  let importCount = 0
+  if (contentJson.chatMemory) {
+    importCount = chatMemoryStore.setStoreFromJson(contentJson.chatMemory)
+  }
+
+  ElMessage.success(t('app.setting.item.data.importMemoryCount').replace('_', String(importCount)))
+
+  appStateStore.importMemoryFlag = false
+}
+
+// 清空记忆数据
+const clearMemory = () => {
+  ElMessageBox.confirm(
+    t('app.setting.item.data.clearMemoryConfirm'),
+    t('app.setting.item.data.clearMemory'),
+    {
+      distinguishCancelAndClose: true,
+      confirmButtonText: t('app.common.confirm'),
+      cancelButtonText: t('app.common.cancel')
+    }
+  ).then(() => {
+    chatMemoryStore.clear()
   })
 }
 
@@ -668,8 +712,27 @@ onMounted(() => {
                   <el-button :icon="Upload" @click="importChat()">
                     {{ $t('app.setting.item.data.importChat') }}
                   </el-button>
-                  <el-button :icon="Brush" @click="clearChat()">
+                  <el-button type="danger" plain :icon="Brush" @click="clearChat()">
                     {{ $t('app.setting.item.data.clearChat') }}
+                  </el-button>
+                </el-space>
+              </el-form-item>
+
+              <!-- 记忆数据 -->
+              <el-form-item :label="$t('app.setting.item.data.memory')">
+                <el-space wrap>
+                  <el-button
+                    :icon="Download"
+                    :loading="appStateStore.exportMemoryFlag"
+                    @click="exportMemory()"
+                  >
+                    {{ $t('app.setting.item.data.exportMemory') }}
+                  </el-button>
+                  <el-button :icon="Upload" @click="importMemory()">
+                    {{ $t('app.setting.item.data.importMemory') }}
+                  </el-button>
+                  <el-button type="danger" plain :icon="Brush" @click="clearMemory()">
+                    {{ $t('app.setting.item.data.clearMemory') }}
                   </el-button>
                 </el-space>
               </el-form-item>

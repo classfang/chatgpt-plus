@@ -7,7 +7,26 @@ export const useChatMemoryStore = defineStore({
   state: () => ({
     memoryList: [] as ChatMemory[]
   }),
+  getters: {
+    getStoreJson(): string {
+      return JSON.stringify({
+        memoryList: this.memoryList
+      })
+    }
+  },
   actions: {
+    setStoreFromJson(jsonStr: string) {
+      let importCount = 0
+      if (!jsonStr) {
+        return importCount
+      }
+      const json = JSON.parse(jsonStr)
+      if (json.memoryList !== undefined) {
+        this.memoryList = json.memoryList
+        importCount = this.memoryList.length
+      }
+      return importCount
+    },
     add(content: string) {
       this.memoryList.unshift({
         id: generateUUID(),
