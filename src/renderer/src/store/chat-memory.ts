@@ -16,7 +16,10 @@ export const useChatMemoryStore = defineStore({
       })
     },
     deleteById(id: string) {
-      this.memoryList.filter((memory) => memory.id != id)
+      this.memoryList = this.memoryList.filter((memory) => memory.id != id)
+    },
+    clear() {
+      this.memoryList = []
     }
   },
   persist: true

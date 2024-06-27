@@ -43,11 +43,15 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
         <div class="prompt-list-header">
           <div class="prompt-count">
             {{
-              (prompts[appSettingStore.app.locale] as string[][]).filter(
-                (p) => p[0].includes(promptKeyword) || p[0].includes(promptKeyword)
-              ).length
+              $t('app.chatgpt.body.prompt.count').replace(
+                '_',
+                String(
+                  (prompts[appSettingStore.app.locale] as string[][]).filter(
+                    (p) => p[0].includes(promptKeyword) || p[0].includes(promptKeyword)
+                  ).length
+                )
+              )
             }}
-            {{ $t('app.chatgpt.body.prompt.count') }}
           </div>
           <div class="prompt-search">
             <el-input
