@@ -167,6 +167,7 @@
           "preview": "Preview",
           "download": "Download",
           "textToImageContent": "Generate the images for you:",
+          "memoryResult": "Added a new memory: _",
           "searchResult": "Searched _ sites"
         },
         "header": {

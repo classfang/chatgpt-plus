@@ -14,6 +14,7 @@ import { openaiChat } from '@renderer/service/openai-service'
 import { getToolsDefine, ToolEnum, toolsUse } from '@renderer/service/tool-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
+import { useChatMemoryStore } from '@renderer/store/chat-memory'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { formatFileSize } from '@renderer/utils/file-util'
 import { generateUUID } from '@renderer/utils/id-util'
@@ -30,6 +31,7 @@ const { t } = useI18n()
 const appStateStore = useAppStateStore()
 const appSettingStore = useAppSettingStore()
 const chatSessionStore = useChatSessionStore()
+const chatMemoryStore = useChatMemoryStore()
 
 // 数据绑定
 const data = reactive({
@@ -205,9 +207,11 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     },
     end: async () => {
       if (toolCallId && functionName && functionArguments) {
-        // 运行插件
         try {
+          // 修改当前运行工具状态
           appStateStore.currentToolName = functionName
+
+          // 执行工具
           const toolResult = await toolsUse(
             functionName,
             functionArguments,
@@ -215,12 +219,13 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
             chatSessionStore.getActiveSession!,
             appSettingStore
           )
-          appStateStore.currentToolName = null
 
           // 针对不同的插件进行结果处理
           if (ToolEnum.MEMORY === functionName) {
+            // 保存记忆内容
+            chatMemoryStore.add(toolResult)
             // 记忆结果回答
-            streamAnswer(toolResult)
+            streamAnswer(t('app.chatgpt.body.message.memoryResult').replace('_', toolResult))
             // 结束回答
             finishAnswer(noSessionNameFlag, regenerateFlag)
           } else if (ToolEnum.TEXT_TO_IMAGE === functionName) {
@@ -275,6 +280,9 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
               }
             })
           }
+
+          // 修改当前运行工具状态
+          appStateStore.currentToolName = null
         } catch (error: any) {
           errorAnswer(error.message)
         }
@@ -291,7 +299,8 @@ const convertMessages = async (
   messages: ChatMessage[],
   contextSize?: number,
   ignoreSize = 0,
-  ignoreFile = false
+  ignoreFile = false,
+  ignoreMemory = false
 ): Promise<OpenAI.ChatCompletionMessageParam[]> => {
   const chatMessages = messages
     // 跳过 ignoreSize 条记录，截取最后 contextSize 条记录，
@@ -334,6 +343,18 @@ const convertMessages = async (
       role: m.role,
       content: content
     } as OpenAI.ChatCompletionMessageParam)
+  }
+
+  // 追加记忆数据
+  if (
+    !ignoreMemory &&
+    chatSessionStore.getActiveSession!.memoryOption.enabled &&
+    chatMemoryStore.memoryList.length > 0
+  ) {
+    convertMessageResult.unshift({
+      role: 'system',
+      content: `These are your memory data: ${JSON.stringify(chatMemoryStore.memoryList)}`
+    })
   }
 
   return convertMessageResult
@@ -414,6 +435,7 @@ const generateSessionName = async (sessionId: string) => {
           chatSessionStore.getActiveSession!.messages,
           undefined,
           undefined,
+          true,
           true
         )),
         {

@@ -88,6 +88,10 @@ interface MemoryOption {
   enabled: boolean
 }
 
+interface ChatMemory extends BaseEntity {
+  content: string
+}
+
 interface ChatSession extends BaseEntity {
   name: string
   provider: LLMProvider
