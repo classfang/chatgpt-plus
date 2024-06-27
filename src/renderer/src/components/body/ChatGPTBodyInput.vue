@@ -116,6 +116,9 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
 
   // 工具名称列表
   const toolNameList: ToolEnum[] = []
+  if (chatSessionStore.getActiveSession!.memoryOption?.enabled) {
+    toolNameList.push(ToolEnum.MEMORY)
+  }
   if (chatSessionStore.getActiveSession!.textToImageOption?.enabled) {
     toolNameList.push(ToolEnum.TEXT_TO_IMAGE)
   }
@@ -215,7 +218,12 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
           appStateStore.currentToolName = null
 
           // 针对不同的插件进行结果处理
-          if (ToolEnum.TEXT_TO_IMAGE === functionName) {
+          if (ToolEnum.MEMORY === functionName) {
+            // 记忆结果回答
+            streamAnswer(toolResult)
+            // 结束回答
+            finishAnswer(noSessionNameFlag, regenerateFlag)
+          } else if (ToolEnum.TEXT_TO_IMAGE === functionName) {
             // 图片生成回答
             streamAnswer(t('app.chatgpt.body.message.textToImageContent'), JSON.parse(toolResult))
             // 结束回答

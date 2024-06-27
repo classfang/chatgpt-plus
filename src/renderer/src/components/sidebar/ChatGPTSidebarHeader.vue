@@ -22,6 +22,7 @@ const createSession = () => {
   chatSessionStore.create(
     copyObj({
       ...appSettingStore.openAI,
+      memoryOption: appSettingStore.memoryOption,
       internetSearchOption: appSettingStore.internetSearchOption
     })
   )

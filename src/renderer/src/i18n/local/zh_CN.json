@@ -9,6 +9,7 @@
       "openAIApiKeyMiss": "OpenAI 密钥未配置",
       "chatgptAnswering": "正在回答",
       "currentTool": {
+        "memory": "正在存储记忆",
         "text_to_image": "正在生成图片",
         "internet_search": "正在互联网搜索"
       }
@@ -20,6 +21,7 @@
       "chat": "对话",
       "speech": "发音",
       "textToImage": "图片生成",
+      "memory": "记忆",
       "internetSearch": "互联网搜索",
       "data": "数据",
       "network": "网络",
@@ -73,6 +75,12 @@
           "style": "图片风格",
           "explain": {
             "enabled": "ChatGPT 会自动判断是否调用"
+          }
+        },
+        "memory": {
+          "enabled": "开启记忆",
+          "explain": {
+            "enabled": "ChatGPT 会记住一些聊天内容，会增加 Token 消耗"
           }
         },
         "internetSearch": {

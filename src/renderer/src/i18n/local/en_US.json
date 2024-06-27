@@ -9,6 +9,7 @@
       "openAIApiKeyMiss": "Required openai api key",
       "chatgptAnswering": "Be answering",
       "currentTool": {
+        "memory": "Storing memory",
         "text_to_image": "Generating image",
         "internet_search": "Searching on the Internet"
       }
@@ -20,6 +21,7 @@
       "chat": "Chat",
       "speech": "Speech",
       "textToImage": "Text To Image",
+      "memory": "Memory",
       "internetSearch": "Internet Search",
       "data": "Data",
       "network": "Network",
@@ -73,6 +75,12 @@
           "style": "Style",
           "explain": {
             "enabled": "ChatGPT determines whether to invoke it."
+          }
+        },
+        "memory": {
+          "enabled": "Enable Memory",
+          "explain": {
+            "enabled": "ChatGPT will remember some chat content. Token consumption increases."
           }
         },
         "internetSearch": {

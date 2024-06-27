@@ -291,6 +291,24 @@ const visible = defineModel<boolean>('visible', {
           </el-form>
         </el-tab-pane>
 
+        <!-- 记忆 -->
+        <el-tab-pane
+          v-if="chatSessionStore.getActiveSession!.memoryOption"
+          :label="$t('app.setting.memory')"
+        >
+          <el-form label-width="auto">
+            <!-- Enabled -->
+            <el-form-item :label="$t('app.setting.item.memory.enabled')">
+              <el-tooltip
+                :content="$t('app.setting.item.memory.explain.enabled')"
+                placement="right"
+              >
+                <el-switch v-model="chatSessionStore.getActiveSession!.memoryOption.enabled" />
+              </el-tooltip>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
+
         <!-- Internet Search -->
         <el-tab-pane
           v-if="chatSessionStore.getActiveSession!.internetSearchOption"

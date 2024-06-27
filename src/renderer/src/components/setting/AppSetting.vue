@@ -538,6 +538,21 @@ onMounted(() => {
             </el-form>
           </el-tab-pane>
 
+          <!-- 记忆 -->
+          <el-tab-pane :label="$t('app.setting.memory')">
+            <el-form label-width="auto">
+              <!-- Enabled -->
+              <el-form-item :label="$t('app.setting.item.memory.enabled')">
+                <el-tooltip
+                  :content="$t('app.setting.item.memory.explain.enabled')"
+                  placement="right"
+                >
+                  <el-switch v-model="appSettingStore.memoryOption.enabled" />
+                </el-tooltip>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+
           <!-- Internet Search -->
           <el-tab-pane :label="$t('app.setting.internetSearch')">
             <el-form label-width="auto">

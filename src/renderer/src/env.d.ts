@@ -84,12 +84,17 @@ interface InternetSearchOption {
   }
 }
 
+interface MemoryOption {
+  enabled: boolean
+}
+
 interface ChatSession extends BaseEntity {
   name: string
   provider: LLMProvider
   messages: ChatMessage[]
   chatOption: ChatOption
   speechOption: SpeechOption
-  internetSearchOption: InternetSearchOption
   textToImageOption: TextToImageOption
+  memoryOption: MemoryOption
+  internetSearchOption: InternetSearchOption
 }

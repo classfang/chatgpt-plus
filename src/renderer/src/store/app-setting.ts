@@ -50,6 +50,9 @@ export const useAppSettingStore = defineStore({
     chatgpt: {
       sidebarVisible: true
     },
+    memoryOption: {
+      enabled: false
+    },
     internetSearchOption: {
       enabled: false,
       google: {

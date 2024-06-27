@@ -7,12 +7,30 @@ import OpenAI from 'openai'
 
 // 所有工具
 export enum ToolEnum {
+  MEMORY = 'memory',
   TEXT_TO_IMAGE = 'text_to_image',
   INTERNET_SEARCH = 'internet_search'
 }
 
 // 工具定义
 export const toolsDefine: OpenAI.Chat.Completions.ChatCompletionTool[] = [
+  {
+    type: 'function',
+    function: {
+      name: ToolEnum.MEMORY,
+      description: 'Remember what the user asked you to remember',
+      parameters: {
+        type: 'object',
+        properties: {
+          content: {
+            type: 'string',
+            description: 'content to remember'
+          }
+        },
+        required: ['content']
+      }
+    }
+  },
   {
     type: 'function',
     function: {
@@ -64,7 +82,11 @@ export const toolsUse = async (
   chatSession: ChatSession,
   appSettingStore: any
 ) => {
-  if (functionName === ToolEnum.TEXT_TO_IMAGE) {
+  if (functionName === ToolEnum.MEMORY) {
+    const content = JSON.parse(functionArguments).content
+    Logger.info('toolsUse memory content: ', content)
+    return content
+  } else if (functionName === ToolEnum.TEXT_TO_IMAGE) {
     // OpenAI实例
     const openai = new OpenAI({
       apiKey: appSettingStore.openAI.apiKey,
