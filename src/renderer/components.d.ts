@@ -58,5 +58,6 @@ declare module 'vue' {
     ElText: typeof import('element-plus/es')['ElText']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FileIcon: typeof import('./src/components/icon/FileIcon.vue')['default']
+    MemoryDataSetting: typeof import('./src/components/setting/MemoryDataSetting.vue')['default']
   }
 }

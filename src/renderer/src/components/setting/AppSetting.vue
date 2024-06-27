@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
   Brush,
-  ChatDotSquare,
   Download,
   Folder,
   Monitor,
@@ -12,6 +11,7 @@ import {
 } from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
+import MemoryDataSetting from '@renderer/components/setting/MemoryDataSetting.vue'
 import {
   OpenAIImageModelDallE3,
   OpenAIImageModels,
@@ -551,18 +551,18 @@ onMounted(() => {
                   <el-switch v-model="appSettingStore.memoryOption.enabled" />
                 </el-tooltip>
               </el-form-item>
+              <!-- Guide -->
               <el-form-item>
                 <div class="setting-item-guide">{{ $t('app.setting.item.memory.guide') }}</div>
               </el-form-item>
+              <!-- Manage -->
               <el-form-item>
-                <el-button :icon="ChatDotSquare" @click="">
-                  {{ $t('app.setting.item.memory.manage') }}
-                </el-button>
+                <MemoryDataSetting />
               </el-form-item>
             </el-form>
           </el-tab-pane>
 
-          <!-- Internet Search -->
+          <!-- 互联网搜索 -->
           <el-tab-pane :label="$t('app.setting.internetSearch')">
             <el-form label-width="auto" label-position="left">
               <!-- Enabled -->

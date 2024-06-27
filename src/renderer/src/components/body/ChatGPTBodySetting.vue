@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MemoryDataSetting from '@renderer/components/setting/MemoryDataSetting.vue'
 import {
   OpenAIImageModelDallE3,
   OpenAIImageModels,
@@ -306,10 +307,18 @@ const visible = defineModel<boolean>('visible', {
                 <el-switch v-model="chatSessionStore.getActiveSession!.memoryOption.enabled" />
               </el-tooltip>
             </el-form-item>
+            <!-- Guide -->
+            <el-form-item>
+              <div class="setting-item-guide">{{ $t('app.setting.item.memory.guide') }}</div>
+            </el-form-item>
+            <!-- Manage -->
+            <el-form-item>
+              <MemoryDataSetting />
+            </el-form-item>
           </el-form>
         </el-tab-pane>
 
-        <!-- Internet Search -->
+        <!-- 互联网搜索 -->
         <el-tab-pane
           v-if="chatSessionStore.getActiveSession!.internetSearchOption"
           :label="$t('app.setting.internetSearch')"
@@ -347,6 +356,14 @@ const visible = defineModel<boolean>('visible', {
   :deep(.el-tabs__content) {
     box-sizing: border-box;
     padding: $app-padding-extra-small $app-padding-small;
+  }
+
+  .setting-item-guide {
+    white-space: pre-wrap;
+    line-break: anywhere;
+    line-height: $app-line-height-base;
+    color: var(--el-text-color-secondary);
+    font-size: var(--el-font-size-small);
   }
 }
 </style>
