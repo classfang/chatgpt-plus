@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   Brush,
+  ChatDotSquare,
   Download,
   Folder,
   Monitor,
@@ -237,7 +238,7 @@ onMounted(() => {
         <el-tabs tab-position="left">
           <!-- 外观 -->
           <el-tab-pane :label="$t('app.setting.appearance')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- 主题 -->
               <el-form-item :label="$t('app.setting.item.theme.label')">
                 <el-radio-group v-model="appSettingStore.app.themeModel">
@@ -274,7 +275,7 @@ onMounted(() => {
 
           <!-- OpenAI -->
           <el-tab-pane :label="$t('app.setting.openai')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- Base URL -->
               <el-form-item :label="$t('app.setting.item.openai.baseUrl')">
                 <el-input v-model="appSettingStore.openAI.baseUrl" />
@@ -289,7 +290,7 @@ onMounted(() => {
 
           <!-- 对话 -->
           <el-tab-pane :label="$t('app.setting.chat')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- Model -->
               <el-form-item :label="$t('app.setting.item.chat.model')">
                 <el-select
@@ -413,7 +414,7 @@ onMounted(() => {
 
           <!-- 发音 -->
           <el-tab-pane :label="$t('app.setting.speech')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- Model -->
               <el-form-item :label="$t('app.setting.item.speech.model')">
                 <el-select
@@ -466,7 +467,7 @@ onMounted(() => {
 
           <!-- 文生图 -->
           <el-tab-pane :label="$t('app.setting.textToImage')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- Enabled -->
               <el-form-item :label="$t('app.setting.item.textToImage.enabled')">
                 <el-tooltip
@@ -540,7 +541,7 @@ onMounted(() => {
 
           <!-- 记忆 -->
           <el-tab-pane :label="$t('app.setting.memory')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- Enabled -->
               <el-form-item :label="$t('app.setting.item.memory.enabled')">
                 <el-tooltip
@@ -550,12 +551,20 @@ onMounted(() => {
                   <el-switch v-model="appSettingStore.memoryOption.enabled" />
                 </el-tooltip>
               </el-form-item>
+              <el-form-item>
+                <div class="setting-item-guide">{{ $t('app.setting.item.memory.guide') }}</div>
+              </el-form-item>
+              <el-form-item>
+                <el-button :icon="ChatDotSquare" @click="">
+                  {{ $t('app.setting.item.memory.manage') }}
+                </el-button>
+              </el-form-item>
             </el-form>
           </el-tab-pane>
 
           <!-- Internet Search -->
           <el-tab-pane :label="$t('app.setting.internetSearch')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- Enabled -->
               <el-form-item :label="$t('app.setting.item.internetSearch.enabled')">
                 <el-tooltip
@@ -593,7 +602,7 @@ onMounted(() => {
 
           <!-- 网络 -->
           <el-tab-pane :label="$t('app.setting.network')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- 网络代理 -->
               <el-form-item :label="$t('app.setting.item.proxy.label')">
                 <el-input
@@ -606,7 +615,7 @@ onMounted(() => {
 
           <!-- 数据 -->
           <el-tab-pane :label="$t('app.setting.data')">
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- 日志目录 -->
               <el-form-item :label="$t('app.setting.item.data.log')">
                 <el-button :icon="Folder" @click="openLogDir()">
@@ -674,7 +683,7 @@ onMounted(() => {
                 {{ $t('app.setting.about') }}
               </el-badge>
             </template>
-            <el-form label-width="auto">
+            <el-form label-width="auto" label-position="left">
               <!-- 应用版本 -->
               <el-form-item :label="$t('app.setting.item.about.appVersion')">
                 <el-space :size="15">
@@ -742,6 +751,14 @@ onMounted(() => {
     .setting-item-icon {
       height: $app-icon-size-small;
       width: $app-icon-size-small;
+    }
+
+    .setting-item-guide {
+      white-space: pre-wrap;
+      line-break: anywhere;
+      line-height: $app-line-height-base;
+      color: var(--el-text-color-secondary);
+      font-size: var(--el-font-size-small);
     }
   }
 }

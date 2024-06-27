@@ -79,6 +79,8 @@
         },
         "memory": {
           "enabled": "Enable Memory",
+          "guide": "To understand what ChatGPT remembers or teach it something new, just chat with it:\n- “Remember that I like concise responses.”\n- “I just got a puppy!”\n- “What do you remember about me?”\n- “Where did we leave off on my last project?”",
+          "manage": "Manage Memory Data",
           "explain": {
             "enabled": "ChatGPT will remember some chat content. Token consumption increases."
           }

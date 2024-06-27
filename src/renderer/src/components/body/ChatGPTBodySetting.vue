@@ -28,7 +28,7 @@ const visible = defineModel<boolean>('visible', {
       <el-tabs tab-position="left">
         <!-- 对话 -->
         <el-tab-pane :label="$t('app.setting.chat')">
-          <el-form label-width="auto">
+          <el-form label-width="auto" label-position="left">
             <!-- Model -->
             <el-form-item :label="$t('app.setting.item.chat.model')">
               <el-select
@@ -154,7 +154,7 @@ const visible = defineModel<boolean>('visible', {
 
         <!-- 发音 -->
         <el-tab-pane :label="$t('app.setting.speech')">
-          <el-form label-width="auto">
+          <el-form label-width="auto" label-position="left">
             <!-- Model -->
             <el-form-item :label="$t('app.setting.item.speech.model')">
               <el-select
@@ -210,7 +210,7 @@ const visible = defineModel<boolean>('visible', {
           v-if="chatSessionStore.getActiveSession!.textToImageOption"
           :label="$t('app.setting.textToImage')"
         >
-          <el-form label-width="auto">
+          <el-form label-width="auto" label-position="left">
             <!-- Enabled -->
             <el-form-item :label="$t('app.setting.item.textToImage.enabled')">
               <el-tooltip
@@ -296,7 +296,7 @@ const visible = defineModel<boolean>('visible', {
           v-if="chatSessionStore.getActiveSession!.memoryOption"
           :label="$t('app.setting.memory')"
         >
-          <el-form label-width="auto">
+          <el-form label-width="auto" label-position="left">
             <!-- Enabled -->
             <el-form-item :label="$t('app.setting.item.memory.enabled')">
               <el-tooltip
@@ -314,7 +314,7 @@ const visible = defineModel<boolean>('visible', {
           v-if="chatSessionStore.getActiveSession!.internetSearchOption"
           :label="$t('app.setting.internetSearch')"
         >
-          <el-form label-width="auto">
+          <el-form label-width="auto" label-position="left">
             <!-- Enabled -->
             <el-form-item :label="$t('app.setting.item.internetSearch.enabled')">
               <el-switch
