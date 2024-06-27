@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { MoreFilled, Search } from '@element-plus/icons-vue'
+import { Brush, MoreFilled, Search } from '@element-plus/icons-vue'
 import prompts from '@renderer/assets/json/prompts.json'
+import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { getRandomElements } from '@renderer/utils/array-util'
 import { computed, reactive, toRefs } from 'vue'
@@ -40,46 +41,56 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
 
     <el-dialog v-model="dialogVisible" :title="$t('app.chatgpt.body.prompt.title')" width="700">
       <div class="dialog-body">
-        <div class="prompt-list-header">
-          <div class="prompt-count">
-            {{
-              $t('app.chatgpt.body.prompt.count').replace(
-                '_',
-                String(
-                  (prompts[appSettingStore.app.locale] as string[][]).filter(
-                    (p) => p[0].includes(promptKeyword) || p[0].includes(promptKeyword)
-                  ).length
-                )
-              )
-            }}
-          </div>
-          <div class="prompt-search">
-            <el-input
-              v-model="promptKeyword"
-              :placeholder="$t('app.chatgpt.body.prompt.search')"
-              :prefix-icon="Search"
-            />
-          </div>
-        </div>
-        <div class="prompt-list">
-          <el-scrollbar height="100%">
-            <template v-for="p in prompts[appSettingStore.app.locale]" :key="p[0]">
+        <el-table
+          class="prompt-table"
+          :data="
+            (prompts[appSettingStore.app.locale] as string[]).filter(
+              (p) => p[0].includes(promptKeyword) || p[1].includes(promptKeyword)
+            )
+          "
+          border
+          height="100%"
+        >
+          <el-table-column>
+            <template #header>
+              <div class="prompt-table-header">
+                <div class="prompt-count">
+                  {{
+                    $t('app.chatgpt.body.prompt.count').replace(
+                      '_',
+                      String(
+                        (prompts[appSettingStore.app.locale] as string[][]).filter(
+                          (p) => p[0].includes(promptKeyword) || p[0].includes(promptKeyword)
+                        ).length
+                      )
+                    )
+                  }}
+                </div>
+                <div class="prompt-search">
+                  <el-input
+                    v-model="promptKeyword"
+                    :placeholder="$t('app.chatgpt.body.prompt.search')"
+                    :prefix-icon="Search"
+                  />
+                </div>
+              </div>
+            </template>
+            <template #default="scope">
               <div
-                v-if="p[0].includes(promptKeyword) || p[0].includes(promptKeyword)"
                 class="prompt-item"
                 @click="
                   () => {
                     dialogVisible = false
-                    emits('use-prompt', p[1])
+                    emits('use-prompt', scope.row[1])
                   }
                 "
               >
-                <div class="prompt-item-title">{{ p[0] }}</div>
-                <el-text class="prompt-item-content" line-clamp="1">{{ p[1] }}</el-text>
+                <div class="prompt-item-title">{{ scope.row[0] }}</div>
+                <el-text class="prompt-item-content" line-clamp="1">{{ scope.row[1] }}</el-text>
               </div>
             </template>
-          </el-scrollbar>
-        </div>
+          </el-table-column>
+        </el-table>
       </div>
     </el-dialog>
   </div>
@@ -119,36 +130,22 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
   .dialog-body {
     height: $app-dialog-height;
 
-    .prompt-list-header {
-      height: 50px;
-      box-sizing: border-box;
-      padding: $app-padding-small;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .prompt-table {
+      .prompt-table-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-      .prompt-search {
-        width: 400px;
-      }
-
-      .prompt-count {
-        font-weight: var(--el-font-weight-primary);
-      }
-    }
-
-    .prompt-list {
-      height: calc($app-dialog-height - 50px);
-
-      .prompt-item {
-        padding: $app-padding-small;
-        border-radius: $app-border-radius-base;
-        cursor: pointer;
-        transition: all $app-transition-base;
-
-        &:hover {
-          background-color: var(--el-fill-color-dark);
+        .prompt-search {
+          width: 400px;
         }
 
+        .prompt-count {
+          font-weight: var(--el-font-weight-primary);
+        }
+      }
+
+      .prompt-item {
         .prompt-item-title {
           font-weight: var(--el-font-weight-primary);
         }
