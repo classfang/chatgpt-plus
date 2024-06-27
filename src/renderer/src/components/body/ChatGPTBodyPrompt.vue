@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { Brush, MoreFilled, Search } from '@element-plus/icons-vue'
+import { MoreFilled, Search } from '@element-plus/icons-vue'
 import prompts from '@renderer/assets/json/prompts.json'
-import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { getRandomElements } from '@renderer/utils/array-util'
 import { computed, reactive, toRefs } from 'vue'
