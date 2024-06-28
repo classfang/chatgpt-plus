@@ -179,6 +179,12 @@
           "attachment": {
             "localFile": "Local File",
             "webLink": "Web Link"
+          },
+          "link": {
+            "title": "Web Link",
+            "prompt": "Please enter a valid URL",
+            "urlError": "Invalid URL",
+            "loadError": "Web page loading error"
           }
         },
         "message": {

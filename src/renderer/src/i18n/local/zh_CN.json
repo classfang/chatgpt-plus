@@ -179,6 +179,12 @@
           "attachment": {
             "localFile": "本地文件",
             "webLink": "网页链接"
+          },
+          "link": {
+            "title": "网页链接",
+            "prompt": "请输入有效的 URL 地址",
+            "urlError": "URL 格式错误",
+            "loadError": "网页加载错误"
           }
         },
         "message": {

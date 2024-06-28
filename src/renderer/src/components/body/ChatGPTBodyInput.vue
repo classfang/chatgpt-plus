@@ -22,6 +22,7 @@ import { generateUUID } from '@renderer/utils/id-util'
 import { Logger } from '@renderer/utils/logger'
 import { join } from '@renderer/utils/path-util'
 import { openInBrowser } from '@renderer/utils/window-util'
+import { Action, ElMessage, ElMessageBox, MessageBoxState } from 'element-plus'
 import OpenAI from 'openai'
 import { nextTick, onMounted, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -546,9 +547,50 @@ const selectAttachment = async () => {
 }
 
 // 选择网页链接
-const selectWebLink = async () => {
-  data.linkList.push({
-    url: 'https://juejin.cn/post/7360984753463803930?utm_source=gold_browser_extension'
+const selectWebLink = () => {
+  ElMessageBox.prompt(
+    t('app.chatgpt.body.input.link.prompt'),
+    t('app.chatgpt.body.input.link.title'),
+    {
+      confirmButtonText: t('app.common.confirm'),
+      cancelButtonText: t('app.common.cancel'),
+      beforeClose: (action: Action, instance: MessageBoxState, done: () => void) => {
+        if (action === 'confirm') {
+          instance.confirmButtonLoading = true
+
+          // 校验 URL 格式
+          if (
+            !/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(instance.inputValue)
+          ) {
+            ElMessage.error(t('app.chatgpt.body.input.link.urlError'))
+            instance.confirmButtonLoading = false
+            return
+          }
+
+          // 加载网页内容
+          readWebBodyByUrl(instance.inputValue)
+            .then((content) => {
+              if (content) {
+                done()
+              } else {
+                ElMessage.error(t('app.chatgpt.body.input.link.loadError'))
+              }
+            })
+            .catch(() => {
+              ElMessage.error(t('app.chatgpt.body.input.link.loadError'))
+            })
+            .finally(() => {
+              instance.confirmButtonLoading = false
+            })
+        } else {
+          done()
+        }
+      }
+    }
+  ).then(({ value }) => {
+    data.linkList.push({
+      url: value
+    })
   })
 }
 
