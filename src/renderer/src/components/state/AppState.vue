@@ -12,6 +12,9 @@ const appSettingStore = useAppSettingStore()
     <template v-if="!appSettingStore.openAI.apiKey">
       {{ $t('app.state.openAIApiKeyMiss') }}
     </template>
+    <template v-else-if="appStateStore.loadFileFlag">
+      {{ $t('app.state.loadFileFlag') }}
+    </template>
     <template v-else-if="appStateStore.readWebFlag">
       {{ $t('app.state.readWebFlag') }}
     </template>

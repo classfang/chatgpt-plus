@@ -18,7 +18,7 @@ export const toolsDefine: OpenAI.Chat.Completions.ChatCompletionTool[] = [
     type: 'function',
     function: {
       name: ToolEnum.MEMORY,
-      description: 'Remember what the user asked you to remember',
+      description: 'Called when the user asks to remember something',
       parameters: {
         type: 'object',
         properties: {

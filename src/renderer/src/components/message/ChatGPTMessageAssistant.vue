@@ -59,7 +59,7 @@ const message = defineModel<ChatMessage>('message', {
         ></div>
 
         <!-- 图片列表 -->
-        <div v-if="message.images && message.images.length > 0" class="file-list">
+        <div v-if="message.images && message.images.length > 0" class="attachment-list">
           <template v-for="(att, index) in message.images" :key="att.saveName">
             <el-dropdown trigger="contextmenu">
               <div class="image-item">
@@ -181,7 +181,7 @@ const message = defineModel<ChatMessage>('message', {
         }
       }
 
-      .file-list {
+      .attachment-list {
         display: flex;
         gap: $app-padding-small;
         flex-wrap: wrap;

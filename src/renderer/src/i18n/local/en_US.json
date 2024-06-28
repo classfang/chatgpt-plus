@@ -8,6 +8,7 @@
       "default": "Power By OpenAI",
       "openAIApiKeyMiss": "Required openai api key",
       "chatgptAnswerFlag": "Be answering",
+      "loadFileFlag": "Parsing the document",
       "readWebFlag": "Parsing the page",
       "currentTool": {
         "memory": "Storing memory",

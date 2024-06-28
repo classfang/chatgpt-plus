@@ -9,6 +9,7 @@ export const useAppStateStore = defineStore({
     chatgptAnswerFlag: false,
     currentToolName: null as null | string,
     uploadFlag: false,
+    loadFileFlag: false,
     readWebFlag: false,
     cleanCacheFlag: false,
     exportChatFlag: false,

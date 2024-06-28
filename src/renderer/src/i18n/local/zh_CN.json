@@ -8,6 +8,7 @@
       "default": "OpenAI 提供技术支持",
       "openAIApiKeyMiss": "OpenAI 密钥未配置",
       "chatgptAnswerFlag": "正在回答",
+      "loadFileFlag": "正在解析文档",
       "readWebFlag": "正在解析网页",
       "currentTool": {
         "memory": "正在存储记忆",

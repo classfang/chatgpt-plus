@@ -7,6 +7,7 @@ import { useAppStateStore } from '@renderer/store/app-state'
 import { downloadFile } from '@renderer/utils/download-util'
 import { formatFileSize } from '@renderer/utils/file-util'
 import { join } from '@renderer/utils/path-util'
+import { openInBrowser } from '@renderer/utils/window-util'
 
 // 仓库
 const appStateStore = useAppStateStore()
@@ -24,7 +25,7 @@ const message = defineModel<ChatMessage>('message', {
       <span>{{ message.content }}</span>
 
       <!-- 图片列表 -->
-      <div v-if="message.images && message.images.length > 0" class="file-list">
+      <div v-if="message.images && message.images.length > 0" class="attachment-list">
         <template v-for="(att, index) in message.images" :key="att.saveName">
           <el-dropdown trigger="contextmenu">
             <div class="image-item">
@@ -54,7 +55,7 @@ const message = defineModel<ChatMessage>('message', {
       </div>
 
       <!-- 文件列表 -->
-      <div v-if="message.files && message.files.length > 0" class="file-list">
+      <div v-if="message.files && message.files.length > 0" class="attachment-list">
         <template v-for="att in message.files" :key="att.saveName">
           <el-dropdown trigger="contextmenu">
             <div
@@ -79,6 +80,17 @@ const message = defineModel<ChatMessage>('message', {
               </el-dropdown-menu>
             </template>
           </el-dropdown>
+        </template>
+      </div>
+
+      <!-- 链接列表 -->
+      <div v-if="message.links && message.links.length > 0" class="attachment-list">
+        <template v-for="att in message.links" :key="att.url">
+          <div class="link-item" @click="openInBrowser(att.url)">
+            <div class="link-item-body">
+              <div class="link-item-name">{{ att.url }}</div>
+            </div>
+          </div>
         </template>
       </div>
     </div>
@@ -111,7 +123,7 @@ const message = defineModel<ChatMessage>('message', {
     flex-direction: column;
     gap: $app-padding-small;
 
-    .file-list {
+    .attachment-list {
       display: flex;
       gap: $app-padding-small;
       flex-wrap: wrap;
@@ -165,6 +177,34 @@ const message = defineModel<ChatMessage>('message', {
           .file-item-size {
             font-size: var(--el-font-size-small);
             color: var(--el-text-color-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      .link-item {
+        padding: $app-padding-small;
+        background-color: var(--el-fill-color-darker);
+        border-radius: $app-border-radius-base;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $app-padding-extra-small;
+        cursor: pointer;
+
+        .link-item-body {
+          height: 100%;
+          min-width: 0;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .link-item-name {
+            font-size: var(--el-font-size-base);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

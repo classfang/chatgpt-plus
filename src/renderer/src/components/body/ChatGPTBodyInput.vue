@@ -21,6 +21,7 @@ import { formatFileSize } from '@renderer/utils/file-util'
 import { generateUUID } from '@renderer/utils/id-util'
 import { Logger } from '@renderer/utils/logger'
 import { join } from '@renderer/utils/path-util'
+import { openInBrowser } from '@renderer/utils/window-util'
 import OpenAI from 'openai'
 import { nextTick, onMounted, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -38,9 +39,10 @@ const chatMemoryStore = useChatMemoryStore()
 const data = reactive({
   question: '',
   imageList: [] as ChatMessageFile[],
-  fileList: [] as ChatMessageFile[]
+  fileList: [] as ChatMessageFile[],
+  linkList: [] as ChatMessageLink[]
 })
-const { question, imageList, fileList } = toRefs(data)
+const { question, imageList, fileList, linkList } = toRefs(data)
 
 // 定义事件
 const emits = defineEmits(['send-question', 'update-message'])
@@ -92,11 +94,13 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       role: 'user',
       content: data.question.trim(),
       images: data.imageList,
-      files: data.fileList
+      files: data.fileList,
+      links: data.linkList
     })
     data.question = ''
     data.imageList = []
     data.fileList = []
+    data.linkList = []
     emits('update-message')
   }
 
@@ -301,6 +305,7 @@ const convertMessages = async (
   contextSize?: number,
   ignoreSize = 0,
   ignoreFile = false,
+  ignoreLink = false,
   ignoreMemory = false
 ): Promise<OpenAI.ChatCompletionMessageParam[]> => {
   const chatMessages = messages
@@ -311,19 +316,35 @@ const convertMessages = async (
   const convertMessageResult = [] as OpenAI.ChatCompletionMessageParam[]
   for (const m of chatMessages) {
     // 真实发送的文本
-    let realText = m.content
+    let filesText = ''
+    let linksText = ''
 
     // 将文件内容拼接到用户消息中
     if (!ignoreFile && m.files && m.files.length > 0) {
+      appStateStore.loadFileFlag = true
       const fileContentList: Record<string, string> = {}
       for (const f of m.files) {
         fileContentList[f.name] = await langChainLoadFile(join(appStateStore.cachePath, f.saveName))
       }
-      realText = `Files Data:\n${JSON.stringify(fileContentList)}\n${realText}`
+      filesText = `Files Data:\n${JSON.stringify(fileContentList)}\n`
+      appStateStore.loadFileFlag = false
+    }
+
+    // 将网页内容拼接到用户消息中
+    if (!ignoreLink && m.links && m.links.length > 0) {
+      appStateStore.readWebFlag = true
+      const webContentList: Record<string, string> = {}
+      for (const l of m.links) {
+        webContentList[l.url] = await readWebBodyByUrl(l.url)
+      }
+      linksText = `Web Pages Content:\n${JSON.stringify(webContentList)}\n`
+      appStateStore.readWebFlag = false
     }
 
     // 文本消息
-    const content = [{ type: 'text', text: realText }] as OpenAI.ChatCompletionContentPart[]
+    const content = [
+      { type: 'text', text: filesText + linksText + m.content }
+    ] as OpenAI.ChatCompletionContentPart[]
 
     // 处理用户消息中的图片
     if (!ignoreFile && m.role === 'user' && m.images && m.images.length > 0) {
@@ -525,12 +546,9 @@ const selectAttachment = async () => {
 
 // 选择网页链接
 const selectWebLink = async () => {
-  appStateStore.readWebFlag = true
-  const webContent = await readWebBodyByUrl(
-    'https://juejin.cn/post/7360984753463803930?utm_source=gold_browser_extension'
-  )
-  appStateStore.readWebFlag = false
-  Logger.info('selectWebLink readWebBodyByUrl webContent: ', webContent)
+  data.linkList.push({
+    url: 'https://juejin.cn/post/7360984753463803930?utm_source=gold_browser_extension'
+  })
 }
 
 // 输入框粘贴监听
@@ -594,6 +612,11 @@ const deleteFile = (index: number) => {
   data.fileList.splice(index, 1)
 }
 
+// 删除连接
+const deleteLink = (index: number) => {
+  data.linkList.splice(index, 1)
+}
+
 // 修改问题输入
 const updateQuestion = (prompt: string) => {
   data.question = prompt
@@ -615,7 +638,7 @@ onMounted(() => {
   <div class="chatgpt-body-input">
     <div class="question-input">
       <!-- 图片列表 -->
-      <div v-if="imageList.length > 0" class="question-input-file-list">
+      <div v-if="imageList.length > 0" class="question-input-attachment-list">
         <div v-for="(att, index) in imageList" :key="att.saveName" class="image-item">
           <el-image
             class="item-image"
@@ -630,7 +653,7 @@ onMounted(() => {
         </div>
       </div>
       <!-- 文件列表 -->
-      <div v-if="fileList.length > 0" class="question-input-file-list">
+      <div v-if="fileList.length > 0" class="question-input-attachment-list">
         <div
           v-for="(att, index) in fileList"
           :key="att.saveName"
@@ -643,6 +666,20 @@ onMounted(() => {
             <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
           </div>
           <CircleCloseFilled class="item-close-btn" @click.stop="deleteFile(index)" />
+        </div>
+      </div>
+      <!-- 链接列表 -->
+      <div v-if="linkList.length > 0" class="question-input-attachment-list">
+        <div
+          v-for="(att, index) in linkList"
+          :key="att.url"
+          class="link-item"
+          @click="openInBrowser(att.url)"
+        >
+          <div class="link-item-body">
+            <div class="link-item-name">{{ att.url }}</div>
+          </div>
+          <CircleCloseFilled class="item-close-btn" @click.stop="deleteLink(index)" />
         </div>
       </div>
       <div class="question-input-textarea-container">
@@ -718,7 +755,126 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
 
-    .question-input-file-list {
+    .question-input-attachment-list {
+      box-sizing: border-box;
+      padding: $app-padding-small $app-padding-small 0 $app-padding-small;
+      display: flex;
+      gap: $app-padding-small;
+      flex-wrap: wrap;
+
+      .image-item {
+        height: $app-chatgpt-input-image-height;
+        width: $app-chatgpt-input-image-height;
+        position: relative;
+
+        .item-image {
+          height: 100%;
+          width: 100%;
+          border-radius: $app-border-radius-base;
+          cursor: pointer;
+        }
+
+        .item-close-btn {
+          height: $app-icon-size-small;
+          width: $app-icon-size-small;
+          position: absolute;
+          top: calc($app-icon-size-small / -2);
+          right: calc($app-icon-size-small / -2);
+          cursor: pointer;
+        }
+      }
+
+      .file-item {
+        height: $app-chatgpt-input-file-height;
+        box-sizing: border-box;
+        padding: $app-padding-small;
+        background-color: var(--el-fill-color-darker);
+        border-radius: $app-border-radius-base;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $app-padding-extra-small;
+        cursor: pointer;
+
+        .item-close-btn {
+          height: $app-icon-size-small;
+          width: $app-icon-size-small;
+          position: absolute;
+          top: calc($app-icon-size-small / -2);
+          right: calc($app-icon-size-small / -2);
+          cursor: pointer;
+        }
+
+        .file-icon {
+          flex-shrink: 0;
+          height: 100%;
+        }
+
+        .file-item-body {
+          height: 100%;
+          min-width: 0;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .file-item-name {
+            font-size: var(--el-font-size-base);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .file-item-size {
+            font-size: var(--el-font-size-small);
+            color: var(--el-text-color-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      .link-item {
+        padding: $app-padding-small;
+        background-color: var(--el-fill-color-darker);
+        border-radius: $app-border-radius-base;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $app-padding-extra-small;
+        cursor: pointer;
+
+        .item-close-btn {
+          height: $app-icon-size-small;
+          width: $app-icon-size-small;
+          position: absolute;
+          top: calc($app-icon-size-small / -2);
+          right: calc($app-icon-size-small / -2);
+          cursor: pointer;
+        }
+
+        .link-item-body {
+          height: 100%;
+          min-width: 0;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .link-item-name {
+            font-size: var(--el-font-size-base);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+
+    .question-input-attachment-list {
       box-sizing: border-box;
       padding: $app-padding-small $app-padding-small 0 $app-padding-small;
       display: flex;

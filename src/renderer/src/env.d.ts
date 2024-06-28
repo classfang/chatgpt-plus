@@ -25,6 +25,10 @@ interface ChatMessageFile {
   size?: number
 }
 
+interface ChatMessageLink {
+  url: string
+}
+
 interface ChatMessageChoose {
   content: string
   images?: ChatMessageFile[]
@@ -44,6 +48,7 @@ interface ChatMessage extends BaseEntity {
   content: string
   images?: ChatMessageFile[]
   files?: ChatMessageFile[]
+  links?: ChatMessageLink[]
   searchItems?: InternetSearchResultItem[]
   choices?: ChatMessageChoose[]
   choiceIndex?: number
