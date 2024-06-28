@@ -29,7 +29,7 @@ const appStateStore = useAppStateStore()
 
 // 分享图片
 const shareImage = () => {
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.chatgptLoadingFlag) {
     return
   }
 
@@ -68,7 +68,7 @@ const shareImage = () => {
 
 // 分享文本
 const shareText = () => {
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.chatgptLoadingFlag) {
     return
   }
 
@@ -133,7 +133,7 @@ const shareText = () => {
     <el-dropdown
       class="share-dropdown"
       trigger="click"
-      :disabled="appStateStore.chatgptLoading"
+      :disabled="appStateStore.chatgptLoadingFlag"
       placement="bottom-start"
     >
       <Share class="share-icon" />

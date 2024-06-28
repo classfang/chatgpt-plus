@@ -109,7 +109,7 @@ const speechStop = () => {
       <el-button
         text
         circle
-        @click="!appStateStore.chatgptLoading && chatSessionStore.changeChoice(message.id!, -1)"
+        @click="!appStateStore.chatgptLoadingFlag && chatSessionStore.changeChoice(message.id!, -1)"
       >
         <AppIcon name="arrow-left" :size="18" />
       </el-button>
@@ -117,7 +117,7 @@ const speechStop = () => {
       <el-button
         text
         circle
-        @click="!appStateStore.chatgptLoading && chatSessionStore.changeChoice(message.id!, 1)"
+        @click="!appStateStore.chatgptLoadingFlag && chatSessionStore.changeChoice(message.id!, 1)"
       >
         <AppIcon name="arrow-right" :size="18" />
       </el-button>
@@ -140,14 +140,14 @@ const speechStop = () => {
         chatSessionStore.getActiveSession?.messages.at(0)?.id != message.id
       "
     >
-      <el-button text circle @click="!appStateStore.chatgptLoading && emits('regenerate')">
+      <el-button text circle @click="!appStateStore.chatgptLoadingFlag && emits('regenerate')">
         <AppIcon name="refresh" :size="18" />
       </el-button>
     </template>
     <el-button
       text
       circle
-      @click="!appStateStore.chatgptLoading && chatSessionStore.deleteMessage(message.id!)"
+      @click="!appStateStore.chatgptLoadingFlag && chatSessionStore.deleteMessage(message.id!)"
     >
       <AppIcon name="delete" :size="18" />
     </el-button>

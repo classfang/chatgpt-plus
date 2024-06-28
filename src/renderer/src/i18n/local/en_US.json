@@ -7,7 +7,8 @@
     "state": {
       "default": "Power By OpenAI",
       "openAIApiKeyMiss": "Required openai api key",
-      "chatgptAnswering": "Be answering",
+      "chatgptAnswerFlag": "Be answering",
+      "readWebFlag": "Parsing the page",
       "currentTool": {
         "memory": "Storing memory",
         "text_to_image": "Generating image",

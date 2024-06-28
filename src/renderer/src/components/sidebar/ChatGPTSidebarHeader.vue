@@ -16,7 +16,7 @@ const emits = defineEmits(['create-session'])
 
 // 创建会话
 const createSession = () => {
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.chatgptLoadingFlag) {
     return
   }
   chatSessionStore.create(

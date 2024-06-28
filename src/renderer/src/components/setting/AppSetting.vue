@@ -242,7 +242,7 @@ const clearMemory = () => {
 
 // 打开设置页
 const openDialog = () => {
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.chatgptLoadingFlag) {
     return
   }
   data.appSettingVisible = true
@@ -693,7 +693,11 @@ onMounted(() => {
                   >
                     {{ $t('app.setting.item.data.exportSetting') }}
                   </el-button>
-                  <el-button :icon="Upload" @click="importSetting()">
+                  <el-button
+                    :icon="Upload"
+                    :loading="appStateStore.importSettingFlag"
+                    @click="importSetting()"
+                  >
                     {{ $t('app.setting.item.data.importSetting') }}
                   </el-button>
                 </el-space>
@@ -709,7 +713,11 @@ onMounted(() => {
                   >
                     {{ $t('app.setting.item.data.exportChat') }}
                   </el-button>
-                  <el-button :icon="Upload" @click="importChat()">
+                  <el-button
+                    :icon="Upload"
+                    :loading="appStateStore.importChatFlag"
+                    @click="importChat()"
+                  >
                     {{ $t('app.setting.item.data.importChat') }}
                   </el-button>
                   <el-button type="danger" plain :icon="Brush" @click="clearChat()">
@@ -728,7 +736,11 @@ onMounted(() => {
                   >
                     {{ $t('app.setting.item.data.exportMemory') }}
                   </el-button>
-                  <el-button :icon="Upload" @click="importMemory()">
+                  <el-button
+                    :icon="Upload"
+                    :loading="appStateStore.importMemoryFlag"
+                    @click="importMemory()"
+                  >
                     {{ $t('app.setting.item.data.importMemory') }}
                   </el-button>
                   <el-button type="danger" plain :icon="Brush" @click="clearMemory()">

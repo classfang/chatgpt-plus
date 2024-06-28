@@ -5,7 +5,7 @@ import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import {
   langChainLoadFile,
   readLocalImageBase64,
-  readWebByUrl,
+  readWebBodyByUrl,
   saveFileByBase64,
   saveFileByPath,
   selectFile,
@@ -63,8 +63,8 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
   // 加载中、内容为空、输入法回车，不发送消息
   if (!regenerateFlag) {
     if (
-      appStateStore.chatgptLoading ||
-      appStateStore.uploading ||
+      appStateStore.chatgptLoadingFlag ||
+      appStateStore.uploadFlag ||
       !data.question.trim() ||
       event?.isComposing
     ) {
@@ -78,7 +78,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
   }
 
   // 加载中
-  appStateStore.chatgptLoading = true
+  appStateStore.chatgptLoadingFlag = true
 
   emits('send-question')
 
@@ -107,7 +107,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
   if (!regenerateFlag) {
     streamAnswer()
   } else {
-    appStateStore.chatgptAnswering = true
+    appStateStore.chatgptAnswerFlag = true
   }
 
   // 转换消息列表
@@ -367,7 +367,7 @@ const streamAnswer = (
   images?: ChatMessageFile[],
   searchItems?: InternetSearchResultItem[]
 ) => {
-  if (!appStateStore.chatgptAnswering) {
+  if (!appStateStore.chatgptAnswerFlag) {
     chatSessionStore.pushMessage({
       type: 'chat',
       role: 'assistant',
@@ -375,7 +375,7 @@ const streamAnswer = (
       images: images,
       searchItems: searchItems
     })
-    appStateStore.chatgptAnswering = true
+    appStateStore.chatgptAnswerFlag = true
   }
   chatSessionStore.appendMessageContent(content, images, searchItems)
 }
@@ -409,8 +409,8 @@ const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => 
     chatSessionStore.saveChoice()
   }
 
-  appStateStore.chatgptAnswering = false
-  appStateStore.chatgptLoading = false
+  appStateStore.chatgptAnswerFlag = false
+  appStateStore.chatgptLoadingFlag = false
 }
 
 // 停止回答
@@ -488,10 +488,10 @@ const regenerate = (messageId: string) => {
 
 // 选择附件
 const selectAttachment = async () => {
-  if (appStateStore.uploading) {
+  if (appStateStore.uploadFlag) {
     return
   }
-  appStateStore.uploading = true
+  appStateStore.uploadFlag = true
 
   try {
     // 支持图片类型：https://platform.openai.com/docs/guides/vision/what-type-of-files-can-i-upload
@@ -519,16 +519,18 @@ const selectAttachment = async () => {
   } catch (error) {
     Logger.error('selectAttachment error: ', error)
   } finally {
-    appStateStore.uploading = false
+    appStateStore.uploadFlag = false
   }
 }
 
 // 选择网页链接
 const selectWebLink = async () => {
-  const webContent = await readWebByUrl(
-    'https://juejin.cn/post/7327852866001698866?utm_source=gold_browser_extension'
+  appStateStore.readWebFlag = true
+  const webContent = await readWebBodyByUrl(
+    'https://juejin.cn/post/7360984753463803930?utm_source=gold_browser_extension'
   )
-  console.log(webContent)
+  appStateStore.readWebFlag = false
+  Logger.info('selectWebLink readWebBodyByUrl webContent: ', webContent)
 }
 
 // 输入框粘贴监听
@@ -645,7 +647,11 @@ onMounted(() => {
       </div>
       <div class="question-input-textarea-container">
         <!-- 附件选择 -->
-        <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="top-start">
+        <el-dropdown
+          trigger="click"
+          :disabled="appStateStore.chatgptLoadingFlag"
+          placement="top-start"
+        >
           <AppIcon name="attachment" class="attachment-btn" />
           <template #dropdown>
             <el-dropdown-menu>
@@ -675,7 +681,7 @@ onMounted(() => {
 
     <!-- 停止按钮 -->
     <AppIcon
-      v-if="appStateStore.chatgptLoading"
+      v-if="appStateStore.chatgptLoadingFlag"
       name="stop"
       class="question-input-btn question-input-btn-available"
       @click="stopAnswer()"
@@ -686,7 +692,7 @@ onMounted(() => {
       v-else
       class="question-input-btn"
       :class="{
-        'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploading
+        'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploadFlag
       }"
       @click="sendQuestion"
     />

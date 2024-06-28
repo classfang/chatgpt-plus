@@ -5,10 +5,11 @@ import { defineStore } from 'pinia'
 export const useAppStateStore = defineStore({
   id: 'app-state',
   state: () => ({
-    chatgptLoading: false,
-    chatgptAnswering: false,
+    chatgptLoadingFlag: false,
+    chatgptAnswerFlag: false,
     currentToolName: null as null | string,
-    uploading: false,
+    uploadFlag: false,
+    readWebFlag: false,
     cleanCacheFlag: false,
     exportChatFlag: false,
     importChatFlag: false,

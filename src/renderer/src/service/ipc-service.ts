@@ -100,6 +100,6 @@ export const showItemInFolder = (filePath: string) => {
   return window.electron.ipcRenderer.invoke('show-item-in-folder', filePath)
 }
 
-export const readWebByUrl = (url: string) => {
-  return window.electron.ipcRenderer.invoke('read-web-by-url', url)
+export const readWebBodyByUrl = (url: string) => {
+  return window.electron.ipcRenderer.invoke('read-web-body-by-url', url)
 }

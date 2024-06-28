@@ -26,7 +26,7 @@ const session = defineModel<ChatSession>('session', {
 
 // 切换会话
 const activeSession = () => {
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.chatgptLoadingFlag) {
     return
   }
   chatSessionStore.activeSessionId = session.value.id!
@@ -36,7 +36,7 @@ const activeSession = () => {
 const deleteSession = () => {
   data.mouseEnterFlag = false
   data.moreDropdownVisible = false
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.chatgptLoadingFlag) {
     return
   }
   chatSessionStore.delete(session.value.id!)
@@ -46,7 +46,7 @@ const deleteSession = () => {
 const editSession = () => {
   data.mouseEnterFlag = false
   data.moreDropdownVisible = false
-  if (appStateStore.chatgptLoading) {
+  if (appStateStore.chatgptLoadingFlag) {
     return
   }
   data.sessionNameEditFlag = true
@@ -89,7 +89,7 @@ const editSession = () => {
           !sessionNameEditFlag
         "
         trigger="click"
-        :disabled="appStateStore.chatgptLoading"
+        :disabled="appStateStore.chatgptLoadingFlag"
         :teleported="false"
         @visible-change="(visible: boolean) => (moreDropdownVisible = visible)"
       >
