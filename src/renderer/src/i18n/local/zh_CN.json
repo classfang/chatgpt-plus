@@ -173,7 +173,11 @@
           "question": {
             "placeholder": "给“ChatGPT”发送消息"
           },
-          "pleaseConfigure": "请配置 "
+          "pleaseConfigure": "请配置 ",
+          "attachment": {
+            "localFile": "本地文件",
+            "webLink": "网页链接"
+          }
         },
         "message": {
           "copied": "已复制",

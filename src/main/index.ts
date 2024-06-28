@@ -259,3 +259,8 @@ ipcMain.handle('execute-js', (_event, jsCode: string) => {
 ipcMain.handle('show-item-in-folder', (_event, filePath: string) => {
   return shell.showItemInFolder(filePath)
 })
+
+// 读取网页内容
+ipcMain.handle('read-web-by-url', (_event, url: string) => {
+  return url
+})

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { CircleCloseFilled, Promotion } from '@element-plus/icons-vue'
+import { CircleCloseFilled, Document, Link, Promotion } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import {
   langChainLoadFile,
   readLocalImageBase64,
+  readWebByUrl,
   saveFileByBase64,
   saveFileByPath,
   selectFile,
@@ -522,6 +523,14 @@ const selectAttachment = async () => {
   }
 }
 
+// 选择网页链接
+const selectWebLink = async () => {
+  const webContent = await readWebByUrl(
+    'https://juejin.cn/post/7327852866001698866?utm_source=gold_browser_extension'
+  )
+  console.log(webContent)
+}
+
 // 输入框粘贴监听
 const handleInputPaste = (event: ClipboardEvent) => {
   // 获取粘贴的内容
@@ -636,7 +645,19 @@ onMounted(() => {
       </div>
       <div class="question-input-textarea-container">
         <!-- 附件选择 -->
-        <AppIcon name="attachment" class="attachment-btn" @click="selectAttachment()" />
+        <el-dropdown trigger="click" :disabled="appStateStore.chatgptLoading" placement="top-start">
+          <AppIcon name="attachment" class="attachment-btn" />
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item :icon="Document" @click="selectAttachment()">
+                {{ $t('app.chatgpt.body.input.attachment.localFile') }}
+              </el-dropdown-item>
+              <el-dropdown-item :icon="Link" @click="selectWebLink()">
+                {{ $t('app.chatgpt.body.input.attachment.webLink') }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
 
         <!-- 文本域 -->
         <el-input
@@ -786,6 +807,7 @@ onMounted(() => {
         padding: $app-padding-small;
         cursor: pointer;
         color: var(--el-text-color-primary);
+        outline: none;
       }
 
       :deep(.el-textarea__inner) {

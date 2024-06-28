@@ -173,7 +173,11 @@
           "question": {
             "placeholder": "Send a message to ChatGPT"
           },
-          "pleaseConfigure": "Please configure the "
+          "pleaseConfigure": "Please configure the ",
+          "attachment": {
+            "localFile": "Local File",
+            "webLink": "Web Link"
+          }
         },
         "message": {
           "copied": "Copied",
