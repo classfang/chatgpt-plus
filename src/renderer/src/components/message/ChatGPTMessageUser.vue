@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Download } from '@element-plus/icons-vue'
+import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 import { showItemInFolder } from '@renderer/service/ipc-service'
@@ -87,6 +88,7 @@ const message = defineModel<ChatMessage>('message', {
       <div v-if="message.links && message.links.length > 0" class="attachment-list">
         <template v-for="att in message.links" :key="att.url">
           <div class="link-item" @click="openInBrowser(att.url)">
+            <AppIcon class="link-icon" name="with-net" />
             <div class="link-item-body">
               <div class="link-item-name">{{ att.url }}</div>
             </div>
@@ -143,6 +145,7 @@ const message = defineModel<ChatMessage>('message', {
 
       .file-item {
         height: $app-chatgpt-message-file-height;
+        max-width: 100%;
         box-sizing: border-box;
         padding: $app-padding-small;
         background-color: var(--el-fill-color-darker);
@@ -185,6 +188,9 @@ const message = defineModel<ChatMessage>('message', {
       }
 
       .link-item {
+        height: calc($app-line-height-base + $app-padding-small * 2);
+        max-width: 100%;
+        box-sizing: border-box;
         padding: $app-padding-small;
         background-color: var(--el-fill-color-darker);
         border-radius: $app-border-radius-base;
@@ -195,15 +201,18 @@ const message = defineModel<ChatMessage>('message', {
         gap: $app-padding-extra-small;
         cursor: pointer;
 
+        .link-icon {
+          flex-shrink: 0;
+          height: 100%;
+        }
+
         .link-item-body {
           height: 100%;
           min-width: 0;
           flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
 
           .link-item-name {
+            line-height: $app-line-height-base;
             font-size: var(--el-font-size-base);
             white-space: nowrap;
             overflow: hidden;

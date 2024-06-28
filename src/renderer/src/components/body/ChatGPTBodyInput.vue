@@ -458,6 +458,7 @@ const generateSessionName = async (sessionId: string) => {
           undefined,
           undefined,
           true,
+          true,
           true
         )),
         {
@@ -676,6 +677,7 @@ onMounted(() => {
           class="link-item"
           @click="openInBrowser(att.url)"
         >
+          <AppIcon class="link-icon" name="with-net" />
           <div class="link-item-body">
             <div class="link-item-name">{{ att.url }}</div>
           </div>
@@ -786,6 +788,7 @@ onMounted(() => {
 
       .file-item {
         height: $app-chatgpt-input-file-height;
+        max-width: 100%;
         box-sizing: border-box;
         padding: $app-padding-small;
         background-color: var(--el-fill-color-darker);
@@ -837,6 +840,9 @@ onMounted(() => {
       }
 
       .link-item {
+        height: calc($app-line-height-base + $app-padding-small * 2);
+        max-width: 100%;
+        box-sizing: border-box;
         padding: $app-padding-small;
         background-color: var(--el-fill-color-darker);
         border-radius: $app-border-radius-base;
@@ -856,15 +862,18 @@ onMounted(() => {
           cursor: pointer;
         }
 
+        .link-icon {
+          flex-shrink: 0;
+          height: 100%;
+        }
+
         .link-item-body {
           height: 100%;
           min-width: 0;
           flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
 
           .link-item-name {
+            line-height: $app-line-height-base;
             font-size: var(--el-font-size-base);
             white-space: nowrap;
             overflow: hidden;
