@@ -316,7 +316,7 @@ const convertMessages = async (
   )
 
   // 截取最后一个断开上下文位置之后的记录
-  chatMessages = chatMessages.slice(chatMessages.findIndex((m) => m.type === 'divider') + 1)
+  chatMessages = chatMessages.slice(chatMessages.findLastIndex((m) => m.type === 'divider') + 1)
 
   // 过滤出所有对话记录
   chatMessages = chatMessages.filter((m) => m.type === 'chat')
