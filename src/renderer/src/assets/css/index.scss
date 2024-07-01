@@ -1,4 +1,4 @@
-html,body {
+html, body {
   padding: 0;
   margin: 0;
   font-family: var(--el-font-family), serif;
@@ -38,7 +38,7 @@ img {
 // 单行超出隐藏
 .single-line-ellipsis {
   white-space: nowrap; /* 禁止换行 */
-  overflow: hidden;    /* 超出部分隐藏 */
+  overflow: hidden; /* 超出部分隐藏 */
   text-overflow: ellipsis; /* 超出部分显示省略号 */
 }
 
@@ -66,4 +66,20 @@ img {
   &:hover {
     top: -2px;
   }
+}
+
+.slide-in-top-enter-active {
+  transition: transform $app-transition-fast;
+}
+
+.slide-in-top-leave-active {
+  transition: transform 0.05s linear;
+}
+
+.slide-in-top-enter-from {
+  transform: translateY(-100%);
+}
+
+.slide-in-top-leave-to {
+  transform: translateY(100%);
 }

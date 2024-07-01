@@ -25,17 +25,20 @@ const { mouseEnterFlag } = toRefs(data)
       class="divider"
       @click="!appStateStore.chatgptLoadingFlag && chatSessionStore.deleteMessage(message.id!)"
     >
-      <span
+      <div
         class="divider-content"
         @mouseenter="mouseEnterFlag = true"
         @mouseleave="mouseEnterFlag = false"
       >
-        {{
-          mouseEnterFlag
-            ? $t('app.chatgpt.body.message.disconnectedContextCancel')
-            : $t('app.chatgpt.body.message.disconnectedContext')
-        }}
-      </span>
+        <transition name="slide-in-top" mode="out-in">
+          <div v-if="mouseEnterFlag" class="cancel-btn">
+            {{ $t('app.chatgpt.body.message.disconnectedContextCancel') }}
+          </div>
+          <div v-else>
+            {{ $t('app.chatgpt.body.message.disconnectedContext') }}
+          </div>
+        </transition>
+      </div>
     </el-divider>
   </div>
 </template>
@@ -58,6 +61,11 @@ const { mouseEnterFlag } = toRefs(data)
 
       .divider-content {
         cursor: pointer;
+        overflow-y: hidden;
+
+        .cancel-btn {
+          color: var(--el-color-primary);
+        }
       }
     }
   }
