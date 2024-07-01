@@ -111,6 +111,21 @@ export const useChatSessionStore = defineStore({
         latestMessage.searchItems = searchItems
       }
     },
+    clearContext(messageId: string) {
+      if (!this.getActiveSession) {
+        return
+      }
+      const index = this.getActiveSession.messages.findIndex((m) => m.id === messageId)
+      if (index > -1) {
+        this.getActiveSession.messages.splice(index + 1, 0, {
+          role: 'system',
+          type: 'divider',
+          content: '',
+          id: generateUUID(),
+          createTime: nowTimestamp()
+        })
+      }
+    },
     deleteMessage(messageId: string) {
       if (!this.getActiveSession) {
         return

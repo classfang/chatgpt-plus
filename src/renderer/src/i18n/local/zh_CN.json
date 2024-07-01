@@ -193,7 +193,9 @@
           "download": "下载",
           "textToImageContent": "为你生成以下图片：",
           "memoryResult": "新增了一条记忆：_",
-          "searchResult": "已搜索 _ 个网站"
+          "searchResult": "已搜索 _ 个网站",
+          "disconnectedContext": "已断开上下文",
+          "disconnectedContextCancel": "点击恢复上下文"
         },
         "header": {
           "currentChat": {

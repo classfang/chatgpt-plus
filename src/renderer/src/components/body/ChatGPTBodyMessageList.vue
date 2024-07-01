@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Bottom } from '@element-plus/icons-vue'
 import ChatGPTMessageAssistant from '@renderer/components/message/ChatGPTMessageAssistant.vue'
+import ChatGPTMessageDivider from '@renderer/components/message/ChatGPTMessageDivider.vue'
 import ChatGPTMessageError from '@renderer/components/message/ChatGPTMessageError.vue'
 import ChatGPTMessageUser from '@renderer/components/message/ChatGPTMessageUser.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -98,20 +99,30 @@ onMounted(() => {
           <!-- 对话消息 -->
           <template v-if="m.type === 'chat'">
             <template v-if="m.role === 'user'">
-              <ChatGPTMessageUser :message="m" />
+              <ChatGPTMessageUser :message="m" @clear-context="scrollToBottom(false)" />
             </template>
             <template v-else-if="m.role === 'assistant'">
-              <ChatGPTMessageAssistant :message="m" @regenerate="emits('regenerate', m.id)" />
+              <ChatGPTMessageAssistant
+                :message="m"
+                @regenerate="emits('regenerate', m.id)"
+                @clear-context="scrollToBottom(false)"
+              />
             </template>
           </template>
 
           <!-- 错误消息 -->
           <template v-else-if="m.type === 'error'">
-            <ChatGPTMessageError :message="m" @regenerate="emits('regenerate', m.id)" />
+            <ChatGPTMessageError
+              :message="m"
+              @regenerate="emits('regenerate', m.id)"
+              @clear-context="scrollToBottom(false)"
+            />
           </template>
 
           <!-- 分隔消息 -->
-          <template v-else-if="m.type === 'separator'"> </template>
+          <template v-else-if="m.type === 'divider'">
+            <ChatGPTMessageDivider :message="m" />
+          </template>
         </template>
       </div>
     </el-scrollbar>

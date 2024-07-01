@@ -11,7 +11,7 @@ type LLMProvider = 'OpenAI'
 
 type ChatRole = 'user' | 'assistant' | 'system' | 'tool'
 
-type ChatMessageType = 'chat' | 'error'
+type ChatMessageType = 'chat' | 'error' | 'divider'
 
 interface BaseEntity {
   id?: string

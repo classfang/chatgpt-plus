@@ -193,7 +193,9 @@
           "download": "Download",
           "textToImageContent": "Generate the images for you:",
           "memoryResult": "Added a new memory: _",
-          "searchResult": "Searched _ sites"
+          "searchResult": "Searched _ sites",
+          "disconnectedContext": "Disconnected Context",
+          "disconnectedContextCancel": "Click To Restore Context"
         },
         "header": {
           "currentChat": {

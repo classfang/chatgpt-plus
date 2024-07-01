@@ -21,7 +21,7 @@ const data = reactive({
 const { speechLoading, speechFlag } = toRefs(data)
 
 // 定义事件
-const emits = defineEmits(['regenerate'])
+const emits = defineEmits(['regenerate', 'clear-context'])
 
 // 组件传参
 const message = defineModel<ChatMessage>('message', {
@@ -95,6 +95,16 @@ const speechStop = () => {
   audioBufferSource.disconnect()
   data.speechFlag = false
 }
+
+// 清空上下文
+const clearContext = (messageId: string) => {
+  if (!appStateStore.chatgptLoadingFlag) {
+    chatSessionStore.clearContext(messageId)
+    if (chatSessionStore.getActiveSession?.messages.at(-1)?.id == messageId) {
+      emits('clear-context')
+    }
+  }
+}
 </script>
 
 <template>
@@ -144,6 +154,9 @@ const speechStop = () => {
         <AppIcon name="refresh" :size="18" />
       </el-button>
     </template>
+    <el-button text circle>
+      <AppIcon name="divider" :size="18" @click="clearContext(message.id!)" />
+    </el-button>
     <el-button
       text
       circle

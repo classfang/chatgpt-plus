@@ -7,7 +7,7 @@ const message = defineModel<ChatMessage>('message', {
 })
 
 // 定义事件
-const emits = defineEmits(['regenerate'])
+const emits = defineEmits(['regenerate', 'clear-context'])
 </script>
 
 <template>
@@ -18,6 +18,7 @@ const emits = defineEmits(['regenerate'])
         v-model:message="message"
         class="message-console"
         @regenerate="emits('regenerate')"
+        @clear-context="emits('clear-context')"
       />
     </div>
   </div>

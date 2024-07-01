@@ -13,7 +13,7 @@ const appStateStore = useAppStateStore()
 const chatSessionStore = useChatSessionStore()
 
 // 定义事件
-const emits = defineEmits(['regenerate'])
+const emits = defineEmits(['regenerate', 'clear-context'])
 
 // 组件传参
 const message = defineModel<ChatMessage>('message', {
@@ -96,6 +96,7 @@ const message = defineModel<ChatMessage>('message', {
         v-model:message="message"
         class="message-console"
         @regenerate="emits('regenerate')"
+        @clear-context="emits('clear-context')"
       />
     </div>
   </div>

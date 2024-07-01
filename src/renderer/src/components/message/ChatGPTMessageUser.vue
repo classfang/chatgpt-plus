@@ -17,6 +17,9 @@ const appStateStore = useAppStateStore()
 const message = defineModel<ChatMessage>('message', {
   default: () => {}
 })
+
+// 定义事件
+const emits = defineEmits(['clear-context'])
 </script>
 
 <template>
@@ -97,7 +100,11 @@ const message = defineModel<ChatMessage>('message', {
       </div>
     </div>
 
-    <ChatGPTMessageConsole v-model:message="message" class="message-console" />
+    <ChatGPTMessageConsole
+      v-model:message="message"
+      class="message-console"
+      @clear-context="emits('clear-context')"
+    />
   </div>
 </template>
 
