@@ -84,7 +84,15 @@ const shareText = () => {
       }
     ).then(() => {
       // 生成导出文本（使用一些 Markdown 语法）
-      const exportText = messages.map((m) => `#### ${m.role}: \n${m.content}\n\n---\n\n`).join('')
+      const exportText = messages
+        .map((m) => {
+          if (m.type === 'divider') {
+            return `${t('app.chatgpt.body.message.disconnectedContext')}\n\n---\n\n`
+          } else {
+            return `#### ${m.role}: \n${m.content}\n\n---\n\n`
+          }
+        })
+        .join('')
 
       // 导出文本
       exportTextFile(`share-text-${nowTimestamp()}.txt`, exportText)
