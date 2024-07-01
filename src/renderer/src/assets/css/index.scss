@@ -55,3 +55,15 @@ img {
     transform: rotate(360deg);
   }
 }
+
+// 鼠标悬浮效果
+.hover-float-up {
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: top $app-transition-base;
+
+  &:hover {
+    top: -2px;
+  }
+}

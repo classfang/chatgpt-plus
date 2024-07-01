@@ -62,7 +62,7 @@ const message = defineModel<ChatMessage>('message', {
         <div v-if="message.images && message.images.length > 0" class="attachment-list">
           <template v-for="(att, index) in message.images" :key="att.saveName">
             <el-dropdown trigger="contextmenu">
-              <div class="image-item">
+              <div class="image-item hover-float-up">
                 <el-image
                   class="item-image"
                   :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
@@ -119,7 +119,7 @@ const message = defineModel<ChatMessage>('message', {
     gap: $app-padding-extra-small;
 
     .message-content {
-      min-width: calc($app-line-height-base + $app-padding-small * 2);
+      min-width: calc($app-line-height-base + $app-padding-base * 2);
       max-width: 80%;
       flex: 1 1 0;
       background-color: var(--el-fill-color);

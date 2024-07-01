@@ -41,7 +41,7 @@ const emits = defineEmits(['regenerate'])
     gap: $app-padding-extra-small;
 
     .message-content {
-      min-width: calc($app-line-height-base + $app-padding-small * 2);
+      min-width: calc($app-line-height-base + $app-padding-base * 2);
       max-width: 80%;
       flex: 1 1 0;
       white-space: pre-wrap;

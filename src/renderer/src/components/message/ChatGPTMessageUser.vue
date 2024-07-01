@@ -29,7 +29,7 @@ const message = defineModel<ChatMessage>('message', {
       <div v-if="message.images && message.images.length > 0" class="attachment-list">
         <template v-for="(att, index) in message.images" :key="att.saveName">
           <el-dropdown trigger="contextmenu">
-            <div class="image-item">
+            <div class="image-item hover-float-up">
               <el-image
                 class="item-image"
                 :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
@@ -60,7 +60,7 @@ const message = defineModel<ChatMessage>('message', {
         <template v-for="att in message.files" :key="att.saveName">
           <el-dropdown trigger="contextmenu">
             <div
-              class="file-item"
+              class="file-item hover-float-up"
               @click="showItemInFolder(join(appStateStore.cachePath, att.saveName))"
             >
               <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
@@ -87,7 +87,7 @@ const message = defineModel<ChatMessage>('message', {
       <!-- 链接列表 -->
       <div v-if="message.links && message.links.length > 0" class="attachment-list">
         <template v-for="att in message.links" :key="att.url">
-          <div class="link-item" @click="openInBrowser(att.url)">
+          <div class="link-item hover-float-up" @click="openInBrowser(att.url)">
             <AppIcon class="link-icon" name="with-net" />
             <div class="link-item-body">
               <div class="link-item-name">{{ att.url }}</div>
@@ -111,7 +111,7 @@ const message = defineModel<ChatMessage>('message', {
   gap: $app-padding-extra-small;
 
   .message-content {
-    min-width: calc($app-line-height-base + $app-padding-small * 2);
+    min-width: calc($app-line-height-base + $app-padding-base * 2);
     max-width: 80%;
     flex: 1 1 0;
     white-space: pre-wrap;
@@ -172,6 +172,7 @@ const message = defineModel<ChatMessage>('message', {
 
           .file-item-name {
             font-size: var(--el-font-size-base);
+            color: var(--el-text-color-regular);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -193,6 +194,7 @@ const message = defineModel<ChatMessage>('message', {
         box-sizing: border-box;
         padding: $app-padding-small;
         background-color: var(--el-fill-color-darker);
+        color: var(--el-text-color-regular);
         border-radius: $app-border-radius-base;
         position: relative;
         display: flex;
