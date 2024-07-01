@@ -2,13 +2,12 @@ import { DocxLoader } from '@langchain/community/document_loaders/fs/docx'
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf'
 import { PPTXLoader } from '@langchain/community/document_loaders/fs/pptx'
 import { ipcMain } from 'electron'
-import { BaseDocumentLoader } from 'langchain/dist/document_loaders/base'
 import { TextLoader } from 'langchain/document_loaders/fs/text'
 
 export const initLangChain = () => {
   // langChain 加载文件
   ipcMain.handle('lang-chain-load-file', async (_event, filePath: string) => {
-    let loader: BaseDocumentLoader | null = null
+    let loader: any = null
     if (filePath.endsWith('.txt')) {
       loader = new TextLoader(filePath)
     } else if (filePath.endsWith('.pdf')) {
