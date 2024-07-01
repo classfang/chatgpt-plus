@@ -309,10 +309,17 @@ const convertMessages = async (
   ignoreLink = false,
   ignoreMemory = false
 ): Promise<OpenAI.ChatCompletionMessageParam[]> => {
-  const chatMessages = messages
-    // 跳过 ignoreSize 条记录，截取最后 contextSize 条记录，
-    .slice(contextSize ? -(contextSize + 1 + ignoreSize) : 0, messages.length - ignoreSize)
-    .filter((m) => m.type === 'chat')
+  // 跳过 ignoreSize 条记录，截取最后 contextSize 条记录，
+  let chatMessages = messages.slice(
+    contextSize ? -(contextSize + 1 + ignoreSize) : 0,
+    messages.length - ignoreSize
+  )
+
+  // 截取最后一个断开上下文位置之后的记录
+  chatMessages = chatMessages.slice(chatMessages.findIndex((m) => m.type === 'divider') + 1)
+
+  // 过滤出所有对话记录
+  chatMessages = chatMessages.filter((m) => m.type === 'chat')
 
   const convertMessageResult = [] as OpenAI.ChatCompletionMessageParam[]
   for (const m of chatMessages) {
