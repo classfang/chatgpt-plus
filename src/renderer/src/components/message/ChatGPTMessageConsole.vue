@@ -100,7 +100,7 @@ const speechStop = () => {
 const clearContext = (messageId: string) => {
   if (!appStateStore.chatgptLoadingFlag) {
     chatSessionStore.clearContext(messageId)
-    if (chatSessionStore.getActiveSession?.messages.at(-1)?.id == messageId) {
+    if (chatSessionStore.getActiveSession?.messages.at(-2)?.id === messageId) {
       emits('clear-context')
     }
   }
