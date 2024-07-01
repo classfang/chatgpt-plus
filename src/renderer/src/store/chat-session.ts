@@ -116,7 +116,7 @@ export const useChatSessionStore = defineStore({
         return
       }
       const index = this.getActiveSession.messages.findIndex((m) => m.id === messageId)
-      if (index > -1) {
+      if (index > -1 && this.getActiveSession.messages.at(index + 1)?.type != 'divider') {
         this.getActiveSession.messages.splice(index + 1, 0, {
           role: 'system',
           type: 'divider',
