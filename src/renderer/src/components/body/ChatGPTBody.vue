@@ -18,14 +18,17 @@ const bodyInputRef = ref()
   <div class="chatgpt-body">
     <!-- 头部 -->
     <ChatGPTBodyHeader />
+
     <!-- 消息列表 -->
     <ChatGPTBodyMessageList
       v-if="chatSessionStore.getActiveSession!.messages.length > 0"
       ref="bodyMessageListRef"
       @regenerate="(messageId: string) => bodyInputRef.regenerate(messageId)"
     />
+
     <!-- 空状态 -->
     <ChatGPTBodyEmpty v-else @use-prompt="(prompt) => bodyInputRef.updateQuestion(prompt)" />
+
     <!-- 输入区域 -->
     <ChatGPTBodyInput
       ref="bodyInputRef"
