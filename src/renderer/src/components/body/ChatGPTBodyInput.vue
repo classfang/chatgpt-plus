@@ -686,119 +686,130 @@ onMounted(() => {
 
 <template>
   <div class="chatgpt-body-input">
-    <div class="question-input">
-      <!-- 图片列表 -->
-      <transition name="el-fade-in">
-        <div v-if="imageList.length > 0" class="question-input-attachment-list">
-          <transition-group name="el-fade-in">
-            <div v-for="(att, index) in imageList" :key="att.saveName" class="image-item">
-              <el-image
-                class="item-image"
-                :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
-                :preview-src-list="
-                  imageList.map((a) => `file://${join(appStateStore.cachePath, a.saveName)}`)
-                "
-                :initial-index="index"
-                fit="cover"
-              />
-              <CircleCloseFilled class="item-close-btn" @click.stop="deleteImage(index)" />
-            </div>
-          </transition-group>
-        </div>
-      </transition>
-
-      <!-- 文件列表 -->
-      <transition name="el-fade-in">
-        <div v-if="fileList.length > 0" class="question-input-attachment-list">
-          <transition-group name="el-fade-in">
-            <div
-              v-for="(att, index) in fileList"
-              :key="att.saveName"
-              class="file-item"
-              @click="showItemInFolder(join(appStateStore.cachePath, att.saveName))"
-            >
-              <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
-              <div class="file-item-body">
-                <div class="file-item-name">{{ att.saveName }}</div>
-                <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
+    <el-button
+      v-if="chatSessionStore.getActiveSession!.archived"
+      @click="chatSessionStore.unarchived(chatSessionStore.getActiveSession!.id!)"
+    >
+      <el-space>
+        <AppIcon name="unarchived" :size="18" />
+        <div>{{ $t('app.chatgpt.body.input.unarchived') }}</div>
+      </el-space>
+    </el-button>
+    <template v-else>
+      <div class="question-input">
+        <!-- 图片列表 -->
+        <transition name="el-fade-in">
+          <div v-if="imageList.length > 0" class="question-input-attachment-list">
+            <transition-group name="el-fade-in">
+              <div v-for="(att, index) in imageList" :key="att.saveName" class="image-item">
+                <el-image
+                  class="item-image"
+                  :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
+                  :preview-src-list="
+                    imageList.map((a) => `file://${join(appStateStore.cachePath, a.saveName)}`)
+                  "
+                  :initial-index="index"
+                  fit="cover"
+                />
+                <CircleCloseFilled class="item-close-btn" @click.stop="deleteImage(index)" />
               </div>
-              <CircleCloseFilled class="item-close-btn" @click.stop="deleteFile(index)" />
-            </div>
-          </transition-group>
-        </div>
-      </transition>
+            </transition-group>
+          </div>
+        </transition>
 
-      <!-- 链接列表 -->
-      <transition name="el-fade-in">
-        <div v-if="linkList.length > 0" class="question-input-attachment-list">
-          <transition-group name="el-fade-in">
-            <div
-              v-for="(att, index) in linkList"
-              :key="att.url"
-              class="link-item"
-              @click="openInBrowser(att.url)"
-            >
-              <AppIcon class="link-icon" name="with-net" />
-              <div class="link-item-body">
-                <div class="link-item-name">{{ att.url }}</div>
+        <!-- 文件列表 -->
+        <transition name="el-fade-in">
+          <div v-if="fileList.length > 0" class="question-input-attachment-list">
+            <transition-group name="el-fade-in">
+              <div
+                v-for="(att, index) in fileList"
+                :key="att.saveName"
+                class="file-item"
+                @click="showItemInFolder(join(appStateStore.cachePath, att.saveName))"
+              >
+                <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
+                <div class="file-item-body">
+                  <div class="file-item-name">{{ att.saveName }}</div>
+                  <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
+                </div>
+                <CircleCloseFilled class="item-close-btn" @click.stop="deleteFile(index)" />
               </div>
-              <CircleCloseFilled class="item-close-btn" @click.stop="deleteLink(index)" />
-            </div>
-          </transition-group>
+            </transition-group>
+          </div>
+        </transition>
+
+        <!-- 链接列表 -->
+        <transition name="el-fade-in">
+          <div v-if="linkList.length > 0" class="question-input-attachment-list">
+            <transition-group name="el-fade-in">
+              <div
+                v-for="(att, index) in linkList"
+                :key="att.url"
+                class="link-item"
+                @click="openInBrowser(att.url)"
+              >
+                <AppIcon class="link-icon" name="with-net" />
+                <div class="link-item-body">
+                  <div class="link-item-name">{{ att.url }}</div>
+                </div>
+                <CircleCloseFilled class="item-close-btn" @click.stop="deleteLink(index)" />
+              </div>
+            </transition-group>
+          </div>
+        </transition>
+
+        <div class="question-input-textarea-container">
+          <!-- 附件选择 -->
+          <el-dropdown
+            trigger="click"
+            :disabled="appStateStore.chatgptLoadingFlag"
+            placement="top-start"
+          >
+            <AppIcon name="attachment" class="attachment-btn" />
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item :icon="Document" @click="selectAttachment()">
+                  {{ $t('app.chatgpt.body.input.attachment.localFile') }}
+                </el-dropdown-item>
+                <el-dropdown-item :icon="Link" @click="selectWebLink()">
+                  {{ $t('app.chatgpt.body.input.attachment.webLink') }}
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+
+          <!-- 文本域 -->
+          <el-input
+            ref="inputTextareaRef"
+            v-model="question"
+            type="textarea"
+            :placeholder="$t('app.chatgpt.body.input.question.placeholder')"
+            :autosize="{ minRows: 1, maxRows: 8 }"
+            resize="none"
+            @keydown.enter="sendQuestion"
+            @paste="handleInputPaste"
+          />
         </div>
-      </transition>
-
-      <div class="question-input-textarea-container">
-        <!-- 附件选择 -->
-        <el-dropdown
-          trigger="click"
-          :disabled="appStateStore.chatgptLoadingFlag"
-          placement="top-start"
-        >
-          <AppIcon name="attachment" class="attachment-btn" />
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item :icon="Document" @click="selectAttachment()">
-                {{ $t('app.chatgpt.body.input.attachment.localFile') }}
-              </el-dropdown-item>
-              <el-dropdown-item :icon="Link" @click="selectWebLink()">
-                {{ $t('app.chatgpt.body.input.attachment.webLink') }}
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-
-        <!-- 文本域 -->
-        <el-input
-          ref="inputTextareaRef"
-          v-model="question"
-          type="textarea"
-          :placeholder="$t('app.chatgpt.body.input.question.placeholder')"
-          :autosize="{ minRows: 1, maxRows: 8 }"
-          resize="none"
-          @keydown.enter="sendQuestion"
-          @paste="handleInputPaste"
-        />
       </div>
-    </div>
 
-    <!-- 停止按钮 -->
-    <AppIcon
-      v-if="appStateStore.chatgptLoadingFlag"
-      name="stop"
-      class="question-input-btn question-input-btn-available"
-      @click="stopAnswer()"
-    />
+      <!-- 停止按钮 -->
+      <AppIcon
+        v-if="appStateStore.chatgptLoadingFlag"
+        name="stop"
+        class="question-input-btn question-input-btn-available"
+        @click="stopAnswer()"
+      />
 
-    <!-- 发送按钮 -->
-    <Promotion
-      v-else
-      class="question-input-btn"
-      :class="{
-        'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploadFlag
-      }"
-      @click="sendQuestion"
-    />
+      <!-- 发送按钮 -->
+      <Promotion
+        v-else
+        class="question-input-btn"
+        :class="{
+          'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploadFlag
+        }"
+        @click="sendQuestion"
+      />
+    </template>
   </div>
 </template>
 
