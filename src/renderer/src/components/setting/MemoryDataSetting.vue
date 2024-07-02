@@ -79,7 +79,6 @@ const clearMemory = () => {
               <AppIcon
                 class="memory-item-delete-icon"
                 name="delete"
-                :size="18"
                 @click="deleteMemory(scope.row.id)"
               />
             </div>
@@ -114,7 +113,15 @@ const clearMemory = () => {
       }
 
       .memory-item-delete-icon {
+        height: $app-icon-size-small;
+        width: $app-icon-size-small;
         cursor: pointer;
+        color: var(--el-text-color-secondary);
+        transition: color $app-transition-base;
+
+        &:hover {
+          color: var(--el-text-color-primary);
+        }
       }
     }
   }
