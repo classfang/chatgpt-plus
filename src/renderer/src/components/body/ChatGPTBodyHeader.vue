@@ -108,7 +108,16 @@ const shareText = () => {
       'chatgpt-body-header-sidebar-header-placeholder': !appSettingStore.chatgpt.sidebarVisible
     }"
   >
-    <div class="model-name" @click="currentChatSettingVisible = true">
+    <div
+      class="model-name"
+      @click="
+        () => {
+          if (!chatSessionStore.getActiveSession!.archived) {
+            currentChatSettingVisible = true
+          }
+        }
+      "
+    >
       <div>{{ chatSessionStore.getActiveSession!.chatOption.model }}</div>
       <AppIcon name="arrow-down" class="model-name-icon" />
     </div>
@@ -131,8 +140,12 @@ const shareText = () => {
         "
         class="net-icon"
         @click="
-          chatSessionStore.getActiveSession!.internetSearchOption.enabled =
-            !chatSessionStore.getActiveSession!.internetSearchOption.enabled
+          () => {
+            if (!chatSessionStore.getActiveSession!.archived) {
+              chatSessionStore.getActiveSession!.internetSearchOption.enabled =
+                !chatSessionStore.getActiveSession!.internetSearchOption.enabled
+            }
+          }
         "
       />
     </el-tooltip>

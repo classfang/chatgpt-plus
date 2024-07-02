@@ -21,17 +21,20 @@ const { mouseEnterFlag } = toRefs(data)
 
 <template>
   <div class="chatgpt-message-divider">
-    <el-divider
-      class="divider"
-      @click="!appStateStore.chatgptLoadingFlag && chatSessionStore.deleteMessage(message.id!)"
-    >
+    <el-divider class="divider">
       <div
         class="divider-content"
-        @mouseenter="mouseEnterFlag = true"
+        @mouseenter="mouseEnterFlag = !chatSessionStore.getActiveSession!.archived"
         @mouseleave="mouseEnterFlag = false"
       >
         <transition name="slide-in-top" mode="out-in">
-          <div v-if="mouseEnterFlag" class="cancel-btn">
+          <div
+            v-if="mouseEnterFlag"
+            class="cancel-btn"
+            @click="
+              !appStateStore.chatgptLoadingFlag && chatSessionStore.deleteMessage(message.id!)
+            "
+          >
             {{ $t('app.chatgpt.body.message.disconnectedContextCancel') }}
           </div>
           <div v-else>

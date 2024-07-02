@@ -144,26 +144,28 @@ const clearContext = (messageId: string) => {
     <el-button text circle @click="clipboardWriteText(message.content)">
       <AppIcon name="copy" :size="18" />
     </el-button>
-    <template
-      v-if="
-        message.role === 'assistant' &&
-        chatSessionStore.getActiveSession?.messages.at(0)?.id != message.id
-      "
-    >
-      <el-button text circle @click="!appStateStore.chatgptLoadingFlag && emits('regenerate')">
-        <AppIcon name="refresh" :size="18" />
+    <template v-if="!chatSessionStore.getActiveSession!.archived">
+      <template
+        v-if="
+          message.role === 'assistant' &&
+          chatSessionStore.getActiveSession!.messages.at(0)?.id != message.id
+        "
+      >
+        <el-button text circle @click="!appStateStore.chatgptLoadingFlag && emits('regenerate')">
+          <AppIcon name="refresh" :size="18" />
+        </el-button>
+      </template>
+      <el-button text circle>
+        <AppIcon name="divider" :size="18" @click="clearContext(message.id!)" />
+      </el-button>
+      <el-button
+        text
+        circle
+        @click="!appStateStore.chatgptLoadingFlag && chatSessionStore.deleteMessage(message.id!)"
+      >
+        <AppIcon name="delete" :size="18" />
       </el-button>
     </template>
-    <el-button text circle>
-      <AppIcon name="divider" :size="18" @click="clearContext(message.id!)" />
-    </el-button>
-    <el-button
-      text
-      circle
-      @click="!appStateStore.chatgptLoadingFlag && chatSessionStore.deleteMessage(message.id!)"
-    >
-      <AppIcon name="delete" :size="18" />
-    </el-button>
   </div>
 </template>
 
