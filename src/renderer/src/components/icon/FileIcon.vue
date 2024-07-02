@@ -16,33 +16,33 @@ defineProps({
     v-if="extname === '.txt'"
     :height="size"
     alt="avatar"
-    src="../../assets/image/file-txt.png"
+    src="@renderer/assets/image/file-txt.png"
   />
   <img
     v-else-if="extname === '.pdf'"
     :height="size"
     alt="avatar"
-    src="../../assets/image/file-pdf.png"
+    src="@renderer/assets/image/file-pdf.png"
   />
   <img
     v-else-if="extname === '.docx'"
     :height="size"
     alt="avatar"
-    src="../../assets/image/file-docx.png"
+    src="@renderer/assets/image/file-docx.png"
   />
   <img
     v-else-if="extname === '.xlsx'"
     :height="size"
     alt="avatar"
-    src="../../assets/image/file-xlsx.png"
+    src="@renderer/assets/image/file-xlsx.png"
   />
   <img
     v-else-if="extname === '.pptx'"
     :height="size"
     alt="avatar"
-    src="../../assets/image/file-pptx.png"
+    src="@renderer/assets/image/file-pptx.png"
   />
-  <img v-else alt="avatar" :height="size" src="../../assets/image/file-other.png" />
+  <img v-else alt="avatar" :height="size" src="@renderer/assets/image/file-other.png" />
 </template>
 
 <style lang="less" scoped></style>
