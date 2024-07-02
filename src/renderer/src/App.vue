@@ -104,8 +104,6 @@ onMounted(() => {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   background-color: var(--el-bg-color);
 }
 </style>

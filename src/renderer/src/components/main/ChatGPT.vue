@@ -9,8 +9,10 @@ const chatSessionStore = useChatSessionStore()
 
 <template>
   <div class="chatgpt">
+    <!-- 侧边栏 -->
     <ChatGPTSidebar />
 
+    <!-- 主体 -->
     <ChatGPTBody
       v-if="chatSessionStore.getActiveSession"
       :key="chatSessionStore.getActiveSession.id"
@@ -20,9 +22,8 @@ const chatSessionStore = useChatSessionStore()
 
 <style lang="scss" scoped>
 .chatgpt {
-  min-height: 0;
+  height: 100%;
   width: 100%;
-  flex: 1 1 0;
   display: flex;
 }
 </style>
