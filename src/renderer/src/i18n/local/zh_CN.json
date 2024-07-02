@@ -116,6 +116,9 @@
           "archived": "归档对话",
           "archivedAll": "归档所有对话",
           "archivedManage": "归档管理",
+          "archivedCount": "共 _ 个对话",
+          "deleteArchived": "删除存档",
+          "deleteArchivedConfirm": "确定删除改存档吗？",
           "setting": "设置数据",
           "exportSetting": "导出设置数据",
           "importSetting": "导入设置数据",
@@ -189,7 +192,8 @@
             "prompt": "请输入有效的 URL 地址",
             "urlError": "URL 格式错误",
             "loadError": "网页加载错误"
-          }
+          },
+          "unarchived": "取消归档"
         },
         "message": {
           "copied": "已复制",

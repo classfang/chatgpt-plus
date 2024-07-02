@@ -18,6 +18,9 @@ export const useChatSessionStore = defineStore({
     getUsedSessions(): ChatSession[] {
       return this.sessions.filter((s) => s.messages.length > 0 && !s.archived)
     },
+    getArchivedSessions(): ChatSession[] {
+      return this.sessions.filter((s) => s.archived === true)
+    },
     getActiveSession(): ChatSession | undefined {
       return this.sessions.find((s) => s.id === this.activeSessionId)
     }
@@ -89,7 +92,6 @@ export const useChatSessionStore = defineStore({
       const session = this.sessions.find((s) => s.id === id)
       if (session) {
         session.archived = false
-        this.activeSessionId = session.id!
       }
     },
     delete(id: string) {

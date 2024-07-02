@@ -10,6 +10,7 @@ declare module 'vue' {
     AppIcon: typeof import('./src/components/icon/AppIcon.vue')['default']
     AppSetting: typeof import('./src/components/setting/AppSetting.vue')['default']
     AppState: typeof import('./src/components/state/AppState.vue')['default']
+    ArchivedDataSetting: typeof import('./src/components/setting/ArchivedDataSetting.vue')['default']
     ChatGPT: typeof import('./src/components/main/ChatGPT.vue')['default']
     ChatGPTBody: typeof import('./src/components/body/ChatGPTBody.vue')['default']
     ChatGPTBodyEmpty: typeof import('./src/components/body/ChatGPTBodyEmpty.vue')['default']

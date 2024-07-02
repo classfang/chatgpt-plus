@@ -9,7 +9,7 @@ const appSettingRef = ref()
 
 <template>
   <div class="chatgpt-sidebar-footer-container" @click="appSettingRef?.openDialog()">
-    <AppSetting ref="appSettingRef" />
+    <AppSetting ref="appSettingRef" @click.stop />
     <AppState />
   </div>
 </template>

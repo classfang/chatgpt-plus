@@ -19,7 +19,9 @@ export const useAppStateStore = defineStore({
     exportSettingFlag: false,
     importSettingFlag: false,
     dayKey: dayjs().format('YYYYMMDD'),
-    cachePath: getCachePathSync()
+    cachePath: getCachePathSync(),
+    appSettingDialogVisible: false,
+    archivedDataDialogVisible: false
   }),
   actions: {
     startDayKeyInterval() {

@@ -116,6 +116,9 @@
           "archived": "Archived Chats",
           "archivedAll": "Archived All Chats",
           "archivedManage": "Archived Manage",
+          "archivedCount": "_ Chats",
+          "deleteArchived": "Delete Archive",
+          "deleteArchivedConfirm": "Are you sure you delete this archive?",
           "setting": "Setting Data",
           "exportSetting": "Export Setting Data",
           "importSetting": "Import Setting Data",
@@ -189,7 +192,8 @@
             "prompt": "Please enter a valid URL",
             "urlError": "Invalid URL",
             "loadError": "Web page loading error"
-          }
+          },
+          "unarchived": "Unarchived"
         },
         "message": {
           "copied": "Copied",

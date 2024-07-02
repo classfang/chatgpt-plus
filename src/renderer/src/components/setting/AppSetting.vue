@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
   Brush,
-  ChatRound,
   Download,
   Folder,
   MessageBox,
@@ -13,6 +12,7 @@ import {
 } from '@element-plus/icons-vue'
 import buildInfo from '@renderer/assets/json/build-info.json'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
+import ArchivedDataSetting from '@renderer/components/setting/ArchivedDataSetting.vue'
 import MemoryDataSetting from '@renderer/components/setting/MemoryDataSetting.vue'
 import {
   OpenAIImageModelDallE3,
@@ -58,13 +58,12 @@ const chatMemoryStore = useChatMemoryStore()
 
 // 数据绑定
 const data = reactive({
-  appSettingVisible: false,
   badge: {
     appVersion: false
   },
   appVersion: '0.0.0'
 })
-const { appSettingVisible, badge, appVersion } = toRefs(data)
+const { badge, appVersion } = toRefs(data)
 
 // 检查新版本
 const checkAppVersion = () => {
@@ -247,7 +246,7 @@ const openDialog = () => {
   if (appStateStore.chatgptLoadingFlag) {
     return
   }
-  data.appSettingVisible = true
+  appStateStore.appSettingDialogVisible = true
 }
 
 // 暴露方法
@@ -279,7 +278,11 @@ onMounted(() => {
       <AppIcon name="setting" class="setting-icon" @click="openDialog()" />
     </el-badge>
 
-    <el-dialog v-model="appSettingVisible" :title="$t('app.setting.title')" width="700">
+    <el-dialog
+      v-model="appStateStore.appSettingDialogVisible"
+      :title="$t('app.setting.title')"
+      width="700"
+    >
       <div class="dialog-body">
         <el-tabs tab-position="left">
           <!-- 外观 -->
@@ -691,9 +694,7 @@ onMounted(() => {
                   <el-button :icon="MessageBox">
                     {{ $t('app.setting.item.data.archivedAll') }}
                   </el-button>
-                  <el-button :icon="ChatRound">
-                    {{ $t('app.setting.item.data.archivedManage') }}
-                  </el-button>
+                  <ArchivedDataSetting />
                 </el-space>
               </el-form-item>
 
