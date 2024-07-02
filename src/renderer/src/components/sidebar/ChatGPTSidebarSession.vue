@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Delete, EditPen, MoreFilled } from '@element-plus/icons-vue'
+import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { nextTick, reactive, ref, toRefs } from 'vue'
@@ -30,6 +31,14 @@ const activeSession = () => {
     return
   }
   chatSessionStore.activeSessionId = session.value.id!
+}
+
+// 归档会话
+const archivedSession = () => {
+  if (appStateStore.chatgptLoadingFlag) {
+    return
+  }
+  chatSessionStore.archived(session.value.id!)
 }
 
 // 删除会话
@@ -96,11 +105,23 @@ const editSession = () => {
         <MoreFilled class="more-icon" @click.stop />
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item :icon="EditPen" @click.stop="editSession()">
-              {{ $t('app.chatgpt.sidebar.session.more.editName') }}
+            <el-dropdown-item @click.stop="editSession()">
+              <el-space>
+                <AppIcon name="rename" :size="18" />
+                <div>{{ $t('app.chatgpt.sidebar.session.more.editName') }}</div>
+              </el-space>
             </el-dropdown-item>
-            <el-dropdown-item :icon="Delete" @click.stop="deleteSession()">
-              {{ $t('app.chatgpt.sidebar.session.more.delete') }}
+            <el-dropdown-item @click.stop="archivedSession()">
+              <el-space>
+                <AppIcon name="archived" :size="18" />
+                <div>{{ $t('app.chatgpt.sidebar.session.more.archived') }}</div>
+              </el-space>
+            </el-dropdown-item>
+            <el-dropdown-item @click.stop="deleteSession()">
+              <el-space>
+                <AppIcon name="delete" :size="18" />
+                <div>{{ $t('app.chatgpt.sidebar.session.more.delete') }}</div>
+              </el-space>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>

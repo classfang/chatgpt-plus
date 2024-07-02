@@ -70,6 +70,28 @@ export const useChatSessionStore = defineStore({
       })
       this.activeSessionId = sessionId
     },
+    archived(id: string) {
+      const session = this.sessions.find((s) => s.id === id)
+      if (session) {
+        session.archived = true
+      }
+      this.activeSessionId = this.sessions.at(0)?.id ?? ''
+    },
+    archivedAll() {
+      this.sessions.forEach((s) => {
+        if (s.messages.length > 0) {
+          s.archived = true
+        }
+      })
+      this.activeSessionId = this.sessions.at(0)?.id ?? ''
+    },
+    unarchived(id: string) {
+      const session = this.sessions.find((s) => s.id === id)
+      if (session) {
+        session.archived = false
+        this.activeSessionId = session.id!
+      }
+    },
     delete(id: string) {
       this.sessions = this.sessions.filter((s) => s.id != id)
       this.activeSessionId = this.sessions.at(0)?.id ?? ''

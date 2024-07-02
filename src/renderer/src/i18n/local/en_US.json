@@ -147,6 +147,7 @@
         "session":{
           "more": {
             "editName": "Rename",
+            "archived": "Archived",
             "delete": "Delete"
           },
           "dateFlag": {

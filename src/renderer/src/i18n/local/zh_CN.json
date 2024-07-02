@@ -147,6 +147,7 @@
         "session":{
           "more": {
             "editName": "重命名",
+            "archived": "归档",
             "delete": "删除"
           },
           "dateFlag": {
