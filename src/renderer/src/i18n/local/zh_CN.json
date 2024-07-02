@@ -115,6 +115,7 @@
           "cleanFileCount": "共删除 _ 个文件",
           "archived": "归档对话",
           "archivedAll": "归档所有对话",
+          "archivedAllConfirm": "确认归档所有对话吗？",
           "archivedManage": "归档管理",
           "archivedCount": "共 _ 个对话",
           "deleteArchived": "删除存档",

@@ -120,6 +120,21 @@ const cleanCache = async () => {
   appStateStore.cleanCacheFlag = false
 }
 
+// 归档所有对话
+const archivedAll = () => {
+  ElMessageBox.confirm(
+    t('app.setting.item.data.archivedAllConfirm'),
+    t('app.setting.item.data.archivedAll'),
+    {
+      distinguishCancelAndClose: true,
+      confirmButtonText: t('app.common.confirm'),
+      cancelButtonText: t('app.common.cancel')
+    }
+  ).then(() => {
+    chatSessionStore.archivedAll()
+  })
+}
+
 // 导出设置数据
 const exportSetting = () => {
   appStateStore.exportSettingFlag = true
@@ -691,7 +706,7 @@ onMounted(() => {
               <!-- 归档 -->
               <el-form-item :label="$t('app.setting.item.data.archived')">
                 <el-space wrap>
-                  <el-button :icon="MessageBox">
+                  <el-button :icon="MessageBox" @click="archivedAll()">
                     {{ $t('app.setting.item.data.archivedAll') }}
                   </el-button>
                   <ArchivedDataSetting />
