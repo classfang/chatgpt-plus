@@ -55,7 +55,7 @@ const { mouseEnterFlag } = toRefs(data)
   .divider {
     :deep(.el-divider__text) {
       background-color: var(--el-fill-color-extra-light);
-      color: var(--el-text-color-regular);
+      color: var(--el-text-color-secondary);
       font-size: var(--el-font-size-small);
       padding: 0 $app-padding-base;
 

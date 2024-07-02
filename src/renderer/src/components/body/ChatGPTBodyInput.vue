@@ -888,6 +888,7 @@ onMounted(() => {
 
           .file-item-name {
             font-size: var(--el-font-size-base);
+            color: var(--el-text-color-regular);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -939,6 +940,7 @@ onMounted(() => {
           .link-item-name {
             line-height: $app-line-height-base;
             font-size: var(--el-font-size-base);
+            color: var(--el-text-color-regular);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
