@@ -16,7 +16,7 @@ export const useChatSessionStore = defineStore({
       })
     },
     getUsedSessions(): ChatSession[] {
-      return this.sessions.filter((s) => s.messages.length > 0)
+      return this.sessions.filter((s) => s.messages.length > 0 && !s.archived)
     },
     getActiveSession(): ChatSession | undefined {
       return this.sessions.find((s) => s.id === this.activeSessionId)
@@ -61,6 +61,7 @@ export const useChatSessionStore = defineStore({
         name: '',
         provider: 'OpenAI',
         messages: [] as ChatMessage[],
+        archived: false,
         chatOption: setting.chatOption,
         speechOption: setting.speechOption,
         textToImageOption: setting.textToImageOption,

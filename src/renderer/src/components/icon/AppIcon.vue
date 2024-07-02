@@ -255,6 +255,38 @@ defineProps({
       ></path>
     </svg>
   </template>
+  <template v-else-if="name === 'archived'">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      :width="size"
+      :height="size"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        fill-rule="evenodd"
+        d="M4.83 4.106A2 2 0 0 1 6.617 3h10.764a2 2 0 0 1 1.789 1.106l1.618 3.236a2 2 0 0 1 .211.894V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8.236a2 2 0 0 1 .211-.894zM17.381 5H6.618l-1 2h12.764zM19 9H5v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM9 12a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+  </template>
+  <template v-else-if="name === 'unarchived'">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      :width="size"
+      :height="size"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        fill-rule="evenodd"
+        d="M4.83 4.106A2 2 0 0 1 6.617 3h10.764a2 2 0 0 1 1.789 1.106l1.618 3.236a2 2 0 0 1 .211.894V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8.236a2 2 0 0 1 .211-.894zM17.381 5H6.618l-1 2h12.764zM19 9H5v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zm-7.707 1.793a1 1 0 0 1 1.414 0l2.5 2.5a1 1 0 0 1-1.414 1.414L13 13.914V16.5a1 1 0 1 1-2 0v-2.586l-.793.793a1 1 0 0 1-1.414-1.414z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+  </template>
 </template>
 
 <style scoped lang="scss"></style>
