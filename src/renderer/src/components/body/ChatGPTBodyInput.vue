@@ -688,51 +688,66 @@ onMounted(() => {
   <div class="chatgpt-body-input">
     <div class="question-input">
       <!-- 图片列表 -->
-      <div v-if="imageList.length > 0" class="question-input-attachment-list">
-        <div v-for="(att, index) in imageList" :key="att.saveName" class="image-item">
-          <el-image
-            class="item-image"
-            :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
-            :preview-src-list="
-              imageList.map((a) => `file://${join(appStateStore.cachePath, a.saveName)}`)
-            "
-            :initial-index="index"
-            fit="cover"
-          />
-          <CircleCloseFilled class="item-close-btn" @click.stop="deleteImage(index)" />
+      <transition name="el-fade-in">
+        <div v-if="imageList.length > 0" class="question-input-attachment-list">
+          <transition-group name="el-fade-in">
+            <div v-for="(att, index) in imageList" :key="att.saveName" class="image-item">
+              <el-image
+                class="item-image"
+                :src="`file://${join(appStateStore.cachePath, att.saveName)}`"
+                :preview-src-list="
+                  imageList.map((a) => `file://${join(appStateStore.cachePath, a.saveName)}`)
+                "
+                :initial-index="index"
+                fit="cover"
+              />
+              <CircleCloseFilled class="item-close-btn" @click.stop="deleteImage(index)" />
+            </div>
+          </transition-group>
         </div>
-      </div>
+      </transition>
+
       <!-- 文件列表 -->
-      <div v-if="fileList.length > 0" class="question-input-attachment-list">
-        <div
-          v-for="(att, index) in fileList"
-          :key="att.saveName"
-          class="file-item"
-          @click="showItemInFolder(join(appStateStore.cachePath, att.saveName))"
-        >
-          <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
-          <div class="file-item-body">
-            <div class="file-item-name">{{ att.saveName }}</div>
-            <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
-          </div>
-          <CircleCloseFilled class="item-close-btn" @click.stop="deleteFile(index)" />
+      <transition name="el-fade-in">
+        <div v-if="fileList.length > 0" class="question-input-attachment-list">
+          <transition-group name="el-fade-in">
+            <div
+              v-for="(att, index) in fileList"
+              :key="att.saveName"
+              class="file-item"
+              @click="showItemInFolder(join(appStateStore.cachePath, att.saveName))"
+            >
+              <FileIcon class="file-icon" :extname="att.extname.toLowerCase()" />
+              <div class="file-item-body">
+                <div class="file-item-name">{{ att.saveName }}</div>
+                <div class="file-item-size">{{ formatFileSize(att.size) }}</div>
+              </div>
+              <CircleCloseFilled class="item-close-btn" @click.stop="deleteFile(index)" />
+            </div>
+          </transition-group>
         </div>
-      </div>
+      </transition>
+
       <!-- 链接列表 -->
-      <div v-if="linkList.length > 0" class="question-input-attachment-list">
-        <div
-          v-for="(att, index) in linkList"
-          :key="att.url"
-          class="link-item"
-          @click="openInBrowser(att.url)"
-        >
-          <AppIcon class="link-icon" name="with-net" />
-          <div class="link-item-body">
-            <div class="link-item-name">{{ att.url }}</div>
-          </div>
-          <CircleCloseFilled class="item-close-btn" @click.stop="deleteLink(index)" />
+      <transition name="el-fade-in">
+        <div v-if="linkList.length > 0" class="question-input-attachment-list">
+          <transition-group name="el-fade-in">
+            <div
+              v-for="(att, index) in linkList"
+              :key="att.url"
+              class="link-item"
+              @click="openInBrowser(att.url)"
+            >
+              <AppIcon class="link-icon" name="with-net" />
+              <div class="link-item-body">
+                <div class="link-item-name">{{ att.url }}</div>
+              </div>
+              <CircleCloseFilled class="item-close-btn" @click.stop="deleteLink(index)" />
+            </div>
+          </transition-group>
         </div>
-      </div>
+      </transition>
+
       <div class="question-input-textarea-container">
         <!-- 附件选择 -->
         <el-dropdown
