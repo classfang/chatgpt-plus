@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import {
   Brush,
+  ChatRound,
   Download,
   Folder,
+  MessageBox,
   Monitor,
   Moon,
   Sunny,
@@ -679,6 +681,18 @@ onMounted(() => {
                     @click="cleanCache()"
                   >
                     {{ $t('app.setting.item.data.cleanCache') }}
+                  </el-button>
+                </el-space>
+              </el-form-item>
+
+              <!-- 归档 -->
+              <el-form-item :label="$t('app.setting.item.data.archived')">
+                <el-space wrap>
+                  <el-button :icon="MessageBox">
+                    {{ $t('app.setting.item.data.archivedAll') }}
+                  </el-button>
+                  <el-button :icon="ChatRound">
+                    {{ $t('app.setting.item.data.archivedManage') }}
                   </el-button>
                 </el-space>
               </el-form-item>
