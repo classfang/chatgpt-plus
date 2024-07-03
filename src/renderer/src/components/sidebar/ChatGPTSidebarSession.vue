@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Delete, EditPen, MoreFilled } from '@element-plus/icons-vue'
+import { MoreFilled } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
