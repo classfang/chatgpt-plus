@@ -743,7 +743,7 @@ onMounted(() => {
                   >
                     {{ $t('app.setting.item.data.importChat') }}
                   </el-button>
-                  <el-button type="danger" plain :icon="Brush" @click="clearChat()">
+                  <el-button :icon="Brush" @click="clearChat()">
                     {{ $t('app.setting.item.data.clearChat') }}
                   </el-button>
                 </el-space>
@@ -766,7 +766,7 @@ onMounted(() => {
                   >
                     {{ $t('app.setting.item.data.importMemory') }}
                   </el-button>
-                  <el-button type="danger" plain :icon="Brush" @click="clearMemory()">
+                  <el-button :icon="Brush" @click="clearMemory()">
                     {{ $t('app.setting.item.data.clearMemory') }}
                   </el-button>
                 </el-space>
