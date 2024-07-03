@@ -107,8 +107,6 @@
           "label": "Network Proxy"
         },
         "data": {
-          "log": "Application Log",
-          "openLogDir": "Open Log Directory",
           "cache": "Application Cache",
           "openCacheDir": "Open Cache Directory",
           "cleanCache": "Clean Cache",
@@ -142,7 +140,8 @@
           "buildTime": "Build Time",
           "appDownload": "Download Latest Version",
           "devTools": "Developer Tools",
-          "openDevTools": "Open Developer Tools"
+          "openDevTools": "Open Developer Tools",
+          "openLogDir": "Open Log Directory"
         }
       }
     },

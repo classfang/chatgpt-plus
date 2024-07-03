@@ -107,8 +107,6 @@
           "label": "网络代理"
         },
         "data": {
-          "log": "应用日志",
-          "openLogDir": "打开日志目录",
           "cache": "应用缓存",
           "openCacheDir": "打开缓存目录",
           "cleanCache": "清理缓存",
@@ -142,7 +140,8 @@
           "buildTime": "构建时间",
           "appDownload": "下载新版本",
           "devTools": "开发者工具",
-          "openDevTools": "打开开发者工具"
+          "openDevTools": "打开开发者工具",
+          "openLogDir": "打开日志目录"
         }
       }
     },

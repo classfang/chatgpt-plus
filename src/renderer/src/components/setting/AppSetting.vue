@@ -680,13 +680,6 @@ onMounted(() => {
           <!-- 数据 -->
           <el-tab-pane :label="$t('app.setting.data')">
             <el-form label-width="auto" label-position="left">
-              <!-- 日志目录 -->
-              <el-form-item :label="$t('app.setting.item.data.log')">
-                <el-button :icon="Folder" @click="openLogDir()">
-                  {{ $t('app.setting.item.data.openLogDir') }}
-                </el-button>
-              </el-form-item>
-
               <!-- 缓存目录 -->
               <el-form-item :label="$t('app.setting.item.data.cache')">
                 <el-space wrap>
@@ -811,9 +804,14 @@ onMounted(() => {
 
               <!-- 开发者工具 -->
               <el-form-item :label="$t('app.setting.item.about.devTools')">
-                <el-button :icon="Tools" @click="openDevTools()">
-                  {{ $t('app.setting.item.about.openDevTools') }}
-                </el-button>
+                <el-space>
+                  <el-button :icon="Tools" @click="openDevTools()">
+                    {{ $t('app.setting.item.about.openDevTools') }}
+                  </el-button>
+                  <el-button :icon="Folder" @click="openLogDir()">
+                    {{ $t('app.setting.item.about.openLogDir') }}
+                  </el-button>
+                </el-space>
               </el-form-item>
             </el-form>
           </el-tab-pane>
