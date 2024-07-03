@@ -91,6 +91,8 @@ export const useChatSessionStore = defineStore({
     unarchived(id: string) {
       const session = this.sessions.find((s) => s.id === id)
       if (session) {
+        // 取消归档后，会话创建时间为当前时间
+        session.createTime = nowTimestamp()
         session.archived = false
       }
     },
