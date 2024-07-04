@@ -75,6 +75,16 @@ app.on('before-quit', async (e) => {
   app.exit()
 })
 
+// 显示主窗口
+ipcMain.handle('show-main-window', () => {
+  if (!mainWindow.isMinimized()) {
+    // 不是被最小化，直接显示主窗口
+    mainWindow.show()
+  } else {
+    mainWindow.restore()
+  }
+})
+
 // 切换主题
 ipcMain.handle('set-theme-source', (_event, themeSource: 'system' | 'light' | 'dark') => {
   nativeTheme.themeSource = themeSource

@@ -277,11 +277,10 @@ onMounted(() => {
   })
 
   // 每次获得焦点检查最新版本，限制一小时内不重复检查
-  let lastCheckTime = 0
   onMainWindowFocus(() => {
-    if (new Date().getTime() - lastCheckTime > 1000 * 60 * 60) {
+    if (new Date().getTime() - appSettingStore.app.lastCheckVersionTime > 1000 * 60 * 60) {
       checkAppVersion()
-      lastCheckTime = new Date().getTime()
+      appSettingStore.app.lastCheckVersionTime = new Date().getTime()
     }
   })
 })

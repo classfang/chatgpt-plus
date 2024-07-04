@@ -10,7 +10,9 @@ export const useAppSettingStore = defineStore({
       // 本地化
       locale: isZH() ? 'zh_CN' : 'en_US',
       // 网络代理
-      proxy: ''
+      proxy: '',
+      // 最后版本检查时间
+      lastCheckVersionTime: 0
     },
     // https://platform.openai.com/docs/api-reference/chat/create
     openAI: {

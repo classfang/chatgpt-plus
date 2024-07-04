@@ -9,7 +9,8 @@ import {
   saveFileByBase64,
   saveFileByPath,
   selectFile,
-  showItemInFolder
+  showItemInFolder,
+  showMainWindow
 } from '@renderer/service/ipc-service'
 import { openaiChat } from '@renderer/service/openai-service'
 import { getToolsDefine, ToolEnum, toolsUse } from '@renderer/service/tool-service'
@@ -21,7 +22,7 @@ import { formatFileSize } from '@renderer/utils/file-util'
 import { generateUUID } from '@renderer/utils/id-util'
 import { Logger } from '@renderer/utils/logger'
 import { join } from '@renderer/utils/path-util'
-import { openInBrowser } from '@renderer/utils/window-util'
+import { notification, openInBrowser } from '@renderer/utils/window-util'
 import { Action, ElMessage, ElMessageBox, MessageBoxState } from 'element-plus'
 import OpenAI from 'openai'
 import { nextTick, onMounted, reactive, ref, toRefs } from 'vue'
@@ -422,22 +423,32 @@ const errorAnswer = (content: string) => {
 
 // 完成回答
 const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => {
+  const latestMessage = chatSessionStore.getActiveSession!.messages.at(-1)!
+
   // 如果最后一条回答是空的内容则删除
-  const latestMessage = chatSessionStore.getActiveSession?.messages.at(-1)
-  if (latestMessage && !latestMessage.content) {
+  if (!latestMessage.content) {
     chatSessionStore.deleteMessage(latestMessage.id!)
+  } else {
+    // 自动生成标题
+    if (
+      noSessionNameFlag &&
+      chatSessionStore.getActiveSession!.chatOption.autoGenerateSessionName
+    ) {
+      generateSessionName(chatSessionStore.getActiveSession!.id!)
+    }
+
+    // 保存当前回答到最后一个choice
+    if (regenerateFlag) {
+      chatSessionStore.saveChoice()
+    }
+
+    // 通知
+    if (!appStateStore.mainWindowFocusFlag) {
+      notification('ChatGPT Plus', latestMessage.content, showMainWindow)
+    }
   }
 
-  // 自动生成标题
-  if (noSessionNameFlag && chatSessionStore.getActiveSession!.chatOption.autoGenerateSessionName) {
-    generateSessionName(chatSessionStore.getActiveSession!.id!)
-  }
-
-  // 保存当前回答到最后一个choice
-  if (regenerateFlag) {
-    chatSessionStore.saveChoice()
-  }
-
+  // 修改状态
   appStateStore.chatgptAnswerFlag = false
   appStateStore.chatgptLoadingFlag = false
 }

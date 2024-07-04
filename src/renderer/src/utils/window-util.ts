@@ -32,3 +32,10 @@ export const startDarkThemeListener = (handle: (isDark: boolean) => void) => {
     darkThemeMq.removeEventListener('change', handleColorSchemeChange)
   }
 }
+
+// 通知
+export const notification = (title: string, body: string, click?: () => void) => {
+  new Notification(title, { body: body }).onclick = () => {
+    click && click()
+  }
+}

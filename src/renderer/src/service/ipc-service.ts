@@ -6,6 +6,10 @@ import { Stats } from 'fs'
 // 多语言
 const { t } = i18n.global
 
+export const showMainWindow = () => {
+  return window.electron.ipcRenderer.invoke('show-main-window')
+}
+
 export const setThemeSource = (themeSource = 'system') => {
   return window.electron.ipcRenderer.invoke('set-theme-source', themeSource)
 }
@@ -88,6 +92,12 @@ export const executeJavaScript = (jsCode: string) => {
 
 export const onMainWindowFocus = (action: () => void) => {
   window.electron.ipcRenderer.on('main-window-focus', () => {
+    action()
+  })
+}
+
+export const onMainWindowBlur = (action: () => void) => {
+  window.electron.ipcRenderer.on('main-window-blur', () => {
     action()
   })
 }

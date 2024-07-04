@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import ChatGPT from '@renderer/components/main/ChatGPT.vue'
-import { setThemeSource } from '@renderer/service/ipc-service'
+import { onMainWindowBlur, onMainWindowFocus, setThemeSource } from '@renderer/service/ipc-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { startDarkThemeListener } from '@renderer/utils/window-util'
 import { useDark } from '@vueuse/core'
@@ -13,6 +14,7 @@ import { useI18n } from 'vue-i18n'
 // 仓库
 const appSettingStore = useAppSettingStore()
 const chatSessionStore = useChatSessionStore()
+const appStateStore = useAppStateStore()
 
 // 国际化
 const { locale } = useI18n()
@@ -84,10 +86,20 @@ watch(
 onMounted(() => {
   // 更新主题
   updateTheme()
+
   // 设置语言
   locale.value = appSettingStore.app.locale
+
   // 设置标题
   setSessionNameTitle()
+
+  // 监听主窗口焦点状态
+  onMainWindowFocus(() => {
+    appStateStore.mainWindowFocusFlag = true
+  })
+  onMainWindowBlur(() => {
+    appStateStore.mainWindowFocusFlag = false
+  })
 })
 </script>
 
