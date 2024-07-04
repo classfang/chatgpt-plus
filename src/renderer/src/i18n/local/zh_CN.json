@@ -5,6 +5,9 @@
       "cancel": "取消",
       "search": "搜索"
     },
+    "notification": {
+      "newReply": "新回复"
+    },
     "state": {
       "default": "OpenAI 提供技术支持",
       "openAIApiKeyMiss": "OpenAI 密钥未配置",

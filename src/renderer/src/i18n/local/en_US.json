@@ -5,6 +5,9 @@
       "cancel": "Cancel",
       "search": "Search"
     },
+    "notification": {
+      "newReply": "New Reply"
+    },
     "state": {
       "default": "Power By OpenAI",
       "openAIApiKeyMiss": "Required openai api key",

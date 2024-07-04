@@ -444,7 +444,7 @@ const finishAnswer = (noSessionNameFlag?: boolean, regenerateFlag?: boolean) => 
 
     // 通知
     if (!appStateStore.mainWindowFocusFlag) {
-      notification('ChatGPT Plus', latestMessage.content, showMainWindow)
+      notification(t('app.notification.newReply'), latestMessage.content, showMainWindow)
     }
   }
 
