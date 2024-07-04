@@ -68,7 +68,7 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
                 <div class="prompt-search">
                   <el-input
                     v-model="promptKeyword"
-                    :placeholder="$t('app.chatgpt.body.prompt.search')"
+                    :placeholder="$t('app.common.search')"
                     :prefix-icon="Search"
                   />
                 </div>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ChatRound } from '@element-plus/icons-vue'
+import { ChatRound, Search } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import i18n from '@renderer/i18n'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { ElMessageBox } from 'element-plus'
+import { reactive, toRefs } from 'vue'
 
 // 多语言
 const { t } = i18n.global
@@ -12,6 +13,12 @@ const { t } = i18n.global
 // 仓库
 const chatSessionStore = useChatSessionStore()
 const appStateStore = useAppStateStore()
+
+// 数据绑定
+const data = reactive({
+  archivedKeyword: ''
+})
+const { archivedKeyword } = toRefs(data)
 
 // 预览归档
 const previewArchived = (id: string) => {
@@ -54,20 +61,40 @@ const deleteArchived = (id: string) => {
     <div class="dialog-body">
       <el-table
         class="archived-table"
-        :data="chatSessionStore.getArchivedSessions"
+        :data="
+          chatSessionStore.getArchivedSessions.filter(
+            (session) =>
+              session.name.includes(archivedKeyword) ||
+              session.messages.findIndex((m) => m.content.includes(archivedKeyword)) > -1
+          )
+        "
         border
         height="100%"
       >
         <el-table-column>
           <template #header>
             <div class="archived-table-header">
-              <div>
+              <div class="archived-count">
                 {{
                   $t('app.setting.item.data.archivedCount').replace(
                     '_',
-                    String(chatSessionStore.getArchivedSessions.length)
+                    String(
+                      chatSessionStore.getArchivedSessions.filter(
+                        (session) =>
+                          session.name.includes(archivedKeyword) ||
+                          session.messages.findIndex((m) => m.content.includes(archivedKeyword)) >
+                            -1
+                      ).length
+                    )
                   )
                 }}
+              </div>
+              <div class="archived-search">
+                <el-input
+                  v-model="archivedKeyword"
+                  :placeholder="$t('app.common.search')"
+                  :prefix-icon="Search"
+                />
               </div>
             </div>
           </template>
@@ -106,6 +133,14 @@ const deleteArchived = (id: string) => {
       gap: $app-padding-small;
       align-items: center;
       justify-content: space-between;
+
+      .archived-search {
+        width: 400px;
+      }
+
+      .archived-count {
+        font-weight: var(--el-font-weight-primary);
+      }
     }
 
     .archived-item {

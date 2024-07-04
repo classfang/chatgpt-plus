@@ -2,7 +2,8 @@
   "app": {
     "common": {
       "confirm": "确认",
-      "cancel": "取消"
+      "cancel": "取消",
+      "search": "搜索"
     },
     "state": {
       "default": "OpenAI 提供技术支持",
@@ -233,7 +234,6 @@
         },
         "prompt": {
           "title": "快捷指令",
-          "search": "搜索快捷指令",
           "count": "共 _ 条快捷指令"
         }
       }

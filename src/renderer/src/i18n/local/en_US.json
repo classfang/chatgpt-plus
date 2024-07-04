@@ -2,7 +2,8 @@
   "app": {
     "common": {
       "confirm": "Confirm",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "search": "Search"
     },
     "state": {
       "default": "Power By OpenAI",
@@ -233,7 +234,6 @@
         },
         "prompt": {
           "title": "Prompts",
-          "search": "Search Prompts",
           "count": "_ Prompts"
         }
       }
