@@ -62,6 +62,9 @@ const scrollToBottom = (isAuto: boolean) => {
         messageListScrollbarRef.value.wrapRef.scrollHeight
       )
     }
+
+    // 考虑无需滚动情况
+    calcToBottomBtnVisible()
   })
 }
 
