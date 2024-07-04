@@ -63,7 +63,7 @@ const scrollToBottom = (isAuto: boolean) => {
       )
     }
 
-    // 考虑无需滚动情况
+    // 考虑无需滚动情况，计算置底按钮是否显示
     calcToBottomBtnVisible()
   })
 }
