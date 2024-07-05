@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { Monitor } from '@element-plus/icons-vue'
+import i18n from '@renderer/i18n'
 import { getDesktopScreenshots } from '@renderer/service/ipc-service'
 import { Logger } from '@renderer/utils/logger'
+import { ElMessage } from 'element-plus'
 import { onMounted, reactive, toRefs } from 'vue'
+
+// 多语言
+const { t } = i18n.global
 
 // 数据绑定
 const data = reactive({
@@ -23,6 +28,7 @@ onMounted(() => {
       data.screenshotList = sources
     })
     .catch((error) => {
+      ElMessage.error(t('app.chatgpt.body.screenshot.error'))
       Logger.error('openScreenshotsDialog error: ', error)
     })
     .finally(() => {

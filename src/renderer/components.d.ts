@@ -25,7 +25,6 @@ declare module 'vue' {
     ChatGPTMessageDivider: typeof import('./src/components/message/ChatGPTMessageDivider.vue')['default']
     ChatGPTMessageError: typeof import('./src/components/message/ChatGPTMessageError.vue')['default']
     ChatGPTMessageUser: typeof import('./src/components/message/ChatGPTMessageUser.vue')['default']
-    ChatGPTScreenshotList: typeof import('./src/components/body/ChatGPTScreenshotList.vue')['default']
     ChatGPTSidebar: typeof import('./src/components/sidebar/ChatGPTSidebar.vue')['default']
     ChatGPTSidebarFooter: typeof import('./src/components/sidebar/ChatGPTSidebarFooter.vue')['default']
     ChatGPTSidebarHeader: typeof import('./src/components/sidebar/ChatGPTSidebarHeader.vue')['default']
@@ -65,7 +64,6 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FileIcon: typeof import('./src/components/icon/FileIcon.vue')['default']
     MemoryDataSetting: typeof import('./src/components/setting/MemoryDataSetting.vue')['default']
-    ScreenshotDialog: typeof import('./src/components/body/ScreenshotDialog.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

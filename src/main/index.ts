@@ -13,7 +13,8 @@ import {
   nativeTheme,
   shell,
   desktopCapturer,
-  screen
+  screen,
+  systemPreferences
 } from 'electron'
 import fs from 'fs'
 import { basename, extname, join } from 'path'
@@ -310,6 +311,14 @@ ipcMain.handle('read-web-body-by-url', async (_event, url: string) => {
 // 捕获桌面资源
 ipcMain.handle('get-desktop-screenshots', () => {
   return new Promise((resolve, reject) => {
+    // 检查权限
+    const screenAccessStatus = systemPreferences.getMediaAccessStatus('screen')
+    console.log(screenAccessStatus)
+    if (screenAccessStatus === 'denied') {
+      reject('denied')
+      return
+    }
+
     desktopCapturer
       .getSources({
         types: ['window', 'screen'],

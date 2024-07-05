@@ -240,7 +240,8 @@
           "count": "_ Prompts"
         },
         "screenshot": {
-          "title": "Select screenshot"
+          "title": "Select screenshot",
+          "error": "Please enable the screen-recording permission"
         }
       }
     }
