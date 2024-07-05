@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { CircleCloseFilled, Document, Link, Promotion } from '@element-plus/icons-vue'
+import { CircleCloseFilled, Document, Link, Monitor, Promotion } from '@element-plus/icons-vue'
+import ChatGPTBodyScreenshotList from '@renderer/components/body/ChatGPTBodyScreenshotList.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import {
@@ -42,9 +43,10 @@ const data = reactive({
   question: '',
   imageList: [] as ChatMessageFile[],
   fileList: [] as ChatMessageFile[],
-  linkList: [] as ChatMessageLink[]
+  linkList: [] as ChatMessageLink[],
+  screenshotDialogVisible: false
 })
-const { question, imageList, fileList, linkList } = toRefs(data)
+const { question, imageList, fileList, linkList, screenshotDialogVisible } = toRefs(data)
 
 // 定义事件
 const emits = defineEmits(['send-question', 'update-message'])
@@ -643,13 +645,13 @@ const handleInputPaste = (event: ClipboardEvent) => {
 
           // 随机文件名
           const extname = '.png'
-          const fileName = `${generateUUID()}${extname}`
+          const saveName = `${generateUUID()}${extname}`
 
           // 保存到本地
-          saveFileByBase64(imageBase64, fileName).then((saveName) => {
+          saveFileByBase64(imageBase64, saveName).then(() => {
             // 保存成功后添加到图片预览
             data.imageList.push({
-              name: fileName,
+              name: saveName,
               saveName: saveName,
               extname: extname,
               size: blob.size
@@ -681,6 +683,26 @@ const deleteLink = (index: number) => {
 // 修改问题输入
 const updateQuestion = (prompt: string) => {
   data.question = prompt
+}
+
+// 选择截图
+const selectScreenshot = (screenshot: DesktopScreenshot) => {
+  // 关闭对话窗
+  data.screenshotDialogVisible = false
+
+  // 随机名称
+  const extname = '.png'
+  const saveName = `${generateUUID()}${extname}`
+
+  // 保存到本地
+  saveFileByBase64(screenshot.dataUrl, saveName).then(() => {
+    // 保存成功后添加到图片预览
+    data.imageList.push({
+      name: `${screenshot.name}${extname}`,
+      saveName: saveName,
+      extname: extname
+    })
+  })
 }
 
 // 暴露函数
@@ -785,6 +807,9 @@ onMounted(() => {
                 <el-dropdown-item :icon="Link" @click="selectWebLink()">
                   {{ $t('app.chatgpt.body.input.attachment.webLink') }}
                 </el-dropdown-item>
+                <el-dropdown-item :icon="Monitor" @click="screenshotDialogVisible = true">
+                  {{ $t('app.chatgpt.body.screenshot.title') }}
+                </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -821,6 +846,16 @@ onMounted(() => {
         @click="sendQuestion"
       />
     </template>
+
+    <!-- 屏幕截图选择对话窗 -->
+    <el-dialog
+      v-model="screenshotDialogVisible"
+      :title="$t('app.chatgpt.body.screenshot.title')"
+      width="700"
+      destroy-on-close
+    >
+      <ChatGPTBodyScreenshotList @select-screenshot="selectScreenshot" />
+    </el-dialog>
   </div>
 </template>
 

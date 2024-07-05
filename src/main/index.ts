@@ -4,7 +4,17 @@ import { initLogger } from './logger'
 import { createWindow } from './main-window'
 import { initStore } from './store'
 import { electronApp, optimizer, platform } from '@electron-toolkit/utils'
-import { app, BrowserWindow, clipboard, dialog, ipcMain, nativeTheme, shell } from 'electron'
+import {
+  app,
+  BrowserWindow,
+  clipboard,
+  dialog,
+  ipcMain,
+  nativeTheme,
+  shell,
+  desktopCapturer,
+  screen
+} from 'electron'
 import fs from 'fs'
 import { basename, extname, join } from 'path'
 import * as vm from 'vm'
@@ -294,5 +304,30 @@ ipcMain.handle('read-web-body-by-url', async (_event, url: string) => {
           reject()
         })
     })
+  })
+})
+
+// 捕获桌面资源
+ipcMain.handle('get-desktop-screenshots', () => {
+  return new Promise((resolve, reject) => {
+    desktopCapturer
+      .getSources({
+        types: ['window', 'screen'],
+        thumbnailSize: screen.getPrimaryDisplay().size,
+        fetchWindowIcons: true
+      })
+      .then((sources) => {
+        const screenshots = sources.map((source) => ({
+          id: source.id,
+          name: source.name,
+          appIcon: source.appIcon?.toDataURL(),
+          dataUrl: source.thumbnail.toDataURL()
+        }))
+
+        resolve(screenshots)
+      })
+      .catch((error) => {
+        reject(error)
+      })
   })
 })

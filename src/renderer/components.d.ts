@@ -18,12 +18,14 @@ declare module 'vue' {
     ChatGPTBodyInput: typeof import('./src/components/body/ChatGPTBodyInput.vue')['default']
     ChatGPTBodyMessageList: typeof import('./src/components/body/ChatGPTBodyMessageList.vue')['default']
     ChatGPTBodyPrompt: typeof import('./src/components/body/ChatGPTBodyPrompt.vue')['default']
+    ChatGPTBodyScreenshotList: typeof import('./src/components/body/ChatGPTBodyScreenshotList.vue')['default']
     ChatGPTBodySetting: typeof import('./src/components/body/ChatGPTBodySetting.vue')['default']
     ChatGPTMessageAssistant: typeof import('./src/components/message/ChatGPTMessageAssistant.vue')['default']
     ChatGPTMessageConsole: typeof import('./src/components/message/ChatGPTMessageConsole.vue')['default']
     ChatGPTMessageDivider: typeof import('./src/components/message/ChatGPTMessageDivider.vue')['default']
     ChatGPTMessageError: typeof import('./src/components/message/ChatGPTMessageError.vue')['default']
     ChatGPTMessageUser: typeof import('./src/components/message/ChatGPTMessageUser.vue')['default']
+    ChatGPTScreenshotList: typeof import('./src/components/body/ChatGPTScreenshotList.vue')['default']
     ChatGPTSidebar: typeof import('./src/components/sidebar/ChatGPTSidebar.vue')['default']
     ChatGPTSidebarFooter: typeof import('./src/components/sidebar/ChatGPTSidebarFooter.vue')['default']
     ChatGPTSidebarHeader: typeof import('./src/components/sidebar/ChatGPTSidebarHeader.vue')['default']
@@ -62,5 +64,6 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FileIcon: typeof import('./src/components/icon/FileIcon.vue')['default']
     MemoryDataSetting: typeof import('./src/components/setting/MemoryDataSetting.vue')['default']
+    ScreenshotDialog: typeof import('./src/components/body/ScreenshotDialog.vue')['default']
   }
 }

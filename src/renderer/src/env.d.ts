@@ -108,3 +108,10 @@ interface ChatSession extends BaseEntity {
   memoryOption: MemoryOption
   internetSearchOption: InternetSearchOption
 }
+
+interface DesktopScreenshot {
+  id: string
+  name: string
+  appIcon?: string
+  dataUrl: string
+}

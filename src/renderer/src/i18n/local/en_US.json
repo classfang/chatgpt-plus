@@ -238,6 +238,9 @@
         "prompt": {
           "title": "Prompts",
           "count": "_ Prompts"
+        },
+        "screenshot": {
+          "title": "Select screenshot"
         }
       }
     }

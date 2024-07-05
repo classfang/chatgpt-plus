@@ -113,3 +113,7 @@ export const showItemInFolder = (filePath: string) => {
 export const readWebBodyByUrl = (url: string) => {
   return window.electron.ipcRenderer.invoke('read-web-body-by-url', url)
 }
+
+export const getDesktopScreenshots = (): Promise<DesktopScreenshot[]> => {
+  return window.electron.ipcRenderer.invoke('get-desktop-screenshots')
+}
