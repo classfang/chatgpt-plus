@@ -61,7 +61,7 @@
     "eslint": "^8.56.0",
     "eslint-plugin-vue": "^9.27.0",
     "highlight.js": "^11.9.0",
-    "html2canvas": "^1.4.1",
+    "html-to-image": "^1.11.11",
     "markdown-it": "^14.1.0",
     "markdown-it-mathjax3": "^4.3.2",
     "openai": "^4.52.3",

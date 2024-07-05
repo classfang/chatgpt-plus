@@ -9,7 +9,7 @@ import { nowTimestamp } from '@renderer/utils/date-util'
 import { exportTextFile } from '@renderer/utils/download-util'
 import { Logger } from '@renderer/utils/logger'
 import { ElMessageBox } from 'element-plus'
-import html2canvas from 'html2canvas'
+import { toJpeg } from 'html-to-image'
 import { reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -44,20 +44,12 @@ const shareImage = () => {
         cancelButtonText: t('app.chatgpt.body.header.share.image.cancel')
       }
     ).then(() => {
-      html2canvas(el, {
-        // 缩放比例,默认为1
-        scale: 2,
-        // 是否允许跨域图像污染画布
-        allowTaint: true,
-        // 是否尝试使用CORS从服务器加载图像
-        useCORS: true
-      })
-        .then((canvas) => {
-          // 将图片下载到本地
-          const a = document.createElement('a')
-          a.download = `share-image-${nowTimestamp()}`
-          a.href = canvas.toDataURL('image/png')
-          a.dispatchEvent(new MouseEvent('click'))
+      toJpeg(el, { quality: 1 })
+        .then((dataUrl) => {
+          const link = document.createElement('a')
+          link.download = `share-image-${nowTimestamp()}`
+          link.href = dataUrl
+          link.click()
         })
         .catch((e: any) => {
           Logger.error(e.message)
