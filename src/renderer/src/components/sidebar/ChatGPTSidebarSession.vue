@@ -137,7 +137,7 @@ const editSession = () => {
   box-sizing: border-box;
   padding: $app-padding-small;
   border-radius: $app-border-radius-base;
-  background-color: var(--el-fill-color);
+  //background-color: var(--el-fill-color);
   cursor: pointer;
   display: flex;
   align-items: center;

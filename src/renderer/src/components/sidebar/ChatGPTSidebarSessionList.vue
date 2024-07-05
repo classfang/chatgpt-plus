@@ -280,13 +280,14 @@ onMounted(() => {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: $app-padding-small;
+      gap: $app-padding-extra-small;
 
       .date-flag {
         width: 100%;
         color: var(--el-text-color-secondary);
         font-size: var(--el-font-size-small);
         line-height: $app-line-height-min;
+        margin: $app-padding-extra-small 0;
       }
     }
   }
