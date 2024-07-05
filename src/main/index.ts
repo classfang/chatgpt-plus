@@ -321,7 +321,7 @@ ipcMain.handle('get-desktop-screenshots', () => {
           id: source.id,
           name: source.name,
           appIcon: source.appIcon?.toDataURL(),
-          dataUrl: source.thumbnail.toDataURL()
+          thumbnail: source.thumbnail.toDataURL()
         }))
 
         resolve(screenshots)

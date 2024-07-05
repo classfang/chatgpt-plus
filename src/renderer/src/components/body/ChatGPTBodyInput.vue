@@ -695,7 +695,7 @@ const selectScreenshot = (screenshot: DesktopScreenshot) => {
   const saveName = `${generateUUID()}${extname}`
 
   // 保存到本地
-  saveFileByBase64(screenshot.dataUrl, saveName).then(() => {
+  saveFileByBase64(screenshot.thumbnail, saveName).then(() => {
     // 保存成功后添加到图片预览
     data.imageList.push({
       name: `${screenshot.name}${extname}`,

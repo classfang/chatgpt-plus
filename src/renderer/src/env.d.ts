@@ -113,5 +113,5 @@ interface DesktopScreenshot {
   id: string
   name: string
   appIcon?: string
-  dataUrl: string
+  thumbnail: string
 }
