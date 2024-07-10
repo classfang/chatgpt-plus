@@ -77,6 +77,14 @@ export const createWindow = (store: Record<string, any>) => {
     store.set('main-window-size', { width, height })
   })
 
+  // 使用外部浏览器打开链接
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    // 阻止默认行为
+    event.preventDefault()
+    // 使用外部浏览器打开链接
+    shell.openExternal(url)
+  })
+
   // 加载用于开发环境的 URL 或用于生产的本地 html 文件。
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']).then(() => {})
