@@ -74,13 +74,25 @@ const onMessageListScroll = () => {
 }
 
 // 计算置底按钮是否显示
-const calcToBottomBtnVisible = () => {
+const calcToBottomBtnVisible = (delayFlag = true) => {
   // 滚动超过一定高度时，显示置底按钮
-  data.toBottomBtnVisible =
+  const calcResult =
     messageListScrollbarRef.value.wrapRef.scrollHeight -
       messageListScrollbarRef.value.wrapRef.clientHeight -
       messageListScrollbarRef.value.wrapRef.scrollTop >
     1
+
+  if (calcResult) {
+    if (delayFlag) {
+      setTimeout(() => {
+        calcToBottomBtnVisible(false)
+      }, 500)
+    } else {
+      data.toBottomBtnVisible = true
+    }
+  } else {
+    data.toBottomBtnVisible = false
+  }
 }
 
 // 暴露方法
