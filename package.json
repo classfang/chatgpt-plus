@@ -30,13 +30,13 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "@langchain/community": "^0.2.17",
+    "@langchain/community": "^0.2.18",
     "electron-store": "^10.0.0",
-    "langchain": "^0.2.8",
+    "langchain": "^0.2.9",
     "mammoth": "^1.8.0",
     "officeparser": "^4.1.1",
     "pdf-parse": "^1.1.1",
-    "winston": "^3.13.0",
+    "winston": "^3.13.1",
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
@@ -64,7 +64,7 @@
     "html-to-image": "^1.11.11",
     "markdown-it": "^14.1.0",
     "markdown-it-mathjax3": "^4.3.2",
-    "openai": "^4.52.4",
+    "openai": "^4.52.5",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "prettier": "^3.3.2",
