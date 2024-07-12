@@ -27,9 +27,9 @@ onMounted(() => {
     .then((sources) => {
       data.screenshotList = sources
     })
-    .catch((error) => {
+    .catch((error: any) => {
       ElMessage.error(t('app.chatgpt.body.screenshot.error'))
-      Logger.error('openScreenshotsDialog error: ', error)
+      Logger.error('openScreenshotsDialog error: ', error.message)
     })
     .finally(() => {
       data.loading = false

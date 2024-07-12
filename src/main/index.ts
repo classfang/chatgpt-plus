@@ -313,8 +313,8 @@ ipcMain.handle('get-desktop-screenshots', () => {
   return new Promise((resolve, reject) => {
     // 检查权限
     const screenAccessStatus = systemPreferences.getMediaAccessStatus('screen')
-    if (screenAccessStatus === 'denied') {
-      reject('denied')
+    if (screenAccessStatus != 'granted') {
+      reject(screenAccessStatus)
       return
     }
 
