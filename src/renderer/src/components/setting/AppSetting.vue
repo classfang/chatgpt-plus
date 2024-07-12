@@ -35,12 +35,12 @@ import {
   selectFileAndRead,
   setProxy
 } from '@renderer/service/ipc-service'
+import { Logger } from '@renderer/service/logger'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatMemoryStore } from '@renderer/store/chat-memory'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { exportTextFile } from '@renderer/utils/download-util'
-import { Logger } from '@renderer/utils/logger'
 import { openInBrowser } from '@renderer/utils/window-util'
 import axios from 'axios'
 import dayjs from 'dayjs'
@@ -273,7 +273,6 @@ onMounted(() => {
   // 获取应用版本号
   getAppVersion().then((v) => {
     data.appVersion = v
-    checkAppVersion()
   })
 
   // 每次获得焦点检查最新版本，限制一小时内不重复检查

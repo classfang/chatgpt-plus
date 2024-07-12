@@ -1,4 +1,4 @@
-import { Logger } from '@renderer/utils/logger'
+import { Logger } from '@renderer/service/logger'
 import OpenAI from 'openai'
 
 export interface OpenAIChatParam {

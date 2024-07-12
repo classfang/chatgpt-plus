@@ -13,6 +13,7 @@ import {
   showItemInFolder,
   showMainWindow
 } from '@renderer/service/ipc-service'
+import { Logger } from '@renderer/service/logger'
 import { openaiChat } from '@renderer/service/openai-service'
 import { getToolsDefine, ToolEnum, toolsUse } from '@renderer/service/tool-service'
 import { useAppSettingStore } from '@renderer/store/app-setting'
@@ -21,7 +22,6 @@ import { useChatMemoryStore } from '@renderer/store/chat-memory'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { formatFileSize } from '@renderer/utils/file-util'
 import { generateUUID } from '@renderer/utils/id-util'
-import { Logger } from '@renderer/utils/logger'
 import { join } from '@renderer/utils/path-util'
 import { notification, openInBrowser } from '@renderer/utils/window-util'
 import { Action, ElMessage, ElMessageBox, MessageBoxState } from 'element-plus'

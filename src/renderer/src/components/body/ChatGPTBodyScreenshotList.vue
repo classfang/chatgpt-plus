@@ -2,7 +2,7 @@
 import { Monitor } from '@element-plus/icons-vue'
 import i18n from '@renderer/i18n'
 import { getDesktopScreenshots } from '@renderer/service/ipc-service'
-import { Logger } from '@renderer/utils/logger'
+import { Logger } from '@renderer/service/logger'
 import { ElMessage } from 'element-plus'
 import { onMounted, reactive, toRefs } from 'vue'
 
