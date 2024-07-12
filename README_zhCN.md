@@ -41,7 +41,7 @@
 
 ## 3. 最新安装包
 
-你可以在 [release](https://github.com/classfang/chatgpt-plus/releases) 中找到个平台的安装包。
+你可以在 [releases](https://github.com/classfang/chatgpt-plus/releases) 中找到个平台的安装包。
 
 如果遇到任何安装和使用问题，欢迎提交 issue。
 

@@ -41,7 +41,7 @@ If you're a developer who'd like to help with any of these, please open an issue
 
 ## 3. Latest installation package
 
-You can find the installation packages for each platform from [release](https://github.com/classfang/chatgpt-plus/releases).
+You can find the installation packages for each platform from [releases](https://github.com/classfang/chatgpt-plus/releases).
 
 If you encounter any installation and use problems, you are welcome to open an issue.
 
