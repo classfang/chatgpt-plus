@@ -32,6 +32,7 @@ const sessionListRef = ref()
 .chatgpt-sidebar {
   height: 100%;
   width: 0;
+  overflow: hidden;
   background-color: var(--el-fill-color-light);
   transition: width $app-transition-base;
   display: flex;
