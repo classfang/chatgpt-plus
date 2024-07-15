@@ -18,7 +18,8 @@ const emits = defineEmits(['regenerate'])
 
 // 数据绑定
 const data = reactive({
-  toBottomBtnVisible: false
+  toBottomBtnVisible: false,
+  autoScrollEnabled: true
 })
 const { toBottomBtnVisible } = toRefs(data)
 
@@ -57,7 +58,7 @@ const scrollToBottom = (isAuto: boolean) => {
           )
         }
       }, 10)
-    } else if (!data.toBottomBtnVisible) {
+    } else if (data.autoScrollEnabled) {
       messageListScrollbarRef.value?.setScrollTop(
         messageListScrollbarRef.value.wrapRef.scrollHeight
       )
@@ -83,6 +84,7 @@ const calcToBottomBtnVisible = (delayFlag = true) => {
     1
 
   if (calcResult) {
+    data.autoScrollEnabled = false
     if (delayFlag) {
       setTimeout(() => {
         calcToBottomBtnVisible(false)
@@ -91,6 +93,7 @@ const calcToBottomBtnVisible = (delayFlag = true) => {
       data.toBottomBtnVisible = true
     }
   } else {
+    data.autoScrollEnabled = true
     data.toBottomBtnVisible = false
   }
 }
