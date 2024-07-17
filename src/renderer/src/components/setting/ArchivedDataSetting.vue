@@ -68,7 +68,6 @@ const deleteArchived = (id: string) => {
               session.messages.findIndex((m) => m.content.includes(archivedKeyword)) > -1
           )
         "
-        border
         height="100%"
       >
         <el-table-column>

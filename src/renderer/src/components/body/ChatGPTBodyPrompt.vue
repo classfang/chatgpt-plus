@@ -47,7 +47,6 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
               (p) => p[0].includes(promptKeyword) || p[1].includes(promptKeyword)
             )
           "
-          border
           height="100%"
         >
           <el-table-column>

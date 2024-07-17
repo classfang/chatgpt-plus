@@ -44,7 +44,6 @@ onMounted(() => {
       class="screenshot-table"
       :data="screenshotList"
       :show-header="false"
-      border
       height="100%"
     >
       <el-table-column>
