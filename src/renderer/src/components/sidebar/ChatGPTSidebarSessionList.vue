@@ -254,15 +254,9 @@ onMounted(() => {
 
     :deep(.el-input) {
       .el-input__wrapper {
-        background-color: var(--el-fill-color);
-        box-shadow: 0 0 0 1px var(--el-fill-color-dark);
-        border-radius: $app-border-radius-base;
-        transition: all $app-transition-base;
-      }
-
-      .is-focus {
         background-color: var(--el-fill-color-dark);
-        box-shadow: 0 0 0 1px var(--el-fill-color-darker);
+        box-shadow: none;
+        border-radius: $app-border-radius-base;
       }
     }
   }
