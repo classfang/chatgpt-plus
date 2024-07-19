@@ -45,6 +45,16 @@
 
 如果遇到任何安装和使用问题，欢迎提交 issue。
 
+### 3.1. App 在 macOS 下提示已损坏无法打开解决办法
+
+打开终端，输入以下命令，并执行：
+
+```shell
+sudo xattr -d com.apple.quarantine /Applications/xxxx.app
+```
+
+注意：/Applications/xxxx.app 换成你的App路径。
+
 ## 4. 开发
 
 ### 4.1 克隆仓库

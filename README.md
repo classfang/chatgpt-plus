@@ -45,6 +45,16 @@ You can find the installation packages for each platform from [releases](https:/
 
 If you encounter any installation and use problems, you are welcome to open an issue.
 
+### 3.1. The App under macOS indicates that it is damaged and cannot open the solution
+
+Open the terminal, enter the following command, and execute:
+
+```shell
+sudo xattr -d com.apple.quarantine /Applications/xxxx.app
+```
+
+Note: Replace /Applications/xxxx.app with your App path.
+
 ## 4. Develop
 
 ### 4.1 Clone this store
