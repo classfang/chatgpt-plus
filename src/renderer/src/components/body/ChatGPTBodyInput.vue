@@ -26,6 +26,7 @@ import { join } from '@renderer/utils/path-util'
 import { notification, openInBrowser } from '@renderer/utils/window-util'
 import { Action, ElMessage, ElMessageBox, MessageBoxState } from 'element-plus'
 import OpenAI from 'openai'
+import * as CompletionsAPI from 'openai/src/resources/completions'
 import { nextTick, onMounted, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -180,6 +181,9 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
     apiKey: appSettingStore.openAI.apiKey,
     params: {
       stream: true,
+      stream_options: {
+        include_usage: true
+      },
       messages: sendMessages,
       tools: toolNameList.length > 0 ? getToolsDefine(toolNameList) : undefined,
       model: chatSessionStore.getActiveSession!.chatOption.model,
@@ -194,21 +198,25 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
       // 是否是tool_calls（当前只获取第一个工具调用）
       if (
         toolNameList.length > 0 &&
-        chunk.choices[0].delta.tool_calls &&
+        chunk.choices[0]?.delta.tool_calls &&
         chunk.choices[0].delta.tool_calls[0]
       ) {
-        if (chunk.choices[0].delta.tool_calls[0].id) {
+        if (chunk.choices[0]?.delta.tool_calls[0].id) {
           toolCallId = chunk.choices[0].delta.tool_calls[0].id
         }
-        if (chunk.choices[0].delta.tool_calls[0].function?.name) {
+        if (chunk.choices[0]?.delta.tool_calls[0].function?.name) {
           functionName = chunk.choices[0].delta.tool_calls[0].function?.name
         }
-        if (chunk.choices[0].delta.tool_calls[0].function?.arguments) {
+        if (chunk.choices[0]?.delta.tool_calls[0].function?.arguments) {
           functionArguments += chunk.choices[0].delta.tool_calls[0].function?.arguments
         }
-      } else if (chunk.choices[0].delta.content) {
+      } else if (chunk.choices[0]?.delta.content) {
         streamAnswer(chunk.choices[0].delta.content)
       }
+
+      // 用量统计
+      usageStatistic(chunk.usage)
+
       emits('update-message')
     },
     error: (error: any) => {
@@ -267,6 +275,9 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
               apiKey: appSettingStore.openAI.apiKey,
               params: {
                 stream: true,
+                stream_options: {
+                  include_usage: true
+                },
                 messages: sendMessages,
                 model: chatSessionStore.getActiveSession!.chatOption.model,
                 max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
@@ -277,7 +288,11 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
               },
               abortCtrSignal: abortCtrSignal,
               answer: (chunk: OpenAI.ChatCompletionChunk) => {
-                streamAnswer(chunk.choices[0].delta.content ?? '')
+                streamAnswer(chunk.choices[0]?.delta.content ?? '')
+
+                // 用量统计
+                usageStatistic(chunk.usage)
+
                 emits('update-message')
               },
               error: (error: any) => {
@@ -472,6 +487,9 @@ const generateSessionName = async (sessionId: string) => {
     apiKey: appSettingStore.openAI.apiKey,
     params: {
       stream: true,
+      stream_options: {
+        include_usage: true
+      },
       model: chatSessionStore.getActiveSession!.chatOption.model,
       messages: [
         ...(await convertMessages(
@@ -495,12 +513,15 @@ const generateSessionName = async (sessionId: string) => {
     },
     answer: (chunk: OpenAI.ChatCompletionChunk) => {
       // 拼接名称
-      sessionName += chunk.choices[0].delta.content?.trim() ?? ''
+      sessionName += chunk.choices[0]?.delta.content?.trim() ?? ''
       // 根据id获取session
       const session = chatSessionStore.getSessionById(sessionId)
       if (session && sessionName.length > 0) {
         session.name = sessionName
       }
+
+      // 用量统计
+      usageStatistic(chunk.usage)
     }
   })
 }
@@ -703,6 +724,19 @@ const selectScreenshot = (screenshot: DesktopScreenshot) => {
       extname: extname
     })
   })
+}
+
+// 用量统计
+const usageStatistic = (usage?: CompletionsAPI.CompletionUsage) => {
+  if (!usage) {
+    return
+  }
+  chatSessionStore.usageStatistic({
+    promptTokens: usage.prompt_tokens,
+    completionTokens: usage.completion_tokens,
+    totalTokens: usage.total_tokens
+  })
+  Logger.info('usage statistic', usage.prompt_tokens, usage.completion_tokens, usage.total_tokens)
 }
 
 // 暴露函数

@@ -242,6 +242,15 @@
         "screenshot": {
           "title": "Select screenshot",
           "error": "Please enable the screen-recording permission"
+        },
+        "statistic": {
+          "title": "Usage Statistics",
+          "promptChars": "Prompt Chars",
+          "completionChars": "Completion Chars",
+          "totalChars": "Total Chars",
+          "promptTokens": "Prompt Tokens",
+          "completionTokens": "Completion Tokens",
+          "totalTokens": "Total Tokens"
         }
       }
     }

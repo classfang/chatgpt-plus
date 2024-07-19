@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Picture, Share, Document } from '@element-plus/icons-vue'
 import ChatGPTBodySetting from '@renderer/components/body/ChatGPTBodySetting.vue'
+import ChatGPTBodyStatistic from '@renderer/components/body/ChatGPTBodyStatistic.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { Logger } from '@renderer/service/logger'
 import { useAppSettingStore } from '@renderer/store/app-setting'
@@ -18,9 +19,10 @@ const { t } = useI18n()
 
 // 数据绑定
 const data = reactive({
-  currentChatSettingVisible: false
+  currentChatSettingVisible: false,
+  currentChatStatisticVisible: false
 })
-const { currentChatSettingVisible } = toRefs(data)
+const { currentChatSettingVisible, currentChatStatisticVisible } = toRefs(data)
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
@@ -130,7 +132,7 @@ const shareText = () => {
             ? 'with-net'
             : 'without-net'
         "
-        class="net-icon"
+        class="header-icon"
         @click="
           () => {
             if (!chatSessionStore.getActiveSession!.archived) {
@@ -144,12 +146,11 @@ const shareText = () => {
 
     <!-- 分享下拉列表 -->
     <el-dropdown
-      class="share-dropdown"
       trigger="click"
       :disabled="appStateStore.chatgptLoadingFlag"
       placement="bottom-start"
     >
-      <Share class="share-icon" />
+      <Share class="header-icon" />
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item :icon="Picture" @click="shareImage()">
@@ -162,8 +163,14 @@ const shareText = () => {
       </template>
     </el-dropdown>
 
+    <!-- 用量统计 -->
+    <AppIcon name="usage" class="header-icon" @click="currentChatStatisticVisible = true" />
+
     <!-- 当前对话设置弹窗 -->
     <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />
+
+    <!-- 当前对话统计弹窗 -->
+    <ChatGPTBodyStatistic v-model:visible="currentChatStatisticVisible" />
   </div>
 </template>
 
@@ -205,7 +212,7 @@ const shareText = () => {
     }
   }
 
-  .net-icon {
+  .header-icon {
     height: $app-icon-size-base;
     width: $app-icon-size-base;
     color: var(--el-text-color-secondary);
@@ -215,21 +222,6 @@ const shareText = () => {
 
     &:hover {
       color: var(--el-text-color-primary);
-    }
-  }
-
-  .share-dropdown {
-    .share-icon {
-      height: $app-icon-size-base;
-      width: $app-icon-size-base;
-      outline: none;
-      color: var(--el-text-color-secondary);
-      transition: color $app-transition-base;
-      cursor: pointer;
-
-      &:hover {
-        color: var(--el-text-color-primary);
-      }
     }
   }
 }

@@ -242,6 +242,15 @@
         "screenshot": {
           "title": "选择屏幕截图",
           "error": "请开启录屏权限"
+        },
+        "statistic": {
+          "title": "用量统计",
+          "promptChars": "输入字符数",
+          "completionChars": "输出字符数",
+          "totalChars": "总字符数",
+          "promptTokens": "输入 Token 数",
+          "completionTokens": "输出 Token 数",
+          "totalTokens": "总 Token 数"
         }
       }
     }

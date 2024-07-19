@@ -97,10 +97,17 @@ interface ChatMemory extends BaseEntity {
   content: string
 }
 
+interface ChatUsage {
+  promptTokens: number
+  completionTokens: number
+  totalTokens: number
+}
+
 interface ChatSession extends BaseEntity {
   name: string
   provider: LLMProvider
   messages: ChatMessage[]
+  usage?: ChatUsage
   archived: boolean
   chatOption: ChatOption
   speechOption: SpeechOption

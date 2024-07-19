@@ -117,6 +117,18 @@ export const useChatSessionStore = defineStore({
         this.getActiveSession.name = message.content
       }
     },
+    usageStatistic(usage: ChatUsage) {
+      if (!this.getActiveSession) {
+        return
+      }
+      if (this.getActiveSession.usage) {
+        this.getActiveSession.usage.promptTokens += usage.promptTokens
+        this.getActiveSession.usage.completionTokens += usage.completionTokens
+        this.getActiveSession.usage.totalTokens += usage.totalTokens
+      } else {
+        this.getActiveSession.usage = usage
+      }
+    },
     appendMessageContent(
       content: string,
       images?: ChatMessageFile[],
