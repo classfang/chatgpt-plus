@@ -253,7 +253,7 @@ export const useChatSessionStore = defineStore({
       if (!latestMessage.choiceIndex) {
         latestMessage.choiceIndex = 1
       } else {
-        latestMessage.choiceIndex++
+        latestMessage.choiceIndex = latestMessage.choices.length - 1
       }
     },
     clearLatestMessage() {
