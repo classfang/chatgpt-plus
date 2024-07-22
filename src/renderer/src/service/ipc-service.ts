@@ -75,6 +75,12 @@ export const clipboardWriteText = (text: string) => {
   return window.electron.ipcRenderer.invoke('clipboard-write-text', text)
 }
 
+export const clipboardWriteImage = (dataUrl: string) => {
+  Logger.info(logPrefix, 'clipboardWriteImage', dataUrl)
+  ElMessage.success(t('app.chatgpt.body.message.copied'))
+  return window.electron.ipcRenderer.invoke('clipboard-write-image', dataUrl)
+}
+
 export const clearCacheFiles = (ignoreFiles: string[]): Promise<number> => {
   Logger.info(logPrefix, 'clearCacheFiles', ignoreFiles)
   return window.electron.ipcRenderer.invoke('clear-cache-files', ignoreFiles)

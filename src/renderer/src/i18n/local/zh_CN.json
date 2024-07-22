@@ -220,8 +220,8 @@
           "share": {
             "image": {
               "title": "分享图片",
-              "content": "将为你生成用于分享的图片",
-              "confirm": "确认",
+              "copy": "复制图片",
+              "save": "保存图片",
               "cancel": "取消"
             },
             "text": {

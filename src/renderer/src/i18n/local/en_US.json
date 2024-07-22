@@ -220,8 +220,8 @@
           "share": {
             "image": {
               "title": "Share Image",
-              "content": "An image will be generated for you to share",
-              "confirm": "Confirm",
+              "copy": "Copy Image",
+              "save": "Save Image",
               "cancel": "Cancel"
             },
             "text": {

@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { Picture, Share, Document } from '@element-plus/icons-vue'
 import ChatGPTBodySetting from '@renderer/components/body/ChatGPTBodySetting.vue'
+import ChatGPTBodyShareView from '@renderer/components/body/ChatGPTBodyShareView.vue'
 import ChatGPTBodyStatistic from '@renderer/components/body/ChatGPTBodyStatistic.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
-import { Logger } from '@renderer/service/logger'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { nowTimestamp } from '@renderer/utils/date-util'
 import { exportTextFile } from '@renderer/utils/download-util'
 import { ElMessageBox } from 'element-plus'
-import { toJpeg } from 'html-to-image'
 import { reactive, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -20,9 +19,10 @@ const { t } = useI18n()
 // 数据绑定
 const data = reactive({
   currentChatSettingVisible: false,
-  currentChatStatisticVisible: false
+  currentChatStatisticVisible: false,
+  shareViewVisible: false
 })
-const { currentChatSettingVisible, currentChatStatisticVisible } = toRefs(data)
+const { currentChatSettingVisible, currentChatStatisticVisible, shareViewVisible } = toRefs(data)
 
 // 仓库
 const chatSessionStore = useChatSessionStore()
@@ -35,29 +35,7 @@ const shareImage = () => {
     return
   }
 
-  const el = document.getElementById('message-list-container')
-  if (el) {
-    ElMessageBox.confirm(
-      t('app.chatgpt.body.header.share.image.content'),
-      t('app.chatgpt.body.header.share.image.title'),
-      {
-        distinguishCancelAndClose: true,
-        confirmButtonText: t('app.chatgpt.body.header.share.image.confirm'),
-        cancelButtonText: t('app.chatgpt.body.header.share.image.cancel')
-      }
-    ).then(() => {
-      toJpeg(el, { quality: 1 })
-        .then((dataUrl) => {
-          const link = document.createElement('a')
-          link.download = `share-image-${nowTimestamp()}`
-          link.href = dataUrl
-          link.click()
-        })
-        .catch((e: any) => {
-          Logger.error(e.message)
-        })
-    })
-  }
+  data.shareViewVisible = true
 }
 
 // 分享文本
@@ -171,6 +149,9 @@ const shareText = () => {
 
     <!-- 当前对话统计弹窗 -->
     <ChatGPTBodyStatistic v-model:visible="currentChatStatisticVisible" />
+
+    <!-- 图片分享预览弹窗 -->
+    <ChatGPTBodyShareView v-model:visible="shareViewVisible" />
   </div>
 </template>
 

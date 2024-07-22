@@ -7,6 +7,7 @@ import { electronApp, optimizer, platform } from '@electron-toolkit/utils'
 import {
   app,
   BrowserWindow,
+  nativeImage,
   clipboard,
   dialog,
   ipcMain,
@@ -188,6 +189,11 @@ ipcMain.handle('set-proxy', (_event, proxyUrl: string) => {
 // 复制文本到剪贴板
 ipcMain.handle('clipboard-write-text', (_event, text: string) => {
   clipboard.writeText(text)
+})
+
+// 复制图片到剪贴板
+ipcMain.handle('clipboard-write-image', (_event, dataUrl: string) => {
+  clipboard.writeImage(nativeImage.createFromDataURL(dataUrl))
 })
 
 // 获取缓存文件列表
