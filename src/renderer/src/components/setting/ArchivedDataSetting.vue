@@ -57,6 +57,7 @@ const deleteArchived = (id: string) => {
     v-model="appStateStore.archivedDataDialogVisible"
     :title="$t('app.setting.item.data.archivedManage')"
     width="700"
+    align-center
   >
     <div class="dialog-body">
       <el-table

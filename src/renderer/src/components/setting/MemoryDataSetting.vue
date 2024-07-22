@@ -54,7 +54,12 @@ const clearMemory = () => {
     {{ $t('app.setting.item.memory.manage') }}
   </el-button>
 
-  <el-dialog v-model="dialogVisible" :title="$t('app.setting.item.memory.manage')" width="700">
+  <el-dialog
+    v-model="dialogVisible"
+    :title="$t('app.setting.item.memory.manage')"
+    width="700"
+    align-center
+  >
     <div class="dialog-body">
       <el-table class="memory-table" :data="chatMemoryStore.memoryList" height="100%">
         <el-table-column>

@@ -11,7 +11,12 @@ const visible = defineModel<boolean>('visible', {
 </script>
 
 <template>
-  <el-dialog v-model="visible" :title="$t('app.chatgpt.body.statistic.title')" width="700">
+  <el-dialog
+    v-model="visible"
+    :title="$t('app.chatgpt.body.statistic.title')"
+    width="700"
+    align-center
+  >
     <div class="dialog-body">
       <div class="token-statistic">
         <el-statistic

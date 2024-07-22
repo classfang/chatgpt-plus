@@ -38,7 +38,12 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
       </el-icon>
     </div>
 
-    <el-dialog v-model="dialogVisible" :title="$t('app.chatgpt.body.prompt.title')" width="700">
+    <el-dialog
+      v-model="dialogVisible"
+      :title="$t('app.chatgpt.body.prompt.title')"
+      width="700"
+      align-center
+    >
       <div class="dialog-body">
         <el-table
           class="prompt-table"

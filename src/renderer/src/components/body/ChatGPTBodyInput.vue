@@ -886,6 +886,7 @@ onMounted(() => {
       v-model="screenshotDialogVisible"
       :title="$t('app.chatgpt.body.screenshot.title')"
       width="700"
+      align-center
       destroy-on-close
     >
       <ChatGPTBodyScreenshotList @select-screenshot="selectScreenshot" />

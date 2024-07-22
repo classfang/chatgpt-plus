@@ -295,6 +295,7 @@ onMounted(() => {
       v-model="appStateStore.appSettingDialogVisible"
       :title="$t('app.setting.title')"
       width="700"
+      align-center
     >
       <div class="dialog-body">
         <el-tabs tab-position="left">

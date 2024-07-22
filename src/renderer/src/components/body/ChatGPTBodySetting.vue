@@ -24,6 +24,7 @@ const visible = defineModel<boolean>('visible', {
     v-model="visible"
     :title="$t('app.chatgpt.body.header.currentChat.setting')"
     width="700"
+    align-center
   >
     <div class="dialog-body">
       <el-tabs tab-position="left">

@@ -7,8 +7,8 @@ export const appConfig = {
   cachePath: join(app.getPath('userData'), 'app_cache')
 }
 export const mainWindowConfig = {
-  minWidth: 1000,
-  minHeight: 700,
+  minWidth: 960,
+  minHeight: 620,
   trafficLightPosition: {
     x: 15,
     y: 12

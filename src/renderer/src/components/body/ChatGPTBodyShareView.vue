@@ -53,7 +53,12 @@ const saveImage = () => {
 </script>
 
 <template>
-  <el-dialog v-model="visible" :title="$t('app.chatgpt.body.header.share.image.title')" width="700">
+  <el-dialog
+    v-model="visible"
+    :title="$t('app.chatgpt.body.header.share.image.title')"
+    width="700"
+    align-center
+  >
     <div class="dialog-body">
       <el-scrollbar height="100%">
         <el-image v-if="shareImageUrl" :src="shareImageUrl" />
