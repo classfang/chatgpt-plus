@@ -30,7 +30,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "@langchain/community": "^0.2.19",
+    "@langchain/community": "^0.2.20",
     "electron-store": "^10.0.0",
     "langchain": "^0.2.10",
     "mammoth": "^1.8.0",
@@ -73,7 +73,7 @@
     "unplugin-auto-import": "^0.18.0",
     "unplugin-vue-components": "^0.27.3",
     "vite": "^5.3.4",
-    "vue": "^3.4.32",
+    "vue": "^3.4.33",
     "vue-i18n": "^9.13.1",
     "vue-tsc": "^2.0.26"
   }
