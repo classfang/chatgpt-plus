@@ -209,6 +209,7 @@ const message = defineModel<ChatMessage>('message', {
           padding-bottom: $app-padding-small;
           background-color: transparent;
           font-size: var(--el-font-size-base);
+          color: var(--el-text-color-primary);
         }
 
         :deep(.el-collapse-item__wrap) {
