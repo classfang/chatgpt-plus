@@ -8,6 +8,8 @@ files:
   - '!.vscode/*'
   - '!.idea/*'
   - '!demo/*'
+  - '!plugins/*'
+  - '!scripts/*'
   - '!src/*'
   - '!{.*,*.ts,*.yml,*.yaml,*.lock,*.log,*.md,*.html,tsconfig.*}'
 asarUnpack:

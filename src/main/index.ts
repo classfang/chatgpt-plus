@@ -3,7 +3,7 @@ import { initLangChain } from './lang-chain'
 import { initLogger } from './logger'
 import { createWindow } from './main-window'
 import { initStore } from './store'
-import { electronApp, optimizer, platform } from '@electron-toolkit/utils'
+import { electronApp, is, optimizer, platform } from '@electron-toolkit/utils'
 import {
   app,
   BrowserWindow,
@@ -15,7 +15,8 @@ import {
   shell,
   desktopCapturer,
   screen,
-  systemPreferences
+  systemPreferences,
+  session
 } from 'electron'
 import fs from 'fs'
 import { basename, extname, join } from 'path'
@@ -69,6 +70,18 @@ app.whenReady().then(() => {
       mainWindow.show()
     }
   })
+
+  // 加载vue devtools插件
+  if (is.dev) {
+    session.defaultSession
+      .loadExtension(join(__dirname, '../../plugins/vue-devtools/6.6.3_0'))
+      .then(() => {
+        logger.info('vue-devtools load success')
+      })
+      .catch((e) => {
+        logger.error('vue-devtools load error', e)
+      })
+  }
 })
 
 // 当所有窗口都关闭时退出，除了macOS
