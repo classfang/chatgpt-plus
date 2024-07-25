@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Download } from '@element-plus/icons-vue'
+import '@renderer/assets/css/markdown-html.scss'
 import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -7,6 +8,7 @@ import { downloadFile } from '@renderer/utils/download-util'
 import { renderMarkdown } from '@renderer/utils/markdown-util'
 import { join } from '@renderer/utils/path-util'
 import { openInBrowser } from '@renderer/utils/window-util'
+import 'github-markdown-css'
 
 // 仓库
 const appStateStore = useAppStateStore()
@@ -130,57 +132,6 @@ const message = defineModel<ChatMessage>('message', {
       display: flex;
       flex-direction: column;
       gap: $app-padding-small;
-
-      :deep(.markdown-html) {
-        white-space: pre-wrap;
-        line-break: anywhere;
-        line-height: $app-line-height-base;
-        display: flex;
-        flex-direction: column;
-
-        p,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        ul,
-        ol {
-          margin-block: 0;
-        }
-
-        p:not(:first-of-type) {
-          margin-top: calc($app-line-height-base / 2);
-        }
-
-        p:not(:last-of-type) {
-          margin-bottom: calc($app-line-height-base / 2);
-        }
-
-        li {
-          // 防止列表的 marker 和内容之间存在换行
-          white-space: normal;
-        }
-
-        .chat-message-loading {
-          font-weight: var(--el-font-weight-primary);
-          color: var(--el-color-primary);
-          animation: alternate-hide-show 900ms ease-in-out infinite;
-        }
-
-        @keyframes alternate-hide-show {
-          0%,
-          50%,
-          100% {
-            opacity: 1;
-          }
-          60%,
-          90% {
-            opacity: 0;
-          }
-        }
-      }
 
       .attachment-list {
         display: flex;

@@ -1,0 +1,50 @@
+.markdown-html {
+  white-space: pre-wrap;
+  line-break: anywhere;
+  line-height: $app-line-height-base;
+  display: flex;
+  flex-direction: column;
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol {
+    margin-block: 0;
+  }
+
+  p:not(:first-of-type) {
+    margin-top: calc($app-line-height-base / 2);
+  }
+
+  p:not(:last-of-type) {
+    margin-bottom: calc($app-line-height-base / 2);
+  }
+
+  li {
+    // 防止列表的 marker 和内容之间存在换行
+    white-space: normal;
+  }
+
+  .chat-message-loading {
+    font-weight: var(--el-font-weight-primary);
+    color: var(--el-color-primary);
+    animation: alternate-hide-show 900ms ease-in-out infinite;
+  }
+
+  @keyframes alternate-hide-show {
+    0%,
+    50%,
+    100% {
+      opacity: 1;
+    }
+    60%,
+    90% {
+      opacity: 0;
+    }
+  }
+}
