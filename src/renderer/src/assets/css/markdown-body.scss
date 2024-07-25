@@ -1,4 +1,4 @@
-.markdown-html {
+.markdown-body {
   white-space: pre-wrap;
   line-break: anywhere;
   line-height: $app-line-height-base;
@@ -17,11 +17,11 @@
     margin-block: 0;
   }
 
-  p:not(:first-of-type) {
+  p:not(:first-child) {
     margin-top: calc($app-line-height-base / 2);
   }
 
-  p:not(:last-of-type) {
+  p:not(:last-child) {
     margin-bottom: calc($app-line-height-base / 2);
   }
 

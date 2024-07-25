@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Download } from '@element-plus/icons-vue'
-import '@renderer/assets/css/markdown-html.scss'
+import '@renderer/assets/css/markdown-body.scss'
 import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
@@ -8,7 +8,6 @@ import { downloadFile } from '@renderer/utils/download-util'
 import { renderMarkdown } from '@renderer/utils/markdown-util'
 import { join } from '@renderer/utils/path-util'
 import { openInBrowser } from '@renderer/utils/window-util'
-import 'github-markdown-css'
 
 // 仓库
 const appStateStore = useAppStateStore()
@@ -50,7 +49,7 @@ const message = defineModel<ChatMessage>('message', {
 
         <!-- Markdown内容 -->
         <div
-          class="markdown-html select-text"
+          class="markdown-body select-text"
           v-html="
             renderMarkdown(
               message.content,
