@@ -12,6 +12,8 @@
 
 只需一个 API Key，即可体验按需付费的 ChatGPT Plus。
 
+国内**OpenAI API代理**参考仓库：[零代码、零成本代理OpenAI等限制访问的接口](https://github.com/classfang/openai-api-vercel-proxy)
+
 <img src="/demo/zhCN/1.png" alt="demo">
 
 <img src="/demo/zhCN/2.png" alt="demo">
