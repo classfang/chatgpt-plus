@@ -986,12 +986,12 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@^20.14.12":
-  version "20.14.12"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-20.14.12.tgz#129d7c3a822cb49fc7ff661235f19cfefd422b49"
-  integrity sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==
+"@types/node@^22.0.0":
+  version "22.0.0"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-22.0.0.tgz#04862a2a71e62264426083abe1e27e87cac05a30"
+  integrity sha512-VT7KSYudcPOzP5Q0wfbowyNLaVR8QWUdw+088uFWwfvpY6uCWaXpqV6ieLAu9WBcnTa7H4Z5RLK8I5t2FuOcqw==
   dependencies:
-    undici-types "~5.26.4"
+    undici-types "~6.11.1"
 
 "@types/plist@^3.0.1":
   version "3.0.5"
@@ -2383,10 +2383,10 @@ electron-vite@^2.3.0:
     magic-string "^0.30.10"
     picocolors "^1.0.1"
 
-electron@^31.3.0:
-  version "31.3.0"
-  resolved "https://registry.npmmirror.com/electron/-/electron-31.3.0.tgz#4a084a8229d5bd829c33b8b65073381d0e925093"
-  integrity sha512-3LMRMmK4UK0A+jYSLGLYdfhc20TgY2v5jD3iGmhRZlDYj0gn7xBj/waRjlNalysZ0D2rgPvoes0wHuf5e/Bguw==
+electron@^31.3.1:
+  version "31.3.1"
+  resolved "https://registry.npmmirror.com/electron/-/electron-31.3.1.tgz#de5f21f10db1ba0568e0cdd7ae76ec40a4b800c3"
+  integrity sha512-9fiuWlRhBfygtcT+auRd/WdBK/f8LZZcrpx0RjpXhH2DPTP/PfnkC4JB1PW55qCbGbh4wAgkYbf4ExIag8oGCA==
   dependencies:
     "@electron/get" "^2.0.0"
     "@types/node" "^20.9.0"
@@ -5000,6 +5000,11 @@ undici-types@~5.26.4:
   version "5.26.5"
   resolved "https://registry.npmmirror.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
+
+undici-types@~6.11.1:
+  version "6.11.1"
+  resolved "https://registry.npmmirror.com/undici-types/-/undici-types-6.11.1.tgz#432ea6e8efd54a48569705a699e62d8f4981b197"
+  integrity sha512-mIDEX2ek50x0OlRgxryxsenE5XaQD4on5U2inY7RApK3SOJpofyw7uW2AyfMKkhAxXIceo2DeWGVGwyvng1GNQ==
 
 unimport@^3.9.0:
   version "3.9.0"
