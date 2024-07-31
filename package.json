@@ -30,9 +30,9 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "@langchain/community": "^0.2.20",
+    "@langchain/community": "^0.2.22",
     "electron-store": "^10.0.0",
-    "langchain": "^0.2.11",
+    "langchain": "^0.2.12",
     "mammoth": "^1.8.0",
     "officeparser": "^4.1.1",
     "pdf-parse": "^1.1.1",
