@@ -17,22 +17,28 @@
     margin-block: 0;
   }
 
-  p:not(:first-child) {
+  p:not(:first-child),li:not(:first-child) {
     margin-top: calc($app-line-height-base / 2);
   }
 
-  p:not(:last-child) {
+  p:not(:last-child),li:not(:last-child) {
     margin-bottom: calc($app-line-height-base / 2);
   }
 
   ol,ul {
-    line-height: $app-line-height-min;
+    white-space: normal;
+    list-style-position: inside;
+    padding-left: $app-line-height-base;
   }
 
   li {
     // 防止列表的 marker 和内容之间存在换行
     white-space: normal;
-    line-height: $app-line-height-base;
+
+    // li中p标签改为行内，防止和序号产生换行
+    p:first-child {
+      display: inline;
+    }
   }
 
   .chat-message-loading {
