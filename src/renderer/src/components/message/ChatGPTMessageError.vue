@@ -55,7 +55,7 @@ const emits = defineEmits(['regenerate', 'clear-context'])
       display: flex;
       justify-content: center;
       color: var(--el-color-error);
-      font-size: $app-font-size-message-content;
+      font-size: var(--el-font-size-medium);
     }
 
     .message-console {

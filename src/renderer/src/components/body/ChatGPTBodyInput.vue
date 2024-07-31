@@ -1053,7 +1053,7 @@ onMounted(() => {
         box-sizing: border-box;
         padding: $app-padding-small;
         cursor: pointer;
-        color: var(--el-text-color-primary);
+        color: var(--el-text-color-regular);
         outline: none;
       }
 
@@ -1081,7 +1081,7 @@ onMounted(() => {
     &-available {
       background-color: var(--el-fill-color-darker);
       cursor: pointer;
-      color: var(--el-text-color-primary);
+      color: var(--el-text-color-regular);
     }
   }
 }

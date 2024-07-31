@@ -131,7 +131,7 @@ const message = defineModel<ChatMessage>('message', {
       display: flex;
       flex-direction: column;
       gap: $app-padding-small;
-      font-size: $app-font-size-message-content;
+      font-size: var(--el-font-size-medium);
 
       .attachment-list {
         display: flex;
@@ -160,7 +160,7 @@ const message = defineModel<ChatMessage>('message', {
           padding-bottom: $app-padding-small;
           background-color: transparent;
           font-size: var(--el-font-size-base);
-          color: var(--el-text-color-primary);
+          color: var(--el-text-color-regular);
         }
 
         :deep(.el-collapse-item__wrap) {

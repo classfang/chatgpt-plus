@@ -131,7 +131,7 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
 
     &:active {
       background-color: var(--el-fill-color-darker);
-      color: var(--el-text-color-primary);
+      color: var(--el-text-color-regular);
     }
   }
 

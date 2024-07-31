@@ -184,7 +184,7 @@ const shareText = () => {
     margin-right: auto;
 
     &:hover {
-      color: var(--el-text-color-primary);
+      color: var(--el-text-color-regular);
     }
 
     .model-name-icon {
@@ -202,7 +202,7 @@ const shareText = () => {
     outline: none;
 
     &:hover {
-      color: var(--el-text-color-primary);
+      color: var(--el-text-color-regular);
     }
   }
 }

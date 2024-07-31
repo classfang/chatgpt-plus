@@ -99,7 +99,7 @@ onMounted(() => {
       cursor: pointer;
 
       &:hover {
-        color: var(--el-text-color-primary);
+        color: var(--el-text-color-regular);
       }
     }
   }
