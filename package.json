@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-plus",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "ChatGPT client(linux, mac, win)",
   "main": "./out/main/index.mjs",
   "author": "junki.cn",

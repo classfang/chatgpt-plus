@@ -25,9 +25,14 @@
     margin-bottom: calc($app-line-height-base / 2);
   }
 
+  ol,ul {
+    line-height: $app-line-height-min;
+  }
+
   li {
     // 防止列表的 marker 和内容之间存在换行
     white-space: normal;
+    line-height: $app-line-height-base;
   }
 
   .chat-message-loading {
