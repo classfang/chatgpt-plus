@@ -125,12 +125,12 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
     justify-content: center;
 
     &:hover {
-      background-color: var(--el-fill-color-dark);
+      background-color: var(--el-fill-color);
       color: var(--el-text-color-regular);
     }
 
     &:active {
-      background-color: var(--el-fill-color-darker);
+      background-color: var(--el-fill-color-dark);
       color: var(--el-text-color-regular);
     }
   }

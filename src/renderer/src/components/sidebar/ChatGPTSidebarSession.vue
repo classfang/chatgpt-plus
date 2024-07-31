@@ -144,11 +144,11 @@ const editSession = () => {
   transition: background-color $app-transition-base;
 
   &:hover {
-    background-color: var(--el-fill-color-dark);
+    background-color: var(--el-fill-color);
   }
 
   &-active {
-    background-color: var(--el-fill-color-darker) !important;
+    background-color: var(--el-fill-color-dark) !important;
   }
 
   .session-name {
