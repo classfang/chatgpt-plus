@@ -3,7 +3,8 @@
     "common": {
       "confirm": "Confirm",
       "cancel": "Cancel",
-      "search": "Search"
+      "search": "Search",
+      "copy": "Copy"
     },
     "notification": {
       "newReply": "New Reply"

@@ -3,7 +3,8 @@
     "common": {
       "confirm": "确认",
       "cancel": "取消",
-      "search": "搜索"
+      "search": "搜索",
+      "copy": "复制"
     },
     "notification": {
       "newReply": "新回复"

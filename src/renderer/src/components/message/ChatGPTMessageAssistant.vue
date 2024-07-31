@@ -121,13 +121,13 @@ const message = defineModel<ChatMessage>('message', {
     gap: $app-padding-extra-small;
 
     .message-content {
-      min-width: calc($app-line-height-base + $app-padding-base * 2);
+      min-width: calc($app-line-height-large + $app-padding-base * 2);
       max-width: 80%;
       flex: 1 1 0;
       background-color: var(--el-fill-color);
       box-sizing: border-box;
       padding: $app-padding-small $app-padding-base;
-      border-radius: calc($app-line-height-base / 2 + $app-padding-small);
+      border-radius: calc($app-line-height-large / 2 + $app-padding-small);
       display: flex;
       flex-direction: column;
       gap: $app-padding-small;

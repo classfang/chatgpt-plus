@@ -42,7 +42,7 @@ const emits = defineEmits(['regenerate', 'clear-context'])
     gap: $app-padding-extra-small;
 
     .message-content {
-      min-width: calc($app-line-height-base + $app-padding-base * 2);
+      min-width: calc($app-line-height-large + $app-padding-base * 2);
       max-width: 80%;
       flex: 1 1 0;
       white-space: pre-wrap;
@@ -50,8 +50,8 @@ const emits = defineEmits(['regenerate', 'clear-context'])
       background-color: var(--el-fill-color);
       box-sizing: border-box;
       padding: $app-padding-small $app-padding-base;
-      border-radius: calc($app-line-height-base / 2 + $app-padding-small);
-      line-height: $app-line-height-base;
+      border-radius: calc($app-line-height-large / 2 + $app-padding-small);
+      line-height: $app-line-height-large;
       display: flex;
       justify-content: center;
       color: var(--el-color-error);
