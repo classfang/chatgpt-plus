@@ -131,6 +131,7 @@ const emits = defineEmits(['clear-context'])
     display: flex;
     flex-direction: column;
     gap: $app-padding-small;
+    font-size: $app-font-size-message-content;
 
     .attachment-list {
       display: flex;
