@@ -23,3 +23,8 @@
     }
   }
 }
+
+.code-body {
+  font-size: var(--el-font-size-base);
+  line-height: $app-line-height-base;
+}

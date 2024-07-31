@@ -61,7 +61,7 @@ const markdown = new MarkdownIt({
           </svg>
           <span>${t('app.common.copy')}</span>
         </div>
-      </div><code class="hljs language-${lang}">${
+      </div><code class="code-body hljs language-${lang}">${
         hljs.highlight(str, { language: lang }).value
       }${insertEndFlag ? endFlag : ''}</code></pre>`
   }

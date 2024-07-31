@@ -12,20 +12,21 @@
   h4,
   h5,
   h6,
-  ul,
-  ol {
+  ol,
+  ul {
     margin-block: 0;
+    margin: calc($app-line-height-large / 4) 0;
   }
 
-  p:not(:first-child),li:not(:first-child) {
-    margin-top: calc($app-line-height-large / 2);
+  *:first-child {
+    margin-top: 0;
   }
 
-  p:not(:last-child),li:not(:last-child) {
-    margin-bottom: calc($app-line-height-large / 2);
+  *:last-child {
+    margin-bottom: 0;
   }
 
-  ol,ul {
+  ol, ul {
     white-space: normal;
     list-style-position: inside;
     padding-left: $app-line-height-large;
