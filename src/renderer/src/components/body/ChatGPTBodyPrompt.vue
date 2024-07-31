@@ -116,7 +116,7 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
     box-sizing: border-box;
     padding: 0 $app-padding-small;
     border-radius: $app-border-radius-base;
-    background-color: var(--el-fill-color);
+    background-color: var(--el-fill-color-light);
     color: var(--el-text-color-secondary);
     cursor: pointer;
     transition: all $app-transition-base;

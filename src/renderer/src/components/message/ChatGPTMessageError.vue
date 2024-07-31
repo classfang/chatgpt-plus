@@ -47,7 +47,7 @@ const emits = defineEmits(['regenerate', 'clear-context'])
       flex: 1 1 0;
       white-space: pre-wrap;
       line-break: anywhere;
-      background-color: var(--el-fill-color);
+      background-color: var(--el-fill-color-light);
       box-sizing: border-box;
       padding: $app-padding-small $app-padding-base;
       border-radius: calc($app-line-height-large / 2 + $app-padding-small);
