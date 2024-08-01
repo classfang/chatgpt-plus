@@ -13,7 +13,8 @@
   h5,
   h6,
   ol,
-  ul {
+  ul,
+  li {
     margin-block: 0;
     margin: calc($app-line-height-large / 4) 0;
   }
@@ -39,6 +40,16 @@
     // li中p标签改为行内，防止和序号产生换行
     p:first-child {
       display: inline;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--el-color-primary);
+
+    &:hover {
+      text-decoration: underline;
+      color: var(--el-color-primary-light-3);
     }
   }
 
