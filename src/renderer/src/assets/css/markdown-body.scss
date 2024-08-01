@@ -14,7 +14,8 @@
   h6,
   ol,
   ul,
-  li {
+  li,
+  table {
     margin-block: 0;
     margin: calc($app-line-height-large / 4) 0;
   }
@@ -51,6 +52,12 @@
       text-decoration: underline;
       color: var(--el-color-primary-light-3);
     }
+  }
+
+  table, th, td {
+    border: 1px solid var(--el-border-color);
+    border-collapse: collapse;
+    padding: $app-padding-extra-small;
   }
 
   .chat-message-loading {
