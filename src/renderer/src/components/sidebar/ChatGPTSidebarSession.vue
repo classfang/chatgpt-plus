@@ -137,6 +137,7 @@ const editSession = () => {
   box-sizing: border-box;
   padding: $app-padding-small;
   border-radius: $app-border-radius-base;
+  color: var(--el-text-color-regular);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -145,10 +146,12 @@ const editSession = () => {
 
   &:hover {
     background-color: var(--el-fill-color);
+    color: var(--el-text-color-primary);
   }
 
   &-active {
     background-color: var(--el-fill-color-dark) !important;
+    color: var(--el-text-color-primary);
   }
 
   .session-name {

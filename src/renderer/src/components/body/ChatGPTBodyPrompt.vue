@@ -117,7 +117,7 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
     padding: 0 $app-padding-small;
     border-radius: $app-border-radius-base;
     background-color: var(--el-fill-color-light);
-    color: var(--el-text-color-secondary);
+    color: var(--el-text-color-regular);
     cursor: pointer;
     transition: all $app-transition-base;
     display: flex;
@@ -126,12 +126,12 @@ const randomPrompts = computed(() => getRandomElements(prompts[appSettingStore.a
 
     &:hover {
       background-color: var(--el-fill-color);
-      color: var(--el-text-color-regular);
+      color: var(--el-text-color-primary);
     }
 
     &:active {
       background-color: var(--el-fill-color-dark);
-      color: var(--el-text-color-regular);
+      color: var(--el-text-color-primary);
     }
   }
 

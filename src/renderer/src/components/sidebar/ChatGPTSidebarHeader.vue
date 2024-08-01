@@ -94,12 +94,12 @@ onMounted(() => {
       height: $app-icon-size-base;
       width: $app-icon-size-base;
       flex-shrink: 0;
-      color: var(--el-text-color-secondary);
+      color: var(--el-text-color-regular);
       transition: color $app-transition-base;
       cursor: pointer;
 
       &:hover {
-        color: var(--el-text-color-regular);
+        color: var(--el-text-color-primary);
       }
     }
   }

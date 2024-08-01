@@ -180,7 +180,6 @@ const emits = defineEmits(['clear-context'])
 
           .file-item-name {
             font-size: var(--el-font-size-base);
-            color: var(--el-text-color-regular);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -202,7 +201,6 @@ const emits = defineEmits(['clear-context'])
         box-sizing: border-box;
         padding: $app-padding-small;
         background-color: var(--el-fill-color-darker);
-        color: var(--el-text-color-regular);
         border-radius: $app-border-radius-base;
         position: relative;
         display: flex;

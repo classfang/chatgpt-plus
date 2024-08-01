@@ -24,11 +24,11 @@ const appSettingRef = ref()
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  color: var(--el-text-color-secondary);
+  color: var(--el-text-color-regular);
   transition: color $app-transition-base;
 
   &:hover {
-    color: var(--el-text-color-regular);
+    color: var(--el-text-color-primary);
   }
 }
 </style>

@@ -178,13 +178,13 @@ const shareText = () => {
     justify-content: center;
     font-size: $app-icon-size-small;
     font-weight: var(--el-font-weight-primary);
-    color: var(--el-text-color-secondary);
+    color: var(--el-text-color-regular);
     transition: color $app-transition-base;
     cursor: pointer;
     margin-right: auto;
 
     &:hover {
-      color: var(--el-text-color-regular);
+      color: var(--el-text-color-primary);
     }
 
     .model-name-icon {
@@ -196,13 +196,13 @@ const shareText = () => {
   .header-icon {
     height: $app-icon-size-base;
     width: $app-icon-size-base;
-    color: var(--el-text-color-secondary);
+    color: var(--el-text-color-regular);
     transition: color $app-transition-base;
     cursor: pointer;
     outline: none;
 
     &:hover {
-      color: var(--el-text-color-regular);
+      color: var(--el-text-color-primary);
     }
   }
 }

@@ -980,7 +980,6 @@ onMounted(() => {
 
           .file-item-name {
             font-size: var(--el-font-size-base);
-            color: var(--el-text-color-regular);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1032,7 +1031,6 @@ onMounted(() => {
           .link-item-name {
             line-height: $app-line-height-base;
             font-size: var(--el-font-size-base);
-            color: var(--el-text-color-regular);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1053,8 +1051,8 @@ onMounted(() => {
         box-sizing: border-box;
         padding: $app-padding-small;
         cursor: pointer;
-        color: var(--el-text-color-regular);
         outline: none;
+        color: var(--el-text-color-primary);
       }
 
       :deep(.el-textarea__inner) {
@@ -1081,7 +1079,7 @@ onMounted(() => {
     &-available {
       background-color: var(--el-fill-color-darker);
       cursor: pointer;
-      color: var(--el-text-color-regular);
+      color: var(--el-text-color-primary);
     }
   }
 }

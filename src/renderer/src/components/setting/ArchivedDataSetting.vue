@@ -159,11 +159,11 @@ const deleteArchived = (id: string) => {
         height: $app-icon-size-small;
         width: $app-icon-size-small;
         cursor: pointer;
-        color: var(--el-text-color-secondary);
+        color: var(--el-text-color-regular);
         transition: color $app-transition-base;
 
         &:hover {
-          color: var(--el-text-color-regular);
+          color: var(--el-text-color-primary);
         }
       }
     }
