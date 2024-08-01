@@ -142,7 +142,7 @@ const editSession = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color $app-transition-base;
+  transition: all $app-transition-base;
 
   &:hover {
     background-color: var(--el-fill-color);
