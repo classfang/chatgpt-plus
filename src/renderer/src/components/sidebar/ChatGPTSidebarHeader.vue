@@ -57,12 +57,23 @@ onMounted(() => {
       class="sidebar-header"
       :class="{ 'sidebar-header-visible': appSettingStore.chatgpt.sidebarVisible }"
     >
-      <AppIcon
-        name="menu"
-        class="sidebar-menu-icon"
-        @click="appSettingStore.chatgpt.sidebarVisible = !appSettingStore.chatgpt.sidebarVisible"
-      />
-      <AppIcon name="edit" class="session-create-icon" @click="createSession()" />
+      <el-tooltip
+        :content="
+          appSettingStore.chatgpt.sidebarVisible
+            ? $t('app.chatgpt.sidebar.header.close')
+            : $t('app.chatgpt.sidebar.header.open')
+        "
+      >
+        <AppIcon
+          name="menu"
+          class="sidebar-menu-icon"
+          @click="appSettingStore.chatgpt.sidebarVisible = !appSettingStore.chatgpt.sidebarVisible"
+        />
+      </el-tooltip>
+
+      <el-tooltip :content="$t('app.chatgpt.sidebar.header.newChat')">
+        <AppIcon name="edit" class="session-create-icon" @click="createSession()" />
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -89,8 +100,7 @@ onMounted(() => {
       width: $app-chatgpt-sidebar-width;
     }
 
-    .sidebar-menu-icon,
-    .session-create-icon {
+    .sidebar-menu-icon {
       height: $app-icon-size-base;
       width: $app-icon-size-base;
       flex-shrink: 0;
@@ -100,6 +110,19 @@ onMounted(() => {
 
       &:hover {
         color: var(--el-text-color-primary);
+      }
+    }
+
+    .session-create-icon {
+      height: $app-icon-size-base;
+      width: $app-icon-size-base;
+      flex-shrink: 0;
+      color: var(--el-text-color-regular);
+      transition: color $app-transition-base;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--el-color-primary);
       }
     }
   }

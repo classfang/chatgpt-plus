@@ -80,19 +80,21 @@ const shareText = () => {
       'chatgpt-body-header-sidebar-header-placeholder': !appSettingStore.chatgpt.sidebarVisible
     }"
   >
-    <div
-      class="model-name"
-      @click="
-        () => {
-          if (!chatSessionStore.getActiveSession!.archived) {
-            currentChatSettingVisible = true
+    <el-tooltip :content="$t('app.chatgpt.body.header.currentChat.setting')">
+      <div
+        class="model-name"
+        @click="
+          () => {
+            if (!chatSessionStore.getActiveSession!.archived) {
+              currentChatSettingVisible = true
+            }
           }
-        }
-      "
-    >
-      <div>{{ chatSessionStore.getActiveSession!.chatOption.model }}</div>
-      <AppIcon name="arrow-down" class="model-name-icon" />
-    </div>
+        "
+      >
+        <div>{{ chatSessionStore.getActiveSession!.chatOption.model }}</div>
+        <AppIcon name="arrow-down" class="model-name-icon" />
+      </div>
+    </el-tooltip>
 
     <!-- 联网开关 -->
     <el-tooltip
@@ -128,7 +130,11 @@ const shareText = () => {
       :disabled="appStateStore.chatgptLoadingFlag"
       placement="bottom-start"
     >
-      <Share class="header-icon" />
+      <div>
+        <el-tooltip :content="$t('app.chatgpt.body.header.share.title')">
+          <Share class="header-icon" />
+        </el-tooltip>
+      </div>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item :icon="Picture" @click="shareImage()">
@@ -142,7 +148,9 @@ const shareText = () => {
     </el-dropdown>
 
     <!-- 用量统计 -->
-    <AppIcon name="usage" class="header-icon" @click="currentChatStatisticVisible = true" />
+    <el-tooltip :content="$t('app.chatgpt.body.statistic.title')">
+      <AppIcon name="usage" class="header-icon" @click="currentChatStatisticVisible = true" />
+    </el-tooltip>
 
     <!-- 当前对话设置弹窗 -->
     <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />

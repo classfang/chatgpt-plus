@@ -155,6 +155,11 @@
         "generateTitle": "使用四到五个字直接返回我们的对话的简要主题，不要解释、不要标点、不要语气词、不要多余文本，不要加粗，如果没有主题，请直接返回“闲聊”"
       },
       "sidebar": {
+        "header": {
+          "close": "收起侧栏",
+          "open": "开启侧栏",
+          "newChat": "新对话"
+        },
         "session":{
           "more": {
             "editName": "重命名",
@@ -189,6 +194,7 @@
           },
           "pleaseConfigure": "请配置 ",
           "attachment": {
+            "title": "选择附件",
             "localFile": "本地文件",
             "webLink": "网页链接"
           },
@@ -198,7 +204,9 @@
             "urlError": "URL 格式错误",
             "loadError": "网页加载错误"
           },
-          "unarchived": "取消归档"
+          "unarchived": "取消归档",
+          "send": "发送",
+          "stop": "停止"
         },
         "message": {
           "copied": "已复制",
@@ -219,6 +227,7 @@
             "turnedOff": "已关闭互联网搜索"
           },
           "share": {
+            "title": "分享",
             "image": {
               "title": "分享图片",
               "copy": "复制图片",

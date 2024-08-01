@@ -155,6 +155,11 @@
         "generateTitle": "Please generate a four to five word title summarizing our conversation without any lead-in, punctuation, quotation marks, periods, symbols, bold text, or additional text. Remove enclosing quotation marks."
       },
       "sidebar": {
+        "header": {
+          "close": "Close Sidebar",
+          "open": "Open Sidebar",
+          "newChat": "New Chat"
+        },
         "session":{
           "more": {
             "editName": "Rename",
@@ -189,6 +194,7 @@
           },
           "pleaseConfigure": "Please configure the ",
           "attachment": {
+            "title": "Select Attachment",
             "localFile": "Local File",
             "webLink": "Web Link"
           },
@@ -198,7 +204,9 @@
             "urlError": "Invalid URL",
             "loadError": "Web page loading error"
           },
-          "unarchived": "Unarchived"
+          "unarchived": "Unarchived",
+          "send": "Send",
+          "stop": "Stop"
         },
         "message": {
           "copied": "Copied",
@@ -219,6 +227,7 @@
             "turnedOff": "Internet search turned off"
           },
           "share": {
+            "title": "Share",
             "image": {
               "title": "Share Image",
               "copy": "Copy Image",

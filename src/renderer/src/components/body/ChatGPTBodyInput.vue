@@ -832,7 +832,11 @@ onMounted(() => {
             :disabled="appStateStore.chatgptLoadingFlag"
             placement="top-start"
           >
-            <AppIcon name="attachment" class="attachment-btn" />
+            <div>
+              <el-tooltip :content="$t('app.chatgpt.body.input.attachment.title')">
+                <AppIcon name="attachment" class="attachment-btn" />
+              </el-tooltip>
+            </div>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item :icon="Document" @click="selectAttachment()">
@@ -863,22 +867,27 @@ onMounted(() => {
       </div>
 
       <!-- 停止按钮 -->
-      <AppIcon
+      <el-tooltip
         v-if="appStateStore.chatgptLoadingFlag"
-        name="stop"
-        class="question-input-btn question-input-btn-available"
-        @click="stopAnswer()"
-      />
+        :content="$t('app.chatgpt.body.input.stop')"
+      >
+        <AppIcon
+          name="stop"
+          class="question-input-btn question-input-btn-available"
+          @click="stopAnswer()"
+        />
+      </el-tooltip>
 
       <!-- 发送按钮 -->
-      <Promotion
-        v-else
-        class="question-input-btn"
-        :class="{
-          'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploadFlag
-        }"
-        @click="sendQuestion"
-      />
+      <el-tooltip v-else :content="$t('app.chatgpt.body.input.send')">
+        <Promotion
+          class="question-input-btn"
+          :class="{
+            'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploadFlag
+          }"
+          @click="sendQuestion"
+        />
+      </el-tooltip>
     </template>
 
     <!-- 屏幕截图选择对话窗 -->
@@ -1064,22 +1073,24 @@ onMounted(() => {
   }
 
   .question-input-btn {
-    background-color: var(--el-fill-color);
     height: $app-icon-size-large;
     width: $app-icon-size-large;
     border-radius: 50%;
     box-sizing: border-box;
     padding: $app-padding-small;
-    color: var(--el-text-color-secondary);
     transition: all $app-transition-base;
+    cursor: not-allowed;
+    background-color: var(--el-fill-color);
+    color: var(--el-text-color-secondary);
+    outline: none;
     display: flex;
     align-items: center;
     justify-content: center;
 
     &-available {
-      background-color: var(--el-fill-color-darker);
       cursor: pointer;
-      color: var(--el-text-color-primary);
+      background-color: var(--el-color-primary);
+      color: var(--el-color-white);
     }
   }
 }

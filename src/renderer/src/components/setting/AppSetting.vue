@@ -287,9 +287,11 @@ onMounted(() => {
 
 <template>
   <div class="app-setting">
-    <el-badge is-dot :hidden="!badge.appVersion">
-      <AppIcon name="setting" class="setting-icon" @click="openDialog()" />
-    </el-badge>
+    <el-tooltip :content="$t('app.setting.title')">
+      <el-badge is-dot :hidden="!badge.appVersion">
+        <AppIcon name="setting" class="setting-icon" @click="openDialog()" />
+      </el-badge>
+    </el-tooltip>
 
     <el-dialog
       v-model="appStateStore.appSettingDialogVisible"

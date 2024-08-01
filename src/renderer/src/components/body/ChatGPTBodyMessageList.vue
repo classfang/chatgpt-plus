@@ -170,8 +170,8 @@ onMounted(() => {
   }
 
   .to-bottom-btn {
-    background-color: var(--el-fill-color-darker);
-    border: 1px solid var(--el-border-color);
+    background-color: var(--el-color-primary);
+    color: var(--el-color-white);
     height: $app-icon-size-base;
     width: $app-icon-size-base;
     border-radius: 50%;
