@@ -9,18 +9,6 @@
     "notification": {
       "newReply": "New Reply"
     },
-    "state": {
-      "default": "Power By OpenAI",
-      "openAIApiKeyMiss": "Required openai api key",
-      "chatgptAnswerFlag": "Be answering",
-      "loadFileFlag": "Parsing the document",
-      "readWebFlag": "Parsing the page",
-      "currentTool": {
-        "memory": "Storing memory",
-        "text_to_image": "Generating image",
-        "internet_search": "Searching on the Internet"
-      }
-    },
     "setting": {
       "title": "Application Settings",
       "appearance": "Appearance",

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import ChatGPTBodyEmpty from '@renderer/components/body/ChatGPTBodyEmpty.vue'
-import ChatGPTBodyHeader from '@renderer/components/body/ChatGPTBodyHeader.vue'
-import ChatGPTBodyInput from '@renderer/components/body/ChatGPTBodyInput.vue'
-import ChatGPTBodyMessageList from '@renderer/components/body/ChatGPTBodyMessageList.vue'
+import ChatGPTBodyEmpty from '@renderer/components/chatgpt/body/ChatGPTBodyEmpty.vue'
+import ChatGPTBodyHeader from '@renderer/components/chatgpt/body/ChatGPTBodyHeader.vue'
+import ChatGPTBodyInput from '@renderer/components/chatgpt/body/ChatGPTBodyInput.vue'
+import ChatGPTBodyMessageList from '@renderer/components/chatgpt/body/ChatGPTBodyMessageList.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { ref } from 'vue'
 

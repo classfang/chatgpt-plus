@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Download } from '@element-plus/icons-vue'
 import '@renderer/assets/css/markdown-body.scss'
-import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
+import ChatGPTMessageConsole from '@renderer/components/chatgpt/message/ChatGPTMessageConsole.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { downloadFile } from '@renderer/utils/download-util'

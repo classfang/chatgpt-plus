@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ChatGPTSidebarFooter from '@renderer/components/sidebar/ChatGPTSidebarFooter.vue'
-import ChatGPTSidebarHeader from '@renderer/components/sidebar/ChatGPTSidebarHeader.vue'
-import ChatGPTSidebarSessionList from '@renderer/components/sidebar/ChatGPTSidebarSessionList.vue'
+import ChatGPTSidebarFooter from '@renderer/components/chatgpt/sidebar/ChatGPTSidebarFooter.vue'
+import ChatGPTSidebarHeader from '@renderer/components/chatgpt/sidebar/ChatGPTSidebarHeader.vue'
+import ChatGPTSidebarSessionList from '@renderer/components/chatgpt/sidebar/ChatGPTSidebarSessionList.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { ref } from 'vue'
 

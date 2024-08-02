@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import chatgptAvatar from '@renderer/assets/image/chatgpt-avatar.png'
-import ChatGPTBodyPrompt from '@renderer/components/body/ChatGPTBodyPrompt.vue'
+import ChatGPTBodyPrompt from '@renderer/components/chatgpt/body/ChatGPTBodyPrompt.vue'
 
 // 事件
 const emits = defineEmits(['use-prompt'])

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ChatGPTBody from '@renderer/components/body/ChatGPTBody.vue'
-import ChatGPTSidebar from '@renderer/components/sidebar/ChatGPTSidebar.vue'
+import ChatGPTBody from '@renderer/components/chatgpt/body/ChatGPTBody.vue'
+import ChatGPTSidebar from '@renderer/components/chatgpt/sidebar/ChatGPTSidebar.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 
 // 仓库

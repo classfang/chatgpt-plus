@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Bottom } from '@element-plus/icons-vue'
-import ChatGPTMessageAssistant from '@renderer/components/message/ChatGPTMessageAssistant.vue'
-import ChatGPTMessageDivider from '@renderer/components/message/ChatGPTMessageDivider.vue'
-import ChatGPTMessageError from '@renderer/components/message/ChatGPTMessageError.vue'
-import ChatGPTMessageUser from '@renderer/components/message/ChatGPTMessageUser.vue'
+import ChatGPTMessageAssistant from '@renderer/components/chatgpt/message/ChatGPTMessageAssistant.vue'
+import ChatGPTMessageDivider from '@renderer/components/chatgpt/message/ChatGPTMessageDivider.vue'
+import ChatGPTMessageError from '@renderer/components/chatgpt/message/ChatGPTMessageError.vue'
+import ChatGPTMessageUser from '@renderer/components/chatgpt/message/ChatGPTMessageUser.vue'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import { ref, nextTick, reactive, toRefs, onMounted } from 'vue'
 

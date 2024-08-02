@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Download } from '@element-plus/icons-vue'
+import ChatGPTMessageConsole from '@renderer/components/chatgpt/message/ChatGPTMessageConsole.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
-import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
 import { showItemInFolder } from '@renderer/service/ipc-service'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { downloadFile } from '@renderer/utils/download-util'

@@ -828,6 +828,7 @@ onMounted(() => {
   width: $app-icon-size-base;
 
   .setting-icon {
+    cursor: pointer;
     height: 100%;
     width: 100%;
   }

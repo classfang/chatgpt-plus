@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CircleCloseFilled, Document, Link, Monitor, Promotion } from '@element-plus/icons-vue'
-import ChatGPTBodyScreenshotList from '@renderer/components/body/ChatGPTBodyScreenshotList.vue'
+import ChatGPTBodyScreenshotList from '@renderer/components/chatgpt/body/ChatGPTBodyScreenshotList.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import {

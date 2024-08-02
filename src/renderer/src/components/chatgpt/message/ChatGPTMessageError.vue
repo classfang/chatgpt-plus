@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChatGPTMessageConsole from '@renderer/components/message/ChatGPTMessageConsole.vue'
+import ChatGPTMessageConsole from '@renderer/components/chatgpt/message/ChatGPTMessageConsole.vue'
 
 // 组件传参
 const message = defineModel<ChatMessage>('message', {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Picture, Share, Document } from '@element-plus/icons-vue'
-import ChatGPTBodySetting from '@renderer/components/body/ChatGPTBodySetting.vue'
-import ChatGPTBodyShareView from '@renderer/components/body/ChatGPTBodyShareView.vue'
-import ChatGPTBodyStatistic from '@renderer/components/body/ChatGPTBodyStatistic.vue'
+import ChatGPTBodySetting from '@renderer/components/chatgpt/body/ChatGPTBodySetting.vue'
+import ChatGPTBodyShareView from '@renderer/components/chatgpt/body/ChatGPTBodyShareView.vue'
+import ChatGPTBodyStatistic from '@renderer/components/chatgpt/body/ChatGPTBodyStatistic.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'

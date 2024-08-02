@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
-import ChatGPTSidebarSession from '@renderer/components/sidebar/ChatGPTSidebarSession.vue'
+import ChatGPTSidebarSession from '@renderer/components/chatgpt/sidebar/ChatGPTSidebarSession.vue'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatSessionStore } from '@renderer/store/chat-session'
 import dayjs from 'dayjs'
