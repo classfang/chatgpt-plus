@@ -64,7 +64,7 @@
     "html-to-image": "^1.11.11",
     "markdown-it": "^14.1.0",
     "markdown-it-mathjax3": "^4.3.2",
-    "openai": "^4.53.2",
+    "openai": "^4.54.0",
     "pinia": "^2.2.0",
     "pinia-plugin-persistedstate": "^3.2.1",
     "prettier": "^3.3.3",

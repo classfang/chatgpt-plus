@@ -11,7 +11,6 @@ declare module 'vue' {
     AICalendarButton: typeof import('./src/components/calendar/button/AICalendarButton.vue')['default']
     AppIcon: typeof import('./src/components/icon/AppIcon.vue')['default']
     AppSetting: typeof import('./src/components/setting/AppSetting.vue')['default']
-    AppState: typeof import('./src/components/state/AppState.vue')['default']
     ArchivedDataSetting: typeof import('./src/components/setting/ArchivedDataSetting.vue')['default']
     ChatGPT: typeof import('./src/components/chatgpt/main/ChatGPT.vue')['default']
     ChatGPTBody: typeof import('./src/components/chatgpt/body/ChatGPTBody.vue')['default']
