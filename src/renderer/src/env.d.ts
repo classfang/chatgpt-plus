@@ -122,3 +122,7 @@ interface DesktopScreenshot {
   appIcon?: string
   thumbnail: string
 }
+
+interface CalendarNote extends BaseEntity {
+  content: string
+}

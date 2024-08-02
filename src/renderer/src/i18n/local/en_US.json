@@ -126,7 +126,13 @@
           "clearMemoryConfirm": "Are you sure to delete all memories?",
           "exportMemory": "Export Memory Data",
           "importMemory": "Import Memory Data",
-          "importMemoryCount": "_ memories were imported"
+          "importMemoryCount": "_ memories were imported",
+          "calendar": "Calendar Data",
+          "exportCalendar": "Export Calendar Data",
+          "importCalendar": "Import Calendar Data",
+          "clearCalendar": "Clear Calendar Data",
+          "clearCalendarConfirm": "Are you sure to delete all calendar data?",
+          "importCalendarCount": "_ calendar data were imported"
         },
         "about": {
           "appVersion": "Application Version",
@@ -253,7 +259,11 @@
       }
     },
     "calendar": {
-      "title": "Calendar Note"
+      "title": "Calendar Note",
+      "note": {
+        "title": "Edit Note",
+        "placeholder": "Enter note here"
+      }
     }
   }
 }

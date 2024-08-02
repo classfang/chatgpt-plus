@@ -120,13 +120,19 @@
           "clearChatConfirm": "确认删除所有对话记录吗？",
           "exportChat": "导出对话记录",
           "importChat": "导入对话记录",
-          "importChatCount": "共导入 _ 个对话记录",
+          "importChatCount": "共导入 _ 条对话记录",
           "memory": "记忆数据",
           "clearMemory": "清空记忆数据",
           "clearMemoryConfirm": "确认删除所有记忆数据吗？",
           "exportMemory": "导出记忆数据",
           "importMemory": "导入记忆数据",
-          "importMemoryCount": "共导入 _ 个记忆数据"
+          "importMemoryCount": "共导入 _ 条记忆数据",
+          "calendar": "日历数据",
+          "exportCalendar": "导出日历数据",
+          "importCalendar": "导入日历数据",
+          "clearCalendar": "清空日历数据",
+          "clearCalendarConfirm": "确认删除所有日历数据吗？",
+          "importCalendarCount": "共导入 _ 条日历数据"
         },
         "about": {
           "appVersion": "应用版本",
@@ -253,7 +259,11 @@
       }
     },
     "calendar": {
-      "title": "日程备忘"
+      "title": "日程备忘",
+      "note": {
+        "title": "编辑备忘",
+        "placeholder": "在此输入备忘"
+      }
     }
   }
 }

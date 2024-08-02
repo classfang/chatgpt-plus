@@ -19,6 +19,8 @@ export const useAppStateStore = defineStore({
     importMemoryFlag: false,
     exportSettingFlag: false,
     importSettingFlag: false,
+    exportCalendarFlag: false,
+    importCalendarFlag: false,
     dayKey: dayjs().format('YYYYMMDD'),
     cachePath: getCachePathSync(),
     appSettingDialogVisible: false,

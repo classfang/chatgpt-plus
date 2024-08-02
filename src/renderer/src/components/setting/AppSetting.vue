@@ -36,6 +36,7 @@ import {
   setProxy
 } from '@renderer/service/ipc-service'
 import { Logger } from '@renderer/service/logger'
+import { useAICalendarStore } from '@renderer/store/ai-calendar'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatMemoryStore } from '@renderer/store/chat-memory'
@@ -55,6 +56,7 @@ const appSettingStore = useAppSettingStore()
 const appStateStore = useAppStateStore()
 const chatSessionStore = useChatSessionStore()
 const chatMemoryStore = useChatMemoryStore()
+const aiCalendarStore = useAICalendarStore()
 
 // 数据绑定
 const data = reactive({
@@ -166,7 +168,7 @@ const importSetting = async () => {
 const exportChat = async () => {
   appStateStore.exportChatFlag = true
   exportTextFile(
-    `data-${dayjs().format('YYYYMMDDHHmmss')}.cgpd`,
+    `data-${dayjs().format('YYYYMMDDHHmmss')}.cgps`,
     JSON.stringify({
       chatSession: chatSessionStore.getStoreJson,
       cacheFiles: await getCacheFiles()
@@ -179,7 +181,7 @@ const exportChat = async () => {
 const importChat = async () => {
   appStateStore.importChatFlag = true
 
-  const content = await selectFileAndRead(['.cgpd'])
+  const content = await selectFileAndRead(['.cgps'])
   const contentJson = JSON.parse(new TextDecoder().decode(content))
   let importCount = 0
   if (contentJson.chatSession) {
@@ -253,6 +255,51 @@ const clearMemory = () => {
     }
   ).then(() => {
     chatMemoryStore.clear()
+  })
+}
+
+// 导出日历数据
+const exportCalendar = async () => {
+  appStateStore.exportCalendarFlag = true
+  exportTextFile(
+    `data-${dayjs().format('YYYYMMDDHHmmss')}.cgpc`,
+    JSON.stringify({
+      aiCalendar: aiCalendarStore.getStoreJson
+    })
+  )
+  appStateStore.exportCalendarFlag = false
+}
+
+// 导入日历数据
+const importCalendar = async () => {
+  appStateStore.importCalendarFlag = true
+
+  const content = await selectFileAndRead(['.cgpc'])
+  const contentJson = JSON.parse(new TextDecoder().decode(content))
+  let importCount = 0
+  if (contentJson.aiCalendar) {
+    importCount = aiCalendarStore.setStoreFromJson(contentJson.aiCalendar)
+  }
+
+  ElMessage.success(
+    t('app.setting.item.data.importCalendarCount').replace('_', String(importCount))
+  )
+
+  appStateStore.importCalendarFlag = false
+}
+
+// 清空日历数据
+const clearCalendar = () => {
+  ElMessageBox.confirm(
+    t('app.setting.item.data.clearCalendarConfirm'),
+    t('app.setting.item.data.clearCalendar'),
+    {
+      distinguishCancelAndClose: true,
+      confirmButtonText: t('app.common.confirm'),
+      cancelButtonText: t('app.common.cancel')
+    }
+  ).then(() => {
+    aiCalendarStore.clear()
   })
 }
 
@@ -769,6 +816,29 @@ onMounted(() => {
                   </el-button>
                   <el-button :icon="Brush" @click="clearMemory()">
                     {{ $t('app.setting.item.data.clearMemory') }}
+                  </el-button>
+                </el-space>
+              </el-form-item>
+
+              <!-- 日历数据 -->
+              <el-form-item :label="$t('app.setting.item.data.calendar')">
+                <el-space wrap>
+                  <el-button
+                    :icon="Download"
+                    :loading="appStateStore.exportCalendarFlag"
+                    @click="exportCalendar()"
+                  >
+                    {{ $t('app.setting.item.data.exportCalendar') }}
+                  </el-button>
+                  <el-button
+                    :icon="Upload"
+                    :loading="appStateStore.importCalendarFlag"
+                    @click="importCalendar()"
+                  >
+                    {{ $t('app.setting.item.data.importCalendar') }}
+                  </el-button>
+                  <el-button :icon="Brush" @click="clearCalendar()">
+                    {{ $t('app.setting.item.data.clearCalendar') }}
                   </el-button>
                 </el-space>
               </el-form-item>
