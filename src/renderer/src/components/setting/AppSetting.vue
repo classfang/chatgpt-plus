@@ -712,6 +712,29 @@ onMounted(() => {
             </el-form>
           </el-tab-pane>
 
+          <!-- 日历 -->
+          <el-tab-pane :label="$t('app.setting.calendar')">
+            <el-form label-width="auto" label-position="left">
+              <!-- Enabled -->
+              <el-form-item :label="$t('app.setting.item.calendar.queryEnabled')">
+                <el-tooltip
+                  :content="$t('app.setting.item.calendar.explain.enabled')"
+                  placement="right"
+                >
+                  <el-switch v-model="appSettingStore.calendar.queryEnabled" />
+                </el-tooltip>
+              </el-form-item>
+              <el-form-item :label="$t('app.setting.item.calendar.addEnabled')">
+                <el-tooltip
+                  :content="$t('app.setting.item.calendar.explain.enabled')"
+                  placement="right"
+                >
+                  <el-switch v-model="appSettingStore.calendar.addEnabled" />
+                </el-tooltip>
+              </el-form-item>
+            </el-form>
+          </el-tab-pane>
+
           <!-- 网络 -->
           <el-tab-pane :label="$t('app.setting.network')">
             <el-form label-width="auto" label-position="left">

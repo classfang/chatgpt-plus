@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useAICalendarStore } from '@renderer/store/ai-calendar'
-import { nowTimestamp } from '@renderer/utils/date-util'
-import { generateUUID } from '@renderer/utils/id-util'
+import { useAppSettingStore } from '@renderer/store/app-setting'
 import dayjs from 'dayjs'
 import { reactive, toRefs } from 'vue'
 
 // 仓库
 const aiCalendarStore = useAICalendarStore()
+const appSettingStore = useAppSettingStore()
 
 // 数据绑定
 const data = reactive({
@@ -24,17 +24,10 @@ const openNoteDialogVisible = (dayStr: string) => {
 
 // 保存修改
 const saveNote = () => {
-  const currentKey = dayjs(data.current).format('YYYY-MM-DD')
-  const note = aiCalendarStore.dayNotes[currentKey]
-  if (note) {
-    note.content = data.noteContent
-  } else {
-    aiCalendarStore.dayNotes[currentKey] = {
-      id: generateUUID(),
-      content: data.noteContent,
-      createTime: nowTimestamp()
-    }
-  }
+  aiCalendarStore.saveNote({
+    time: dayjs(data.current).format('YYYY-MM-DD'),
+    content: data.noteContent
+  })
 
   data.noteContent = ''
   data.noteDialogVisible = false

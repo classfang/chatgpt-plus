@@ -18,6 +18,7 @@
       "textToImage": "图片生成",
       "memory": "记忆",
       "internetSearch": "互联网搜索",
+      "calendar": "日历",
       "data": "数据",
       "network": "网络",
       "about": "关于",
@@ -92,6 +93,13 @@
             "key": "谷歌搜索 API 密钥",
             "cx": "谷歌搜索引擎 ID"
           },
+          "explain": {
+            "enabled": "ChatGPT 会自动判断是否调用，会增加 Token 消耗"
+          }
+        },
+        "calendar": {
+          "queryEnabled": "开启日历查询",
+          "addEnabled": "开启日历添加",
           "explain": {
             "enabled": "ChatGPT 会自动判断是否调用，会增加 Token 消耗"
           }
@@ -208,6 +216,7 @@
           "download": "下载",
           "textToImageContent": "为你生成以下图片：",
           "memoryResult": "新增了一条记忆：_",
+          "calendarAddResult": "新增了一条备忘：_",
           "searchResult": "已搜索 _ 个网站",
           "disconnectedContext": "已断开上下文",
           "disconnectedContextCancel": "点击恢复上下文"

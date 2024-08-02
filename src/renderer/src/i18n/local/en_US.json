@@ -18,6 +18,7 @@
       "textToImage": "Text To Image",
       "memory": "Memory",
       "internetSearch": "Internet Search",
+      "calendar": "Calendar",
       "data": "Data",
       "network": "Network",
       "about": "About",
@@ -92,6 +93,13 @@
             "key": "Google Search API Key",
             "cx": "Google Search Engine ID"
           },
+          "explain": {
+            "enabled": "ChatGPT determines whether to invoke it. Token consumption increases."
+          }
+        },
+        "calendar": {
+          "queryEnabled": "Enable Calendar Query",
+          "addEnabled": "Enable Calendar Add",
           "explain": {
             "enabled": "ChatGPT determines whether to invoke it. Token consumption increases."
           }
@@ -208,6 +216,7 @@
           "download": "Download",
           "textToImageContent": "Generate the images for you:",
           "memoryResult": "Added a new memory: _",
+          "calendarAddResult": "Added a new calendar note: _",
           "searchResult": "Searched _ sites",
           "disconnectedContext": "Disconnected Context",
           "disconnectedContextCancel": "Click To Restore Context"

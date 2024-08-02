@@ -16,6 +16,7 @@ import {
 import { Logger } from '@renderer/service/logger'
 import { openaiChat } from '@renderer/service/openai-service'
 import { getToolsDefine, ToolEnum, toolsUse } from '@renderer/service/tool-service'
+import { useAICalendarStore } from '@renderer/store/ai-calendar'
 import { useAppSettingStore } from '@renderer/store/app-setting'
 import { useAppStateStore } from '@renderer/store/app-state'
 import { useChatMemoryStore } from '@renderer/store/chat-memory'
@@ -38,6 +39,7 @@ const appStateStore = useAppStateStore()
 const appSettingStore = useAppSettingStore()
 const chatSessionStore = useChatSessionStore()
 const chatMemoryStore = useChatMemoryStore()
+const aiCalendarStore = useAICalendarStore()
 
 // 数据绑定
 const data = reactive({
@@ -128,6 +130,12 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
 
   // 工具名称列表
   const toolNameList: ToolEnum[] = []
+  if (appSettingStore.calendar.queryEnabled) {
+    toolNameList.push(ToolEnum.CALENDAR_NOTE_QUERY)
+  }
+  if (appSettingStore.calendar.addEnabled) {
+    toolNameList.push(ToolEnum.CALENDAR_NOTE_ADD)
+  }
   if (chatSessionStore.getActiveSession!.memoryOption?.enabled) {
     toolNameList.push(ToolEnum.MEMORY)
   }
@@ -229,7 +237,7 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
           appStateStore.currentToolName = functionName
 
           // 执行工具
-          const toolResult = await toolsUse(
+          let toolResult = await toolsUse(
             functionName,
             functionArguments,
             abortCtrSignal,
@@ -238,7 +246,43 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
           )
 
           // 针对不同的插件进行结果处理
-          if (ToolEnum.MEMORY === functionName) {
+          if (ToolEnum.CALENDAR_NOTE_QUERY === functionName) {
+            // 根据时间范围查询日历内容
+            toolResult = JSON.stringify(
+              Object.keys(aiCalendarStore.dayNotes)
+                .filter(
+                  (key) =>
+                    key >= JSON.parse(toolResult).startTime && key <= JSON.parse(toolResult).endTime
+                )
+                .map((key) => ({
+                  time: key,
+                  content: aiCalendarStore.dayNotes[key]?.content
+                }))
+            )
+            // 继续调用对话能力
+            await functionCall({
+              sendMessages,
+              functionName,
+              functionArguments,
+              toolCallId,
+              toolResult,
+              abortCtrSignal,
+              noSessionNameFlag,
+              regenerateFlag
+            })
+          } else if (ToolEnum.CALENDAR_NOTE_ADD === functionName) {
+            // 保存日历内容
+            aiCalendarStore.appendNote(JSON.parse(toolResult))
+            // 日历保存结果回答
+            streamAnswer(
+              t('app.chatgpt.body.message.calendarAddResult').replace(
+                '_',
+                JSON.parse(toolResult).content
+              )
+            )
+            // 结束回答
+            finishAnswer(noSessionNameFlag, regenerateFlag)
+          } else if (ToolEnum.MEMORY === functionName) {
             // 保存记忆内容
             chatMemoryStore.add(toolResult)
             // 记忆结果回答
@@ -254,54 +298,15 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
             // 记录搜索结果
             streamAnswer('', undefined, JSON.parse(toolResult))
             // 继续调用对话能力
-            sendMessages.push({
-              role: 'assistant',
-              content: null,
-              tool_calls: [
-                {
-                  id: toolCallId,
-                  type: 'function',
-                  function: { name: functionName, arguments: functionArguments }
-                }
-              ]
-            })
-            sendMessages.push({
-              role: 'tool',
-              tool_call_id: toolCallId,
-              content: toolResult
-            })
-            await openaiChat({
-              baseURL: appSettingStore.openAI.baseUrl,
-              apiKey: appSettingStore.openAI.apiKey,
-              params: {
-                stream: true,
-                stream_options: {
-                  include_usage: true
-                },
-                messages: sendMessages,
-                model: chatSessionStore.getActiveSession!.chatOption.model,
-                max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
-                temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
-                top_p: chatSessionStore.getActiveSession!.chatOption.topP,
-                presence_penalty: chatSessionStore.getActiveSession!.chatOption.presencePenalty,
-                frequency_penalty: chatSessionStore.getActiveSession!.chatOption.frequencyPenalty
-              },
-              abortCtrSignal: abortCtrSignal,
-              answer: (chunk: OpenAI.ChatCompletionChunk) => {
-                streamAnswer(chunk.choices[0]?.delta.content ?? '')
-
-                // 用量统计
-                usageStatistic(chunk.usage)
-
-                emits('update-message')
-              },
-              error: (error: any) => {
-                errorAnswer(error.message)
-              },
-              end: () => {
-                // 结束回答
-                finishAnswer(noSessionNameFlag, regenerateFlag)
-              }
+            await functionCall({
+              sendMessages,
+              functionName,
+              functionArguments,
+              toolCallId,
+              toolResult,
+              abortCtrSignal,
+              noSessionNameFlag,
+              regenerateFlag
             })
           }
 
@@ -314,6 +319,78 @@ const sendQuestion = async (event?: KeyboardEvent, regenerateFlag?: boolean) => 
         // 结束回答
         finishAnswer(noSessionNameFlag, regenerateFlag)
       }
+    }
+  })
+}
+
+// 工具调用后再次调用大模型
+const functionCall = async (params: {
+  sendMessages: OpenAI.ChatCompletionMessageParam[]
+  functionName: string
+  functionArguments: string
+  toolCallId: string
+  toolResult: string
+  abortCtrSignal: AbortSignal
+  noSessionNameFlag: boolean
+  regenerateFlag?: boolean
+}) => {
+  const {
+    sendMessages,
+    functionName,
+    functionArguments,
+    toolCallId,
+    toolResult,
+    abortCtrSignal,
+    noSessionNameFlag,
+    regenerateFlag
+  } = params
+  sendMessages.push({
+    role: 'assistant',
+    content: null,
+    tool_calls: [
+      {
+        id: toolCallId,
+        type: 'function',
+        function: { name: functionName, arguments: functionArguments }
+      }
+    ]
+  })
+  sendMessages.push({
+    role: 'tool',
+    tool_call_id: toolCallId,
+    content: toolResult
+  })
+  await openaiChat({
+    baseURL: appSettingStore.openAI.baseUrl,
+    apiKey: appSettingStore.openAI.apiKey,
+    params: {
+      stream: true,
+      stream_options: {
+        include_usage: true
+      },
+      messages: sendMessages,
+      model: chatSessionStore.getActiveSession!.chatOption.model,
+      max_tokens: chatSessionStore.getActiveSession!.chatOption.maxTokens,
+      temperature: chatSessionStore.getActiveSession!.chatOption.temperature,
+      top_p: chatSessionStore.getActiveSession!.chatOption.topP,
+      presence_penalty: chatSessionStore.getActiveSession!.chatOption.presencePenalty,
+      frequency_penalty: chatSessionStore.getActiveSession!.chatOption.frequencyPenalty
+    },
+    abortCtrSignal: abortCtrSignal,
+    answer: (chunk: OpenAI.ChatCompletionChunk) => {
+      streamAnswer(chunk.choices[0]?.delta.content ?? '')
+
+      // 用量统计
+      usageStatistic(chunk.usage)
+
+      emits('update-message')
+    },
+    error: (error: any) => {
+      errorAnswer(error.message)
+    },
+    end: () => {
+      // 结束回答
+      finishAnswer(noSessionNameFlag, regenerateFlag)
     }
   })
 }

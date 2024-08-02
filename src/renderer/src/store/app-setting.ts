@@ -62,6 +62,10 @@ export const useAppSettingStore = defineStore({
         key: '',
         cx: ''
       }
+    },
+    calendar: {
+      queryEnabled: true,
+      addEnabled: true
     }
   }),
   getters: {
@@ -70,7 +74,8 @@ export const useAppSettingStore = defineStore({
         app: this.app,
         openAI: this.openAI,
         chatgpt: this.chatgpt,
-        internetSearchOption: this.internetSearchOption
+        internetSearchOption: this.internetSearchOption,
+        calendar: this.calendar
       })
     }
   },
@@ -95,6 +100,10 @@ export const useAppSettingStore = defineStore({
       }
       if (json.internetSearchOption !== undefined) {
         this.internetSearchOption = json.internetSearchOption
+        importFlag = true
+      }
+      if (json.calendar !== undefined) {
+        this.calendar = json.calendar
         importFlag = true
       }
       return importFlag

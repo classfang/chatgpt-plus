@@ -1,4 +1,5 @@
 import { Logger } from '@renderer/service/logger'
+import dayjs from 'dayjs'
 import OpenAI from 'openai'
 
 export interface OpenAIChatParam {
@@ -29,6 +30,12 @@ export const openaiChat = async (param: OpenAIChatParam) => {
     })
 
     Logger.info('openai chat request params: ', param.params)
+
+    // 增加系统消息
+    param.params.messages.unshift({
+      role: 'system',
+      content: `The current time is ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`
+    })
 
     // 流式对话
     if (param.params.stream) {

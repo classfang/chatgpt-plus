@@ -7,6 +7,8 @@ import OpenAI from 'openai'
 
 // 所有工具
 export enum ToolEnum {
+  CALENDAR_NOTE_QUERY = 'calendar_note_query',
+  CALENDAR_NOTE_ADD = 'calendar_note_add',
   MEMORY = 'memory',
   TEXT_TO_IMAGE = 'text_to_image',
   INTERNET_SEARCH = 'internet_search'
@@ -14,6 +16,48 @@ export enum ToolEnum {
 
 // 工具定义
 export const toolsDefine: OpenAI.Chat.Completions.ChatCompletionTool[] = [
+  {
+    type: 'function',
+    function: {
+      name: ToolEnum.CALENDAR_NOTE_QUERY,
+      description: 'Query calendar notes by date',
+      parameters: {
+        type: 'object',
+        properties: {
+          startTime: {
+            type: 'string',
+            description: 'Query start time, The format is YYYY-MM-DD'
+          },
+          endTime: {
+            type: 'string',
+            description: 'Query end time, The format is YYYY-MM-DD'
+          }
+        },
+        required: ['startTime', 'endTime']
+      }
+    }
+  },
+  {
+    type: 'function',
+    function: {
+      name: ToolEnum.CALENDAR_NOTE_ADD,
+      description: 'Add calendar notes by date and note content',
+      parameters: {
+        type: 'object',
+        properties: {
+          time: {
+            type: 'string',
+            description: 'Note time, The format is YYYY-MM-DD'
+          },
+          content: {
+            type: 'string',
+            description: 'Note content'
+          }
+        },
+        required: ['time', 'content']
+      }
+    }
+  },
   {
     type: 'function',
     function: {
@@ -81,8 +125,14 @@ export const toolsUse = async (
   abortCtrSignal: AbortSignal,
   chatSession: ChatSession,
   appSettingStore: any
-) => {
-  if (functionName === ToolEnum.MEMORY) {
+): Promise<string> => {
+  if (functionName === ToolEnum.CALENDAR_NOTE_QUERY) {
+    Logger.info('toolsUse calendar note query: ', functionArguments)
+    return functionArguments
+  } else if (functionName === ToolEnum.CALENDAR_NOTE_ADD) {
+    Logger.info('toolsUse calendar note add: ', functionArguments)
+    return functionArguments
+  } else if (functionName === ToolEnum.MEMORY) {
     const content = JSON.parse(functionArguments).content
     Logger.info('toolsUse memory content: ', content)
     return content
