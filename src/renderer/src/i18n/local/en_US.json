@@ -251,6 +251,9 @@
           "totalTokens": "Total Tokens"
         }
       }
+    },
+    "calendar": {
+      "title": "Calendar Note"
     }
   }
 }

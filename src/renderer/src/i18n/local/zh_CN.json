@@ -251,6 +251,9 @@
           "totalTokens": "总 Token 数"
         }
       }
+    },
+    "calendar": {
+      "title": "日程备忘"
     }
   }
 }
