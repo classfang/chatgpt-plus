@@ -30,7 +30,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "@langchain/community": "^0.2.22",
+    "@langchain/community": "^0.2.23",
     "electron-store": "^10.0.0",
     "langchain": "^0.2.12",
     "mammoth": "^1.8.0",
@@ -46,7 +46,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@rushstack/eslint-patch": "^1.10.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/node": "^22.0.2",
+    "@types/node": "^22.1.0",
     "@vitejs/plugin-vue": "^5.1.2",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",

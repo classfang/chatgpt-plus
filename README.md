@@ -37,6 +37,7 @@ We're looking to add more features to ChatGPT Plus. The highest priorities are:
 - [x] Archived
 - [x] Desktop Screenshot
 - [x] Token Statistics
+- [x] Calendar Note
 
 If you're a developer who'd like to help with any of these, please open an issue to discuss the best way to tackle the challenge.
 

@@ -617,10 +617,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/community@^0.2.22":
-  version "0.2.22"
-  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.22.tgz#e94dd8c1e516c3cefc64e2ceafb755994b89c2e9"
-  integrity sha512-KxT6Pj0ovJkSgiVHKorIeH0Bi7QDwMiuCD8apLNKkgHz9NC8ZxzKt5LqpVApNbnPWkCwm9EZ3oBfYGaz+D3jMg==
+"@langchain/community@^0.2.23":
+  version "0.2.23"
+  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.23.tgz#20560e107bcc8432c42e499f1b9292d41a3732f2"
+  integrity sha512-p1n/zZ1F+O5l51RzeoUeJyhpzq6Wp11tkqKOj8oThKOQJgLhO7q6iFIvmKThzL7mZCNNuPM5r1OPnU4wO6iF/A==
   dependencies:
     "@langchain/core" ">=0.2.16 <0.3.0"
     "@langchain/openai" ">=0.1.0 <0.3.0"
@@ -986,12 +986,12 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@^22.0.2":
-  version "22.0.2"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-22.0.2.tgz#9fb1a2b31970871e8bf696f0e8a40d2e6d2bd04e"
-  integrity sha512-yPL6DyFwY5PiMVEwymNeqUTKsDczQBJ/5T7W/46RwLU/VH+AA8aT5TZkvBviLKLbbm0hlfftEkGrNzfRk/fofQ==
+"@types/node@^22.1.0":
+  version "22.1.0"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-22.1.0.tgz#6d6adc648b5e03f0e83c78dc788c2b037d0ad94b"
+  integrity sha512-AOmuRF0R2/5j1knA3c6G3HOk523Ga+l+ZXltX8SF1+5oqcXijjfTd8fY3XRZqSihEu9XhtQnKYLmkFaoxgsJHw==
   dependencies:
-    undici-types "~6.11.1"
+    undici-types "~6.13.0"
 
 "@types/plist@^3.0.1":
   version "3.0.5"
@@ -5010,10 +5010,10 @@ undici-types@~5.26.4:
   resolved "https://registry.npmmirror.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
 
-undici-types@~6.11.1:
-  version "6.11.1"
-  resolved "https://registry.npmmirror.com/undici-types/-/undici-types-6.11.1.tgz#432ea6e8efd54a48569705a699e62d8f4981b197"
-  integrity sha512-mIDEX2ek50x0OlRgxryxsenE5XaQD4on5U2inY7RApK3SOJpofyw7uW2AyfMKkhAxXIceo2DeWGVGwyvng1GNQ==
+undici-types@~6.13.0:
+  version "6.13.0"
+  resolved "https://registry.npmmirror.com/undici-types/-/undici-types-6.13.0.tgz#e3e79220ab8c81ed1496b5812471afd7cf075ea5"
+  integrity sha512-xtFJHudx8S2DSoujjMd1WeWvn7KKWFRESZTMeL1RptAYERu29D6jphMjjY+vn96jvN3kVPDNxU/E13VTaXj6jg==
 
 unimport@^3.9.0:
   version "3.9.0"
