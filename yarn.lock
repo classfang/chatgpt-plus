@@ -617,12 +617,12 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/community@^0.2.23":
-  version "0.2.23"
-  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.23.tgz#20560e107bcc8432c42e499f1b9292d41a3732f2"
-  integrity sha512-p1n/zZ1F+O5l51RzeoUeJyhpzq6Wp11tkqKOj8oThKOQJgLhO7q6iFIvmKThzL7mZCNNuPM5r1OPnU4wO6iF/A==
+"@langchain/community@^0.2.24":
+  version "0.2.24"
+  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.24.tgz#874655a934f19db4b2a9f025537fba694f2d1fea"
+  integrity sha512-FkrNWG0u8XjXqbhDEY6oh3C1K2/+czvuSMqKifK95ALWacK3WiXsAbluS80CldnYm+WsLoHgEK+dlXKNIrIxrQ==
   dependencies:
-    "@langchain/core" ">=0.2.16 <0.3.0"
+    "@langchain/core" ">=0.2.21 <0.3.0"
     "@langchain/openai" ">=0.1.0 <0.3.0"
     binary-extensions "^2.2.0"
     expr-eval "^2.0.2"
@@ -656,24 +656,6 @@
   version "0.2.15"
   resolved "https://registry.npmmirror.com/@langchain/core/-/core-0.2.15.tgz#1bb99ac4fffe935c7ba37edcaa91abfba3c82219"
   integrity sha512-L096itIBQ5XNsy5BCCPqIQEk/x4rzI+U4BhYT+fDBYtljESshIi/WzXdmiGfY/6MpVjB76jNuaRgMDmo1m9NeQ==
-  dependencies:
-    ansi-styles "^5.0.0"
-    camelcase "6"
-    decamelize "1.2.0"
-    js-tiktoken "^1.0.12"
-    langsmith "~0.1.30"
-    ml-distance "^4.0.0"
-    mustache "^4.2.0"
-    p-queue "^6.6.2"
-    p-retry "4"
-    uuid "^10.0.0"
-    zod "^3.22.4"
-    zod-to-json-schema "^3.22.3"
-
-"@langchain/core@>=0.2.16 <0.3.0":
-  version "0.2.16"
-  resolved "https://registry.npmmirror.com/@langchain/core/-/core-0.2.16.tgz#0700a7def44c613ef775d351a2e6428e09cfbfda"
-  integrity sha512-mPmQi0ecJ81QwhvUQX4cwGVAqsM30ly3ygIlWoeUwDOXv9UW/IB2LAq8KKoVYIHTyEsIWJiyMP9Sv3e0xwjV8g==
   dependencies:
     ansi-styles "^5.0.0"
     camelcase "6"
