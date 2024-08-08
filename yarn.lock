@@ -617,10 +617,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/community@^0.2.24":
-  version "0.2.24"
-  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.24.tgz#874655a934f19db4b2a9f025537fba694f2d1fea"
-  integrity sha512-FkrNWG0u8XjXqbhDEY6oh3C1K2/+czvuSMqKifK95ALWacK3WiXsAbluS80CldnYm+WsLoHgEK+dlXKNIrIxrQ==
+"@langchain/community@^0.2.25":
+  version "0.2.25"
+  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.25.tgz#4639cdf3b42f5c458eedf25a9ad7c03a7869b1c1"
+  integrity sha512-LrqbWyfgzclUumPYet8HcxMNoHE57M6BVku6vebtAz8BO10unPRtRkv7Kay7yGfGg0oZkipWKfp0CCtpK15Nag==
   dependencies:
     "@langchain/core" ">=0.2.21 <0.3.0"
     "@langchain/openai" ">=0.1.0 <0.3.0"
@@ -4067,10 +4067,10 @@ openai@^4.49.1:
     node-fetch "^2.6.7"
     web-streams-polyfill "^3.2.1"
 
-openai@^4.55.0:
-  version "4.55.0"
-  resolved "https://registry.npmmirror.com/openai/-/openai-4.55.0.tgz#d28b5a0b97214de4a2f018efd4665468e6c1fd94"
-  integrity sha512-BR3TUybzdqNeBMgEFvxgBrFks9FY2NoP2jyTf7LT4UxPv8chevRKSxKezsINVSeQ/QLA12CALR1oco6KVdVpVA==
+openai@^4.55.1:
+  version "4.55.1"
+  resolved "https://registry.npmmirror.com/openai/-/openai-4.55.1.tgz#59fe4565ab117cf869137588f6da15ef330e405f"
+  integrity sha512-FziYJcWl+SAGbt5AcRIzVzNcnKohpEMQdtzVOmHFbBp/if7x2+ACqgxF2XUbyi2PcKONPcVpmtG5h9qoDAEXwQ==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -4308,15 +4308,6 @@ postcss-selector-parser@^6.0.15:
   dependencies:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
-
-postcss@^8.4.39:
-  version "8.4.39"
-  resolved "https://registry.npmmirror.com/postcss/-/postcss-8.4.39.tgz#aa3c94998b61d3a9c259efa51db4b392e1bde0e3"
-  integrity sha512-0vzE+lAiG7hZl1/9I8yzKLx3aR9Xbof3fBHKunvMfOCYAtMhrsnccJY2iTURb9EZd5+pLuiNV9/c/GZJOHsgIw==
-  dependencies:
-    nanoid "^3.3.7"
-    picocolors "^1.0.1"
-    source-map-js "^1.2.0"
 
 postcss@^8.4.40:
   version "8.4.40"
@@ -5152,13 +5143,13 @@ verror@^1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite@^5.3.5:
-  version "5.3.5"
-  resolved "https://registry.npmmirror.com/vite/-/vite-5.3.5.tgz#b847f846fb2b6cb6f6f4ed50a830186138cb83d8"
-  integrity sha512-MdjglKR6AQXQb9JGiS7Rc2wC6uMjcm7Go/NHNO63EwiJXfuk9PgqiP/n5IDJCziMkfw9n4Ubp7lttNwz+8ZVKA==
+vite@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.npmmirror.com/vite/-/vite-5.4.0.tgz#11dca8a961369ba8b5cae42d068c7ad684d5370f"
+  integrity sha512-5xokfMX0PIiwCMCMb9ZJcMyh5wbBun0zUzKib+L65vAZ8GY9ePZMXxFrHbr/Kyll2+LSCY7xtERPpxkBDKngwg==
   dependencies:
     esbuild "^0.21.3"
-    postcss "^8.4.39"
+    postcss "^8.4.40"
     rollup "^4.13.0"
   optionalDependencies:
     fsevents "~2.3.3"
