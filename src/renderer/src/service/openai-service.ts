@@ -1,4 +1,4 @@
-import { Logger } from '@renderer/service/logger'
+import { Logger } from '@renderer/service/logger-service'
 import dayjs from 'dayjs'
 import OpenAI from 'openai'
 

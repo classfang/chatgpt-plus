@@ -35,7 +35,7 @@ import {
   selectFileAndRead,
   setProxy
 } from '@renderer/service/ipc-service'
-import { Logger } from '@renderer/service/logger'
+import { Logger } from '@renderer/service/logger-service'
 import { useStore } from '@renderer/store/store'
 import { exportTextFile } from '@renderer/utils/download-util'
 import { openInBrowser } from '@renderer/utils/window-util'

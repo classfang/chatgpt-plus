@@ -1,6 +1,6 @@
 import { Platform } from '@electron-toolkit/utils'
 import i18n from '@renderer/i18n'
-import { Logger } from '@renderer/service/logger'
+import { Logger } from '@renderer/service/logger-service'
 import { ElMessage } from 'element-plus'
 import { Stats } from 'fs'
 

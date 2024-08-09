@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CopyDocument, Download } from '@element-plus/icons-vue'
 import { clipboardWriteImage } from '@renderer/service/ipc-service'
-import { Logger } from '@renderer/service/logger'
+import { Logger } from '@renderer/service/logger-service'
 import { nowTimestamp } from '@renderer/utils/date-util'
 import { toJpeg } from 'html-to-image'
 import { watch, reactive, toRefs } from 'vue'

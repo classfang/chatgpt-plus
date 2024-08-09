@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { clipboardWriteText } from '@renderer/service/ipc-service'
-import { Logger } from '@renderer/service/logger'
+import { Logger } from '@renderer/service/logger-service'
 import { openaiSpeech } from '@renderer/service/openai-service'
 import { useStore } from '@renderer/store/store'
 import { reactive, toRefs } from 'vue'

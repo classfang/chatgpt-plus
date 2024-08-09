@@ -1,4 +1,4 @@
-import { Logger } from '@renderer/service/logger'
+import { Logger } from '@renderer/service/logger-service'
 
 export const downloadFile = (url: string, fileName: string) => {
   fetch(url)

@@ -13,7 +13,7 @@ import {
   showItemInFolder,
   showMainWindow
 } from '@renderer/service/ipc-service'
-import { Logger } from '@renderer/service/logger'
+import { Logger } from '@renderer/service/logger-service'
 import { openaiChat } from '@renderer/service/openai-service'
 import { getToolsDefine, ToolEnum, toolsUse } from '@renderer/service/tool-service'
 import { useStore } from '@renderer/store/store'
