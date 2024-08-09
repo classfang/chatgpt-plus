@@ -18,8 +18,6 @@ export const createWindow = (store: Record<string, any>) => {
     minHeight: mainWindowConfig.minHeight,
     show: false,
     autoHideMenuBar: true,
-    // mac下红绿灯位置
-    trafficLightPosition: mainWindowConfig.trafficLightPosition,
     // 动态背景色
     backgroundColor: nativeTheme.shouldUseDarkColors ? '#141414' : '#FFFFFF',
     ...(process.platform === 'linux' ? { icon } : {}),
