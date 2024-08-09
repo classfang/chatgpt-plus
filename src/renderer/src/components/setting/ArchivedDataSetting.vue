@@ -2,8 +2,7 @@
 import { ChatRound, Search } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import i18n from '@renderer/i18n'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { ElMessageBox } from 'element-plus'
 import { reactive, toRefs } from 'vue'
 
@@ -11,8 +10,7 @@ import { reactive, toRefs } from 'vue'
 const { t } = i18n.global
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
-const appStateStore = useAppStateStore()
+const { appStateStore, chatSessionStore } = useStore()
 
 // 数据绑定
 const data = reactive({

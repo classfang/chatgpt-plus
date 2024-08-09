@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { MoreFilled, Search } from '@element-plus/icons-vue'
 import prompts from '@renderer/assets/json/prompts.json'
-import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useStore } from '@renderer/store/store'
 import { getRandomElements } from '@renderer/utils/array-util'
 import { computed, reactive, toRefs } from 'vue'
 
 // 仓库
-const appSettingStore = useAppSettingStore()
+const { appSettingStore } = useStore()
 
 // 事件
 const emits = defineEmits(['use-prompt'])

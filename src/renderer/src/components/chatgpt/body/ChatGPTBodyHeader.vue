@@ -4,9 +4,7 @@ import ChatGPTBodySetting from '@renderer/components/chatgpt/body/ChatGPTBodySet
 import ChatGPTBodyShareView from '@renderer/components/chatgpt/body/ChatGPTBodyShareView.vue'
 import ChatGPTBodyStatistic from '@renderer/components/chatgpt/body/ChatGPTBodyStatistic.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
-import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { nowTimestamp } from '@renderer/utils/date-util'
 import { exportTextFile } from '@renderer/utils/download-util'
 import { ElMessageBox } from 'element-plus'
@@ -25,9 +23,7 @@ const data = reactive({
 const { currentChatSettingVisible, currentChatStatisticVisible, shareViewVisible } = toRefs(data)
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
-const appSettingStore = useAppSettingStore()
-const appStateStore = useAppStateStore()
+const { chatSessionStore, appSettingStore, appStateStore } = useStore()
 
 // 分享图片
 const shareImage = () => {

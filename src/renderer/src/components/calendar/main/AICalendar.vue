@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useAICalendarStore } from '@renderer/store/ai-calendar'
+import { useStore } from '@renderer/store/store'
 import dayjs from 'dayjs'
 import { reactive, toRefs } from 'vue'
 
 // 仓库
-const aiCalendarStore = useAICalendarStore()
+const { aiCalendarStore } = useStore()
 
 // 数据绑定
 const data = reactive({

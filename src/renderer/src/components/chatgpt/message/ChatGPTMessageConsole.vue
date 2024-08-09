@@ -3,15 +3,11 @@ import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { clipboardWriteText } from '@renderer/service/ipc-service'
 import { Logger } from '@renderer/service/logger'
 import { openaiSpeech } from '@renderer/service/openai-service'
-import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { reactive, toRefs } from 'vue'
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
-const appStateStore = useAppStateStore()
-const appSettingStore = useAppSettingStore()
+const { chatSessionStore, appStateStore, appSettingStore } = useStore()
 
 // 数据绑定
 const data = reactive({

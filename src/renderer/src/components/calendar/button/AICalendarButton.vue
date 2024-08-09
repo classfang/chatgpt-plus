@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Calendar } from '@element-plus/icons-vue'
 import AICalendar from '@renderer/components/calendar/main/AICalendar.vue'
-import { useAppStateStore } from '@renderer/store/app-state'
+import { useStore } from '@renderer/store/store'
 import { reactive, toRefs } from 'vue'
 
 // 仓库
-const appStateStore = useAppStateStore()
+const { appStateStore } = useStore()
 
 // 数据绑定
 const data = reactive({

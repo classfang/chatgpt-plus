@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
-import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { copyObj } from '@renderer/utils/object-util'
 import { onMounted, watch } from 'vue'
 
 // 仓库
-const appSettingStore = useAppSettingStore()
-const chatSessionStore = useChatSessionStore()
-const appStateStore = useAppStateStore()
+const { appSettingStore, chatSessionStore, appStateStore } = useStore()
 
 // 定义事件
 const emits = defineEmits(['create-session'])

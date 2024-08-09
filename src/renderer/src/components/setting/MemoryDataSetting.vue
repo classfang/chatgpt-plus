@@ -2,7 +2,7 @@
 import { Brush, ChatDotSquare } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import i18n from '@renderer/i18n'
-import { useChatMemoryStore } from '@renderer/store/chat-memory'
+import { useStore } from '@renderer/store/store'
 import { ElMessageBox } from 'element-plus'
 import { reactive, toRefs } from 'vue'
 
@@ -10,7 +10,7 @@ import { reactive, toRefs } from 'vue'
 const { t } = i18n.global
 
 // 仓库
-const chatMemoryStore = useChatMemoryStore()
+const { chatMemoryStore } = useStore()
 
 // 数据绑定
 const data = reactive({

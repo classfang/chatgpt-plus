@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import ChatGPT from '@renderer/components/chatgpt/main/ChatGPT.vue'
 import { onMainWindowBlur, onMainWindowFocus, setThemeSource } from '@renderer/service/ipc-service'
-import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { startDarkThemeListener } from '@renderer/utils/window-util'
 import { useDark } from '@vueuse/core'
 import en from 'element-plus/es/locale/lang/en'
@@ -12,9 +10,7 @@ import { computed, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 // 仓库
-const appSettingStore = useAppSettingStore()
-const chatSessionStore = useChatSessionStore()
-const appStateStore = useAppStateStore()
+const { appSettingStore, chatSessionStore, appStateStore } = useStore()
 
 // 国际化
 const { locale } = useI18n()

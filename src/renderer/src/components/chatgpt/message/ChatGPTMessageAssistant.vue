@@ -2,16 +2,14 @@
 import { Download } from '@element-plus/icons-vue'
 import '@renderer/assets/css/markdown-body.scss'
 import ChatGPTMessageConsole from '@renderer/components/chatgpt/message/ChatGPTMessageConsole.vue'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { downloadFile } from '@renderer/utils/download-util'
 import { renderMarkdown } from '@renderer/utils/markdown-util'
 import { join } from '@renderer/utils/path-util'
 import { openInBrowser } from '@renderer/utils/window-util'
 
 // 仓库
-const appStateStore = useAppStateStore()
-const chatSessionStore = useChatSessionStore()
+const { appStateStore, chatSessionStore } = useStore()
 
 // 定义事件
 const emits = defineEmits(['regenerate', 'clear-context'])

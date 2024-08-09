@@ -36,11 +36,7 @@ import {
   setProxy
 } from '@renderer/service/ipc-service'
 import { Logger } from '@renderer/service/logger'
-import { useAICalendarStore } from '@renderer/store/ai-calendar'
-import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatMemoryStore } from '@renderer/store/chat-memory'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { exportTextFile } from '@renderer/utils/download-util'
 import { openInBrowser } from '@renderer/utils/window-util'
 import axios from 'axios'
@@ -52,11 +48,8 @@ import { onMounted, reactive, toRefs } from 'vue'
 const { t } = i18n.global
 
 // 仓库
-const appSettingStore = useAppSettingStore()
-const appStateStore = useAppStateStore()
-const chatSessionStore = useChatSessionStore()
-const chatMemoryStore = useChatMemoryStore()
-const aiCalendarStore = useAICalendarStore()
+const { appSettingStore, appStateStore, chatSessionStore, chatMemoryStore, aiCalendarStore } =
+  useStore()
 
 // 数据绑定
 const data = reactive({

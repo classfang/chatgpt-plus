@@ -4,11 +4,11 @@ import ChatGPTMessageAssistant from '@renderer/components/chatgpt/message/ChatGP
 import ChatGPTMessageDivider from '@renderer/components/chatgpt/message/ChatGPTMessageDivider.vue'
 import ChatGPTMessageError from '@renderer/components/chatgpt/message/ChatGPTMessageError.vue'
 import ChatGPTMessageUser from '@renderer/components/chatgpt/message/ChatGPTMessageUser.vue'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { ref, nextTick, reactive, toRefs, onMounted } from 'vue'
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
+const { chatSessionStore } = useStore()
 
 // ref
 const messageListScrollbarRef = ref()

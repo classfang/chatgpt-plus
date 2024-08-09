@@ -3,11 +3,11 @@ import ChatGPTBodyEmpty from '@renderer/components/chatgpt/body/ChatGPTBodyEmpty
 import ChatGPTBodyHeader from '@renderer/components/chatgpt/body/ChatGPTBodyHeader.vue'
 import ChatGPTBodyInput from '@renderer/components/chatgpt/body/ChatGPTBodyInput.vue'
 import ChatGPTBodyMessageList from '@renderer/components/chatgpt/body/ChatGPTBodyMessageList.vue'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { ref } from 'vue'
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
+const { chatSessionStore } = useStore()
 
 // ref
 const bodyMessageListRef = ref()

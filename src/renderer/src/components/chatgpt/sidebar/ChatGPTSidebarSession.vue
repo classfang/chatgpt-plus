@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { MoreFilled } from '@element-plus/icons-vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { nextTick, reactive, ref, toRefs } from 'vue'
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
-const appStateStore = useAppStateStore()
+const { chatSessionStore, appStateStore } = useStore()
 
 // ref
 const sessionNameInputRef = ref()

@@ -4,14 +4,14 @@ import ChatGPTMessageConsole from '@renderer/components/chatgpt/message/ChatGPTM
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import { showItemInFolder } from '@renderer/service/ipc-service'
-import { useAppStateStore } from '@renderer/store/app-state'
+import { useStore } from '@renderer/store/store'
 import { downloadFile } from '@renderer/utils/download-util'
 import { formatFileSize } from '@renderer/utils/file-util'
 import { join } from '@renderer/utils/path-util'
 import { openInBrowser } from '@renderer/utils/window-util'
 
 // 仓库
-const appStateStore = useAppStateStore()
+const { appStateStore } = useStore()
 
 // 组件传参
 const message = defineModel<ChatMessage>('message', {

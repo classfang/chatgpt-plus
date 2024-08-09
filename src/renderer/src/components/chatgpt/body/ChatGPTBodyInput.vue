@@ -16,11 +16,7 @@ import {
 import { Logger } from '@renderer/service/logger'
 import { openaiChat } from '@renderer/service/openai-service'
 import { getToolsDefine, ToolEnum, toolsUse } from '@renderer/service/tool-service'
-import { useAICalendarStore } from '@renderer/store/ai-calendar'
-import { useAppSettingStore } from '@renderer/store/app-setting'
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatMemoryStore } from '@renderer/store/chat-memory'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { formatFileSize } from '@renderer/utils/file-util'
 import { generateUUID } from '@renderer/utils/id-util'
 import { join } from '@renderer/utils/path-util'
@@ -35,11 +31,8 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 // 仓库
-const appStateStore = useAppStateStore()
-const appSettingStore = useAppSettingStore()
-const chatSessionStore = useChatSessionStore()
-const chatMemoryStore = useChatMemoryStore()
-const aiCalendarStore = useAICalendarStore()
+const { chatSessionStore, appSettingStore, appStateStore, chatMemoryStore, aiCalendarStore } =
+  useStore()
 
 // 数据绑定
 const data = reactive({

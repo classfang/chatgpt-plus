@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { useAppStateStore } from '@renderer/store/app-state'
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 import { reactive, toRefs } from 'vue'
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
-const appStateStore = useAppStateStore()
+const { chatSessionStore, appStateStore } = useStore()
 
 // 组件传参
 const message = defineModel<ChatMessage>('message', {

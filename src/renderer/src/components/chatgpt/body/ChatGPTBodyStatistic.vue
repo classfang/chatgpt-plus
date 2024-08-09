@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useChatSessionStore } from '@renderer/store/chat-session'
+import { useStore } from '@renderer/store/store'
 
 // 仓库
-const chatSessionStore = useChatSessionStore()
+const { chatSessionStore } = useStore()
 
 // 组件传参
 const visible = defineModel<boolean>('visible', {

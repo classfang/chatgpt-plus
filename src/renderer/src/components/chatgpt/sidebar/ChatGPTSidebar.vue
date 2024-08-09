@@ -2,11 +2,11 @@
 import ChatGPTSidebarFooter from '@renderer/components/chatgpt/sidebar/ChatGPTSidebarFooter.vue'
 import ChatGPTSidebarHeader from '@renderer/components/chatgpt/sidebar/ChatGPTSidebarHeader.vue'
 import ChatGPTSidebarSessionList from '@renderer/components/chatgpt/sidebar/ChatGPTSidebarSessionList.vue'
-import { useAppSettingStore } from '@renderer/store/app-setting'
+import { useStore } from '@renderer/store/store'
 import { ref } from 'vue'
 
 // 仓库
-const appSettingStore = useAppSettingStore()
+const { appSettingStore } = useStore()
 
 // ref
 const sessionListRef = ref()
