@@ -1,4 +1,8 @@
-import { getCachePathSync } from '@renderer/service/ipc-service'
+import {
+  getCachePathSync,
+  onMainWindowBlur,
+  onMainWindowFocus
+} from '@renderer/service/ipc-service'
 import dayjs from 'dayjs'
 import { defineStore } from 'pinia'
 
@@ -32,6 +36,16 @@ export const useAppStateStore = defineStore({
       setInterval(() => {
         this.dayKey = dayjs().format('YYYYMMDD')
       }, 1000)
+    },
+    startListenWindowFocus() {
+      onMainWindowFocus(() => {
+        this.mainWindowFocusFlag = true
+        console.log(this.mainWindowFocusFlag)
+      })
+      onMainWindowBlur(() => {
+        this.mainWindowFocusFlag = false
+        console.log(this.mainWindowFocusFlag)
+      })
     }
   },
   persist: false
