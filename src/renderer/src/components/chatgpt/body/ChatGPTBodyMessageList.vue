@@ -113,40 +113,42 @@ onMounted(() => {
     <!-- 消息列表 -->
     <el-scrollbar ref="messageListScrollbarRef" height="100%" @scroll="onMessageListScroll">
       <div id="message-list-container" class="message-list-container">
-        <template v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
-          <!-- 对话消息 -->
-          <template v-if="m.type === 'chat'">
-            <template v-if="m.role === 'user'">
-              <ChatGPTMessageUser :message="m" @clear-context="scrollToBottom(false)" />
+        <transition-group name="el-fade-in">
+          <div v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
+            <!-- 对话消息 -->
+            <template v-if="m.type === 'chat'">
+              <template v-if="m.role === 'user'">
+                <ChatGPTMessageUser :message="m" @clear-context="scrollToBottom(false)" />
+              </template>
+              <template v-else-if="m.role === 'assistant'">
+                <ChatGPTMessageAssistant
+                  :message="m"
+                  @regenerate="emits('regenerate', m.id)"
+                  @clear-context="scrollToBottom(false)"
+                />
+              </template>
             </template>
-            <template v-else-if="m.role === 'assistant'">
-              <ChatGPTMessageAssistant
+
+            <!-- 错误消息 -->
+            <template v-else-if="m.type === 'error'">
+              <ChatGPTMessageError
                 :message="m"
                 @regenerate="emits('regenerate', m.id)"
                 @clear-context="scrollToBottom(false)"
               />
             </template>
-          </template>
 
-          <!-- 错误消息 -->
-          <template v-else-if="m.type === 'error'">
-            <ChatGPTMessageError
-              :message="m"
-              @regenerate="emits('regenerate', m.id)"
-              @clear-context="scrollToBottom(false)"
-            />
-          </template>
-
-          <!-- 分隔消息 -->
-          <template v-else-if="m.type === 'divider'">
-            <ChatGPTMessageDivider :message="m" />
-          </template>
-        </template>
+            <!-- 分隔消息 -->
+            <template v-else-if="m.type === 'divider'">
+              <ChatGPTMessageDivider :message="m" />
+            </template>
+          </div>
+        </transition-group>
       </div>
     </el-scrollbar>
 
     <!-- 置底按钮 -->
-    <transition name="el-fade-in-linear">
+    <transition name="el-fade-in">
       <Bottom v-if="toBottomBtnVisible" class="to-bottom-btn" @click="scrollToBottom(false)" />
     </transition>
   </div>

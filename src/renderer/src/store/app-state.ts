@@ -40,11 +40,9 @@ export const useAppStateStore = defineStore({
     startListenWindowFocus() {
       onMainWindowFocus(() => {
         this.mainWindowFocusFlag = true
-        console.log(this.mainWindowFocusFlag)
       })
       onMainWindowBlur(() => {
         this.mainWindowFocusFlag = false
-        console.log(this.mainWindowFocusFlag)
       })
     }
   },

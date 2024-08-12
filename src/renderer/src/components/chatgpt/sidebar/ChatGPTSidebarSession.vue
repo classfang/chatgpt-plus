@@ -87,7 +87,7 @@ const editSession = () => {
       {{ session.name }}
     </div>
 
-    <transition name="el-fade-in-linear">
+    <transition name="el-fade-in">
       <el-dropdown
         v-if="
           (chatSessionStore.activeSessionId === session.id ||
