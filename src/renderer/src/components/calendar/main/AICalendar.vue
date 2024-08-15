@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NoteEditor from '@renderer/components/calendar/editor/NoteEditor.vue'
 import { useStore } from '@renderer/store/store'
 import dayjs from 'dayjs'
 import { reactive, toRefs } from 'vue'
@@ -51,16 +52,11 @@ const saveNote = () => {
       width="700"
       align-center
       destroy-on-close
+      :close-on-click-modal="false"
     >
       <div class="dialog-body">
         <el-scrollbar height="100%">
-          <el-input
-            v-model="noteContent"
-            type="textarea"
-            :placeholder="$t('app.calendar.note.placeholder')"
-            :autosize="true"
-            resize="none"
-          />
+          <NoteEditor v-model:content="noteContent" :min-rows="20" />
         </el-scrollbar>
       </div>
       <template #footer>
@@ -130,13 +126,6 @@ const saveNote = () => {
     height: $app-dialog-height;
     border: 1px solid var(--el-border-color);
     border-radius: var(--el-border-radius-base);
-
-    :deep(.el-textarea) {
-      .el-textarea__inner {
-        box-shadow: none;
-        min-height: $app-dialog-height !important;
-      }
-    }
   }
 }
 </style>

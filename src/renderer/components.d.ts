@@ -70,6 +70,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FileIcon: typeof import('./src/components/icon/FileIcon.vue')['default']
     MemoryDataSetting: typeof import('./src/components/setting/MemoryDataSetting.vue')['default']
+    NoteEditor: typeof import('./src/components/calendar/editor/NoteEditor.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
