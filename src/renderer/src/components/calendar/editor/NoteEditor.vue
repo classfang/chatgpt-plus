@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { nextTick } from 'vue'
+
 // 组件传参
 defineProps({
   minRows: {
@@ -9,6 +11,23 @@ defineProps({
 const content = defineModel<string>('content', {
   default: () => ''
 })
+
+// 监听输入
+const noteEditorInput = (newValue: string) => {
+  // 换行操作
+  if (newValue === content.value + '\n') {
+    const lines = content.value.split('\n')
+
+    // 序号开头
+    const matchResult = lines.at(-1)?.match(/^\d+\.\s/)
+    if (matchResult) {
+      // 追加序号
+      nextTick(() => {
+        content.value = `${newValue}${Number(matchResult[0].replace('. ', '')) + 1}. `
+      })
+    }
+  }
+}
 </script>
 
 <template>
@@ -19,6 +38,7 @@ const content = defineModel<string>('content', {
       :placeholder="$t('app.calendar.note.placeholder')"
       :autosize="{ minRows }"
       resize="none"
+      @input="noteEditorInput"
     />
   </div>
 </template>
