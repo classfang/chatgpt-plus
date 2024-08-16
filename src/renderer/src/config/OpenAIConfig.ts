@@ -8,6 +8,15 @@ export const OpenAIModels = [
         label: 'gpt-4o'
       },
       {
+        value: 'chatgpt-4o-latest',
+        label: 'chatgpt-4o-latest'
+      }
+    ]
+  },
+  {
+    label: 'GPT-4o mini',
+    options: [
+      {
         value: 'gpt-4o-mini',
         label: 'gpt-4o-mini'
       }
