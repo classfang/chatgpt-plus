@@ -552,26 +552,26 @@
   resolved "https://registry.npmmirror.com/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz#4a2868d75d6d6963e423bcf90b7fd1be343409d3"
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
-"@intlify/core-base@9.13.1":
-  version "9.13.1"
-  resolved "https://registry.npmmirror.com/@intlify/core-base/-/core-base-9.13.1.tgz#bd1f38e665095993ef9b67aeeb794f3cabcb515d"
-  integrity sha512-+bcQRkJO9pcX8d0gel9ZNfrzU22sZFSA0WVhfXrf5jdJOS24a+Bp8pozuS9sBI9Hk/tGz83pgKfmqcn/Ci7/8w==
+"@intlify/core-base@9.14.0":
+  version "9.14.0"
+  resolved "https://registry.npmmirror.com/@intlify/core-base/-/core-base-9.14.0.tgz#63ce687a6560c0af6a16cb567d9d8a1ea1a5a65e"
+  integrity sha512-zJn0imh9HIsZZUtt9v8T16PeVstPv6bP2YzlrYJwoF8F30gs4brZBwW2KK6EI5WYKFi3NeqX6+UU4gniz5TkGg==
   dependencies:
-    "@intlify/message-compiler" "9.13.1"
-    "@intlify/shared" "9.13.1"
+    "@intlify/message-compiler" "9.14.0"
+    "@intlify/shared" "9.14.0"
 
-"@intlify/message-compiler@9.13.1":
-  version "9.13.1"
-  resolved "https://registry.npmmirror.com/@intlify/message-compiler/-/message-compiler-9.13.1.tgz#ff8129badf77db3fb648b8d3cceee87c8033ed0a"
-  integrity sha512-SKsVa4ajYGBVm7sHMXd5qX70O2XXjm55zdZB3VeMFCvQyvLew/dLvq3MqnaIsTMF1VkkOb9Ttr6tHcMlyPDL9w==
+"@intlify/message-compiler@9.14.0":
+  version "9.14.0"
+  resolved "https://registry.npmmirror.com/@intlify/message-compiler/-/message-compiler-9.14.0.tgz#e767141dd12862b3c1bf02ab5fc4852792812381"
+  integrity sha512-sXNsoMI0YsipSXW8SR75drmVK56tnJHoYbPXUv2Cf9lz6FzvwsosFm6JtC1oQZI/kU+n7qx0qRrEWkeYFTgETA==
   dependencies:
-    "@intlify/shared" "9.13.1"
+    "@intlify/shared" "9.14.0"
     source-map-js "^1.0.2"
 
-"@intlify/shared@9.13.1":
-  version "9.13.1"
-  resolved "https://registry.npmmirror.com/@intlify/shared/-/shared-9.13.1.tgz#202741d11ece1a9c7480bfd3f27afcf9cb8f72e4"
-  integrity sha512-u3b6BKGhE6j/JeRU6C/RL2FgyJfy6LakbtfeVF8fJXURpZZTzfh3e05J0bu0XPw447Q6/WUp3C4ajv4TMS4YsQ==
+"@intlify/shared@9.14.0":
+  version "9.14.0"
+  resolved "https://registry.npmmirror.com/@intlify/shared/-/shared-9.14.0.tgz#e8fb3693ad4171442cbe6cb8922a9b5a22ffb4ef"
+  integrity sha512-r+N8KRQL7LgN1TMTs1A2svfuAU0J94Wu9wWdJVJqYsoMMLIeJxrPjazihfHpmJqfgZq0ah3Y9Q4pgWV2O90Fyg==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -622,10 +622,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/community@^0.2.27":
-  version "0.2.27"
-  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.27.tgz#cd7533ea948ccde16ddd7c3a269fae204cc466b3"
-  integrity sha512-/D/aFzNXhlgwwBAwdX47aLLOdnupEFPPHBXmkj9h1PoFK2GKdwUDxK3YM7zIzZsO6+uSJgh9PUB8LI7gHPOjYA==
+"@langchain/community@^0.2.28":
+  version "0.2.28"
+  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.28.tgz#f6f3a35a6f57e0e3c22b310cb6d4a0dc6f34781c"
+  integrity sha512-O0O52kQ2cVw31XFMU2RcD+PGEhcsUk4KFgCvJTtbU3IFox5Cyc1+I/y8vkmuD+MyI0ES08OQN5ctUdh0kONl0g==
   dependencies:
     "@langchain/core" ">=0.2.21 <0.3.0"
     "@langchain/openai" ">=0.2.0 <0.3.0"
@@ -1001,12 +1001,12 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@^22.3.0":
-  version "22.3.0"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-22.3.0.tgz#7f8da0e2b72c27c4f9bd3cb5ef805209d04d4f9e"
-  integrity sha512-nrWpWVaDZuaVc5X84xJ0vNrLvomM205oQyLsRt7OHNZbSHslcWsvgFR7O7hire2ZonjLrWBbedmotmIlJDVd6g==
+"@types/node@^22.4.0":
+  version "22.4.0"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-22.4.0.tgz#c295fe1d6f5f58916cc61dbef8cf65b5b9b71de9"
+  integrity sha512-49AbMDwYUz7EXxKU/r7mXOsxwFr4BYbvB7tWYxVuLdb2ibd30ijjXINSMAHiEEZk5PCRBmW1gUeisn2VMKt3cQ==
   dependencies:
-    undici-types "~6.18.2"
+    undici-types "~6.19.2"
 
 "@types/plist@^3.0.1":
   version "3.0.5"
@@ -4105,10 +4105,10 @@ openai@^4.55.0:
     formdata-node "^4.3.2"
     node-fetch "^2.6.7"
 
-openai@^4.55.9:
-  version "4.55.9"
-  resolved "https://registry.npmmirror.com/openai/-/openai-4.55.9.tgz#ed11cbaacdc96a645e7740e0bdb8a1a28f8f6887"
-  integrity sha512-gO2BVMuGirwoftSXw6OnC6YvLK+1ZuUrAlDfWAyDbWUuXsJ+RGDAjA7ZCTocgAwSzDZNUYUr3SJ7siFaF5zquQ==
+openai@^4.56.0:
+  version "4.56.0"
+  resolved "https://registry.npmmirror.com/openai/-/openai-4.56.0.tgz#07d3982544cabd5781127288a8dfcceb7319a4cf"
+  integrity sha512-zcag97+3bG890MNNa0DQD9dGmmTWL8unJdNkulZzWRXrl+QeD+YkBI4H58rJcwErxqGK6a0jVPZ4ReJjhDGcmw==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -5067,10 +5067,10 @@ undici-types@~5.26.4:
   resolved "https://registry.npmmirror.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
 
-undici-types@~6.18.2:
-  version "6.18.2"
-  resolved "https://registry.npmmirror.com/undici-types/-/undici-types-6.18.2.tgz#8b678cf939d4fc9ec56be3c68ed69c619dee28b0"
-  integrity sha512-5ruQbENj95yDYJNS3TvcaxPMshV7aizdv/hWYjGIKoANWKjhWNBsr2YEuYZKodQulB1b8l7ILOuDQep3afowQQ==
+undici-types@~6.19.2:
+  version "6.19.6"
+  resolved "https://registry.npmmirror.com/undici-types/-/undici-types-6.19.6.tgz#e218c3df0987f4c0e0008ca00d6b6472d9b89b36"
+  integrity sha512-e/vggGopEfTKSvj4ihnOLTsqhrKRN3LeO6qSN/GxohhuRv8qH9bNQ4B8W7e/vFL+0XTnmHPB4/kegunZGA4Org==
 
 unimport@^3.9.0:
   version "3.9.0"
@@ -5239,13 +5239,13 @@ vue-eslint-parser@^9.3.1, vue-eslint-parser@^9.4.3:
     lodash "^4.17.21"
     semver "^7.3.6"
 
-vue-i18n@^9.13.1:
-  version "9.13.1"
-  resolved "https://registry.npmmirror.com/vue-i18n/-/vue-i18n-9.13.1.tgz#a292c8021b7be604ebfca5609ae1f8fafe5c36d7"
-  integrity sha512-mh0GIxx0wPtPlcB1q4k277y0iKgo25xmDPWioVVYanjPufDBpvu5ySTjP5wOrSvlYQ2m1xI+CFhGdauv/61uQg==
+vue-i18n@^9.14.0:
+  version "9.14.0"
+  resolved "https://registry.npmmirror.com/vue-i18n/-/vue-i18n-9.14.0.tgz#d6f1b3d95bfc4f40e630ff9456c78ab5becfd933"
+  integrity sha512-LxmpRuCt2rI8gqU+kxeflRZMQn4D5+4M3oP3PWZdowW/ePJraHqhF7p4CuaME52mUxdw3Mmy2yAUKgfZYgCRjA==
   dependencies:
-    "@intlify/core-base" "9.13.1"
-    "@intlify/shared" "9.13.1"
+    "@intlify/core-base" "9.14.0"
+    "@intlify/shared" "9.14.0"
     "@vue/devtools-api" "^6.5.0"
 
 vue-tsc@^2.0.29:

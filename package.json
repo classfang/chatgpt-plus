@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-plus",
-  "version": "1.14.2",
+  "version": "1.14.3",
   "description": "ChatGPT client(linux, mac, win)",
   "main": "./out/main/index.mjs",
   "author": "junki.cn",
@@ -30,7 +30,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "@langchain/community": "^0.2.27",
+    "@langchain/community": "^0.2.28",
     "electron-store": "^10.0.0",
     "langchain": "^0.2.16",
     "mammoth": "^1.8.0",
@@ -46,7 +46,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@rushstack/eslint-patch": "^1.10.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/node": "^22.3.0",
+    "@types/node": "^22.4.0",
     "@vitejs/plugin-vue": "^5.1.2",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
@@ -64,7 +64,7 @@
     "html-to-image": "^1.11.11",
     "markdown-it": "^14.1.0",
     "markdown-it-mathjax3": "^4.3.2",
-    "openai": "^4.55.9",
+    "openai": "^4.56.0",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^3.2.1",
     "prettier": "^3.3.3",
@@ -74,7 +74,7 @@
     "unplugin-vue-components": "^0.27.4",
     "vite": "^5.4.1",
     "vue": "^3.4.38",
-    "vue-i18n": "^9.13.1",
+    "vue-i18n": "^9.14.0",
     "vue-tsc": "^2.0.29"
   }
 }
