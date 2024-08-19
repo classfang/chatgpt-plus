@@ -103,6 +103,7 @@ onMounted(() => {
       color: var(--el-text-color-regular);
       transition: color $app-transition-base;
       cursor: pointer;
+      outline: none;
 
       &:hover {
         color: var(--el-text-color-primary);
@@ -116,6 +117,7 @@ onMounted(() => {
       color: var(--el-text-color-regular);
       transition: color $app-transition-base;
       cursor: pointer;
+      outline: none;
 
       &:hover {
         color: var(--el-color-primary);
