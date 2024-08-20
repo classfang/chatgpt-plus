@@ -1001,10 +1001,10 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@^22.4.0":
-  version "22.4.0"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-22.4.0.tgz#c295fe1d6f5f58916cc61dbef8cf65b5b9b71de9"
-  integrity sha512-49AbMDwYUz7EXxKU/r7mXOsxwFr4BYbvB7tWYxVuLdb2ibd30ijjXINSMAHiEEZk5PCRBmW1gUeisn2VMKt3cQ==
+"@types/node@^22.4.1":
+  version "22.4.1"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-22.4.1.tgz#9b595d292c65b94c20923159e2ce947731b6fdce"
+  integrity sha512-1tbpb9325+gPnKK0dMm+/LMriX0vKxf6RnB0SZUqfyVkQ4fMgUSySqhxE/y8Jvs4NyF1yHzTfG9KlnkIODxPKg==
   dependencies:
     undici-types "~6.19.2"
 
@@ -1320,14 +1320,14 @@
   resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.4.38.tgz#552a6770098bfd556fa3e2c686c9d3b4f4cd94c2"
   integrity sha512-q0xCiLkuWWQLzVrecPb0RMsNWyxICOjPrcrwxTUEHb1fsnvni4dcuyG7RT/Ie7VPTvnjzIaWzRMUBsrqNj/hhw==
 
-"@vueuse/core@^11.0.0":
-  version "11.0.0"
-  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-11.0.0.tgz#bdbbc22dfec1026c4538aec5caa44f9babce5faf"
-  integrity sha512-shibzNGjmRjZucEm97B8V0NO5J3vPHMCE/mltxQ3vHezbDoFQBMtK11XsfwfPionxSbo+buqPmsCljtYuXIBpw==
+"@vueuse/core@^11.0.1":
+  version "11.0.1"
+  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-11.0.1.tgz#cffaf8824a1b3b3c3cbe5d7d6de21000f43fab23"
+  integrity sha512-YTrekI18WwEyP3h168Fir94G/HNC27wvXJI21Alm0sPOwvhihfkrvHIe+5PNJq+MpgWdRcsjvE/38JaoKrgZhQ==
   dependencies:
     "@types/web-bluetooth" "^0.0.20"
-    "@vueuse/metadata" "11.0.0"
-    "@vueuse/shared" "11.0.0"
+    "@vueuse/metadata" "11.0.1"
+    "@vueuse/shared" "11.0.1"
     vue-demi ">=0.14.10"
 
 "@vueuse/core@^9.1.0":
@@ -1340,20 +1340,20 @@
     "@vueuse/shared" "9.13.0"
     vue-demi "*"
 
-"@vueuse/metadata@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.npmmirror.com/@vueuse/metadata/-/metadata-11.0.0.tgz#a23cd3ce64c9b7b3575b7b900c209234f5e37c6c"
-  integrity sha512-0TKsAVT0iUOAPWyc9N79xWYfovJVPATiOPVKByG6jmAYdDiwvMVm9xXJ5hp4I8nZDxpCcYlLq/Rg9w1Z/jrGcg==
+"@vueuse/metadata@11.0.1":
+  version "11.0.1"
+  resolved "https://registry.npmmirror.com/@vueuse/metadata/-/metadata-11.0.1.tgz#b78fee96948896f1663c8da1f4a94839aa7627d7"
+  integrity sha512-dTFvuHFAjLYOiSd+t9Sk7xUiuL6jbfay/eX+g+jaipXXlwKur2VCqBCZX+jfu+2vROUGcUsdn3fJR9KkpadIOg==
 
 "@vueuse/metadata@9.13.0":
   version "9.13.0"
   resolved "https://registry.npmmirror.com/@vueuse/metadata/-/metadata-9.13.0.tgz#bc25a6cdad1b1a93c36ce30191124da6520539ff"
   integrity sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==
 
-"@vueuse/shared@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-11.0.0.tgz#fef37f3fe5366b3ffd272c5012d07faf48f52c87"
-  integrity sha512-i4ZmOrIEjSsL94uAEt3hz88UCz93fMyP/fba9S+vypX90fKg3uYX9cThqvWc9aXxuTzR0UGhOKOTQd//Goh1nQ==
+"@vueuse/shared@11.0.1":
+  version "11.0.1"
+  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-11.0.1.tgz#50c34d3d20a889bfa36db87fd7208be29e5448c7"
+  integrity sha512-eAPf5CQB3HR0S76HqrhjBqFYstZfiHWZq8xF9EQmobGBkrhPfErJEhr8aMNQMqd6MkENIx2pblIEfJGlHpClug==
   dependencies:
     vue-demi ">=0.14.10"
 
@@ -4778,7 +4778,16 @@ stat-mode@^1.0.0:
   resolved "https://registry.npmmirror.com/stat-mode/-/stat-mode-1.0.0.tgz#68b55cb61ea639ff57136f36b216a291800d1465"
   integrity sha512-jH9EhtKIjuXZ2cWxmXS8ZP80XyC3iasQxMDV8jzhNJpfDb7VbQLVW4Wvsxz9QZvzV+G4YoSfBUVKDOyxLzi/sg==
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.npmmirror.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmmirror.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -4810,7 +4819,14 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.npmmirror.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmmirror.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -5371,7 +5387,16 @@ word-wrap@^1.2.5:
   resolved "https://registry.npmmirror.com/word-wrap/-/word-wrap-1.2.5.tgz#d2c45c6dd4fbce621a66f136cbe328afd0410b34"
   integrity sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.npmmirror.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmmirror.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
