@@ -206,6 +206,7 @@ onMounted(() => {
 
 <template>
   <div class="chatgpt-session-list">
+    <!-- 搜索 -->
     <div class="chatgpt-session-list-search">
       <el-input
         v-model="sessionKeyword"
@@ -213,6 +214,8 @@ onMounted(() => {
         :placeholder="$t('app.common.search')"
       />
     </div>
+
+    <!-- 会话列表 -->
     <el-scrollbar ref="sessionListScrollbarRef" class="chatgpt-session-list-scrollbar">
       <div class="session-list">
         <template
