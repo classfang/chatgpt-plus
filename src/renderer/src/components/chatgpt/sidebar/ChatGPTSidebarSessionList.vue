@@ -216,35 +216,40 @@ onMounted(() => {
     </div>
 
     <!-- 会话列表 -->
-    <el-scrollbar ref="sessionListScrollbarRef" class="chatgpt-session-list-scrollbar">
-      <div class="session-list">
-        <template
-          v-for="(s, index) in chatSessionStore.getUsedSessions.filter(
-            (session) =>
-              session.name.includes(sessionKeyword) ||
-              session.messages.findIndex((m) => m.content.includes(sessionKeyword)) > -1
-          )"
-          :key="s.id"
-        >
-          <!-- 日期标签 -->
-          <div v-if="dateFlagMap.get(index)" class="date-flag">
-            {{ $t('app.chatgpt.sidebar.session.dateFlag.' + dateFlagMap.get(index)) }}
-          </div>
+    <div class="chatgpt-session-list-scrollbar">
+      <el-scrollbar ref="sessionListScrollbarRef" height="100%">
+        <div class="session-list">
+          <template
+            v-for="(s, index) in chatSessionStore.getUsedSessions.filter(
+              (session) =>
+                session.name.includes(sessionKeyword) ||
+                session.messages.findIndex((m) => m.content.includes(sessionKeyword)) > -1
+            )"
+            :key="s.id"
+          >
+            <!-- 日期标签 -->
+            <div v-if="dateFlagMap.get(index)" class="date-flag">
+              {{ $t('app.chatgpt.sidebar.session.dateFlag.' + dateFlagMap.get(index)) }}
+            </div>
 
-          <!-- 会话 -->
-          <ChatGPTSidebarSession :session="s" />
-        </template>
+            <!-- 会话 -->
+            <ChatGPTSidebarSession :session="s" />
+          </template>
 
-        <!-- 空底部，用于占位 -->
-        <div></div>
-      </div>
-    </el-scrollbar>
+          <!-- 空底部，用于占位 -->
+          <div></div>
+        </div>
+      </el-scrollbar>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .chatgpt-session-list {
-  height: calc(100% - $app-chatgpt-sidebar-header-height - $app-chatgpt-sidebar-footer-height);
+  min-height: 0;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
 
   .chatgpt-session-list-search {
     height: $app-chatgpt-sidebar-search-height;
@@ -263,7 +268,8 @@ onMounted(() => {
   }
 
   .chatgpt-session-list-scrollbar {
-    height: calc(100% - $app-chatgpt-sidebar-search-height);
+    min-height: 0;
+    flex: 1 1 0;
     width: 100%;
 
     .session-list {
