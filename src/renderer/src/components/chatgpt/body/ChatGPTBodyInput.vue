@@ -23,7 +23,6 @@ import { join } from '@renderer/utils/path-util'
 import { notification, openInBrowser } from '@renderer/utils/window-util'
 import { Action, ElMessage, ElMessageBox, MessageBoxState } from 'element-plus'
 import OpenAI from 'openai'
-import * as CompletionsAPI from 'openai/src/resources/completions'
 import { nextTick, onMounted, reactive, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -797,7 +796,7 @@ const selectScreenshot = (screenshot: DesktopScreenshot) => {
 }
 
 // 用量统计
-const usageStatistic = (usage?: CompletionsAPI.CompletionUsage) => {
+const usageStatistic = (usage?: OpenAI.CompletionUsage) => {
   if (!usage) {
     return
   }
