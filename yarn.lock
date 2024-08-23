@@ -622,10 +622,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/community@^0.2.28":
-  version "0.2.28"
-  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.28.tgz#f6f3a35a6f57e0e3c22b310cb6d4a0dc6f34781c"
-  integrity sha512-O0O52kQ2cVw31XFMU2RcD+PGEhcsUk4KFgCvJTtbU3IFox5Cyc1+I/y8vkmuD+MyI0ES08OQN5ctUdh0kONl0g==
+"@langchain/community@^0.2.31":
+  version "0.2.31"
+  resolved "https://registry.npmmirror.com/@langchain/community/-/community-0.2.31.tgz#4b5ae3ea1e1f694d3c5323f2bf32c1a141b09e57"
+  integrity sha512-UayfsFyxHBLGnc9nODLupC46lvTMssYkfmFalMKqWAWQLWPEKOcDriy8Dg8+0MBME/y7SzqlCniEeEvml16hog==
   dependencies:
     "@langchain/core" ">=0.2.21 <0.3.0"
     "@langchain/openai" ">=0.2.0 <0.3.0"
@@ -3507,10 +3507,10 @@ kuler@^2.0.0:
   resolved "https://registry.npmmirror.com/kuler/-/kuler-2.0.0.tgz#e2c570a3800388fb44407e851531c1d670b061b3"
   integrity sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A==
 
-langchain@^0.2.16:
-  version "0.2.16"
-  resolved "https://registry.npmmirror.com/langchain/-/langchain-0.2.16.tgz#9937954b7794d682c9d1a461fb3995d5ba174da6"
-  integrity sha512-NaCl1jdxladaLd63VxGtVcbuypzTq14XSmQI6vBajAISJgz02Q1+wiAIPIC2wMfsKjBRoCSgNCJw3/7nxqUuoQ==
+langchain@^0.2.17:
+  version "0.2.17"
+  resolved "https://registry.npmmirror.com/langchain/-/langchain-0.2.17.tgz#c408d5f70e817f335511f79ad53db2addfadb278"
+  integrity sha512-wFn7wo+XGzqYrv3KJLmMZ1M6BHx12C3YUSASOa03rcDsBzRL5onxhKAC/g4xAIqlAHrJYgU6Jb/T/S6uJ6UdkQ==
   dependencies:
     "@langchain/core" ">=0.2.21 <0.3.0"
     "@langchain/openai" ">=0.1.0 <0.3.0"
