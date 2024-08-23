@@ -162,7 +162,7 @@
           "open": "Open Sidebar",
           "newChat": "New Chat"
         },
-        "session":{
+        "session": {
           "more": {
             "editName": "Rename",
             "archived": "Archived",
@@ -231,18 +231,7 @@
           },
           "share": {
             "title": "Share",
-            "image": {
-              "title": "Share Image",
-              "copy": "Copy Image",
-              "save": "Save Image",
-              "cancel": "Cancel"
-            },
-            "text": {
-              "title": "Share Text",
-              "content": "An text file will be generated for you to share",
-              "confirm": "Confirm",
-              "cancel": "Cancel"
-            }
+            "cancel": "Cancel Share"
           }
         },
         "empty": {
@@ -264,6 +253,22 @@
           "promptTokens": "Prompt Tokens",
           "completionTokens": "Completion Tokens",
           "totalTokens": "Total Tokens"
+        },
+        "share": {
+          "selectAll": "Select All ",
+          "selectAgainst": "Select Against",
+          "image": {
+            "title": "Share Image",
+            "copy": "Copy Image",
+            "save": "Save Image",
+            "cancel": "Cancel"
+          },
+          "text": {
+            "title": "Share Text",
+            "content": "An text file will be generated for you to share",
+            "confirm": "Confirm",
+            "cancel": "Cancel"
+          }
         }
       }
     },

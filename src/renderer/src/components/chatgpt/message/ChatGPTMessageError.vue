@@ -26,8 +26,7 @@ const emits = defineEmits(['regenerate', 'clear-context'])
 
 <style lang="scss" scoped>
 .chatgpt-message-error {
-  width: 100%;
-  flex-shrink: 0;
+  flex: 1 1 0;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -43,7 +42,7 @@ const emits = defineEmits(['regenerate', 'clear-context'])
 
     .message-content {
       min-width: calc($app-line-height-large + $app-padding-base * 2);
-      max-width: 80%;
+      max-width: 90%;
       flex: 1 1 0;
       white-space: pre-wrap;
       line-break: anywhere;

@@ -130,6 +130,7 @@ const editSession = () => {
 
 <style lang="scss" scoped>
 .chatgpt-session {
+  height: $app-chatgpt-sidebar-session-height;
   width: 100%;
   flex-shrink: 0;
   box-sizing: border-box;

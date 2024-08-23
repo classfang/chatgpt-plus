@@ -16,7 +16,7 @@ export const useChatSessionStore = defineStore({
       })
     },
     getUsedSessions(): ChatSession[] {
-      return this.sessions.filter((s) => s.messages.length > 0 && !s.archived)
+      return this.sessions.filter((s) => !s.new && !s.archived)
     },
     getArchivedSessions(): ChatSession[] {
       return this.sessions.filter((s) => s.archived === true)
@@ -64,6 +64,7 @@ export const useChatSessionStore = defineStore({
         name: '',
         provider: 'OpenAI',
         messages: [] as ChatMessage[],
+        new: true,
         archived: false,
         chatOption: setting.chatOption,
         speechOption: setting.speechOption,
@@ -101,20 +102,24 @@ export const useChatSessionStore = defineStore({
       this.activeSessionId = this.sessions.at(0)?.id ?? ''
     },
     pushMessage(message: ChatMessage, sessionName?: string) {
-      if (!this.getActiveSession) {
+      const activeSession = this.getActiveSession as ChatSession
+      if (!activeSession) {
         return
       }
-      this.getActiveSession.messages.push({
+      activeSession.messages.push({
         ...message,
         id: generateUUID(),
         createTime: nowTimestamp()
       })
 
+      // 不是新消息
+      activeSession.new = false
+
       // 设置会话标题
       if (sessionName) {
-        this.getActiveSession.name = sessionName
-      } else if (!this.getActiveSession.name && message.role === 'user') {
-        this.getActiveSession.name = message.content
+        activeSession.name = sessionName
+      } else if (!activeSession.name && message.role === 'user') {
+        activeSession.name = message.content
       }
     },
     usageStatistic(usage: ChatUsage) {

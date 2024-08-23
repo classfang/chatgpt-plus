@@ -46,8 +46,7 @@ const { mouseEnterFlag } = toRefs(data)
 
 <style lang="scss" scoped>
 .chatgpt-message-divider {
-  width: 100%;
-  flex-shrink: 0;
+  flex: 1 1 0;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;

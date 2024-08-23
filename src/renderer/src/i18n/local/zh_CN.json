@@ -162,7 +162,7 @@
           "open": "开启侧栏",
           "newChat": "新对话"
         },
-        "session":{
+        "session": {
           "more": {
             "editName": "重命名",
             "archived": "归档",
@@ -231,18 +231,7 @@
           },
           "share": {
             "title": "分享",
-            "image": {
-              "title": "分享图片",
-              "copy": "复制图片",
-              "save": "保存图片",
-              "cancel": "取消"
-            },
-            "text": {
-              "title": "分享文本",
-              "content": "将为你生成用于分享的文本文档",
-              "confirm": "确认",
-              "cancel": "取消"
-            }
+            "cancel": "取消分享"
           }
         },
         "empty": {
@@ -264,6 +253,22 @@
           "promptTokens": "输入 Token 数",
           "completionTokens": "输出 Token 数",
           "totalTokens": "总 Token 数"
+        },
+        "share": {
+          "selectAll": "全选",
+          "selectAgainst": "反选",
+          "image": {
+            "title": "分享图片",
+            "copy": "复制图片",
+            "save": "保存图片",
+            "cancel": "取消"
+          },
+          "text": {
+            "title": "分享文本",
+            "content": "将为你生成用于分享的文本文档",
+            "confirm": "确认",
+            "cancel": "取消"
+          }
         }
       }
     },

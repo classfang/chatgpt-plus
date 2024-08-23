@@ -16,6 +16,19 @@ const messageListScrollbarRef = ref()
 // 定义事件
 const emits = defineEmits(['regenerate'])
 
+// 组件传参
+defineProps({
+  // 消息选择是否显示
+  messageCheckboxVisible: {
+    type: Boolean,
+    default: () => false
+  }
+})
+// 消息选择，当前选中消息ID列表
+const messageCheckIds = defineModel<string[]>('messageCheckIds', {
+  default: () => []
+})
+
 // 数据绑定
 const data = reactive({
   toBottomBtnVisible: false,
@@ -98,12 +111,23 @@ const calcToBottomBtnVisible = (delayFlag = true) => {
   }
 }
 
+// 消息选择
+const onMessageCheckboxClick = (id: string, isPush: boolean) => {
+  if (isPush) {
+    messageCheckIds.value.push(id)
+  } else {
+    messageCheckIds.value = messageCheckIds.value.filter((item) => item !== id)
+  }
+}
+
 // 暴露方法
 defineExpose({
   scrollToBottom
 })
 
+// 挂载完毕
 onMounted(() => {
+  // 消息列表滚动到底部
   scrollToBottom(true)
 })
 </script>
@@ -114,15 +138,41 @@ onMounted(() => {
     <el-scrollbar ref="messageListScrollbarRef" height="100%" @scroll="onMessageListScroll">
       <div id="message-list-container" class="message-list-container">
         <transition-group name="el-fade-in">
-          <div v-for="m in chatSessionStore.getActiveSession!.messages" :key="m.id">
+          <div
+            v-for="m in chatSessionStore.getActiveSession!.messages"
+            :key="m.id"
+            class="message-container"
+          >
+            <!-- 消息选择 -->
+            <template v-if="messageCheckboxVisible">
+              <el-checkbox
+                v-if="messageCheckIds.includes(m.id!)"
+                :checked="true"
+                size="large"
+                data-share-hide="true"
+                @click="onMessageCheckboxClick(m.id!, false)"
+              />
+              <el-checkbox
+                v-else
+                size="large"
+                data-share-hide="true"
+                @click="onMessageCheckboxClick(m.id!, true)"
+              />
+            </template>
+
             <!-- 对话消息 -->
             <template v-if="m.type === 'chat'">
               <template v-if="m.role === 'user'">
-                <ChatGPTMessageUser :message="m" @clear-context="scrollToBottom(false)" />
+                <ChatGPTMessageUser
+                  :message="m"
+                  :data-share-hide="!messageCheckIds.includes(m.id!)"
+                  @clear-context="scrollToBottom(false)"
+                />
               </template>
               <template v-else-if="m.role === 'assistant'">
                 <ChatGPTMessageAssistant
                   :message="m"
+                  :data-share-hide="!messageCheckIds.includes(m.id!)"
                   @regenerate="emits('regenerate', m.id)"
                   @clear-context="scrollToBottom(false)"
                 />
@@ -133,6 +183,7 @@ onMounted(() => {
             <template v-else-if="m.type === 'error'">
               <ChatGPTMessageError
                 :message="m"
+                :data-share-hide="!messageCheckIds.includes(m.id!)"
                 @regenerate="emits('regenerate', m.id)"
                 @clear-context="scrollToBottom(false)"
               />
@@ -140,7 +191,10 @@ onMounted(() => {
 
             <!-- 分隔消息 -->
             <template v-else-if="m.type === 'divider'">
-              <ChatGPTMessageDivider :message="m" />
+              <ChatGPTMessageDivider
+                :message="m"
+                :data-share-hide="!messageCheckIds.includes(m.id!)"
+              />
             </template>
           </div>
         </transition-group>
@@ -169,6 +223,13 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: $app-padding-base;
+
+    .message-container {
+      width: 100%;
+      display: flex;
+      gap: $app-padding-base;
+      align-items: center;
+    }
   }
 
   .to-bottom-btn {

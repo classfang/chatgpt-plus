@@ -1,72 +1,24 @@
 <script setup lang="ts">
-import { Picture, Share, Document } from '@element-plus/icons-vue'
 import ChatGPTBodySetting from '@renderer/components/chatgpt/body/ChatGPTBodySetting.vue'
-import ChatGPTBodyShareView from '@renderer/components/chatgpt/body/ChatGPTBodyShareView.vue'
 import ChatGPTBodyStatistic from '@renderer/components/chatgpt/body/ChatGPTBodyStatistic.vue'
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import { useStore } from '@renderer/store/store'
-import { nowTimestamp } from '@renderer/utils/date-util'
-import { exportTextFile } from '@renderer/utils/download-util'
-import { ElMessageBox } from 'element-plus'
 import { reactive, toRefs } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-// i18n
-const { t } = useI18n()
+// 组件传参
+const shareVisible = defineModel<boolean>('shareVisible', {
+  default: () => false
+})
 
 // 数据绑定
 const data = reactive({
   currentChatSettingVisible: false,
-  currentChatStatisticVisible: false,
-  shareViewVisible: false
+  currentChatStatisticVisible: false
 })
-const { currentChatSettingVisible, currentChatStatisticVisible, shareViewVisible } = toRefs(data)
+const { currentChatSettingVisible, currentChatStatisticVisible } = toRefs(data)
 
 // 仓库
-const { chatSessionStore, appSettingStore, appStateStore } = useStore()
-
-// 分享图片
-const shareImage = () => {
-  if (appStateStore.chatgptLoadingFlag) {
-    return
-  }
-
-  data.shareViewVisible = true
-}
-
-// 分享文本
-const shareText = () => {
-  if (appStateStore.chatgptLoadingFlag) {
-    return
-  }
-
-  const messages = chatSessionStore.getActiveSession?.messages
-  if (messages && messages.length > 0) {
-    ElMessageBox.confirm(
-      t('app.chatgpt.body.header.share.text.content'),
-      t('app.chatgpt.body.header.share.text.title'),
-      {
-        distinguishCancelAndClose: true,
-        confirmButtonText: t('app.chatgpt.body.header.share.text.confirm'),
-        cancelButtonText: t('app.chatgpt.body.header.share.text.cancel')
-      }
-    ).then(() => {
-      // 生成导出文本（使用一些 Markdown 语法）
-      const exportText = messages
-        .map((m) => {
-          if (m.type === 'divider') {
-            return `${t('app.chatgpt.body.message.disconnectedContext')}\n\n---\n\n`
-          } else {
-            return `#### ${m.role}: \n${m.content}\n\n---\n\n`
-          }
-        })
-        .join('')
-
-      // 导出文本
-      exportTextFile(`share-text-${nowTimestamp()}.txt`, exportText)
-    })
-  }
-}
+const { chatSessionStore, appSettingStore } = useStore()
 </script>
 
 <template>
@@ -92,70 +44,58 @@ const shareText = () => {
       </div>
     </el-tooltip>
 
-    <!-- 联网开关 -->
-    <el-tooltip
-      v-if="chatSessionStore.getActiveSession!.internetSearchOption"
-      :content="
-        chatSessionStore.getActiveSession!.internetSearchOption.enabled
-          ? $t('app.chatgpt.body.header.internetSearch.turnedOn')
-          : $t('app.chatgpt.body.header.internetSearch.turnedOff')
-      "
-      placement="bottom"
-    >
-      <AppIcon
-        :name="
+    <template v-if="!shareVisible">
+      <!-- 联网开关 -->
+      <el-tooltip
+        v-if="chatSessionStore.getActiveSession!.internetSearchOption"
+        :content="
           chatSessionStore.getActiveSession!.internetSearchOption.enabled
-            ? 'with-net'
-            : 'without-net'
+            ? $t('app.chatgpt.body.header.internetSearch.turnedOn')
+            : $t('app.chatgpt.body.header.internetSearch.turnedOff')
         "
-        class="header-icon"
-        @click="
-          () => {
-            if (!chatSessionStore.getActiveSession!.archived) {
-              chatSessionStore.getActiveSession!.internetSearchOption.enabled =
-                !chatSessionStore.getActiveSession!.internetSearchOption.enabled
+        placement="bottom"
+      >
+        <AppIcon
+          :name="
+            chatSessionStore.getActiveSession!.internetSearchOption.enabled
+              ? 'with-net'
+              : 'without-net'
+          "
+          class="header-icon"
+          @click="
+            () => {
+              if (!chatSessionStore.getActiveSession!.archived) {
+                chatSessionStore.getActiveSession!.internetSearchOption.enabled =
+                  !chatSessionStore.getActiveSession!.internetSearchOption.enabled
+              }
             }
-          }
-        "
-      />
-    </el-tooltip>
+          "
+        />
+      </el-tooltip>
 
-    <!-- 分享下拉列表 -->
-    <el-dropdown
-      trigger="click"
-      :disabled="appStateStore.chatgptLoadingFlag"
-      placement="bottom-start"
-    >
-      <div>
+      <template v-if="!chatSessionStore.getActiveSession!.new">
+        <!-- 分享按钮 -->
         <el-tooltip :content="$t('app.chatgpt.body.header.share.title')">
-          <Share class="header-icon" />
+          <AppIcon name="share" class="header-icon" @click="shareVisible = true" />
         </el-tooltip>
-      </div>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item :icon="Picture" @click="shareImage()">
-            {{ $t('app.chatgpt.body.header.share.image.title') }}
-          </el-dropdown-item>
-          <el-dropdown-item :icon="Document" @click="shareText()">
-            {{ $t('app.chatgpt.body.header.share.text.title') }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
 
-    <!-- 用量统计 -->
-    <el-tooltip :content="$t('app.chatgpt.body.statistic.title')">
-      <AppIcon name="usage" class="header-icon" @click="currentChatStatisticVisible = true" />
-    </el-tooltip>
+        <!-- 用量统计 -->
+        <el-tooltip :content="$t('app.chatgpt.body.statistic.title')">
+          <AppIcon name="usage" class="header-icon" @click="currentChatStatisticVisible = true" />
+        </el-tooltip>
+      </template>
+    </template>
+
+    <!-- 取消分享 -->
+    <el-button v-else link @click="shareVisible = false">
+      {{ $t('app.chatgpt.body.header.share.cancel') }}
+    </el-button>
 
     <!-- 当前对话设置弹窗 -->
     <ChatGPTBodySetting v-model:visible="currentChatSettingVisible" />
 
     <!-- 当前对话统计弹窗 -->
     <ChatGPTBodyStatistic v-model:visible="currentChatStatisticVisible" />
-
-    <!-- 图片分享预览弹窗 -->
-    <ChatGPTBodyShareView v-model:visible="shareViewVisible" />
   </div>
 </template>
 

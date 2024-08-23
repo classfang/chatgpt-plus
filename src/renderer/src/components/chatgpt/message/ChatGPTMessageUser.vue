@@ -110,8 +110,7 @@ const emits = defineEmits(['clear-context'])
 
 <style lang="scss" scoped>
 .chatgpt-message-user {
-  width: 100%;
-  flex-shrink: 0;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -119,7 +118,7 @@ const emits = defineEmits(['clear-context'])
 
   .message-content {
     min-width: calc($app-line-height-large + $app-padding-base * 2);
-    max-width: 80%;
+    max-width: 90%;
     flex: 1 1 0;
     white-space: pre-wrap;
     line-break: anywhere;

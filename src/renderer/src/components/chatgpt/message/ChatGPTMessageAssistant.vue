@@ -103,8 +103,7 @@ const message = defineModel<ChatMessage>('message', {
 
 <style lang="scss" scoped>
 .chatgpt-message-assistant {
-  width: 100%;
-  flex-shrink: 0;
+  flex: 1 1 0;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -120,7 +119,7 @@ const message = defineModel<ChatMessage>('message', {
 
     .message-content {
       min-width: calc($app-line-height-large + $app-padding-base * 2);
-      max-width: 80%;
+      max-width: 90%;
       flex: 1 1 0;
       background-color: var(--el-fill-color-light);
       box-sizing: border-box;

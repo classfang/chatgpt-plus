@@ -108,6 +108,7 @@ interface ChatSession extends BaseEntity {
   provider: LLMProvider
   messages: ChatMessage[]
   usage?: ChatUsage
+  new: boolean
   archived: boolean
   chatOption: ChatOption
   speechOption: SpeechOption
