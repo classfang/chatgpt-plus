@@ -110,6 +110,7 @@ const emits = defineEmits(['clear-context'])
 
 <style lang="scss" scoped>
 .chatgpt-message-user {
+  width: 100%;
   flex: 1 1 0;
   display: flex;
   flex-direction: column;

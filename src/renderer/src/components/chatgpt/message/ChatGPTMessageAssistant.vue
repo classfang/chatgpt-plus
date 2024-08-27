@@ -103,6 +103,7 @@ const message = defineModel<ChatMessage>('message', {
 
 <style lang="scss" scoped>
 .chatgpt-message-assistant {
+  width: 100%;
   flex: 1 1 0;
   display: flex;
   align-items: flex-start;

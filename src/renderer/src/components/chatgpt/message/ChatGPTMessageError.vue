@@ -26,6 +26,7 @@ const emits = defineEmits(['regenerate', 'clear-context'])
 
 <style lang="scss" scoped>
 .chatgpt-message-error {
+  width: 100%;
   flex: 1 1 0;
   display: flex;
   align-items: flex-start;
