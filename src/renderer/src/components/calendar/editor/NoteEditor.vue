@@ -2,7 +2,7 @@
 import { nextTick } from 'vue'
 
 // 组件传参
-defineProps({
+const props = defineProps({
   minRows: {
     type: Number,
     default: 1
@@ -36,7 +36,7 @@ const noteEditorInput = (newValue: string) => {
       v-model="content"
       type="textarea"
       :placeholder="$t('app.calendar.note.placeholder')"
-      :autosize="{ minRows }"
+      :autosize="{ minRows: props.minRows }"
       resize="none"
       @input="noteEditorInput"
     />

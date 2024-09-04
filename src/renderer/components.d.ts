@@ -32,6 +32,7 @@ declare module 'vue' {
     ChatGPTSidebar: typeof import('./src/components/chatgpt/sidebar/ChatGPTSidebar.vue')['default']
     ChatGPTSidebarFooter: typeof import('./src/components/chatgpt/sidebar/ChatGPTSidebarFooter.vue')['default']
     ChatGPTSidebarHeader: typeof import('./src/components/chatgpt/sidebar/ChatGPTSidebarHeader.vue')['default']
+    ChatGPTSidebarMenu: typeof import('./src/components/chatgpt/sidebar/ChatGPTSidebarMenu.vue')['default']
     ChatGPTSidebarSession: typeof import('./src/components/chatgpt/sidebar/ChatGPTSidebarSession.vue')['default']
     ChatGPTSidebarSessionList: typeof import('./src/components/chatgpt/sidebar/ChatGPTSidebarSessionList.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -72,6 +73,8 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FileIcon: typeof import('./src/components/icon/FileIcon.vue')['default']
     MemoryDataSetting: typeof import('./src/components/setting/MemoryDataSetting.vue')['default']
+    NewsButton: typeof import('./src/components/news/button/NewsButton.vue')['default']
+    NewsPage: typeof import('./src/components/news/main/NewsPage.vue')['default']
     NoteEditor: typeof import('./src/components/calendar/editor/NoteEditor.vue')['default']
   }
   export interface ComponentCustomProperties {

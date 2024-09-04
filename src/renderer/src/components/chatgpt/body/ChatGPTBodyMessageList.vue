@@ -17,11 +17,11 @@ const messageListScrollbarRef = ref()
 const emits = defineEmits(['regenerate'])
 
 // 组件传参
-defineProps({
+const props = defineProps({
   // 消息选择是否显示
   messageCheckboxVisible: {
     type: Boolean,
-    default: () => false
+    default: false
   }
 })
 // 消息选择，当前选中消息ID列表
@@ -144,7 +144,7 @@ onMounted(() => {
             class="message-container"
           >
             <!-- 消息选择 -->
-            <template v-if="messageCheckboxVisible">
+            <template v-if="props.messageCheckboxVisible">
               <el-checkbox
                 v-if="messageCheckIds.includes(m.id!)"
                 :checked="true"
