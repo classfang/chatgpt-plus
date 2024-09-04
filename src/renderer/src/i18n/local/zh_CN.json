@@ -163,6 +163,7 @@
           "newChat": "新对话"
         },
         "session": {
+          "empty": "暂无对话",
           "more": {
             "editName": "重命名",
             "archived": "归档",
@@ -278,6 +279,9 @@
         "title": "编辑备忘",
         "placeholder": "在此输入备忘"
       }
+    },
+    "news": {
+      "title": "新闻资讯"
     }
   }
 }

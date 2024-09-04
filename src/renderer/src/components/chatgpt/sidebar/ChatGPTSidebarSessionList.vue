@@ -17,6 +17,15 @@ const data = reactive({
 })
 const { sessionKeyword } = toRefs(data)
 
+// 计算会话列表
+const messageListComputed = computed(() => {
+  return chatSessionStore.getUsedSessions.filter(
+    (session) =>
+      session.name.includes(data.sessionKeyword) ||
+      session.messages.findIndex((m) => m.content.includes(data.sessionKeyword)) > -1
+  )
+})
+
 // 计算日期标签
 const dateFlagMap = computed(() => {
   const map = new Map<number, string>()
@@ -216,31 +225,30 @@ onMounted(() => {
     </div>
 
     <!-- 会话列表 -->
-    <div class="chatgpt-session-list-scrollbar">
-      <el-scrollbar ref="sessionListScrollbarRef" height="100%">
-        <div class="session-list">
-          <template
-            v-for="(s, index) in chatSessionStore.getUsedSessions.filter(
-              (session) =>
-                session.name.includes(sessionKeyword) ||
-                session.messages.findIndex((m) => m.content.includes(sessionKeyword)) > -1
-            )"
-            :key="s.id"
-          >
-            <!-- 日期标签 -->
-            <div v-if="dateFlagMap.get(index)" class="date-flag">
-              {{ $t('app.chatgpt.sidebar.session.dateFlag.' + dateFlagMap.get(index)) }}
-            </div>
+    <template v-if="messageListComputed.length > 0">
+      <div class="chatgpt-session-list-scrollbar">
+        <el-scrollbar ref="sessionListScrollbarRef" height="100%">
+          <div class="session-list">
+            <template v-for="(s, index) in messageListComputed" :key="s.id">
+              <!-- 日期标签 -->
+              <div v-if="dateFlagMap.get(index)" class="date-flag">
+                {{ $t('app.chatgpt.sidebar.session.dateFlag.' + dateFlagMap.get(index)) }}
+              </div>
 
-            <!-- 会话 -->
-            <ChatGPTSidebarSession :session="s" />
-          </template>
+              <!-- 会话 -->
+              <ChatGPTSidebarSession :session="s" />
+            </template>
+          </div>
+        </el-scrollbar>
+      </div>
+    </template>
 
-          <!-- 空底部，用于占位 -->
-          <div></div>
-        </div>
-      </el-scrollbar>
-    </div>
+    <!-- 暂无数据 -->
+    <template v-else>
+      <div class="session-list-empty">
+        {{ $t('app.chatgpt.sidebar.session.empty') }}
+      </div>
+    </template>
   </div>
 </template>
 
@@ -252,7 +260,6 @@ onMounted(() => {
   flex-direction: column;
 
   .chatgpt-session-list-search {
-    height: $app-chatgpt-sidebar-search-height;
     padding: 0 $app-padding-base;
     display: flex;
     align-items: center;
@@ -291,6 +298,16 @@ onMounted(() => {
         margin: $app-padding-extra-small 0;
       }
     }
+  }
+
+  .session-list-empty {
+    min-height: 0;
+    flex: 1 1 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--el-text-color-secondary);
   }
 }
 </style>

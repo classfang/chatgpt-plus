@@ -163,6 +163,7 @@
           "newChat": "New Chat"
         },
         "session": {
+          "empty": "No session",
           "more": {
             "editName": "Rename",
             "archived": "Archived",
@@ -278,6 +279,9 @@
         "title": "Edit Note",
         "placeholder": "Enter note here"
       }
+    },
+    "news": {
+      "title": "News information"
     }
   }
 }

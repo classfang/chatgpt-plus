@@ -100,6 +100,17 @@ app.on('before-quit', async (e) => {
   app.exit()
 })
 
+// 限制webview打开新窗口
+app.on('web-contents-created', (_event, contents) => {
+  if ('webview' === contents.getType()) {
+    contents.setWindowOpenHandler((details) => {
+      // 使用外部浏览器打开链接
+      shell.openExternal(details.url)
+      return { action: 'deny' }
+    })
+  }
+})
+
 // 显示主窗口
 ipcMain.handle('show-main-window', () => {
   if (!mainWindow.isMinimized()) {
