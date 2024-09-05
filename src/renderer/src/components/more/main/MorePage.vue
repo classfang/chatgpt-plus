@@ -12,10 +12,12 @@ import NewsButton from '@renderer/components/news/button/NewsButton.vue'
 
 <style scoped lang="scss">
 .more-page {
+  width: 100%;
   box-sizing: border-box;
   padding: $app-padding-extra-small;
   display: flex;
   align-items: center;
   gap: $app-padding-base;
+  flex-wrap: wrap;
 }
 </style>
