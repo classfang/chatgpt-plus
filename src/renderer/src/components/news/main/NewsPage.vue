@@ -15,7 +15,7 @@
 
   .webview {
     height: 100%;
-    background-color: var(--el-fill-color);
+    background-color: var(--el-fill-color-light);
   }
 }
 </style>
