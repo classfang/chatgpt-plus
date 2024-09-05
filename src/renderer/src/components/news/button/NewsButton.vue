@@ -12,10 +12,9 @@ const { drawerVisible } = toRefs(data)
 
 <template>
   <div>
-    <div class="news-button" @click="drawerVisible = true">
-      <Reading class="news-button-icon" />
+    <el-button :icon="Reading" plain size="small" @click="drawerVisible = true">
       <div>{{ $t('app.news.title') }}</div>
-    </div>
+    </el-button>
     <el-drawer
       v-model="drawerVisible"
       :title="$t('app.news.title')"
@@ -23,6 +22,7 @@ const { drawerVisible } = toRefs(data)
       direction="btt"
       class="news-page-drawer"
       destroy-on-close
+      append-to-body
     >
       <NewsPage />
     </el-drawer>
@@ -30,24 +30,6 @@ const { drawerVisible } = toRefs(data)
 </template>
 
 <style scoped lang="scss">
-.news-button {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: $app-padding-small;
-  color: var(--el-text-color-regular);
-  cursor: pointer;
-  transition: all $app-transition-base;
-
-  &:hover {
-    color: var(--el-text-color-primary);
-  }
-
-  .news-button-icon {
-    height: $app-icon-size-small;
-  }
-}
-
 :deep(.news-page-drawer) {
   .el-drawer__header {
     margin-bottom: 0;

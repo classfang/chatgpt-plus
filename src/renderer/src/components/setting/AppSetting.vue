@@ -914,9 +914,17 @@ onMounted(() => {
   width: $app-icon-size-base;
 
   .setting-icon {
+    height: $app-icon-size-base;
+    width: $app-icon-size-base;
+    flex-shrink: 0;
+    color: var(--el-text-color-regular);
+    transition: color $app-transition-base;
     cursor: pointer;
-    height: 100%;
-    width: 100%;
+    outline: none;
+
+    &:hover {
+      color: var(--el-text-color-primary);
+    }
   }
 
   .dialog-body {

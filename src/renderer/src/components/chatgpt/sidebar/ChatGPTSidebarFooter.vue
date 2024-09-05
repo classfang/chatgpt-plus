@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import AICalendarButton from '@renderer/components/calendar/button/AICalendarButton.vue'
+import MoreButton from '@renderer/components/more/button/MoreButton.vue'
 import AppSetting from '@renderer/components/setting/AppSetting.vue'
 </script>
 
 <template>
   <div class="chatgpt-sidebar-footer-container">
     <AppSetting />
-    <AICalendarButton />
+    <MoreButton />
   </div>
 </template>
 

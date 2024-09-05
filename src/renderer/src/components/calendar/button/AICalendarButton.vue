@@ -16,7 +16,7 @@ const { drawerVisible } = toRefs(data)
 
 <template>
   <div>
-    <el-button :icon="Calendar" round plain size="small" @click="drawerVisible = true">
+    <el-button :icon="Calendar" plain size="small" @click="drawerVisible = true">
       {{ $t('app.calendar.title') }}
     </el-button>
     <el-drawer
@@ -25,6 +25,8 @@ const { drawerVisible } = toRefs(data)
       size="100%"
       direction="btt"
       class="ai-calendar-drawer"
+      destroy-on-close
+      append-to-body
     >
       <AICalendar :key="`ai-calendar-${appStateStore.dayKey}`" />
     </el-drawer>
