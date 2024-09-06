@@ -20,7 +20,7 @@ export const createWindow = (store: Record<string, any>) => {
     autoHideMenuBar: true,
     // 动态背景色
     backgroundColor: nativeTheme.shouldUseDarkColors ? '#141414' : '#FFFFFF',
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(platform.isLinux ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       // 允许渲染进程通信（window.electron）

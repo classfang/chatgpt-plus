@@ -4,7 +4,8 @@
       "confirm": "确认",
       "cancel": "取消",
       "search": "搜索",
-      "copy": "复制"
+      "copy": "复制",
+      "tip": "提示"
     },
     "notification": {
       "newReply": "新回复"
@@ -244,7 +245,8 @@
         },
         "screenshot": {
           "title": "选择屏幕截图",
-          "error": "请开启录屏权限"
+          "error": "请开启录屏权限",
+          "guide": "若已授权，请删除授权项后，重新授权"
         },
         "statistic": {
           "title": "用量统计",

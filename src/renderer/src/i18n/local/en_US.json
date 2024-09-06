@@ -4,7 +4,8 @@
       "confirm": "Confirm",
       "cancel": "Cancel",
       "search": "Search",
-      "copy": "Copy"
+      "copy": "Copy",
+      "tip": "Tip"
     },
     "notification": {
       "newReply": "New Reply"
@@ -244,7 +245,8 @@
         },
         "screenshot": {
           "title": "Select screenshot",
-          "error": "Please enable the screen-recording permission"
+          "error": "Please enable the screen-recording permission",
+          "guide": "If you are authorized, delete the authorization item and re-authorize it"
         },
         "statistic": {
           "title": "Usage Statistics",

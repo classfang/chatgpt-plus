@@ -148,6 +148,16 @@ export const readWebBodyByUrl = (url: string) => {
   return window.electron.ipcRenderer.invoke('read-web-body-by-url', url)
 }
 
+export const checkDesktopScreenshots = (): Promise<void> => {
+  Logger.info(logPrefix, 'checkDesktopScreenshots')
+  return window.electron.ipcRenderer.invoke('check-desktop-screenshots')
+}
+
+export const optionDesktopScreenshots = (): Promise<void> => {
+  Logger.info(logPrefix, 'optionDesktopScreenshots')
+  return window.electron.ipcRenderer.invoke('option-desktop-screenshots')
+}
+
 export const getDesktopScreenshots = (): Promise<DesktopScreenshot[]> => {
   Logger.info(logPrefix, 'getDesktopScreenshots')
   return window.electron.ipcRenderer.invoke('get-desktop-screenshots')

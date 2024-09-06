@@ -2,6 +2,7 @@ import { appConfig } from './config'
 import { initLangChain } from './lang-chain'
 import { initLogger } from './logger'
 import { createWindow } from './main-window'
+import { initScreenshots } from './screenshots'
 import { initStore } from './store'
 import { electronApp, is, optimizer, platform } from '@electron-toolkit/utils'
 import {
@@ -13,9 +14,6 @@ import {
   ipcMain,
   nativeTheme,
   shell,
-  desktopCapturer,
-  screen,
-  systemPreferences,
   session
 } from 'electron'
 import fs from 'fs'
@@ -62,6 +60,9 @@ app.whenReady().then(() => {
 
   // 初始化LangChain
   initLangChain()
+
+  // 初始化屏幕截图
+  initScreenshots()
 
   // 激活应用（点击dock栏图标、任务栏图标）
   app.on('activate', () => {
@@ -335,37 +336,5 @@ ipcMain.handle('read-web-body-by-url', async (_event, url: string) => {
           reject()
         })
     })
-  })
-})
-
-// 捕获桌面资源
-ipcMain.handle('get-desktop-screenshots', () => {
-  return new Promise((resolve, reject) => {
-    // 检查权限
-    const screenAccessStatus = systemPreferences.getMediaAccessStatus('screen')
-    if (screenAccessStatus != 'granted') {
-      reject(screenAccessStatus)
-      return
-    }
-
-    desktopCapturer
-      .getSources({
-        types: ['window', 'screen'],
-        thumbnailSize: screen.getPrimaryDisplay().size,
-        fetchWindowIcons: true
-      })
-      .then((sources) => {
-        const screenshots = sources.map((source) => ({
-          id: source.id,
-          name: source.name,
-          appIcon: source.appIcon?.toDataURL(),
-          thumbnail: source.thumbnail.toDataURL()
-        }))
-
-        resolve(screenshots)
-      })
-      .catch((error) => {
-        reject(error)
-      })
   })
 })

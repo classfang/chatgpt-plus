@@ -4,7 +4,9 @@ import ChatGPTBodyScreenshotList from '@renderer/components/chatgpt/body/ChatGPT
 import AppIcon from '@renderer/components/icon/AppIcon.vue'
 import FileIcon from '@renderer/components/icon/FileIcon.vue'
 import {
+  checkDesktopScreenshots,
   langChainLoadFile,
+  optionDesktopScreenshots,
   readLocalImageBase64,
   readWebBodyByUrl,
   saveFileByBase64,
@@ -704,6 +706,26 @@ const selectWebLink = () => {
   })
 }
 
+// 选择屏幕截图
+const openScreenshotDialog = () => {
+  checkDesktopScreenshots()
+    .then(() => {
+      data.screenshotDialogVisible = true
+    })
+    .catch((error: any) => {
+      ElMessageBox.alert(
+        t('app.chatgpt.body.screenshot.guide'),
+        t('app.chatgpt.body.screenshot.error'),
+        {
+          callback: () => {
+            optionDesktopScreenshots()
+          }
+        }
+      )
+      Logger.error('checkDesktopScreenshots error: ', error.message)
+    })
+}
+
 // 输入框粘贴监听
 const handleInputPaste = (event: ClipboardEvent) => {
   // 获取粘贴的内容
@@ -914,7 +936,7 @@ onMounted(() => {
                 <el-dropdown-item :icon="Link" @click="selectWebLink()">
                   {{ $t('app.chatgpt.body.input.attachment.webLink') }}
                 </el-dropdown-item>
-                <el-dropdown-item :icon="Monitor" @click="screenshotDialogVisible = true">
+                <el-dropdown-item :icon="Monitor" @click="openScreenshotDialog()">
                   {{ $t('app.chatgpt.body.screenshot.title') }}
                 </el-dropdown-item>
               </el-dropdown-menu>
