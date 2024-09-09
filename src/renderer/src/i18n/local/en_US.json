@@ -275,6 +275,9 @@
         }
       }
     },
+    "more": {
+      "title": "More Apps"
+    },
     "calendar": {
       "title": "Calendar Note",
       "note": {

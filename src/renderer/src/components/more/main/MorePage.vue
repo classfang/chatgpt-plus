@@ -5,19 +5,31 @@ import NewsButton from '@renderer/components/news/button/NewsButton.vue'
 
 <template>
   <div class="more-page">
-    <AICalendarButton />
-    <NewsButton />
+    <div class="more-page-title">{{ $t('app.more.title') }}</div>
+    <div class="more-page-body">
+      <AICalendarButton />
+      <NewsButton />
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .more-page {
   width: 100%;
-  box-sizing: border-box;
-  padding: $app-padding-extra-small;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: $app-padding-base;
-  flex-wrap: wrap;
+
+  .more-page-title {
+    font-size: var(--el-font-size-base);
+  }
+
+  .more-page-body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: $app-padding-base;
+    flex-wrap: wrap;
+  }
 }
 </style>

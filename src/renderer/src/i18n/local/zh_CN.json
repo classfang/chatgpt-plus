@@ -275,6 +275,9 @@
         }
       }
     },
+    "more": {
+      "title": "更多应用"
+    },
     "calendar": {
       "title": "日历备忘",
       "note": {
