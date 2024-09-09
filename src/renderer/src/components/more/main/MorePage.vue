@@ -16,6 +16,7 @@ import NewsButton from '@renderer/components/news/button/NewsButton.vue'
 <style scoped lang="scss">
 .more-page {
   width: 100%;
+  margin: $app-padding-extra-small;
   display: flex;
   flex-direction: column;
   gap: $app-padding-base;
