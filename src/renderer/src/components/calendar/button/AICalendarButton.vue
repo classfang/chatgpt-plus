@@ -33,8 +33,8 @@ const { drawerVisible } = toRefs(data)
   </div>
 </template>
 
-<style scoped lang="scss">
-:deep(.ai-calendar-drawer) {
+<style lang="scss">
+.ai-calendar-drawer {
   .el-drawer__header {
     margin-bottom: 0;
   }

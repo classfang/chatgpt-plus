@@ -29,8 +29,8 @@ const { drawerVisible } = toRefs(data)
   </div>
 </template>
 
-<style scoped lang="scss">
-:deep(.news-page-drawer) {
+<style lang="scss">
+.news-page-drawer {
   .el-drawer__header {
     margin-bottom: 0;
   }
