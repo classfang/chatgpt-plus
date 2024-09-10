@@ -3,7 +3,7 @@ import { Back, RefreshRight, Right } from '@element-plus/icons-vue'
 import { reactive, ref, toRefs } from 'vue'
 
 // ref
-const webviewRef = ref(null)
+const webviewRef = ref()
 
 // 数据绑定
 const data = reactive({
