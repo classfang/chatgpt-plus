@@ -4562,10 +4562,10 @@ openai@^4.55.0:
     node-fetch "^2.6.7"
     qs "^6.10.3"
 
-openai@^4.58.1:
-  version "4.58.1"
-  resolved "https://registry.npmmirror.com/openai/-/openai-4.58.1.tgz#be3720720e730cd6e14726b346d0bbe8d7983017"
-  integrity sha512-n9fN4RIjbj4PbZU6IN/FOBBbxHbHEcW18rDZ4nW2cDNfZP2+upm/FM20UCmRNMQTvhOvw/2Tw4vgioQyQb5nlA==
+openai@^4.58.2:
+  version "4.58.2"
+  resolved "https://registry.npmmirror.com/openai/-/openai-4.58.2.tgz#e45a41fe91eb626b8f07afb522c27016f58aab58"
+  integrity sha512-hIalypYELt7/PcryFpz4Gi1z/8ZDzukWyOhr+jKM6L/GVE+t4NseaENXKt+OxnkkIm/1R2EkdGxgnHrZ0kB5bQ==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -5641,10 +5641,15 @@ type-fest@^4.18.2, type-fest@^4.20.0:
   resolved "https://registry.npmmirror.com/type-fest/-/type-fest-4.26.0.tgz#703f263af10c093cd6277d079e26b9e17d517c4b"
   integrity sha512-OduNjVJsFbifKb57UqZ2EMP1i4u64Xwow3NYXUtBbD4vIwJdQd4+xl8YDou1dlm4DVrtwT/7Ky8z8WyCULVfxw==
 
-typescript@^5.4.3, typescript@^5.5.4:
+typescript@^5.4.3:
   version "5.5.4"
   resolved "https://registry.npmmirror.com/typescript/-/typescript-5.5.4.tgz#d9852d6c82bad2d2eda4fd74a5762a8f5909e9ba"
   integrity sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==
+
+typescript@^5.6.2:
+  version "5.6.2"
+  resolved "https://registry.npmmirror.com/typescript/-/typescript-5.6.2.tgz#d1de67b6bef77c41823f822df8f0b3bcff60a5a0"
+  integrity sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==
 
 uc.micro@^2.0.0, uc.micro@^2.1.0:
   version "2.1.0"
