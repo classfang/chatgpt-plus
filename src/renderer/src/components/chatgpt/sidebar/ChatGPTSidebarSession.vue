@@ -149,8 +149,8 @@ const editSession = () => {
   }
 
   &-active {
-    background-color: var(--el-fill-color-dark) !important;
-    color: var(--el-text-color-primary);
+    background-color: rgba(var(--el-color-primary-rgb), 0.1) !important;
+    color: var(--el-color-primary) !important;
   }
 
   .session-name {

@@ -954,31 +954,32 @@ onMounted(() => {
             @keydown.enter="sendQuestion"
             @paste="handleInputPaste"
           />
+
+          <!-- 发送按钮 -->
+          <el-tooltip
+            v-if="!appStateStore.chatgptLoadingFlag"
+            :content="$t('app.chatgpt.body.input.send')"
+          >
+            <Promotion
+              class="question-input-btn"
+              :class="{
+                'question-input-btn-available':
+                  question.trim().length > 0 && !appStateStore.uploadFlag
+              }"
+              @click="sendQuestion"
+            />
+          </el-tooltip>
+
+          <!-- 停止按钮 -->
+          <el-tooltip v-else :content="$t('app.chatgpt.body.input.stop')">
+            <AppIcon
+              name="stop"
+              class="question-input-btn question-input-btn-available"
+              @click="stopAnswer()"
+            />
+          </el-tooltip>
         </div>
       </div>
-
-      <!-- 停止按钮 -->
-      <el-tooltip
-        v-if="appStateStore.chatgptLoadingFlag"
-        :content="$t('app.chatgpt.body.input.stop')"
-      >
-        <AppIcon
-          name="stop"
-          class="question-input-btn question-input-btn-available"
-          @click="stopAnswer()"
-        />
-      </el-tooltip>
-
-      <!-- 发送按钮 -->
-      <el-tooltip v-else :content="$t('app.chatgpt.body.input.send')">
-        <Promotion
-          class="question-input-btn"
-          :class="{
-            'question-input-btn-available': question.trim().length > 0 && !appStateStore.uploadFlag
-          }"
-          @click="sendQuestion"
-        />
-      </el-tooltip>
     </template>
 
     <!-- 屏幕截图选择对话窗 -->
@@ -1007,7 +1008,7 @@ onMounted(() => {
   .question-input {
     min-width: 0;
     flex: 1 1 0;
-    border-radius: $app-border-radius-large;
+    border-radius: $app-border-radius-base;
     overflow: hidden;
     background-color: var(--el-fill-color);
     display: flex;
@@ -1145,9 +1146,9 @@ onMounted(() => {
       align-items: flex-end;
 
       .attachment-btn {
+        flex-shrink: 0;
         height: $app-icon-size-large;
         width: $app-icon-size-large;
-        border-radius: 50%;
         box-sizing: border-box;
         padding: $app-padding-small;
         cursor: pointer;
@@ -1160,28 +1161,22 @@ onMounted(() => {
         box-shadow: none;
         background-color: var(--el-fill-color);
       }
-    }
-  }
 
-  .question-input-btn {
-    height: $app-icon-size-large;
-    width: $app-icon-size-large;
-    border-radius: 50%;
-    box-sizing: border-box;
-    padding: $app-padding-small;
-    transition: all $app-transition-base;
-    cursor: not-allowed;
-    background-color: var(--el-fill-color);
-    color: var(--el-text-color-secondary);
-    outline: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+      .question-input-btn {
+        flex-shrink: 0;
+        height: $app-icon-size-large;
+        width: $app-icon-size-large;
+        border-radius: 50%;
+        box-sizing: border-box;
+        padding: $app-padding-small;
+        outline: none;
+        color: var(--el-color-primary);
+        cursor: not-allowed;
 
-    &-available {
-      cursor: pointer;
-      background-color: var(--el-color-primary);
-      color: var(--el-color-white);
+        &-available {
+          cursor: pointer;
+        }
+      }
     }
   }
 }
