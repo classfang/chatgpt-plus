@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-plus",
-  "version": "1.17.0",
+  "version": "1.18.0",
   "description": "ChatGPT client(linux, mac, win)",
   "main": "./out/main/index.mjs",
   "author": "junki.cn",
@@ -30,7 +30,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
-    "@langchain/community": "^0.2.32",
+    "@langchain/community": "^0.2.33",
     "ajv": "^8.17.1",
     "electron-store": "^10.0.0",
     "langchain": "^0.2.18",
@@ -67,14 +67,14 @@
     "markdown-it-mathjax3": "^4.3.2",
     "openai": "^4.58.2",
     "pinia": "^2.2.2",
-    "pinia-plugin-persistedstate": "^4.0.0",
+    "pinia-plugin-persistedstate": "^4.0.1",
     "prettier": "^3.3.3",
     "sass": "^1.78.0",
     "typescript": "^5.6.2",
     "unplugin-auto-import": "^0.18.2",
     "unplugin-vue-components": "^0.27.4",
     "vite": "^5.4.3",
-    "vue": "^3.5.3",
+    "vue": "^3.5.4",
     "vue-i18n": "^10.0.0",
     "vue-tsc": "^2.1.6"
   }
