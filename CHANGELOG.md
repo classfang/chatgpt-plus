@@ -1,3 +1,24 @@
+# [1.18.0](https://github.com/classfang/chatgpt-plus/compare/v1.17.0...v1.18.0) (2024-09-13)
+
+
+### Bug Fixes
+
+* UI optimize ([23a68ab](https://github.com/classfang/chatgpt-plus/commit/23a68ab64f30e7a6dbe74d7427a46303c2451f22))
+* UI optimize ([99193a8](https://github.com/classfang/chatgpt-plus/commit/99193a81540e1d2d070c5f1006d632f7cb75e29d))
+* UI optimize ([8f0f6a1](https://github.com/classfang/chatgpt-plus/commit/8f0f6a1c713be52596ee0b1f678a00263e5ecd8c))
+* UI optimize ([be3dd5c](https://github.com/classfang/chatgpt-plus/commit/be3dd5ca15cc939054ef6283d407c85a9d1b83ba))
+* UI optimize ([be2299e](https://github.com/classfang/chatgpt-plus/commit/be2299eb9c99bf366f3075ba3674c76d700d6089))
+
+
+### Features
+
+* Support o1 model ([65fd687](https://github.com/classfang/chatgpt-plus/commit/65fd68771f4e29ad368a62e49cc370c5cd799a4b))
+* Upgrade dependencies ([37c77e6](https://github.com/classfang/chatgpt-plus/commit/37c77e6211e543b96152746b7e502a76b0cdaf8c))
+* Upgrade dependencies ([6e0cbed](https://github.com/classfang/chatgpt-plus/commit/6e0cbed9e6d3658a91a3da3e4bdb82a130421010))
+* Upgrade dependencies ([e93b920](https://github.com/classfang/chatgpt-plus/commit/e93b9201282d10d9db0eb9eb9d2d0484f56e2063))
+
+
+
 # [1.17.0](https://github.com/classfang/chatgpt-plus/compare/v1.16.0...v1.17.0) (2024-09-07)
 
 
