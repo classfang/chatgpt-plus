@@ -23,6 +23,19 @@ export const OpenAIModels = [
     ]
   },
   {
+    label: 'o1',
+    options: [
+      {
+        value: 'o1-preview',
+        label: 'o1-preview'
+      },
+      {
+        value: 'o1-mini',
+        label: 'o1-mini'
+      }
+    ]
+  },
+  {
     label: 'GPT-4 Turbo and GPT-4',
     options: [
       {
