@@ -1,3 +1,5 @@
+New version repository: [https://github.com/classfang/strawberry](https://github.com/classfang/strawberry)
+
 <p align="center">
   <img src="/resources/icon.png" alt="logo" width="120">
 </p>
